@@ -1,0 +1,373 @@
+package com.pde.pdes.portal.video.service.impl;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.pde.pdes.portal.Constants.Constants;
+import com.pde.pdes.portal.video.dto.VideoDTO;
+import com.pde.pdes.portal.video.dto.VideoFileDTO;
+import com.pde.pdes.portal.video.dto.VideoFileFrontDTO;
+import com.pde.pdes.portal.video.dto.VideoQueryCondition;
+import com.pde.pdes.portal.video.mapper.VideoFileFrontMapper;
+import com.pde.pdes.portal.video.mapper.VideoFileMapper;
+import com.pde.pdes.portal.video.mapper.VideoMapper;
+import com.pde.pdes.portal.video.po.VideoFileFrontPO;
+import com.pde.pdes.portal.video.po.VideoFilePO;
+import com.pde.pdes.portal.video.po.VideoPO;
+import com.pde.pdes.portal.video.service.VideoService;
+import com.pde.pdes.portal.video.utils.FileUtils;
+import com.pde.pdes.portal.video.utils.MinIoUtils;
+import com.pde.pdes.portal.video.vo.*;
+import com.pde.pdes.portal.video.vo.portal.PortalFileVO;
+import com.pde.pdes.portal.video.vo.portal.PortalVideoVO;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.*;
+
+import static com.pde.pdes.portal.video.utils.MyBeanUtilsHelper.getNullPropertyNames;
+
+/**
+ * @author: mth
+ * @date: 2022/11/30
+ * @description: 视频档案模块 impl实现层
+ */
+@Service
+public class VideoServiceImpl implements VideoService {
+
+    @Autowired
+    private VideoMapper videoMapper;
+
+    @Autowired
+    private VideoFileMapper videoFileMapper;
+
+    @Autowired
+    private VideoFileFrontMapper videoFileFrontMapper;
+
+    @Autowired
+    private MinIoUtils minIoUtils;
+
+    @Autowired
+    private FileUtils fileUtils;
+
+    @Override
+    public List<PortalVideoVO> findPortalVideoList() {
+        QueryWrapper<VideoPO> queryWrapper = new QueryWrapper<>();
+        // 已发布
+        queryWrapper.eq("enable_publish", 1);
+        // 默认以创建时间倒序输出
+        queryWrapper.orderByDesc("create_time");
+        // 发布的排在前
+        queryWrapper.orderByDesc("enable_publish");
+        List<VideoPO> videoPo = videoMapper.selectList(queryWrapper);
+        System.out.println(videoPo);
+        List<PortalVideoVO> portalVideoVOList = new ArrayList<>();
+        videoPo.forEach(video -> {
+            PortalVideoVO portalVideoVO = PortalVideoVO.builder().id(video.getId()).title(video.getTitle()).build();
+            String path = videoMapper.selectFrontByVideoId(video.getId());
+            if (path != null && !path.isEmpty()) {
+                // 有封面设置封面
+                portalVideoVO.setFrontPath(path);
+            } else {
+                // 没有封面设置为默认封面地址
+                portalVideoVO.setFrontPath(Constants.DEFAULT_FRONT_PATH);
+            }
+            portalVideoVOList.add(portalVideoVO);
+        });
+        return portalVideoVOList;
+    }
+
+    @Override
+    public List<PortalFileVO> findPortalVideoFileListByVideoId(Integer id) {
+        List<PortalFileVO> portalFileList = videoFileMapper.selectFileByVideoId(id);
+        VideoPO video = videoMapper.selectById(id);
+        if (!video.getEnable_publish().equals(1)) {
+            // 专辑未发布
+            return null;
+        }
+        return portalFileList;
+    }
+
+    @Override
+    public Map<String, Object> findByPage(VideoQueryCondition query) {
+        QueryWrapper<VideoPO> queryWrapper = new QueryWrapper<>();
+        String searchText = query.getSearchText();
+        // 模糊查询条件构造
+        if (StringUtils.isNotEmpty(searchText)) {
+            queryWrapper.like("v.title", searchText)
+                    .or().like("v.description", searchText)
+                    .or().like("f.file_name", searchText);
+        }
+        queryWrapper.orderByDesc("create_time");
+        // 分页
+        Page<VideoPO> page = PageHelper.startPage(query.getPageNum(), query.getPageSize(), true, false, false);
+        List<VideoPO> videoPo = videoMapper.selectAll(queryWrapper);
+        List<VideoListVO> videoVoList = new ArrayList<>();
+        videoPo.forEach(video -> {
+            // 新建vo
+            VideoListVO videoVo = VideoListVO.builder().createTime(video.getCreate_time()).enablePublish(video.getEnable_publish()).build();
+            // 赋值转换
+            BeanUtils.copyProperties(video, videoVo, getNullPropertyNames(video));
+            // 根据id查封面
+            String path = videoMapper.selectFrontByVideoId(video.getId());
+            if (path != null && !path.isEmpty()) {
+                // 有封面设置封面
+                videoVo.setFrontPath(path);
+            } else {
+                // 没有封面设置为默认封面地址
+                videoVo.setFrontPath(Constants.DEFAULT_FRONT_PATH);
+            }
+            videoVoList.add(videoVo);
+        });
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("data", videoVoList);
+        map.put("total", page.getTotal());
+        return map;
+    }
+
+    @Override
+    public Boolean insert(VideoDTO video) {
+        Assert.notNull(video, "保存对象不能为空.");
+        int insert = videoMapper.insert(VideoPO.builder()
+                .title(video.getTitle())
+                .enable_publish(0)
+                .description(video.getDescription()).build());
+        return insert > 0;
+    }
+
+    @Override
+    @Transactional
+    public Integer delByIds(List<Integer> ids) {
+        ids.forEach(videoId -> {
+            QueryWrapper<VideoFilePO> queryWrapper = new QueryWrapper<VideoFilePO>().eq("video_id", videoId);
+            // 找到专辑下所有文件
+            List<VideoFilePO> videoFiles = videoFileMapper.selectList(queryWrapper);
+            videoFiles.forEach(file -> {
+                // 删除文件包含的所有封面
+                videoFileFrontMapper.delete(new QueryWrapper<VideoFileFrontPO>().eq("video_file_id", file.getId()));
+            });
+            // 删文件
+            videoFileMapper.delete(queryWrapper);
+        });
+        // 删除结果
+        return videoMapper.deleteBatchIds(ids);
+    }
+
+    @Override
+    public VideoPO findById(Integer id) {
+        return videoMapper.selectById(id);
+    }
+
+    @Override
+    public Boolean update(VideoPO po) {
+        VideoPO newPo = videoMapper.selectById(po.getId());
+        Assert.notNull(po, "更新对象不能为空.");
+        Assert.notNull(newPo, "id不存在");
+        BeanUtils.copyProperties(po, newPo, getNullPropertyNames(po));
+        int i = videoMapper.updateById(newPo);
+        return i > 0;
+    }
+
+    @Override
+    @Transactional
+    public Boolean enableByIds(List<Integer> ids) {
+        ids.forEach(id -> {
+            VideoPO videoPo = videoMapper.selectById(id);
+            Assert.notNull(videoPo, "指定id不存在");
+            Assert.isTrue(videoPo.getEnable_publish() != 1, videoPo.getTitle() + "已发布，不可重复发布");
+            VideoPO video = VideoPO.builder().id(id).enable_publish(1).build();
+            System.out.println(video);
+            videoMapper.updateById(video);
+        });
+        return true;
+    }
+
+    @Override
+    @Transactional
+    public Boolean disableByIds(List<Integer> ids) {
+        ids.forEach(id -> {
+            VideoPO videoPo = videoMapper.selectById(id);
+            Assert.notNull(videoPo, "指定id不存在");
+            Assert.isTrue(videoPo.getEnable_publish() != 0, videoPo.getTitle() + "未发布，不可取消发布");
+            VideoPO video = VideoPO.builder().id(id).enable_publish(0).build();
+            System.out.println(video);
+            videoMapper.updateById(video);
+        });
+        return true;
+    }
+
+    @Override
+    public VideoFileListVO findFileById(Integer id) {
+        Assert.notNull(id, "id不能为空");
+        VideoFilePO videoFile = videoFileMapper.selectById(id);
+        return VideoFileListVO.builder()
+                .id(videoFile.getId())
+                .videoId(videoFile.getVideo_id())
+                .fileName(videoFile.getFile_name())
+                .filePath(videoFile.getFile_path())
+                .fileSize(videoFile.getFile_size())
+                .isFrontFile(videoFile.getIs_front_file())
+                .createTime(videoFile.getCreate_time())
+                .frontList(videoFileFrontMapper.selectByVideoFileId(id))
+                .build();
+    }
+
+    @Override
+    public Map<String, Object> findByVideoId(Integer id, Integer pageNum, Integer pageSize) {
+        Assert.notNull(id, "视频档案id值不能为空.");
+        // 分页
+        Page<VideoFilePO> page = PageHelper.startPage(pageNum, pageSize, true, false, false);
+        List<VideoFilePO> videoFileList = videoFileMapper.selectAll(new QueryWrapper<VideoFilePO>().eq("video_id", id));
+        List<VideoFileListVO> videoFileVOList = new ArrayList<>();
+        // 查询视频封面
+        videoFileList.forEach(videoFile -> {
+            VideoFileListVO videoFileVo = VideoFileListVO.builder()
+                    .id(videoFile.getId())
+                    .videoId(videoFile.getVideo_id())
+                    .fileSize(videoFile.getFile_size())
+                    .fileName(videoFile.getFile_name())
+                    .filePath(videoFile.getFile_path())
+                    .createTime(videoFile.getCreate_time())
+                    .isFrontFile(videoFile.getIs_front_file()).build();
+            // 根据id查封面
+            String path = videoFileMapper.selectFrontPathByFileId(videoFile.getId());
+            if (path != null && !path.isEmpty()) {
+                // 有封面设置封面
+                videoFileVo.setFrontPath(path);
+            } else {
+                // 没有封面设置为默认封面地址
+                videoFileVo.setFrontPath(Constants.DEFAULT_FRONT_PATH);
+            }
+            videoFileVOList.add(videoFileVo);
+        });
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("data", videoFileVOList);
+        map.put("total", page.getTotal());
+        return map;
+    }
+
+    @Override
+    public Integer insertFile(VideoFileDTO dto) {
+        Assert.notNull(dto, "保存对象不能为空.");
+        // 查询是否专辑是否有视频文件
+        System.out.println(dto.getVideoId());
+        List<VideoFilePO> fileList = videoFileMapper.selectAll(new QueryWrapper<VideoFilePO>().eq("video_id", dto.getVideoId()));
+        System.out.println(fileList);
+        // 如果有文件就为false，如果没有文件就设置这新增的第一个文件为封面
+        System.out.println("111111111111111111111111111");
+        boolean isFront = fileList.isEmpty();
+        System.out.println(isFront);
+        VideoFilePO file = VideoFilePO.builder()
+                .video_id(dto.getVideoId())
+                .file_name(dto.getFileName())
+                .file_path(dto.getFilePath())
+                .file_size(dto.getFileSize())
+                .is_front_file(isFront)
+                .build();
+        videoFileMapper.insert(file);
+        if (dto.getFrontFileInfoList() != null) {
+            dto.getFrontFileInfoList().forEach(front -> videoFileFrontMapper.insert(VideoFileFrontPO.builder()
+                    .file_name(front.getFileName())
+                    .file_path(front.getFilePath())
+                    .video_file_id(file.getId())
+                    .file_size(front.getFileSize())
+                    .is_front_file(front.getIsFrontFile())
+                    .build()));
+        }
+        return file.getId();
+    }
+
+    @Override
+    public Boolean updateFile(VideoFilePO po) {
+        VideoFilePO newPo = videoFileMapper.selectById(po.getId());
+        Assert.notNull(po, "更新对象不能为空.");
+        Assert.notNull(newPo, "id不存在");
+        BeanUtils.copyProperties(po, newPo, getNullPropertyNames(po));
+        int i = videoFileMapper.updateById(newPo);
+        return i > 0;
+    }
+
+    @Override
+    public Integer delFileByIds(List<Integer> ids) {
+        ids.forEach(id -> {
+            // 根据文件id删除所有封面
+            videoFileFrontMapper.delete(new QueryWrapper<VideoFileFrontPO>().eq("video_file_id", id));
+        });
+        // 删除对应文件
+        return videoFileMapper.deleteBatchIds(ids);
+    }
+
+    @Override
+    public VideoUploadVO uploadVideo(String bucketName, String folder, Integer count, MultipartFile video) throws Exception {
+        // 存储视频文件到MinIO
+        VideoUploadVO videoInfo = minIoUtils.videoUpload(bucketName, folder, video);
+        // 随机截取视频帧
+        List<FrontFileStream> frontFileStreams = fileUtils.randomGrabberFfmpegImage(video, count);
+        List<FrontFileVO> frontFileList = new ArrayList<>();
+        frontFileStreams.forEach(frontFileStream -> {
+            try {
+                String fileName = UUID.randomUUID() + ".jpg";
+                String objectName = "/" + folder + "/" + fileName;
+                minIoUtils.putObject(bucketName, objectName, frontFileStream.getInputStream());
+                FrontFileVO frontFile = FrontFileVO.builder()
+                        .fileSize(frontFileStream.getFileSize())
+                        .fileName(fileName)
+                        .filePath(Constants.MINIO_URL_PREFIX + objectName)
+                        .isFrontFile(false).build();
+                frontFileList.add(frontFile);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+        videoInfo.setFrontFileInfoList(frontFileList);
+        return videoInfo;
+    }
+
+    @Override
+    @Transactional
+    public Boolean insertFileFront(List<VideoFileFrontDTO> frontList) {
+        frontList.forEach(front -> {
+            int insert = videoFileFrontMapper.insert(VideoFileFrontPO.builder()
+                    .video_file_id(front.getVideoFileId())
+                    .file_name(front.getFileName())
+                    .file_path(front.getFilePath())
+                    .file_size(front.getFileSize())
+                    .is_front_file(front.getIsFrontFile()).build());
+            Assert.isTrue(insert > 0, "新增失败");
+        });
+        return true;
+    }
+
+    @Override
+    public List<VideoFileFrontListVO> findFrontByVideoFileId(Integer id) {
+        Assert.notNull(id, "视频文件id不能为空");
+        return videoFileFrontMapper.selectByVideoFileId(id);
+    }
+
+    @Override
+    public Boolean updateVideoFileByFront(Integer fileId, Integer frontId) {
+        List<VideoFileFrontPO> videoFileFrontList = videoFileFrontMapper.selectList(new QueryWrapper<VideoFileFrontPO>().eq("video_file_id", fileId));
+        videoFileFrontList.forEach(front -> {
+            front.setIs_front_file(front.getId().equals(frontId));
+            videoFileFrontMapper.updateById(front);
+        });
+        return true;
+    }
+
+    @Override
+    public Boolean updateVideoFrontByFile(Integer videoId, Integer fileId) {
+        List<VideoFilePO> videoFileList = videoFileMapper.selectList(new QueryWrapper<VideoFilePO>().eq("video_id", videoId));
+        videoFileList.forEach(file -> {
+            file.setIs_front_file(file.getId().equals(fileId));
+            videoFileMapper.updateById(file);
+        });
+        return true;
+    }
+
+
+}

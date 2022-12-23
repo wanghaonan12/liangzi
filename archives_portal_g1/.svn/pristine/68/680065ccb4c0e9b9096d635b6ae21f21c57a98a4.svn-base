@@ -1,0 +1,112 @@
+package com.pde.pdes.portal.notify.service.impl;
+
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pde.pdes.portal.notify.po.PortalNotifyFile;
+import com.pde.pdes.portal.notify.service.PortalNotifyFileService;
+import com.pde.pdes.portal.notify.mapper.PortalNotifyFileMapper;
+import com.pde.pdes.portal.standard.utils.AliYunOssClientUtils;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author jiangyiheng
+ * @description 针对表【pdes_portal_notify_file(通知公告附件)】的数据库操作Service实现
+ * @createDate 2022-11-30 09:59:12
+ */
+@SuppressWarnings("AlibabaLowerCamelCaseVariableNaming")
+@Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+public class PortalNotifyFileServiceImpl extends ServiceImpl<PortalNotifyFileMapper, PortalNotifyFile> implements PortalNotifyFileService {
+
+    private final PortalNotifyFileMapper portalNotifyFileMapper;
+
+    private final AliYunOssClientUtils aliYunOssClientUtils;
+
+    @Override
+    public int addPortalNotifyFile(Integer notifyId, MultipartFile multipartFile) {
+        File file = null;
+        int size = (int) multipartFile.getSize();
+        String fileName = multipartFile.getOriginalFilename();
+        fileName= fileName==null ? "" : fileName;
+        String suffix = fileName.substring(fileName.lastIndexOf("."));
+        try {
+            file = File.createTempFile("file_", suffix);
+            multipartFile.transferTo(file);
+        } catch (Exception e) {
+            log.error("MultipartFile转File失败", e);
+        }
+        String path = aliYunOssClientUtils.uploadObjectOss(file, "LiangZi");
+        return portalNotifyFileMapper.insert(PortalNotifyFile.builder().notifyId(notifyId).
+                fileName(fileName).
+                filePath(path).
+                fileSize(size).
+                fileSuffix(suffix).orderSeq(1).build());
+    }
+
+
+    @Override
+    public List<PortalNotifyFile> selectPortalNotifyFileByNotifyId(Integer notifyId) {
+        return list(Wrappers.lambdaQuery(PortalNotifyFile.class).eq(PortalNotifyFile::getNotifyId, notifyId).orderByAsc(PortalNotifyFile::getOrderSeq));
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean deletePortalNotifyFileById(Integer id) {
+        boolean remove = false;
+        try {
+            String[] strings = portalNotifyFileMapper.selectById(id).getFilePath().split("com/");
+            aliYunOssClientUtils.removeObject(strings[1]);
+            remove = removeById(id);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return remove;
+    }
+
+
+    @Override
+    public List<PortalNotifyFile> selectPortalNotifyFileByJpg(Integer num) {
+        String[] strings={".xbm",".tif",".pjp",".svgz",".jpg",".jpeg",".ico",".tiff",".gif",".svg",".jfif",".webp",".png",".bmp",".pjpeg",".avif"};
+        return list(Wrappers.lambdaQuery(PortalNotifyFile.class).in(PortalNotifyFile::getFileSuffix,strings).orderByAsc(PortalNotifyFile::getCreateTime).last("limit "+num));
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Integer deletePortalNotifyFileBatchById(List<Integer> ids) {
+        List<String> filePaths = null;
+        try {
+            List<String> notifyFileList = listObjs(Wrappers.lambdaQuery(PortalNotifyFile.class).in(PortalNotifyFile::getNotifyId, ids).select(PortalNotifyFile::getFilePath), Object::toString);
+            //获取批量删除的文件目录
+            filePaths = splitStrings(notifyFileList);
+            //对附件表记录进行删除
+            portalNotifyFileMapper.delete(Wrappers.lambdaQuery(PortalNotifyFile.class).in(PortalNotifyFile::getNotifyId, ids));
+            //对这些文章附件在oss中进行批量删除,一次最多删除1000个文件
+            aliYunOssClientUtils.removeObjectBatch(filePaths);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return filePaths.size();
+    }
+
+
+    private List<String> splitStrings(List<String> list){
+        List<String> stringList = new ArrayList<String>(10);
+        list.forEach(item -> {
+            String[] split = item.split("com/");
+            stringList.add(split[1]);
+        });
+        return stringList;
+    }
+}
+
+
+
+

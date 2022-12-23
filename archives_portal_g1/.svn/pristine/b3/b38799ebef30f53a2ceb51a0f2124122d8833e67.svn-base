@@ -1,0 +1,70 @@
+package com.pde.pdes.portal.video.service;
+
+import com.pde.pdes.portal.video.dto.VideoDTO;
+import com.pde.pdes.portal.video.dto.VideoQueryCondition;
+import com.pde.pdes.portal.video.po.VideoPO;
+
+import java.util.List;
+
+/**
+ * @author: mth
+ * @date: 2022/11/30
+ * @description: 视频档案 service
+ */
+public interface VideoService {
+    /**
+     * 分页模糊查询视频专辑
+     *
+     * @param query 查询条件
+     * @return 分页结果
+     */
+    List<VideoPO> findByPage(VideoQueryCondition query);
+
+    /**
+     * 新增视频专辑
+     *
+     * @param video 视频专辑实体
+     * @return 新增结果
+     */
+    Boolean insert(VideoDTO video);
+
+    /**
+     * 根据ids批量删除视频专辑
+     *
+     * @param ids ids
+     * @return 删除结果
+     */
+    Integer delByIds(List<Integer> ids);
+
+    /**
+     * 根据id查询视频专辑
+     *
+     * @param id 视频专辑id
+     * @return 查询结果
+     */
+    VideoPO findById(Integer id);
+
+    /**
+     * 更新视频专辑
+     *
+     * @param po 更新信息
+     * @return 结果
+     */
+    Boolean update(VideoPO po);
+
+    /**
+     * 批量发布视频档案
+     *
+     * @param ids 视频档案id list
+     * @return 结果
+     */
+    Boolean enableByIds(List<Integer> ids);
+
+    /**
+     * 批量取消发布视频档案
+     *
+     * @param ids 视频档案id list
+     * @return 结果
+     */
+    Boolean disableByIds(List<Integer> ids);
+}

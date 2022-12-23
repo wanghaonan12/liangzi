@@ -1,0 +1,11 @@
+<template>
+  <div>
+    <p>你好视频文档管理</p>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'Video'
+}
+</script>

@@ -1,0 +1,23 @@
+/** When your routing table is too long, you can split it into small modules **/
+
+import Layout from '@/layout'
+
+const videoManagementRouter = {
+  path: '/video',
+  component: Layout,
+  redirect: '/video/list',
+  name: 'Video',
+  meta: {
+    title: '视频档案',
+    icon: 'dashboard'
+  },
+  children: [
+    {
+      path: 'list',
+      component: () => import('@/views/videoManagement/index'),
+      name: 'VideoManagementIndex',
+      meta: { title: '视频档案管理' }
+    }
+  ]
+}
+export default videoManagementRouter

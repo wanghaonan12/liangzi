@@ -1,0 +1,109 @@
+package com.pde.pdes.portal.archive.dao;
+
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.util.Date;
+
+@Data
+@Builder
+public class ArchiveDao {
+    /**
+     * 主键
+     */
+    @ApiModelProperty("id")
+    private Integer id;
+
+    /**
+     * 档号
+     */
+    @ApiModelProperty("档案号")
+    @TableField(value="archival_code")
+    private String archivalCode;
+
+    /**
+     * 全宗
+     */
+    @ApiModelProperty("全宗")
+    private String fonds;
+
+    /**
+     * 年度
+     */
+    @ApiModelProperty("年度")
+    private String year;
+
+    /**
+     * 密级
+     */
+    @TableField(value="security_class")
+    @ApiModelProperty("密纪")
+    private String securityClass;
+
+    /**
+     * 保管期限
+     */
+    @TableField(value="retention_period")
+    @ApiModelProperty("保管期限")
+    private String retentionPeriod;
+
+    /**
+     * 题名
+     */
+    @ApiModelProperty("题名")
+    private String title;
+
+    /**
+     * 启用发布;0未发布；1已发布
+     */
+    @TableField(value="enable_publish")
+    @ApiModelProperty("启用发布;0未发布；1已发布")
+    private Short enablePublish;
+
+    /**
+     * 创建时间
+     */
+    @TableField(value="create_time")
+    @ApiModelProperty("创建时间")
+    private Date createTime;
+
+    /**
+     * 修改时间
+     */
+    @TableField(value="modified_time")
+    @ApiModelProperty("修改时间")
+    private Date modifiedTime;
+
+
+    /**
+     * 档案条目ID
+     */
+    @ApiModelProperty("档案条目ID")
+    private Integer archiveId;
+
+    /**
+     * 文件名
+     */
+    @ApiModelProperty("文件名称")
+    private String fileName;
+
+    /**
+     * 文件路径
+     */
+    @ApiModelProperty("文件路径")
+    private String filePath;
+
+    /**
+     * 文件大小
+     */
+    @ApiModelProperty("文件大小")
+    private Integer fileSize;
+
+}

@@ -1,0 +1,69 @@
+package com.pde.pdes.portal.honor.service.imp;
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pde.pdes.portal.honor.dto.HonorDTO;
+import com.pde.pdes.portal.honor.mapper.HonorMapper;
+import com.pde.pdes.portal.honor.po.HonorPO;
+import com.pde.pdes.portal.honor.service.HonorService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
+import java.util.Arrays;
+import java.util.List;
+
+@Service
+public class HonorServiceImp extends ServiceImpl<HonorMapper, HonorPO> implements HonorService {
+
+
+    @Autowired
+    private HonorMapper honorMapper;
+
+    @Override
+    public Boolean addHonor(HonorDTO dto) {
+        Assert.notNull(dto, "数据不能为空");
+        HonorPO honorPO = new HonorPO();
+        BeanUtils.copyProperties(dto,honorPO,"id,create_time");
+        honorMapper.insert(honorPO);
+        return true;
+    }
+
+    @Override
+    public boolean removeById(Integer[] ids) {
+        Assert.notNull(ids, "id为空");
+        List<Integer> list = Arrays.asList(ids);
+        honorMapper.deleteBatchIds(list);
+        return true;
+    }
+
+    @Override
+    public boolean update(HonorPO po) {
+        Assert.notNull(po, "不能为空");
+//        HonorPO honorPO = honorMapper.selectById(po.getId());
+//        Assert.notNull(honorPO, "没有此相册");
+        if (po.getCreate_time() != null) {
+            throw new IllegalArgumentException("不可修改创建时间");
+        }
+        honorMapper.updateById(po);
+        return true;
+    }
+
+
+    @Override
+    public List<HonorPO> find(String title) {
+        if (StringUtils.isEmpty(title)) {
+           return list();
+        }
+        return list(Wrappers.lambdaQuery(HonorPO.class).like(HonorPO::getTitle, title)
+//                .and(
+//                wrapper -> wrapper.eq(HonorPO::getEnablePublish, enablePublish))
+        );
+
+    }
+
+
+}

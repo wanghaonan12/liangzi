@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pde.pdes.portal.chronicle.mapper.PdesPortalChronicleEventsFileMapper">
+    <!-- 批量置顶 -->
+    <update id="topChronicleFile" parameterType="com.pde.pdes.portal.chronicle.dto.PublishDto">
+        UPDATE pdes_portal_chronicle_events_file SET order_seq = #{orderSeq} WHERE id IN
+        <foreach collection="ids" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </update>
+
+</mapper>

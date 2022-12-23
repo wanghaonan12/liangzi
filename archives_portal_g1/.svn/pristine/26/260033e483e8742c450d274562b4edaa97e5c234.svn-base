@@ -1,0 +1,185 @@
+<template>
+  <div class="wrapper">
+    <el-row class="table-toolbar">
+      <div class="left">
+        <el-input v-model="tableQuery.searchText" placeholder="请输入检索关键字" size="mini" class="search-input" />
+        <el-button size="mini" type="primary" @click="getNewsTableData">检索</el-button>
+      </div>
+
+      <div class="right">
+        <el-button size="mini" type="primary" @click="addNews()">新增</el-button>
+        <el-button size="mini" type="primary" @click="onDelButtonClick()">删除</el-button>
+      </div>
+    </el-row>
+
+    <el-table :data="tableData" border stripe size="mini" style="width: 100%" height="660" @select="onSelectionChange"
+      @select-all="onSelectionChange">
+      <el-table-column type="selection" />
+      <el-table-column type="index" label="序号" width="80">
+        <template slot-scope="{ $index }">
+          <span>{{ (tableQuery.pageNum - 1) * tableQuery.pageSize + $index + 1 }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column show-overflow-tooltip prop="title" label="标题" width="180" />
+      <el-table-column show-overflow-tooltip prop="content" label="内容" width="180" />
+      <el-table-column show-overflow-tooltip prop="contentAbstract" label="摘要" width="180" />
+      <el-table-column show-overflow-tooltip prop="enablePublish" label="发布状态" />
+      <el-table-column show-overflow-tooltip prop="createTime" label="创建时间" width="180" />
+      <el-table-column show-overflow-tooltip prop="modifiedTime" label="修改时间" width="180">
+        <!-- <template slot-scope="{ row }">
+            <span>{{ row.default_upload | defaultUploadFilter }}</span>
+          </template> -->
+      </el-table-column>
+      <el-table-column label="操作" width="170">
+        <template slot-scope="{ row }">
+          <el-button type="primary" size="mini" @click="onModifyButtonClick(row)">编辑</el-button>
+          <el-button class="file" type="primary" size="mini" @click="fileManagement(row.id)">附件管理</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+
+    <pagination v-show="tableQuery.total > 0" layout="total, prev, pager, next, jumper" :total="tableQuery.total"
+      :page.sync="tableQuery.pageNum" :limit.sync="tableQuery.pageSize" @pagination="getNewsTableData" />
+
+    <modify-dialog ref="modifyDialog" @refreshTableData="getNewsTableData" />
+    <file-dialog ref="FileDialog" />
+  </div>
+</template>
+  
+<script>
+import { newsList, delNews, findByNewsId, tokenAsync } from '@/api/newsManagement'
+import Pagination from '@/components/Pagination'
+import ModifyDialog from '@/views/newsManagement/components/ModifyDialog'
+import FileDialog from '@/views/newsManagement/components/FileDialog'
+
+
+export default {
+  components: {
+    Pagination,
+    ModifyDialog,
+    FileDialog
+  },
+  data() {
+    return {
+      tableQuery: {
+        total: 0,
+        pageNum: 1,
+        pageSize: 15,
+        searchText: ''
+      },
+      tableData: [],
+      tableSelection: [],
+      emptyFiles: false
+    }
+  },
+  mounted() {
+    this.getNewsTableData()
+  },
+  methods: {
+    getNewsTableData() {
+      newsList(this.tableQuery).then((res) => {
+        if (res && res.code) {
+          if (res.content == null) {
+            this.tableData = []
+            this.tableQuery.total = 0
+          } else {
+            this.tableData = res.content.rows.reverse()
+            this.tableQuery.total = res.content.total
+          }
+        } else {
+          this.$message(res.message)
+        }
+      })
+    },
+    onSelectionChange(s, row) {
+      this.tableSelection = s
+    },
+    async fileManagement(id) {
+      const res = await findByNewsId(id)
+      this.$refs.FileDialog.showDialog(res.content, id)
+    },
+    onModifyButtonClick(row) {
+      this.$refs.modifyDialog.showDialog(row, 'edit')
+    },
+    addNews() {
+      this.$refs.modifyDialog.showDialog(null, 'add')
+    },
+    onDelButtonClick() {
+      if (!this.tableSelection.length) {
+        this.$message('请勾选条目')
+        return
+      }
+      this.$confirm('确定执行该操作吗？', '确认')
+        .then((r) => {
+          let ids = []
+          const tableSelection = this.tableSelection
+          tableSelection.map((item) => {
+            ids.push(parseInt(item.id))
+          })
+          delNews(ids).then((res) => {
+            if (res && res.code) {
+              this.$message('删除成功')
+              this.getNewsTableData()
+            } else {
+              this.$message(res.message)
+            }
+          })
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
+  },
+  filters: {
+    defaultUploadFilter: function (value) {
+      return value % 2 ? '是' : '否'
+    }
+  }
+}
+</script>
+  
+<style lang="scss" scoped>
+.wrapper {
+  padding: 10px 18px;
+
+  .table-toolbar {
+    margin-bottom: 10px;
+
+    .left {
+      float: left;
+
+      .search-input {
+        width: 210px;
+        margin-right: 10px;
+      }
+    }
+
+    .text {
+      font-size: 14px;
+    }
+
+    .item {
+      margin-bottom: 18px;
+    }
+
+    .clearfix:before,
+    .clearfix:after {
+      display: table;
+      content: "";
+    }
+
+    .clearfix:after {
+      clear: both
+    }
+
+    .box-card {
+      width: 480px;
+    }
+
+    .right {
+      float: right;
+    }
+  }
+}
+</style>
+  

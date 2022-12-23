@@ -1,0 +1,9 @@
+import request from '@/utils/request'
+export function get(data) {
+  console.log(data)
+  return request({
+    url: '/v1/honor/get',
+    method: 'post',
+    data: data
+  })
+}

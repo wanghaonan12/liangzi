@@ -1,0 +1,113 @@
+package com.pde.pdes.portal.notify.service.impl;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.pde.pdes.portal.company.dto.QueryCondition;
+import com.pde.pdes.portal.company.po.CompanyPO;
+import com.pde.pdes.portal.notify.mapper.PortalNotifyFileMapper;
+import com.pde.pdes.portal.notify.po.PortalNotify;
+import com.pde.pdes.portal.notify.service.PortalNotifyService;
+import com.pde.pdes.portal.notify.mapper.PortalNotifyMapper;
+import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
+
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * @author jiangyiheng
+ * @description 针对表【pdes_portal_notify(通知公告)】的数据库操作Service实现
+ * @createDate 2022-11-30 09:59:12
+ */
+@Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+public class PortalNotifyServiceImpl extends ServiceImpl<PortalNotifyMapper, PortalNotify> implements PortalNotifyService {
+
+    private final PortalNotifyMapper portalNotifyMapper;
+
+    private final PortalNotifyFileServiceImpl portalNotifyFileServiceImpl;
+
+
+
+    @Override
+    public List<PortalNotify> find(String searchText) {
+        if (StringUtils.isEmpty(searchText)) {
+            //过滤 未发布的公告
+            return list(Wrappers.lambdaQuery(PortalNotify.class).eq(PortalNotify::getEnablePublish, 0).orderByDesc(PortalNotify::getCreateTime));
+        } else {
+            return list(Wrappers.lambdaQuery(PortalNotify.class).like(PortalNotify::getTitle, searchText).or()
+                    .like(PortalNotify::getContent, searchText).eq(PortalNotify::getEnablePublish, 0).orderByDesc(PortalNotify::getCreateTime));
+        }
+    }
+
+
+    @Override
+    public List<PortalNotify> findDisablePublish(String searchText) {
+        if (StringUtils.isEmpty(searchText)) {
+            //过滤 未发布的公告
+            return list(Wrappers.lambdaQuery(PortalNotify.class).eq(PortalNotify::getEnablePublish, 1).orderByDesc(PortalNotify::getCreateTime));
+        } else {
+            return list(Wrappers.lambdaQuery(PortalNotify.class).like(PortalNotify::getTitle, searchText).or()
+                    .like(PortalNotify::getContent, searchText).eq(PortalNotify::getEnablePublish, 1).orderByDesc(PortalNotify::getCreateTime));
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean deleteById(String id) {
+        Assert.hasText(id, "删除主键不能为空.");
+        try {
+            removeById(id);
+            portalNotifyFileServiceImpl.deletePortalNotifyFileBatchById(Arrays.asList(Integer.parseInt(id)));
+        } catch (NumberFormatException e) {
+            throw new RuntimeException(e);
+        }
+       return true;
+    }
+
+    @Override
+    public boolean add(PortalNotify portalNotify) {
+        Assert.notNull(portalNotify, "PortalNotify不能为空");
+        return save(portalNotify);
+    }
+
+    @Override
+    public boolean updatePortalNotify(PortalNotify portalNotify) {
+        Assert.notNull(portalNotify, "PortalNotify不能为空");
+        Assert.state(portalNotify.getId() > 0, "id不能小于等于0");
+        return saveOrUpdate(portalNotify);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Integer deleteBatchByIds(List<Integer> idList) {
+        Integer batchSize = null;
+        try {
+            portalNotifyMapper.deleteBatchIds(idList);
+            batchSize = portalNotifyFileServiceImpl.deletePortalNotifyFileBatchById(idList);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return batchSize;
+    }
+
+    @Override
+    public PortalNotify selectById(Integer id) {
+        return portalNotifyMapper.selectById(id);
+    }
+
+
+
+}
+
+
+
+

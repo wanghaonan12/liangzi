@@ -1,0 +1,13 @@
+package com.pde.pdes.portal.video.controller;
+
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * @author: mth
+ * @date: 2022/11/30
+ * @description:
+ */
+@RestController
+public class VideoController {
+
+}

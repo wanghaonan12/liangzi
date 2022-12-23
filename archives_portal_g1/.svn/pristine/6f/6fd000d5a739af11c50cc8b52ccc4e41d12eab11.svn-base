@@ -1,0 +1,13 @@
+package com.pde.pdes.portal.chronicle.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.pde.pdes.portal.chronicle.po.PdesPortalChronicleEventsFile;
+import org.apache.ibatis.annotations.Mapper;
+
+/**
+ * @author SYKCOMPUTER
+ */
+@Mapper
+public interface PdesPortalChronicleEventsFileMapper extends BaseMapper<PdesPortalChronicleEventsFile>{
+
+}

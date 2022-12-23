@@ -1,0 +1,93 @@
+package com.pde.pdes.portal.standard.service.impl;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pde.pdes.portal.standard.dto.StandardDto;
+import com.pde.pdes.portal.standard.mapper.StandardMapper;
+import com.pde.pdes.portal.standard.po.Standard;
+import com.pde.pdes.portal.standard.service.StandardFileService;
+import com.pde.pdes.portal.standard.service.StandardService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
+import java.util.Date;
+import java.util.List;
+
+/**
+ * @author wangRich
+ * @description 针对表【pdes_portal_standard(标准;)】的数据库操作Service实现
+ * @createDate 2022-11-30 10:56:45
+ */
+@Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+public class StandardServiceImpl extends ServiceImpl<StandardMapper, Standard> implements StandardService {
+
+
+    private final StandardMapper standardMapper;
+
+    private final StandardFileService standardFileService;
+
+    @Override
+    public int add(StandardDto standard) {
+        System.out.println(standard);
+        Assert.notNull(standard, "保存对象不能为空！");
+        return standardMapper.insert(Standard.builder()
+                .title(standard.getTitle())
+                .description(standard.getDescription())
+                .enablePublish(standard.getEnablePublish())
+                .publishDate(new Date())
+                .useDate(standard.getUseDate())
+                .build());
+    }
+
+    @Override
+    public boolean update(Standard standard) {
+        UpdateWrapper<Standard> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", standard.getId());
+        return update(standard, updateWrapper);
+    }
+
+    @Override
+    public boolean deleteByIds(Integer id) {
+        standardFileService.deleteByStandardId(id);
+        return removeById(id);
+    }
+
+    @Override
+    public List<Standard> getStandardByTitle(String title) {
+        UpdateWrapper<Standard> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.like("title", title);
+        return standardMapper.selectList(updateWrapper);
+    }
+
+    @Override
+    public List<Standard> findAll() {
+        QueryWrapper<Standard> wrapper = new QueryWrapper<>();
+        wrapper.orderBy(true, false, "id");
+        return standardMapper.selectList(wrapper);
+    }
+
+    @Override
+    public List<Standard> findShow() {
+        UpdateWrapper<Standard> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("enable_publish", "1");
+        updateWrapper.orderBy(true, false, "id");
+        return standardMapper.selectList(updateWrapper);
+    }
+
+    @Override
+    public List<Standard> getShowStandardByTitle(String title) {
+        UpdateWrapper<Standard> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.like("title", title);
+        updateWrapper.eq("enable_publish", "1");
+        return standardMapper.selectList(updateWrapper);
+    }
+
+}
+
+
+
+

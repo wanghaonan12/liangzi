@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pde.pdes.portal.honor.mapper.HonorMapper">
+
+    <resultMap id="BaseResultMap" type="com.pde.pdes.portal.honor.po.HonorPO">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="enable_publish" column="enable_publish" jdbcType="SMALLINT"/>
+        <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,title,description,
+        enable_publish,create_time
+    </sql>
+    <select id="selectLiekTile" resultType="com.pde.pdes.portal.honor.vo.HonorVO">
+        select a.*, c.file_path
+        from pdes_portal_honor as a
+                 left join (SELECT b.file_path, b.honor_id
+                            from pdes_portal_honor_file as b
+                            where b.enable_front = 1) as c on a.id = c.honor_id
+        where a.title like "%"#{title}"%"
+
+    </select>
+</mapper>

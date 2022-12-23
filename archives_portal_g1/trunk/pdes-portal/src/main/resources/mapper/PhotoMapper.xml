@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pde.pdes.portal.photo.mapper.PhotoMapper">
+
+    <select id="selectPhoto" resultType="com.pde.pdes.portal.photo.vo.PhotoVO">
+        select a.*, c.file_path
+        from pdes_portal_photo as a
+                 left join (SELECT b.file_path, b.photo_id
+                            from pdes_portal_photo_file as b
+                            where b.enable_front = 1) as c on a.id = c.photo_id
+        where a.title like "%${title}%"
+    </select>
+
+    <select id="selectHomePage" resultType="com.pde.pdes.portal.photo.vo.PhotoVO">
+        select a.*, b.file_path
+        from pdes_portal_photo as a
+                 left join
+             pdes_portal_photo_file as b
+             on a.id = b.photo_id
+        where b.enable_front = 1 and a.enable_publish = 1
+    </select>
+
+</mapper>

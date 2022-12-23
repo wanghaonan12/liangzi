@@ -1,0 +1,29 @@
+package com.pde.pdes.portal.user.service;
+
+import com.pde.p10c.auth.JwtTokenManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import com.pde.p10c.auth.AuthUserService;
+import com.pde.p10c.auth.User;
+
+
+@Service
+public class AuthUserServiceImpl implements AuthUserService {
+
+    private static final Logger logger = LoggerFactory.getLogger(AuthUserServiceImpl.class);
+
+    @Override
+    public User findUserByUsername(String userName) {
+        logger.info("用户{}验证.", userName);
+        return User.builder().username("admin").password("$2a$10$WBEFsRICjZPXxXGPgnw7CucaHC/iRflj/sr.dGe9cC0C9skaGpcSi").build();
+    }
+
+    public static void main(String[] args) {
+        JwtTokenManager jtm = new JwtTokenManager();
+        String token = jtm.createToken("xzp");
+        System.out.println(token);
+    }
+
+}

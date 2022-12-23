@@ -1,0 +1,144 @@
+<template>
+  <div>
+    <div class="top-line"></div>
+    <el-row class="row" type="flex" justify="center">
+      <el-col :span="24 / 5" :offset="2" :pull="2" v-for="(item, index) in videoList" :key="index">
+        <router-link :to="'/portal/video/file/' + item.id"
+          ><el-card class="box-card" :body-style="{ padding: '20px' }">
+            <div class="box-image">
+              <img :src="item.frontPath" class="image" />
+            </div>
+            <div class="album-title">
+              <p v-text="item.title"></p>
+              <el-divider></el-divider>
+              <p v-text="item.create_time"></p>
+            </div>
+          </el-card>
+        </router-link>
+      </el-col>
+    </el-row>
+    <pagination
+      style="text-align: center"
+      v-show="queryParam.total > 0"
+      layout="total, prev, pager, next, jumper"
+      :total="queryParam.total"
+      :page.sync="queryParam.page"
+      :limit.sync="queryParam.size"
+      @pagination="getVideoListData" />
+  </div>
+</template>
+
+<script>
+import { getPortalVideoListApi } from '@/api/videoManagement'
+import Pagination from '@/components/Pagination'
+export default {
+  name: 'PortalVideo',
+  components: {
+    Pagination
+  },
+  data() {
+    return {
+      videoList: [],
+      queryParam: {
+        pageNum: 1,
+        pageSize: 10,
+        total: 0
+      }
+    }
+  },
+  created() {},
+  mounted() {
+    this.getVideoListData()
+  },
+  methods: {
+    // 获取视频专辑列表
+    async getVideoListData() {
+      const res = await getPortalVideoListApi(this.queryParam)
+      console.log(res)
+      if (res && res.status) {
+        this.videoList = res.content.data
+        this.queryParam.total = res.content.total
+      } else {
+        this.$message(res.message)
+      }
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.top-line {
+  background-color: grey;
+  height: 1vh;
+  width: 100vw;
+  margin-bottom: 20px;
+}
+.time {
+  font-size: 13px;
+  color: #999;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.bottom {
+  margin-top: 13px;
+  line-height: 12px;
+}
+
+.button {
+  padding: 0;
+  float: right;
+}
+
+.box-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  .box-image {
+    height: 15vh;
+    width: 15vh;
+    display: flex;
+    background-color: rgba(211, 211, 211, 0.774);
+    opacity: 0.9;
+    justify-content: center;
+    align-items: center;
+    .image {
+      width: 15vh;
+      height: 15vh;
+      background-size: contain;
+    }
+  }
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: '';
+}
+
+.clearfix:after {
+  clear: both;
+}
+.box-card {
+  width: 200px;
+  height: 260px;
+  font-size: 14px;
+  .album-title {
+    padding-top: 30px;
+    text-align: center;
+    overflow: hidden;
+    .el-divider {
+      margin: 1px;
+    }
+    p {
+      display: block/inline-block;
+      white-space: nowrap;
+      margin: 1px;
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.363);
+    }
+  }
+}
+</style>

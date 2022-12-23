@@ -1,0 +1,107 @@
+package com.pde.pdes.portal.honor.service;
+
+import com.github.pagehelper.PageInfo;
+import com.pde.pdes.portal.honor.dto.HonorDTO;
+import com.pde.pdes.portal.honor.dto.HonorFileDTO;
+import com.pde.pdes.portal.honor.dto.PublishHonorDTO;
+import com.pde.pdes.portal.honor.po.HonorFilePO;
+import com.pde.pdes.portal.honor.vo.HonorVO;
+
+import java.util.HashMap;
+import java.util.List;
+/**
+ * @Author chl
+ * @Description TODO
+ * @Date 2022/12/10 11:38
+ * @Version 1.0
+ */
+public interface HonorService {
+
+    /**
+     * 新增荣誉档案相册
+     * @param dto 荣誉档案相册DTO
+     * @return  新增结果
+     */
+    Boolean addHonor(HonorDTO dto);
+
+    /**
+     * 根据id批量删除荣誉档案相册
+     * @param ids 相册id
+     * @return 删除结果
+     */
+    boolean removeById(Integer[] ids);
+
+    /**
+     * 更新荣誉档案相册
+     * @param dto 荣誉档案相册DTO
+     * @return 更新结果
+     */
+    boolean update(HonorDTO dto);
+
+    /**
+     * 根据荣誉档案相册id查询图片
+     * @param honorId 荣誉档案相册id
+     * @return 查询结果
+     */
+
+    List<HonorFilePO> findImage(Integer honorId);
+
+    /**
+     * 新增荣誉档案图片
+     * @param dto 图片DTO
+     * @return 新增结果
+     */
+    boolean addImage(HonorFileDTO dto);
+
+    /**
+     * 根据荣誉档案相册id分页查询荣誉档案图片
+     *
+     * @param honorId   荣誉档案相册id
+     * @param pageIndex 页码
+     * @param pageSize  每页数量
+     * @return 查询结果
+     */
+    HashMap<String, Object> findPageImage(Integer honorId, Integer pageIndex, Integer pageSize);
+
+    /**
+     * 更新荣誉档案图片
+     * @param dto 图片DTO
+     * @return 更新结果
+     */
+    boolean updateImage(HonorFileDTO dto);
+
+    /**
+     * 根据荣誉档案图片id批量删除
+     * @param ids 荣誉档案图片数组
+     * @return 删除结果
+     */
+    boolean removeImageById(Integer[] ids);
+
+    /**
+     * 查询首页轮播图荣誉档案相册
+     * @return 查询结果
+     */
+    PageInfo<HonorVO> getCoverList();
+
+    /**
+     * 根据荣誉档案相册title模糊查询公开的相册
+     * @param title 荣誉档案相册title
+     * @return 查询结果
+     */
+    List<HonorVO> getPublishList(String title);
+
+    /**
+     * 根据荣誉档案相册title模糊查询
+     * @param title  相册title
+     * @return 查询结果
+     */
+    List<HonorVO> findHonorAlbum(String title);
+
+    /**
+     *  根据荣誉相册id批量修改发布状态
+     * @param dto 发布荣誉相册dto
+     * @return 修改结果
+     */
+    boolean publishHonor(PublishHonorDTO dto);
+
+}

@@ -1,0 +1,58 @@
+package com.pde.pdes.portal.news.service;
+
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.mysql.cj.util.StringUtils;
+import com.pde.pdes.portal.news.dto.NewsDTO;
+import com.pde.pdes.portal.news.mapper.NewsMapper;
+import com.pde.pdes.portal.news.po.NewsPo;
+import com.pde.pdes.portal.utils.StringHelper;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
+import java.util.Date;
+import java.util.List;
+
+/**
+ * @author 沈建树
+ */
+@Service
+public class NewsServiceImpl extends ServiceImpl<NewsMapper, NewsPo> implements NewsService {
+    @Override
+    public NewsPo getNewsById(Integer id) {
+        Assert.hasText(String.valueOf(id), "查询ID不能为空");
+        return getById(id);
+    }
+
+    @Override
+    public List<NewsPo> getNews(String searchText) {
+        if (StringUtils.isNullOrEmpty(searchText)) {
+            return list();
+        }
+
+        return list(Wrappers.lambdaQuery(NewsPo.class).like(NewsPo::getTitle, searchText).or()
+                .like(NewsPo::getContent_abstract, searchText).or()
+                .like(NewsPo::getContent, searchText));
+    }
+
+    @Override
+    public boolean addNews(NewsDTO newsDTO) {
+        Assert.notNull(newsDTO, "保存信息不能为空");
+        return save(NewsPo.builder()
+                .title(newsDTO.getTitle())
+                .content(newsDTO.getContent()).build());
+    }
+
+    @Override
+    public boolean deleteNewsById(Integer id) {
+        Assert.hasText(String.valueOf(id), "删除ID不能为空");
+        return removeById(id);
+    }
+
+    @Override
+    public boolean update(NewsPo newsPo) {
+        Assert.notNull(newsPo, "更新信息不能为空");
+        newsPo.setModified_time(new Date());
+        return updateById(newsPo);
+    }
+}

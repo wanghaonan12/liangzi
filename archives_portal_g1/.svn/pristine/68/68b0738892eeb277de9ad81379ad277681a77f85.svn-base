@@ -1,0 +1,92 @@
+<template>
+  <div style="display: flex;justify-content: center;">
+
+      <el-card class="box-card">
+        <div slot="header" class="clearfix">
+          <span>开放档案</span>
+          <a :href='this.address' v-if="(isdown=='公开')"><el-button style="float: right; padding: 3px 0" type="text">下载附件</el-button></a>
+        </div>
+        <div v-for="(item,index) in list" :key="index" class="text item">
+          {{  item }}
+        </div>
+        <div><img src="@/assets/fujian.png" alt="附件" title="附件(暂不支持页面浏览)"></div>
+      </el-card>
+
+  </div>
+</template>
+  
+<script>
+import route from '@/router';
+import {findFileById,findById} from '@/api/archive'
+
+  export default {
+    name:"Detail",
+    data() {
+      return{
+        list:[],
+        address:"",
+        fileName:"",
+        isdown:""
+
+      }
+    },
+    created() {
+      findFileById(this.$route.params.id).then((data) => {
+        console.log(data);
+        this.list[4]="附件名称："+data.content.fileName
+        this.list[5]="附件大小："+data.content.fileSize
+        this.list[6]="附件："
+        this.address = data.content.filePath
+        this.fileName = data.content.fileName
+        this.$forceUpdate()
+      });
+      findById(this.$route.params.id).then((data) => {
+        console.log(data);
+        this.list[0]="发行部门："+data.content.fonds
+        this.list[1]="发行年份："+data.content.year
+        this.list[2]="有效期限："+data.content.retentionPeriod
+        this.list[3]="附件级别："+data.content.securityClass
+        this.isdown=data.content.securityClass
+        console.log("==========================="+this.isdown);
+        this.$forceUpdate()
+      });
+      console.log(this.list);
+
+    },
+    methods: {
+      downloadFile(url, fileName, flieId, type) {
+        let link = document.createElement('a');
+        link.style.display = 'none';
+        link.href = url
+        document.body.appendChild(link);
+        link.click();
+      },
+
+    }
+
+  }
+</script>
+  
+<style lang="scss" scoped>
+
+.text {
+    font-size: 14px;
+  }
+  .item {
+    margin-bottom: 18px;
+  }
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .clearfix:after {
+    clear: both
+  }
+  .box-card {
+    width: 70%;
+  }
+</style>
+
+        
+

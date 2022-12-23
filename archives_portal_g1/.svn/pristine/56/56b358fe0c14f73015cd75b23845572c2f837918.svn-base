@@ -1,0 +1,33 @@
+import request from '@/utils/request'
+
+export function add(data) {
+  return request({
+    url: '/honorImage/add',
+    method: 'post',
+    data
+  })
+}
+
+export function remove(data) {
+  return request({
+    url: '/honorImage/remove',
+    method: 'delete',
+    data
+  })
+}
+
+export function update(data) {
+  return request({
+    url: '/honorImage/update',
+    method: 'put',
+    data
+  })
+}
+
+export function get(honorId) {
+  return request({
+    url: '/honorImage/update',
+    method: 'get',
+    params: { honorId }
+  })
+}

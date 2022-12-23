@@ -1,0 +1,9 @@
+package com.pde.pdes.portal.video.service;
+
+/**
+ * @author: mth
+ * @date: 2022/11/30
+ * @description:
+ */
+public interface VideoService {
+}

@@ -1,0 +1,177 @@
+ <template>
+  <div>
+    <div class="top-line"></div>
+    <el-row class="row" type="flex" justify="left">
+      <el-col :span="3" offset="2" v-for="(item, index) in albumList" :key="index">
+        <router-link to="albumDetail/1"
+          ><el-card class="box-card" :body-style="{ padding: '20px' }">
+            <div class="box-image">
+              <img :src="item.file_path" class="image" />
+            </div>
+            <div class="album-title">
+              <p v-text="item.title"></p>
+              <el-divider></el-divider>
+              <p v-text="item.create_time"></p>
+            </div>
+          </el-card>
+        </router-link>
+      </el-col>
+    </el-row>
+    <el-pagination
+      align="center"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      @prev-click="prevClick"
+      @next-click="nextClick"
+      :current-page="pageIndex"
+      :page-sizes="[1, 5, 10, 15, 20]"
+      :page-size="pageSize"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="albumList.length">
+    </el-pagination>
+  </div>
+</template>
+ 
+ <script>
+export default {
+  name: 'honorAlbum',
+  data() {
+    return {
+      albumList: [],
+      honorQuery: {
+        pageIndex: 1,
+        pageSize: 15,
+        title: ''
+      }
+    }
+  },
+  created() {
+    get().then((data) => {
+      this.albumList = data.data.content.list
+    })
+  },
+  mounted() {
+    this.getHonorData()
+  },
+  methods: {
+    getHonorData() {
+      this.albumList.push(
+        {
+          title: '南京档案',
+          file_path: 'https://chl-bucket.oss-cn-hangzhou.aliyuncs.com/avatar/head1.jpg',
+          create_time: '2022-12-16 12:21:03'
+        },
+        {
+          title: '南京档案',
+          file_path: 'https://chl-bucket.oss-cn-hangzhou.aliyuncs.com/banner/banner12.jpg',
+          create_time: '2022-12-16 12:21:03'
+        },
+        {
+          title: '南京档案',
+          file_path: 'https://chl-bucket.oss-cn-hangzhou.aliyuncs.com/banner/banner13.jpg',
+          create_time: '2022-12-16 12:21:03'
+        },
+        {
+          title: '南京档案',
+          file_path: 'https://chl-bucket.oss-cn-hangzhou.aliyuncs.com/avatar/head1.jpg',
+          create_time: '2022-12-16 12:21:03'
+        },
+        {
+          title: '南京档案',
+          file_path: 'https://chl-bucket.oss-cn-hangzhou.aliyuncs.com/banner/banner12.jpg',
+          create_time: '2022-12-16 12:21:03'
+        },
+        {
+          title: '南京档案',
+          file_path: 'https://chl-bucket.oss-cn-hangzhou.aliyuncs.com/banner/banner13.jpg',
+          create_time: '2022-12-16 12:21:03'
+        }
+      )
+    },
+    handleSizeChange(val) {
+      console.log('页面数量改变：' + val)
+    },
+    handleCurrentChange(val) {
+      console.log('切换页面：' + val)
+    },
+    prevClick(val) {
+      console.log('上一页：' + val)
+    },
+    nextClick(val) {
+      console.log('下一页：' + val)
+    }
+  }
+}
+</script>
+ 
+ <style lang="scss" scoped>
+.top-line {
+  background-color: rgb(53, 0, 245);
+  height: 1vh;
+  width: 100vw;
+  margin-bottom: 20px;
+}
+.time {
+  font-size: 13px;
+  color: #999;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.bottom {
+  margin-top: 13px;
+  line-height: 12px;
+}
+
+.button {
+  padding: 0;
+  float: right;
+}
+
+.box-card {
+  margin-bottom: 20px;
+  .box-image {
+    height: 150px;
+    display: flex;
+    background-color: rgba(211, 211, 211, 0.774);
+    opacity: 0.9;
+    justify-content: center;
+    align-items: center;
+    .image {
+      width: 100%;
+      background-size: contain;
+    }
+  }
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: '';
+}
+
+.clearfix:after {
+  clear: both;
+}
+.box-card {
+  width: 200px;
+  height: 260px;
+  font-size: 14px;
+  .album-title {
+    padding-top: 30px;
+    text-align: center;
+    overflow: hidden;
+    .el-divider {
+      margin: 1px;
+    }
+    p {
+      display: block/inline-block;
+      white-space: nowrap;
+      margin: 1px;
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.363);
+    }
+  }
+}
+</style>

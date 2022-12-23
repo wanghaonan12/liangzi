@@ -1,0 +1,62 @@
+package com.pde.pdes.portal.photo.service;
+
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pde.pdes.portal.photo.dto.PhotoDTO;
+import com.pde.pdes.portal.photo.mapper.PhotoMapper;
+import com.pde.pdes.portal.photo.po.PhotoPO;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
+import java.util.List;
+
+@Service
+public class PhotoServiceImpl extends ServiceImpl<PhotoMapper, PhotoPO> implements PhotoService {
+    @Override
+    public boolean add(PhotoDTO entity) {
+        Assert.notNull(entity, "保存对象不能为空.");
+        return save(PhotoPO.builder()
+                .title(entity.getTitle())
+                .description(entity.getDescription())
+                .enable_publish(entity.getEnablePublish())
+                .build());
+    }
+
+    @Override
+    public boolean deleteById(String id) {
+        Assert.hasText(id, "删除主键不能为空.");
+        return removeById(id);
+    }
+
+    @Override
+    public boolean update(PhotoPO po) {
+
+        return updateById(PhotoPO.builder()
+                .id(po.getId())
+                .title(po.getTitle())
+                .description(po.getDescription())
+                .enable_publish(po.getEnable_publish())
+                .build());
+    }
+
+    @Override
+    public PhotoPO findById(String id) {
+        Assert.hasText(id, "查询条件不能为空.");
+        return getById(id);
+    }
+
+    @Override
+    public List<PhotoPO> find(String searchText) {
+        if (StringUtils.isEmpty(searchText)) {
+            return list();
+        }
+        else {
+            return list(Wrappers.lambdaQuery(PhotoPO.class)
+                    .like(PhotoPO::getTitle, searchText).or()
+                    .like(PhotoPO::getDescription, searchText).or()
+                    .like(PhotoPO::getEnable_publish,searchText)
+            );
+        }
+    }
+}

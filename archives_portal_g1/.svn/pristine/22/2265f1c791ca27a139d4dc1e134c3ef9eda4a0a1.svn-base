@@ -1,0 +1,105 @@
+import request from '@/utils/request'
+
+// 查询photo列表
+export function getPhotoList(data) {
+  return request({
+    url: '/v1/photo/getPhotoList',
+    method: 'post',
+    data: data
+  })
+}
+// 更新相册
+export function updatePhoto(data) {
+  return request({
+    url: '/photo/update',
+    method: 'put',
+    data
+  })
+}
+// 添加新相册
+export function addPhoto(data) {
+  return request({
+    url: '/photo/add',
+    method: 'post',
+    data
+  })
+}
+// 批量删除相册
+export function deletePhotoByIds(data) {
+  return request({
+    url: '/photo/delete',
+    method: 'delete',
+    data
+  })
+}
+// 批量取消发布
+export function cancelPublished(data) {
+  return request({
+    url: '/photo/cancelPublished',
+    method: 'put',
+    data
+  })
+}
+// 批量发布
+export function toPublished(data) {
+  return request({
+    url: '/photo/toPublished',
+    method: 'put',
+    data
+  })
+}
+// 获取相册id所对应的附件表
+export function getPhotoFileList(data) {
+  return request({
+    url: '/v1/photoFile/getPhotoFileList',
+    method: 'post',
+    data
+  })
+}
+// 对附件表的增加
+export function addPhotoFile(data) {
+  return request({
+    url: '/photoFile/add',
+    method: 'post',
+    data
+  })
+}
+// 对附件的修改
+export function editPhotoFile(data) {
+  return request({
+    url: '/photoFile/update',
+    method: 'put',
+    data
+  })
+}
+// 设为封面
+export function setFront(id) {
+  return request({
+    url: '/photoFile/setFront',
+    method: 'put',
+    params: id
+  })
+}
+// 取消设为封面
+export function cancelSetFront(data) {
+  return request({
+    url: '/photoFile/cancelSetFront',
+    method: 'put',
+    data
+  })
+}
+// 删除相册附件
+export function deletePhotoFileByIds(data) {
+  return request({
+    url: '/photoFile/delete',
+    method: 'delete',
+    data
+  })
+}
+// 首页轮播图数据查询
+export function getCarouselList() {
+  return request({
+    url: '/v1/photo/homePage',
+    method: 'get',
+  })
+}

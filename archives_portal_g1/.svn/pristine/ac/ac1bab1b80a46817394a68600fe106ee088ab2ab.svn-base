@@ -1,0 +1,28 @@
+package com.pde.pdes.portal.video.vo;
+
+import lombok.Builder;
+import lombok.Data;
+
+import java.io.Serializable;
+import java.util.List;
+
+/**
+ * @author: mth
+ * @date: 2022/12/5
+ * @description: 视频上传 视图对象vo
+ */
+@Data
+@Builder
+public class VideoUploadVO implements Serializable {
+
+    private static final long serialVersionUID = 2540093515227861652L;
+
+    private String fileName;
+
+    private String filePath;
+
+    private Integer fileSize;
+
+    private List<FrontFileVO> frontFileInfoList;
+
+}

@@ -1,0 +1,103 @@
+package com.pde.pdes.portal.notify.controller;
+
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.pde.pdes.portal.Constants.Constants;
+import com.pde.pdes.portal.company.dto.QueryCondition;
+import com.pde.pdes.portal.notify.po.PortalNotify;
+import com.pde.pdes.portal.notify.service.PortalNotifyService;
+import com.pde.pdes.portal.vo.SimpleResponse;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.async.WebAsyncTask;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author jiangyiheng
+ * @date 2022-12-01 8:48
+ */
+@RestController
+@Api(tags = {"公告新闻服务"})
+@RequestMapping("/")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+public class PortalNotifyController {
+
+    private final PortalNotifyService portalNotifyService;
+
+
+    @PostMapping("/notify/select")
+    @ApiOperation(value = "检索公告列表")
+    public WebAsyncTask<SimpleResponse<?>> findByPage(@RequestBody QueryCondition query) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            Map<String, Object> map = new HashMap<String, Object>();
+            Page<PortalNotify> page = PageHelper.startPage(query.getPageNum(), query.getPageSize(), true, false, false);
+            portalNotifyService.find(query.getSearchText());
+            map.put("total", page.getTotal());
+            map.put("rows", page.getResult());
+            return new SimpleResponse<>(true, "操作成功", map);
+        });
+    }
+
+    @PostMapping("/notify/select/disable")
+    @ApiOperation(value = "查询未发布")
+    public WebAsyncTask<SimpleResponse<?>> findByPageDisable(@RequestBody QueryCondition query) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            Map<String, Object> map = new HashMap<String, Object>();
+            Page<PortalNotify> page = PageHelper.startPage(query.getPageNum(), query.getPageSize(), true, false, false);
+            portalNotifyService.findDisablePublish(query.getSearchText());
+            map.put("total", page.getTotal());
+            map.put("rows", page.getResult());
+            return new SimpleResponse<>(true, "操作成功", map);
+        });
+    }
+
+    @DeleteMapping("/notify/delete/{id}")
+    @ApiOperation(value = "删除公告")
+    public WebAsyncTask<SimpleResponse<?>> deleteById(@PathVariable(name = "id", required = true) String id) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            return new SimpleResponse<Boolean>(portalNotifyService.deleteById(id));
+        });
+    }
+
+    @PostMapping("/notify/add")
+    @ApiOperation(value = "进行对文章公告的新增")
+    public WebAsyncTask<SimpleResponse<?>> add(@RequestBody PortalNotify portalNotify) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            return portalNotifyService.add(portalNotify) ? new SimpleResponse<Boolean>(true, "执行新增成功") : new SimpleResponse<Boolean>(false, "执行新增失败");
+        });
+    }
+
+    @PutMapping("/notify/update")
+    @ApiOperation(value = "进行对文章的更新数据")
+    public WebAsyncTask<SimpleResponse<?>> update(@RequestBody PortalNotify portalNotify) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            return portalNotifyService.updatePortalNotify(portalNotify) ? new SimpleResponse<Boolean>(true, "更新成功") : new SimpleResponse<Boolean>(false, "更新失败");
+        });
+    }
+
+
+    @DeleteMapping("/notify/deleteBatch")
+    @ApiOperation(value = "进行对公告文章的批量删除")
+    public WebAsyncTask<SimpleResponse<?>> deleteBatch(@RequestBody List<Integer> idList) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            return portalNotifyService.deleteBatchByIds(idList) == idList.size()? new SimpleResponse<Boolean>(true, "删除成功") : new SimpleResponse<Boolean>(false, "删除失败");
+        });
+    }
+
+
+    @GetMapping("/notify/find/{id}")
+    @ApiOperation(value = "根据ID查询")
+    public WebAsyncTask<SimpleResponse<?>> findById(@PathVariable(name = "id", required = true) String id) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            PortalNotify notify = portalNotifyService.selectById(Integer.parseInt(id));
+            return notify!=null? new SimpleResponse<PortalNotify>(true, "查询成功",notify) : new SimpleResponse<PortalNotify>(false, "查询为空");
+        });
+    }
+
+}

@@ -1,0 +1,61 @@
+<template>
+  <div class="body">
+    <el-container class="centerContent">
+      <el-header>
+        <h2>{{chronicle.title}}</h2>
+      </el-header>
+      <el-main>
+        {{chronicle.content}}
+        <p><img :src="imgUrl" alt="" style="width: 80%; height: 80%; margin-top: 80px" /></p>
+      </el-main>
+      <el-footer>
+        <el-button size="small" style="margin-top: 30px" type="primary">
+          <a :href="downurl" on-click="return false">下载附件</a>
+        </el-button>
+      </el-footer>
+    </el-container>
+  </div>
+</template>
+<script>
+import { getChronicleById } from '@/api/chronicle'
+export default {
+  data() {
+    return {
+      chronicle: {},
+      chronicleQuery: {
+        pageNum: 1,
+        pageSize: 15,
+        title: ''
+      },
+      downurl: 'http://www.patrickstarm.top:9090/pde-file/chronicle/d0fefb3e-33f7-4099-9619-7e696522787e.null',
+      imgUrl: 'http://uplaod-189989.oss-cn-hangzhou.aliyuncs.com/meeting.jpg'
+    }
+  },
+  created() {
+    this.getInfo()
+  },
+  methods: {
+    getInfo() {
+      getChronicleById(this.$route.params.id).then((result) => {
+        console.log(result)
+        this.chronicle = result.content
+        console.log(this.chronicle.id)
+      })
+    }
+  }
+}
+</script>
+<style scoped>
+.body{
+  background-image: url('http://uplaod-189989.oss-cn-hangzhou.aliyuncs.com/background.jpg');
+}
+.centerContent {
+  margin-left: 15%;
+  margin-right: 15%;
+  text-align: center;
+  background-color: #94b1b1ef;
+  color: #333;
+  line-height: 60px;
+  height: 800px;
+}
+</style>

@@ -1,0 +1,60 @@
+package com.pde.pdes.portal.chronicle.service;
+
+import com.pde.pdes.portal.chronicle.dto.PdesPortalChronicleEventsDto;
+import com.pde.pdes.portal.chronicle.po.PdesPortalChronicleEvents;
+
+
+import java.util.List;
+
+/**
+ * @author SYKCOMPUTER
+ */
+public interface PdesPortalChronicleEventsService {
+    /**
+     * 新增大事件
+     * @param entity 主键ID
+     * @return 是否新增成功
+     */
+    boolean add(PdesPortalChronicleEventsDto entity);
+
+    /**
+     * 根据 ID 删除
+     * @param id 主键ID
+     * @return 删除状态
+     */
+    boolean deleteById(String id);
+
+    /**
+     * 批量删除大事件
+     * @param ids id数组
+     * @return 删除状态
+     */
+    boolean deleteByIds(List<Integer> ids);
+
+    /**
+     * 发布接口
+     * @param isPublished 发布状态
+     * @param ids 发布的大事件id数组
+     * @return 发布状态
+     */
+    boolean isPublished(Boolean isPublished,List<Integer> ids);
+    /**
+     * 根据 ID 查询
+     * @return 大事件对象
+     * @param id 主键ID
+     */
+    PdesPortalChronicleEvents findById(String id);
+    /**
+     * 根据 searchText 条件，模糊匹配
+     * @return 大事件列表
+     * @param searchText 实体对象封装操作类（可以为 null）
+     */
+    List<PdesPortalChronicleEvents> find(String searchText);
+
+    /**
+     * 修改大事件
+     * @return 修改是否成功
+     * @param events 事件
+     */
+    boolean updateEvent(PdesPortalChronicleEvents events);
+}

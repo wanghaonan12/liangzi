@@ -1,0 +1,70 @@
+package com.pde.pdes.portal.video.service.impl;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.pde.pdes.portal.video.dto.VideoDTO;
+import com.pde.pdes.portal.video.mapper.VideoMapper;
+import com.pde.pdes.portal.video.po.VideoPO;
+import com.pde.pdes.portal.video.service.VideoService;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
+import javax.annotation.Resource;
+import java.nio.file.CopyOption;
+import java.util.List;
+
+import static com.pde.pdes.portal.video.utils.MyBeanUtilsHelper.getNullPropertyNames;
+
+/**
+ * @author: mth
+ * @date: 2022/11/30
+ * @description:
+ */
+@Service
+public class VideoServiceImpl implements VideoService {
+    @Autowired
+    private VideoMapper videoMapper;
+
+    @Override
+    public Page<VideoPO> findByPage(VideoDTO videoDTO) {
+        QueryWrapper<VideoPO> queryWrapper = new QueryWrapper<>();
+        if (videoDTO.getTitle() != null) {
+            queryWrapper.like("title", videoDTO.getTitle());
+        }
+        PageHelper.startPage(videoDTO);
+        videoMapper.selectAll(queryWrapper);
+
+        return null;
+    }
+
+    @Override
+    public Boolean insert(VideoDTO video) {
+        Assert.notNull(video, "保存对象不能为空.");
+        int insert = videoMapper.insert(VideoPO.builder()
+                .title(video.getTitle())
+                .description(video.getDescription())
+                .front_file_path(video.getFrontFilePath()).build());
+        return insert > 0;
+    }
+
+    @Override
+    public Integer delByIds(List<Integer> ids) {
+        return videoMapper.deleteBatchIds(ids);
+    }
+
+    @Override
+    public VideoPO findById(String id) {
+        return videoMapper.selectById(id);
+    }
+
+    @Override
+    public Boolean update(VideoDTO videoDTO) {
+        VideoPO video = new VideoPO();
+        BeanUtils.copyProperties(videoDTO, video, getNullPropertyNames(videoDTO));
+        int i = videoMapper.updateById(video);
+        return i > 0;
+    }
+}

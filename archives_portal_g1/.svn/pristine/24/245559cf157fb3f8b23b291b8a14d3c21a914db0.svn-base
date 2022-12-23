@@ -1,0 +1,222 @@
+package com.pde.pdes.portal.video.controller;
+
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.pde.pdes.portal.Constants.Constants;
+import com.pde.pdes.portal.video.dto.*;
+import com.pde.pdes.portal.video.po.VideoFilePO;
+import com.pde.pdes.portal.video.po.VideoPO;
+import com.pde.pdes.portal.video.service.VideoService;
+import com.pde.pdes.portal.video.vo.VideoFileFrontListVO;
+import com.pde.pdes.portal.video.vo.VideoFileListVO;
+import com.pde.pdes.portal.video.vo.VideoUploadVO;
+import com.pde.pdes.portal.video.vo.portal.PortalFileVO;
+import com.pde.pdes.portal.video.vo.portal.PortalVideoVO;
+import com.pde.pdes.portal.vo.SimpleResponse;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.async.WebAsyncTask;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author: mth
+ * @date: 2022/11/30
+ * @description: 视频档案 控制层
+ */
+@RestController
+@Api(tags = {"视频档案服务"})
+@RequestMapping
+public class VideoController {
+    @Autowired
+    private VideoService videoService;
+
+    @GetMapping("/v1/video")
+    @ApiOperation(value = "首页-视频档案轮播列表")
+    public WebAsyncTask<SimpleResponse<?>> portalVideoList(@RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                                                           @RequestParam(required = false, defaultValue = "5") Integer pageSize) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            Map<String, Object> map = new HashMap<String, Object>(2);
+            Page<PortalVideoVO> page = PageHelper.startPage(pageNum, pageSize, true, false, false);
+            List<PortalVideoVO> portalVideoList = videoService.findPortalVideoList();
+            map.put("data", portalVideoList);
+            map.put("total", page.getTotal());
+            return new SimpleResponse<Object>(true, "操作成功", map);
+        });
+    }
+
+    @GetMapping("/v1/video/file")
+    @ApiOperation(value = "首页-视频档案的文件列表")
+    @ApiImplicitParam(name = "id", value = "视频文件id", required = true)
+    public WebAsyncTask<SimpleResponse<?>> portalFileListByVideoId(@RequestParam Integer id,
+                                                                   @RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                                                                   @RequestParam(required = false, defaultValue = "5") Integer pageSize) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            Map<String, Object> map = new HashMap<String, Object>(2);
+            Page<PortalFileVO> page = PageHelper.startPage(pageNum, pageSize, true, false, false);
+            List<PortalFileVO> portalFileList = videoService.findPortalVideoFileListByVideoId(id);
+            map.put("data", portalFileList);
+            map.put("total", page.getTotal());
+            return new SimpleResponse<Object>(true, "操作成功", map);
+        });
+    }
+
+    @GetMapping("/video")
+    @ApiOperation(value = "分页模糊查询视频档案列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "searchText", value = "搜索文本(为空为全部结果，可模糊搜索标题、描述及专辑包含的视频文件名)"),
+            @ApiImplicitParam(name = "pageNum", value = "页码", defaultValue = "1"),
+            @ApiImplicitParam(name = "pageSize", value = "页面大小", defaultValue = "10")
+    })
+    public WebAsyncTask<SimpleResponse<?>> getList(@RequestParam(required = false, defaultValue = "1") int pageNum,
+                                                   @RequestParam(required = false, defaultValue = "10") int pageSize,
+                                                   @RequestParam(required = false) String searchText) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            VideoQueryCondition query = VideoQueryCondition.builder().pageNum(pageNum).pageSize(pageSize).searchText(searchText).build();
+            Map<String, Object> resultMap = videoService.findByPage(query);
+            return new SimpleResponse<Object>(true, "操作成功", resultMap);
+        });
+    }
+
+    @GetMapping("/video/id")
+    @ApiOperation(value = "根据id获取视频档案信息")
+    @ApiImplicitParam(name = "id", value = "视频档案id", required = true)
+    public WebAsyncTask<SimpleResponse<?>> getVideoById(@RequestParam() Integer id) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            VideoPO video = videoService.findById(id);
+            return new SimpleResponse<Object>(true, "操作成功", video);
+        });
+    }
+
+    @GetMapping("/video/file/id")
+    @ApiOperation(value = "根据id获取视频文件信息")
+    @ApiImplicitParam(name = "id", value = "视频文件id", required = true)
+    public WebAsyncTask<SimpleResponse<?>> getVideoFileById(@RequestParam Integer id) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            VideoFileListVO fileList = videoService.findFileById(id);
+            return new SimpleResponse<Object>(true, "操作成功", fileList);
+        });
+    }
+
+    @GetMapping("/video/file")
+    @ApiOperation(value = "根据视频档案id查询视频文件")
+    @ApiImplicitParam(name = "videoId", value = "视频专辑id", required = true)
+    public WebAsyncTask<SimpleResponse<?>> getFilesByVideoId(@RequestParam Integer videoId,
+                                                             @RequestParam(required = false, defaultValue = "1") int pageNum,
+                                                             @RequestParam(required = false, defaultValue = "10") int pageSize) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            Map<String, Object> result = videoService.findByVideoId(videoId, pageNum, pageSize);
+            return new SimpleResponse<Object>(true, "操作成功", result);
+        });
+    }
+
+    @PostMapping("/video")
+    @ApiOperation(value = "新增视频档案")
+    public WebAsyncTask<SimpleResponse<?>> add(@Valid @RequestBody VideoDTO video) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            return new SimpleResponse<>(videoService.insert(video));
+        });
+    }
+
+
+    @PostMapping(value = "/video/file")
+    @ApiOperation(value = "新增视频文件")
+    public WebAsyncTask<SimpleResponse<?>> addFile(@Valid @RequestBody VideoFileDTO videoFile) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            return new SimpleResponse<>(videoService.insertFile(videoFile));
+        });
+    }
+
+    @PutMapping(value = "/video/enable")
+    @ApiOperation(value = "批量发布视频档案")
+    public WebAsyncTask<SimpleResponse<?>> enableByIds(@Valid @RequestBody List<Integer> ids) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            return new SimpleResponse<>(videoService.enableByIds(ids));
+        });
+    }
+
+    @PutMapping(value = "/video/disable")
+    @ApiOperation(value = "批量取消发布视频档案")
+    public WebAsyncTask<SimpleResponse<?>> disableByIds(@Valid @RequestBody List<Integer> ids) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            return new SimpleResponse<>(videoService.disableByIds(ids));
+        });
+    }
+
+    @PutMapping(value = "/video")
+    @ApiOperation(value = "修改视频档案信息")
+    public WebAsyncTask<SimpleResponse<?>> updateVideo(@Valid @RequestBody VideoPO video) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            return new SimpleResponse<>(videoService.update(video));
+        });
+    }
+
+    @PutMapping(value = "/video/file")
+    @ApiOperation(value = "修改视频文件信息")
+    public WebAsyncTask<SimpleResponse<?>> updateVideoFile(@Valid @RequestBody VideoFilePO videoFile) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            return new SimpleResponse<>(videoService.updateFile(videoFile));
+        });
+    }
+
+    @DeleteMapping("/video")
+    @ApiOperation(value = "批量删除视频档案")
+    public WebAsyncTask<SimpleResponse<?>> delByIds(@Valid @RequestBody List<Integer> ids) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            Integer count = videoService.delByIds(ids);
+            return new SimpleResponse<>(true, "删除成功", "共删除" + count + "条");
+        });
+    }
+
+    @DeleteMapping(value = "/video/file")
+    @ApiOperation(value = "批量删除视频文件")
+    public WebAsyncTask<SimpleResponse<?>> delFileByIds(@Valid @RequestBody List<Integer> ids) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            Integer count = videoService.delFileByIds(ids);
+            return new SimpleResponse<>(true, "删除成功", "共删除" + count + "条");
+        });
+    }
+
+    @PostMapping(value = "/video/file/upload")
+    @ApiOperation(value = "上传视频文件")
+    public WebAsyncTask<SimpleResponse<?>> uploadVideo(String folder, MultipartFile video) throws Exception {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            // 设置视频帧截取数量
+            Integer count = 3;
+            VideoUploadVO videoInfo = videoService.uploadVideo("pde-file", folder, count, video);
+            return new SimpleResponse<>(true, "文件上传成功！", videoInfo);
+        });
+    }
+
+    @PostMapping(value = "/video/file/front")
+    @ApiOperation(value = "新增视频文件封面")
+    public WebAsyncTask<SimpleResponse<?>> insetFileFront(@Valid @RequestBody List<VideoFileFrontDTO> dto) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            return new SimpleResponse<>(videoService.insertFileFront(dto));
+        });
+    }
+
+    @PutMapping(value = "/video/file/front")
+    @ApiOperation(value = "修改视频文件封面")
+    public WebAsyncTask<SimpleResponse<?>> updateVideoFileByFront(@Valid @RequestBody VideoFileFrontUpdateDTO dto) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            return new SimpleResponse<>(videoService.updateVideoFileByFront(dto.getFileId(), dto.getFrontId()));
+        });
+    }
+
+    @PutMapping(value = "/video/front")
+    @ApiOperation(value = "修改视频专辑封面")
+    public WebAsyncTask<SimpleResponse<?>> updateVideoFrontByFile(@Valid @RequestBody VideoFrontUpdateDTO dto) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            return new SimpleResponse<>(videoService.updateVideoFrontByFile(dto.getVideoId(), dto.getFileId()));
+        });
+    }
+}

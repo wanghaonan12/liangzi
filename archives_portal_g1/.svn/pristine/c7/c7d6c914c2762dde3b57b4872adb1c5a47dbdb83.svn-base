@@ -1,0 +1,64 @@
+package com.pde.pdes.portal.standard.service.impl;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pde.pdes.portal.standard.dto.StandardFileDto;
+import com.pde.pdes.portal.standard.mapper.StandardFileMapper;
+import com.pde.pdes.portal.standard.po.Standard;
+import com.pde.pdes.portal.standard.po.StandardFile;
+import com.pde.pdes.portal.standard.service.StandardFileService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
+import java.util.Date;
+import java.util.List;
+
+
+/**
+ * @author wangRich
+ * @description 针对表【pdes_portal_standard_file(标准文件表;)】的数据库操作Service实现
+ * @createDate 2022-11-30 10:56:45
+ */
+@Service
+public class StandardFileServiceImpl extends ServiceImpl<StandardFileMapper, StandardFile>
+        implements StandardFileService {
+
+    @Autowired
+    StandardFileMapper standardFileMapper;
+
+    @Override
+    public boolean add(StandardFileDto standardFileDto) {
+        Assert.notNull(standardFileDto, "保存对象不能为空！");
+        return save(StandardFile.builder().fileName(standardFileDto.getFileName())
+                .filePath(standardFileDto.getFilePath())
+                .fileSize(standardFileDto.getFileSize())
+                .standardId(standardFileDto.getStandardId())
+                .createTime(new Date())
+                .build());
+    }
+
+    @Override
+    public boolean update(StandardFile standardFile) {
+        UpdateWrapper<StandardFile> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", standardFile.getId());
+        return update(standardFile, updateWrapper);
+    }
+
+    @Override
+    public boolean deleteByIds(List<Integer> ids) {
+        return removeByIds(ids);
+    }
+
+    @Override
+    public List<StandardFile> getFileStandardById(Integer id) {
+        QueryWrapper<StandardFile> queryMapper = new QueryWrapper<>();
+        queryMapper.eq("standard_id", id);
+        return standardFileMapper.selectList(queryMapper);
+    }
+}
+
+
+
+

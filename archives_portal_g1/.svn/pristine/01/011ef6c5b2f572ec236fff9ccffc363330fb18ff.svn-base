@@ -1,0 +1,181 @@
+<template>
+  <div class="wrapper">
+    <el-row class="table-toolbar">
+      <div class="left">
+        <el-input v-model="tableQuery.searchText" placeholder="请输入检索关键字" size="mini" class="search-input" />
+        <el-button size="mini" type="primary" @click="getStorageTableData">检索</el-button>
+      </div>
+
+      <div class="right">
+        <el-button size="mini" type="primary">新增</el-button>
+        <el-button size="mini" type="primary" @click="onDelButtonClick">删除</el-button>
+      </div>
+    </el-row>
+    <el-table :data="tableData" border stripe size="mini" style="width: 100%" height="660" @select="onSelectionChange">
+      <el-table-column type="selection" />
+      <el-table-column type="index" label="序号" width="80">
+        <template slot-scope="{ $index }">
+          <span>{{ (tableQuery.page - 1) * tableQuery.size + $index + 1 }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="storage_name" label="存储名" width="180" />
+      <el-table-column prop="storage_type" label="存储类型" width="180" />
+      <el-table-column prop="ip_address" label="IP地址" width="180" />
+      <el-table-column prop="storage_account" label="账号" />
+      <el-table-column prop="storage_path" label="路径" width="600" />
+      <el-table-column prop="default_upload" label="是否默认上传">
+        <template slot-scope="{ row }">
+          <span>{{ row.default_upload | defaultUploadFilter }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="memo" label="操作" width="100">
+        <template slot-scope="{ row }">
+          <el-button type="text" size="medium" @click="onModifyButtonClick(row)">编辑</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+
+    <pagination v-show="tableQuery.total > 0" layout="total, prev, pager, next, jumper" :total="tableQuery.total"
+      :page.sync="tableQuery.page" :limit.sync="tableQuery.size" />
+    <div class="wrapper">
+      <el-row class="table-toolbar">
+        <div class="left">
+          <el-input v-model="tableQuery.searchText" placeholder="请输入检索关键字" size="mini" class="search-input" />
+          <el-button size="mini" type="primary" @click="getStorageTableData">检索</el-button>
+        </div>
+
+        <div class="right">
+          <el-button size="mini" type="primary">新增</el-button>
+          <el-button size="mini" type="primary" @click="onDelButtonClick">删除</el-button>
+        </div>
+      </el-row>
+      <el-table :data="tableData" border stripe size="mini" style="width: 100%" height="660"
+        @select="onSelectionChange">
+        <el-table-column type="selection" />
+        <el-table-column type="index" label="序号" width="80">
+          <template slot-scope="{ $index }">
+            <span>{{ (tableQuery.page - 1) * tableQuery.size + $index + 1 }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="storage_name" label="存储名" width="180" />
+        <el-table-column prop="storage_type" label="存储类型" width="180" />
+        <el-table-column prop="ip_address" label="IP地址" width="180" />
+        <el-table-column prop="storage_account" label="账号" />
+        <el-table-column prop="storage_path" label="路径" width="600" />
+        <el-table-column prop="default_upload" label="是否默认上传">
+          <template slot-scope="{ row }">
+            <span>{{ row.default_upload | defaultUploadFilter }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="memo" label="操作" width="100">
+          <template slot-scope="{ row }">
+            <el-button type="text" size="medium" @click="onModifyButtonClick(row)">编辑</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+
+      <pagination v-show="tableQuery.total > 0" layout="total, prev, pager, next, jumper" :total="tableQuery.total"
+        :page.sync="tableQuery.page" :limit.sync="tableQuery.size" @pagination="getStorageTableData" />
+
+      <modify-dialog ref="modifyDialog" @refreshTableData="getStorageTableData" />
+    </div>
+  </div>
+</template>
+
+<script>
+import { getStorageListApi, delStorageListApi } from '@/api/storageManagement'
+import Pagination from '@/components/Pagination'
+import ModifyDialog from '@/views/storageManagement/components/ModifyDialog'
+
+export default {
+  components: {
+    Pagination,
+    ModifyDialog
+  },
+  filters: {
+    defaultUploadFilter: function (value) {
+      return value % 2 ? '是' : '否'
+    }
+  },
+  data() {
+    return {
+      tableQuery: {
+        total: 0,
+        page: 1,
+        size: 15,
+        searchText: ''
+      },
+      tableData: [],
+      tableSelection: []
+    }
+  },
+  mounted() {
+    this.getStorageTableData()
+  },
+  methods: {
+    getStorageTableData() {
+      getStorageListApi(this.tableQuery).then((res) => {
+        if (res && res.status) {
+          this.tableData = res.data
+          this.tableQuery.total = res.total
+        } else {
+          this.$message(res.message)
+        }
+      })
+    },
+    onSelectionChange(s, row) {
+      this.tableSelection = s
+    },
+    onModifyButtonClick(row) {
+      this.$refs.modifyDialog.showDialog(row, 'edit')
+    },
+    onDelButtonClick() {
+      if (!this.tableSelection.length) {
+        this.$message('请勾选条目')
+        return
+      }
+
+      this.$confirm('确定执行该操作吗？', '确认')
+        .then((r) => {
+          const ids = []
+          const tableSelection = this.tableSelection
+          tableSelection.map((item) => {
+            ids.push(item.id)
+          })
+          delStorageListApi({ ids }).then((res) => {
+            if (res && res.status) {
+              this.$message('删除成功')
+              this.getStorageTableData()
+            } else {
+              this.$message(res.message)
+            }
+          })
+        })
+        .catch()
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.wrapper {
+  padding: 10px 18px;
+
+  .table-toolbar {
+    margin-bottom: 10px;
+
+    .left {
+      float: left;
+
+      .search-input {
+        width: 210px;
+        margin-right: 10px;
+      }
+    }
+
+    .right {
+      float: right;
+    }
+  }
+}
+</style>

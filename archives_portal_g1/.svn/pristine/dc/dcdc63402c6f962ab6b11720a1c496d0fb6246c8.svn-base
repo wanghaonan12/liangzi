@@ -1,0 +1,124 @@
+<template>
+  <div>
+    <el-dialog :title="dialogTitle" :visible.sync="show" width="560px">
+      <el-form ref="ruleForm" :model="ruleForm" label-width="100px" class="demo-ruleForm">
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="标题：" prop="title">
+              <el-input v-model="ruleForm.title" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="内容：" prop="content">
+              <el-input v-model="ruleForm.content" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="摘要" prop="contentAbstract">
+              <el-input v-model="ruleForm.contentAbstract" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="发布状态" prop="enablePublish">
+              <!-- <el-input v-model="ruleForm.enablePublish" /> -->
+              <el-radio v-model="ruleForm.enablePublish" label="1">发布</el-radio>
+              <el-radio v-model="ruleForm.enablePublish" label="0">不发布</el-radio>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" size="mini" @click="doSubmit()">确定</el-button>
+        <el-button size="mini" @click="onCancel">取消</el-button>
+      </div>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+import { updateNews, addNews } from '@/api/newsManagement'
+
+export default {
+  data() {
+    return {
+      dialogTitle: '新增',
+      show: false,
+      modalType: 'add',
+      ruleForm: {
+        title: '',
+        content: '',
+        contentAbstract: '',
+        enablePublish: '',
+      }
+    }
+  },
+  methods: {
+    showDialog(row, type) {
+      this.dialogTitle = type === 'add' ? '新增' : '编辑'
+      this.modalType = type
+      this.show = true
+      if (type != 'add') {
+        this.ruleForm = { ...row }
+      }
+    },
+    doSubmit() {
+      this.$refs['ruleForm'].validate((valid) => {
+        if (valid) {
+          if (this.modalType === 'add') {
+            if (this.ruleForm.title == '' || this.ruleForm.content == '') {
+              this.$message('标题和内容不能为空')
+              return
+            }
+            addNews(this.ruleForm).then((res) => {
+              if (res && res.status) {
+                this.$message('添加成功')
+                this.ruleForm.title = ''
+                this.ruleForm.content = ''
+                this.ruleForm.contentAbstract = ''
+                this.ruleForm.enablePublish = ''
+                this.show = false
+                this.$emit('refreshTableData')
+              } else {
+                this.$message(res.message)
+              }
+            })
+          } else {
+            updateNews(this.ruleForm).then((res) => {
+              if (res && res.status) {
+                this.$message('修改成功')
+                this.ruleForm.title = ''
+                this.ruleForm.content = ''
+                this.ruleForm.contentAbstract = ''
+                this.ruleForm.enablePublish = ''
+                this.show = false
+                this.$emit('refreshTableData')
+              } else {
+                this.$message(res.message)
+              }
+            })
+          }
+        } else {
+          return false
+        }
+      })
+    },
+    onCancel() {
+      this.show = false
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

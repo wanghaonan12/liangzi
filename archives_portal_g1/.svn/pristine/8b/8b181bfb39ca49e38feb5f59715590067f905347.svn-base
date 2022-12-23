@@ -1,0 +1,74 @@
+package com.pde.pdes.portal.standard.service.impl;
+
+import com.alibaba.druid.support.json.JSONParser;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.pde.pdes.portal.standard.dto.StandardDto;
+import com.pde.pdes.portal.standard.mapper.StandardMapper;
+import com.pde.pdes.portal.standard.po.Standard;
+import com.pde.pdes.portal.standard.service.StandardService;
+import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+import springfox.documentation.spring.web.json.Json;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author wangRich
+ * @description 针对表【pdes_portal_standard(标准;)】的数据库操作Service实现
+ * @createDate 2022-11-30 10:56:45
+ */
+@Service
+public class StandardServiceImpl extends ServiceImpl<StandardMapper, Standard> implements StandardService {
+
+
+    @Autowired
+    StandardMapper standardMapper;
+
+    @Override
+    public boolean add(StandardDto standard) {
+        Assert.notNull(standard, "保存对象不能为空！");
+        return save(Standard.builder()
+                .title(standard.getTitle())
+                .description(standard.getDescription())
+                .enablePublish(standard.getEnablePublish())
+                .publishDate(new Date())
+                .useDate(standard.getUseDate())
+                .build());
+    }
+
+    @Override
+    public boolean update(Standard standard) {
+        UpdateWrapper<Standard> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", standard.getId());
+        return update(standard, updateWrapper);
+    }
+
+    @Override
+    public boolean deleteByIds(List<Integer> ids) {
+        return removeByIds(ids);
+    }
+
+    @Override
+    public List<Standard> getStandardByTitle(String title) {
+        UpdateWrapper<Standard> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.like("title", title);
+        return standardMapper.selectList(updateWrapper);
+    }
+
+    @Override
+    public List<Standard> findAll() {
+        return list(Wrappers.lambdaQuery(Standard.class));
+    }
+
+}
+
+
+
+

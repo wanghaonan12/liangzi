@@ -1,0 +1,413 @@
+<template>
+  <div>
+    <el-row :gutter="6" class="search-input">
+      <el-col :span="3" style="margin-left: 5px">
+        <el-input v-model="input" size="small" clearable placeholder="根据相册名称搜索"></el-input>
+      </el-col>
+      <el-col :span="10">
+        <el-button type="primary" size="small" icon="el-icon-search" @click="searchAblum">搜索</el-button>
+        <el-button type="primary" size="small" icon="el-icon-plus" @click="addAblumDialog = true">新增</el-button>
+        <el-button
+          type="primary"
+          size="small"
+          icon="el-icon-circle-plus-outline"
+          @click="publishAblum(selectionList, true)"
+          >发布相册</el-button
+        >
+        <el-button type="primary" size="small" icon="el-icon-circle-close" @click="publishAblum(selectionList, false)"
+          >取消发布</el-button
+        >
+        <el-button type="primary" size="small" icon="el-icon-delete" @click="deleteAblum(selectionList)"
+          >批量删除</el-button
+        >
+      </el-col>
+    </el-row>
+    <el-table
+      max-height="700px"
+      ref="ablumTable"
+      :data="tableData"
+      :border="true"
+      tooltip-effect="dark"
+      @selection-change="selectionChange"
+      :header-cell-style="{ backgroundColor: '#f2f2f2', color: '#808080' }"
+      style="width: 100%">
+      <el-table-column type="selection" width="55"> </el-table-column>
+      <el-table-column fixed prop="date" label="操作" align="center">
+        <template slot-scope="scope">
+          <el-tooltip effect="light" content="修改" :enterable="false" placement="top-start">
+            <el-button @click.native.prevent="editDialog(scope.row)" size="mini" icon="el-icon-edit" circle></el-button>
+          </el-tooltip>
+          <el-tooltip effect="light" content="删除" :enterable="false" placement="top-start">
+            <el-button
+              @click.native.prevent="deleteAblum([scope.row.id])"
+              size="mini"
+              icon="el-icon-delete"
+              circle></el-button>
+          </el-tooltip>
+          <el-tooltip
+            effect="light"
+            :content="scope.row.enable_publish ? '取消发布' : '发布'"
+            :enterable="false"
+            placement="top-start">
+            <el-button
+              @click.native.prevent="publishAblum([scope.row.id], !scope.row.enable_publish)"
+              size="mini"
+              :icon="scope.row.enable_publish ? 'el-icon-circle-close' : 'el-icon-circle-check'"
+              circle></el-button>
+          </el-tooltip>
+          <el-tooltip effect="light" content="详情" :enterable="false" placement="top-start">
+            <el-button
+              @click.native.prevent="showPhoto(scope.row)"
+              size="mini"
+              icon="el-icon-picture-outline"
+              circle></el-button>
+          </el-tooltip>
+        </template>
+      </el-table-column>
+      <el-table-column label="封面" align="center">
+        <template slot-scope="scope">
+          <el-tooltip effect="light" content="点击预览相册" :enterable="false" placement="right-start">
+            <el-image
+              style="width: 50px; height: 50px"
+              :src="scope.row.file_path"
+              fit="fill"
+              @click="previewImage(scope.row)"
+              :preview-src-list="srcList"></el-image>
+          </el-tooltip>
+        </template>
+      </el-table-column>
+      <el-table-column align="center" prop="title" label="相册名称"> </el-table-column>
+      <el-table-column align="center" prop="description" label="描述"> </el-table-column>
+      <!-- <el-table-column prop="address" label="创建者"> </el-table-column> -->
+      <el-table-column align="center" prop="create_time" label="创建日期" sortable> </el-table-column>
+      <el-table-column
+        align="center"
+        label="是否发布"
+        :filters="[
+          { text: '是', value: true },
+          { text: '否', value: false }
+        ]"
+        :filter-method="filterTag"
+        prop="enable_publish">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.enable_publish" type="success" effect="dark"> 是 </el-tag>
+          <el-tag v-else type="info" effect="dark"> 否 </el-tag>
+        </template>
+      </el-table-column>
+    </el-table>
+
+    <!-- 修改弹出框 -->
+    <el-dialog title="修改相册" :visible.sync="dialogFormVisible" width="30%">
+      <el-form :model="editForm" :rules="rules" ref="editForm">
+        <el-form-item label="相册名称" label-width="auto" :required="true" prop="title">
+          <el-input v-model="editForm.title" size="medium" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="相册描述" label-width="auto">
+          <el-input v-model="editForm.description" rows="4" size="medium" type="textarea" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="是否发布" label-width="auto" :required="true" prop="enable_publish">
+          <el-select v-model="editForm.enable_publish" placeholder="选择是否发布">
+            <el-option label="是" :value="true"></el-option>
+            <el-option label="否" :value="false"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="submitEdit(editForm)">确 定</el-button>
+      </div>
+    </el-dialog>
+    <!-- 新增相册弹出框  -->
+    <el-dialog title="新增相册" :visible.sync="addAblumDialog" width="30%">
+      <el-form :model="addAblumData" :rules="rules" ref="addAblumData">
+        <el-form-item label="相册名称" label-width="auto" :required="true" prop="title">
+          <el-input v-model="addAblumData.title" size="medium" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="相册描述" label-width="auto">
+          <el-input
+            v-model="addAblumData.description"
+            rows="4"
+            size="medium"
+            type="textarea"
+            autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="是否发布" label-width="auto" :required="true" prop="enable_publish">
+          <el-select v-model="addAblumData.enable_publish" placeholder="选择是否发布">
+            <el-option label="是" :value="true"></el-option>
+            <el-option label="否" :value="false"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="addAblumDialog = false">取 消</el-button>
+        <el-button type="primary" @click="addAblum(addAblumData)">确 定</el-button>
+      </div>
+    </el-dialog>
+    <!-- 相册详情弹出框 -->
+    <el-dialog
+      title="相册详情"
+      @close="closePhotoDialog"
+      destroy-on-close
+      top="4vh"
+      :visible.sync="showPhotoDialog"
+      width="95%">
+      <el-form>
+        <photo-management :ablumData="ablumData"></photo-management>
+      </el-form>
+    </el-dialog>
+
+    <pagination
+      layout="total, prev, pager, next, jumper"
+      :total="total"
+      align="center"
+      :page.sync="tableQuery.pageNum"
+      :limit.sync="tableQuery.pageSize"
+      @pagination="getStorageTableData" />
+  </div>
+</template>
+
+<script>
+import Pagination from '@/components/Pagination'
+import PhotoManagement from './components/PhotoManagement'
+import {
+  getPublishHonorAblumList,
+  addHonorAblum,
+  removeHonorAblum,
+  updateHonorAblum,
+  getHonorImageList,
+  publishHonorAblum
+} from '@/api/honor'
+export default {
+  components: {
+    Pagination,
+    PhotoManagement
+  },
+  //   name: 'honorManagementRouter',
+  data() {
+    return {
+      input: '',
+      url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+      tableData: [],
+      srcList: [],
+      tableQuery: {
+        pageNum: 1,
+        pageSize: 5,
+        title: ''
+      },
+      total: 7,
+      dialogFormVisible: false,
+      editForm: {
+        id: 0,
+        title: '',
+        description: '',
+        enable_publish: false
+      },
+      showPhotoDialog: false,
+      photoDialog: false,
+      addAblumDialog: false,
+      addAblumData: {},
+      selectionList: [],
+      ablumData: {},
+      pageSizes: [],
+      rules: {
+        title: [
+          { required: true, message: '请输入相册名称', trigger: 'blur' },
+          { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
+        ],
+        enable_publish: [{ required: true, message: '请选择是否为封面', trigger: 'blur' }]
+      }
+    }
+  },
+  created() {
+    this.getAblumdata(this.tableQuery)
+  },
+  methods: {
+    // 切换页面获取数据
+    async getStorageTableData() {
+      this.getAblumdata(this.tableQuery).then((res) => {
+        console.log(res.content)
+      })
+    },
+    // 修改相册弹窗
+    editDialog(row) {
+      this.editForm.id = row.id
+      this.editForm.description = row.description
+      this.editForm.title = row.title
+      this.editForm.enable_publish = row.enable_publish
+      console.log(this.editForm)
+      this.dialogFormVisible = true
+    },
+    // 提交修改
+    submitEdit(editFrom) {
+      this.$refs['editForm'].validate((valid) => {
+        if (valid) {
+          updateHonorAblum(editFrom).then((res) => {
+            if (res.status) {
+              this.$message({
+                message: '修改成功',
+                type: 'success'
+              })
+              this.getAblumdata(this.tableQuery)
+            } else {
+              this.$message.error('修改失败')
+            }
+          })
+          console.log(editFrom)
+          this.dialogFormVisible = false
+        }
+      })
+    },
+    // 展示图片遮罩
+    showPhoto(ablumData) {
+      this.showPhotoDialog = true
+      this.ablumData = ablumData
+    },
+    // 新增相册请求方法
+    addAblum(addAblumData) {
+      this.$refs['addAblumData'].validate((valid) => {
+        if (valid) {
+          addHonorAblum(addAblumData).then((res) => {
+            console.log(res)
+            if (res.content) {
+              this.$message({
+                message: '新增成功',
+                type: 'success'
+              })
+              this.getAblumdata(this.tableQuery)
+            } else {
+              this.$message.error('新增失败')
+            }
+          })
+          this.addAblumDialog = false
+        }
+      })
+    },
+
+    // 筛选过滤
+    filterTag(value, row) {
+      return row.enable_publish === value
+    },
+
+    // 请求相册数据
+    getAblumdata(Query) {
+      getPublishHonorAblumList(Query).then((data) => {
+        this.total = data.content.total
+        console.log(data.content)
+        this.tableData = data.content.list
+      })
+    },
+    // 根据title模糊搜索相册内容
+    searchAblum() {
+      console.log(this.input)
+      this.getAblumdata({ title: this.input })
+    },
+    // 操作发布相册
+    publishAblum(ids, enable_publish) {
+      if (ids.length < 1) {
+        this.$message({
+          type: 'warning',
+          message: '请勾选要操作的列'
+        })
+      } else {
+        this.$confirm(enable_publish ? '确认发布?' : '取消发布？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(() => {
+            const data = {
+              ids: ids,
+              enable_publish: enable_publish
+            }
+            publishHonorAblum(data).then((res) => {
+              console.log(res)
+              this.$message({
+                type: 'success',
+                message: enable_publish ? '发布成功!' : '取消发布成功'
+              })
+              this.getAblumdata(this.tableQuery)
+            })
+          })
+          .catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消'
+            })
+          })
+      }
+    },
+    // 删除相册
+    deleteAblum(ids) {
+      console.log(ids)
+      if (ids.length < 1) {
+        this.$message({
+          type: 'warning',
+          message: '请勾选要操作的列'
+        })
+      } else {
+        this.$confirm('请确认是否删除?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(() => {
+            removeHonorAblum(ids).then((res) => {
+              console.log(res)
+              this.$message({
+                type: 'success',
+                message: '删除成功!'
+              })
+              this.getAblumdata(this.tableQuery)
+            })
+          })
+          .catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消删除'
+            })
+          })
+      }
+    },
+    // 用户选择处理
+    selectionChange(val) {
+      // 表格选项发生变化
+      // console.log('触发表格事件')
+      this.selectionList = []
+      val.forEach((element) => {
+        this.selectionList.push(element.id)
+      })
+    },
+    // 查看缩略图
+    async previewImage(row) {
+      this.srcList = []
+      const list = []
+      await getHonorImageList({ honorId: row.id }).then((res) => {
+        console.log(res)
+        if (res.content.length === 0) {
+          this.$message.error('相册为空')
+          return
+        }
+        console.log(res)
+        res.content.forEach((file) => {
+          list.push(file.file_path)
+        })
+      })
+      this.srcList = list
+    },
+    // 关闭相册详情页
+    closePhotoDialog() {
+      console.log('关闭相册详情页')
+      this.getAblumdata(this.tableQuery)
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.el-row {
+  margin: 10px;
+  .el-button {
+    background: #c2ccd0;
+  }
+}
+</style>

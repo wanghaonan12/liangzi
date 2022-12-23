@@ -1,0 +1,99 @@
+package com.pde.pdes.portal.video.service.impl;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.pde.pdes.portal.video.dto.VideoDTO;
+import com.pde.pdes.portal.video.dto.VideoQueryCondition;
+import com.pde.pdes.portal.video.mapper.VideoMapper;
+import com.pde.pdes.portal.video.po.VideoPO;
+import com.pde.pdes.portal.video.service.VideoService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.pde.pdes.portal.video.utils.MyBeanUtilsHelper.getNullPropertyNames;
+
+/**
+ * @author: mth
+ * @date: 2022/11/30
+ * @description: 视频档案 impl实现
+ */
+@Service
+public class VideoServiceImpl implements VideoService {
+    @Autowired
+    private VideoMapper videoMapper;
+
+    @Override
+    public List<VideoPO> findByPage(VideoQueryCondition query) {
+        QueryWrapper<VideoPO> queryWrapper = new QueryWrapper<>();
+        String searchText = query.getSearchText();
+        // 模糊查询条件构造
+        if (StringUtils.isNotEmpty(searchText)) {
+            queryWrapper.like("v.title", searchText)
+                    .or().like("v.description", searchText)
+                    .or().like("f.file_name", searchText);
+        }
+        queryWrapper.orderByDesc("create_time");
+        return videoMapper.selectAll(queryWrapper);
+    }
+
+    @Override
+    public Boolean insert(VideoDTO video) {
+        Assert.notNull(video, "保存对象不能为空.");
+        int insert = videoMapper.insert(VideoPO.builder()
+                .title(video.getTitle())
+                .description(video.getDescription())
+                .front_file_path(video.getFrontFilePath()).build());
+        return insert > 0;
+    }
+
+    @Override
+    public Integer delByIds(List<Integer> ids) {
+        return videoMapper.deleteBatchIds(ids);
+    }
+
+    @Override
+    public VideoPO findById(Integer id) {
+        return videoMapper.selectById(id);
+    }
+
+    @Override
+    public Boolean update(VideoPO po) {
+        VideoPO newPo = videoMapper.selectById(po.getId());
+        Assert.notNull(po, "更新对象不能为空.");
+        Assert.notNull(newPo, "id不存在");
+        BeanUtils.copyProperties(po, newPo, getNullPropertyNames(po));
+        int i = videoMapper.updateById(newPo);
+        return i > 0;
+    }
+
+    @Override
+    public Boolean enableByIds(List<Integer> ids) {
+        ids.forEach(id -> {
+            VideoPO videoPO = videoMapper.selectById(id);
+            Assert.notNull(videoPO, "指定id不存在");
+            //TODO 判断是否是未发布
+            VideoPO video = VideoPO.builder().id(id).enable_publish(1).build();
+            System.out.println(video);
+            int i = videoMapper.updateById(video);
+        });
+        return true;
+    }
+
+    @Override
+    public Boolean disableByIds(List<Integer> ids) {
+        ids.forEach(id -> {
+            VideoPO videoPO = videoMapper.selectById(id);
+            Assert.notNull(videoPO, "指定id不存在");
+            //TODO 判断是否是已发布
+            VideoPO video = VideoPO.builder().id(id).enable_publish(0).build();
+            System.out.println(video);
+            int i = videoMapper.updateById(video);
+        });
+        return true;
+    }
+}

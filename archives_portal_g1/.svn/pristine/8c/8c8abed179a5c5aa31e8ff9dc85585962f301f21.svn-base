@@ -1,0 +1,116 @@
+<template>
+  <div>
+    <el-dialog :title="dialogTitle" :visible.sync="show" width="560px">
+      <el-form ref="ruleForm" :model="ruleForm" label-width="100px" class="demo-ruleForm">
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="标题：" prop="title">
+              <el-input v-model="ruleForm.title" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="摘要：" prop="contentAbstract">
+              <el-input v-model="ruleForm.contentAbstract" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="内容：" prop="content">
+              <el-input v-model="ruleForm.content" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <!-- <el-row>
+          <el-col :span="20">
+            <el-form-item label="账号：" prop="storage_account">
+              <el-input v-model="ruleForm.storage_account" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="路径：" prop="storage_path">
+              <el-input v-model="ruleForm.storage_path" />
+            </el-form-item>
+          </el-col>
+        </el-row> -->
+
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="默认未发布：" prop="enablePublished">
+              <el-checkbox v-model="ruleForm.enablePublished" :true-label="1" :false-label="0" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" size="mini" @click="doSubmit">确定</el-button>
+        <el-button size="mini" @click="onCancel">取消</el-button>
+      </div>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+import { updateStorageInfoApi } from '@/api/storageManagement'
+
+export default {
+  data() {
+    return {
+      dialogTitle: '新增',
+      show: false,
+      modalType: 'add',
+      ruleForm: {
+        title: '',
+        contentAbstract: '',
+        content: '',
+        enablePublished: ''
+      }
+      // rules: {
+      //   name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
+      //   address: [{ required: true, message: '请输入地址', trigger: 'blur' }],
+      //   date: [{ type: 'date', required: true, message: '请选择出生日期', trigger: 'change' }],
+      //   memo: [{ required: true, message: '请填写备注', trigger: 'blur' }]
+      // }
+    }
+  },
+  methods: {
+    showDialog(row, type) {
+      this.dialogTitle = type === 'add' ? '新增' : '编辑'
+      this.modalType = type
+      this.show = true
+      this.ruleForm = { ...row }
+    },
+    doSubmit() {
+      this.$refs['ruleForm'].validate((valid) => {
+        if (valid) {
+          updateStorageInfoApi(this.ruleForm).then((res) => {
+            if (res && res.status) {
+              this.$message('修改成功')
+              this.show = false
+              this.$emit('refreshTableData')
+            } else {
+              this.$message(res.message)
+            }
+          })
+        } else {
+          return false
+        }
+      })
+    },
+    onCancel() {
+      this.show = false
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped></style>

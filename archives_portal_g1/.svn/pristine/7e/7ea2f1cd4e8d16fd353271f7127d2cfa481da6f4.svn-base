@@ -1,0 +1,96 @@
+package com.pde.pdes.portal.honor.service.imp;
+
+import com.pde.p10c.auth.JwtTokenManager;
+import com.pde.pdes.portal.honor.dto.HonorFileDTO;
+import com.pde.pdes.portal.honor.mapper.HonorFileMapper;
+import com.pde.pdes.portal.honor.po.HonorFilePO;
+import com.pde.pdes.portal.honor.service.HonorFileService;
+import lombok.SneakyThrows;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static com.pde.pdes.portal.honor.utils.GetResourceLengthUtils.getResourceLength;
+
+@Service
+public class HonorFileServiceImp implements HonorFileService {
+
+    @Autowired
+    private HonorFileMapper honorFileMapper;
+
+//    @Autowired
+//    private HonorMapper honorMapper;
+
+    @SneakyThrows
+    @Override
+    public boolean add(HonorFileDTO dto) {
+
+        Assert.notNull(dto, "不能为空");
+        // 获取传入图片大小
+        int imageLength = (int) getResourceLength(dto.getFile_path());
+
+        HonorFilePO honorFilePO = new HonorFilePO();
+        BeanUtils.copyProperties(dto, honorFilePO, "id");
+
+        // 设为封面
+        if (honorFilePO.isEnable_front()) {
+            HonorFilePO enableFront = honorFileMapper.selectByHonorIdAndEnableFront(dto.getHonor_id(), dto.isEnable_front());
+            enableFront.setEnable_front(false);
+            honorFileMapper.updateById(enableFront);
+        }
+        honorFilePO.setFile_size(imageLength);
+
+        honorFileMapper.insert(honorFilePO);
+        return true;
+    }
+
+    @Override
+    public List<HonorFilePO> find(Integer honorId) {
+        List<HonorFilePO> honorFilePOS = honorFileMapper.selectAllByHonorId(honorId);
+        return honorFilePOS;
+    }
+
+    @SneakyThrows
+    @Override
+    public boolean update(HonorFileDTO dto) {
+        Assert.notNull(dto, "不能为空");
+
+
+        // 获取传入图片大小
+        int imageLength = (int) getResourceLength(dto.getFile_path());
+
+        HonorFilePO honorFilePO = honorFileMapper.selectById(dto.getId());
+        Assert.notNull(honorFilePO, "没有此相片");
+        BeanUtils.copyProperties(dto, honorFilePO);
+        // 设为封面
+        if (honorFilePO.isEnable_front()) {
+            HonorFilePO enableFront = honorFileMapper.selectByHonorIdAndEnableFront(honorFilePO.getHonor_id(), honorFilePO.isEnable_front());
+            enableFront.setEnable_front(false);
+            honorFileMapper.updateById(enableFront);
+        }
+        honorFilePO.setFile_size(imageLength);
+        honorFileMapper.updateById(honorFilePO);
+
+
+        return true;
+    }
+
+    @Override
+    public boolean removeById(Integer[] ids) {
+        Assert.notNull(ids, "id为空");
+        List<Integer> list = Arrays.asList(ids);
+        honorFileMapper.deleteBatchIds(list);
+        return true;
+    }
+
+    public static void main(String[] args) {
+        JwtTokenManager jtm = new JwtTokenManager();
+        String token = jtm.createToken("chl");
+        System.out.println(token);
+    }
+
+}

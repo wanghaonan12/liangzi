@@ -1,0 +1,378 @@
+<template>
+  <div>
+    <div style="display:flex;margin:10px;padding:2px;">
+      <el-input v-model="keyword" style="width:230px"></el-input>
+      <el-button type="info" plain style="margin-left:1rem" @click="search">搜索</el-button>
+      <el-button type="info" plain style="margin-left:1rem" @click="delList">批量删除</el-button>
+      <el-button type="info" plain style="margin-left:1rem" @click="showadd">新增</el-button>
+    </div>
+    <el-table
+      :data="archiveList"
+      border
+      @selection-change="tableSelected"
+      ref="multipleTable"
+      style="width: 100%">
+      <el-table-column
+        type="selection"
+        min-width="3%">
+      </el-table-column>
+
+      <el-table-column
+        fixed
+        prop="archivalCode"
+        label="档号"
+        min-width="6%">
+      </el-table-column>
+      <el-table-column
+        prop="fonds"
+        label="全宗"
+        min-width="6%">
+      </el-table-column>
+      <el-table-column
+        prop="year"
+        label="年度"
+        min-width="6%">
+      </el-table-column>
+      <el-table-column
+        prop="securityClass"
+        label="密级"
+        min-width="6%">
+      </el-table-column>
+      <el-table-column
+        prop="retentionPeriod"
+        label="保管期限"
+        min-width="8%">
+      </el-table-column>
+      <el-table-column
+        prop="title"
+        label="题名"
+        min-width="12%">
+      </el-table-column>
+      <el-table-column
+        prop="enablePublish"
+        label="启用发布"
+        min-width="4%">
+      </el-table-column>
+      <!-- <el-table-column
+        prop="zip"
+        label="文件名称"
+        min-width="10%">
+      </el-table-column>
+      <el-table-column
+        prop="zip"
+        label="文件大小"
+        min-width="5%">
+      </el-table-column>
+      <el-table-column
+        prop="zip"
+        label="文件地址"
+        min-width="15%">
+      </el-table-column> -->
+
+
+      
+      <el-table-column
+        label="操作"
+        min-width="10%">
+        <template  slot-scope="scope">
+          <el-button type="text" size="small" @click="check(scope.row.id)">查看</el-button>
+          <el-button type="text" size="small" @click="showedit(scope.row.id)">编辑</el-button>
+          <el-button type="text" size="small" @click="del(scope.row.id)">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <div class="block m">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-sizes="[2, 4, 6, 8]"
+        :page-size="nowSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="count">
+      </el-pagination>
+    </div>
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogVisible"
+      width="60%"
+      :before-close="handleClose">
+      <detail :Did="detailId"></detail>
+    </el-dialog>
+
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogVisibleadd"
+      width="40%"
+      :before-close="handleClose">
+      <add @msg="mydata"></add>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisibleadd = false">取 消</el-button>
+        <el-button type="primary" @click="add">确 定</el-button>
+      </span>
+    </el-dialog>
+
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogVisibleedit"
+      width="40%"
+      :before-close="handleClose">
+      <edit @msg1="mydata1"></edit>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisibleedit = false">取 消</el-button>
+        <el-button type="primary" @click="edit">确 定</el-button>
+      </span>
+    </el-dialog>
+
+  </div>
+</template>
+
+<script>
+  import { findList2,addArchive,addFileArchive,updateArchive,del,deleteList,delFile,deleteFileList } from '@/api/archive';
+  import Add from '@/views/archiveManagement/add';
+  import Edit from '@/views/archiveManagement/edit';
+  import Detail from '@/views/archiveManagement/detail';
+  export default {
+  components: {
+    Add,
+    Detail,
+    Edit
+  },
+    data() {
+      return {
+        archiveList: [],
+        archiveListId: [],
+        currentPage: 1,
+        nowSize:4,
+        keyword:"",
+        count:0,
+        dialogVisible: false,
+        dialogVisibleadd: false,
+        dialogVisibleedit: false,
+        addData:{},
+        updatedData:{},
+        addArchiveId:0,
+        detailId:0,
+      }
+    },
+
+    methods: {
+
+      tableSelected(val){
+        let list = []
+        val.forEach(element => {
+          list.push(element.id)
+        });
+        this.archiveListId =list
+        console.log(this.archiveListId);
+      },
+      handleSizeChange(val) {
+        this.nowSize=val;
+        findList2(
+          {
+            pageNum: this.currentPage,
+            pageSize: this.nowSize,
+            searchText: this.keyword,
+          }
+        ).then((data) => {
+          this.archiveList = data.content.rows
+          this.count = data.content.total
+        })
+        console.log(`每页 ${val} 条`);
+      },
+      handleCurrentChange(val) {
+        this.currentPage=val;
+        findList2(
+          {
+            pageNum: this.currentPage,
+            pageSize: this.nowSize,
+            searchText: this.keyword,
+          }
+        ).then((data) => {
+          this.archiveList = data.content.rows
+          this.count = data.content.total
+        })
+        console.log(`当前页: ${val}`);
+      },
+      search(){
+        console.log("----------------------------------"+this.keyword);
+
+        findList2(
+          {
+            pageNum: this.currentPage,
+            pageSize: this.nowSize,
+            searchText: this.keyword,
+          }
+        ).then((data) => {
+          this.archiveList = data.content.rows
+          this.count = data.content.total
+        })
+      },
+
+      handleClose(done) {
+        // this.$confirm('确认关闭？')
+        //   .then(_ => {
+        //     done();
+        //   })
+        //   .catch(_ => {});
+      },
+      showadd(){
+        this.dialogVisibleadd=true
+      },
+
+      mydata(val){
+        this.addData = val
+        console.log(this.addData);
+      },
+      add(){
+        this.dialogVisibleadd=false;
+        // console.log(this.addData.fileSize);
+        // console.log(this.addData.fileName);
+        // console.log(this.addData.filePath);
+        // console.log(this.addData.form.archivalCode);
+        // console.log(this.addData.form.founs);
+        // console.log(this.addData.form.mj);
+        // console.log(this.addData.form.qx);
+        // console.log(this.addData.form.resource);
+        // console.log(this.addData.form.title);
+        // console.log(this.addData.form.year);
+        addArchive(
+          {
+            archivalCode: this.addData.form.archivalCode,
+            fonds: this.addData.form.founs,
+            year: this.addData.form.year,
+            securityClass: this.addData.form.mj,
+            retentionPeriod: this.addData.form.qx,
+            title: this.addData.form.title,
+            enablePublish: this.addData.form.resource,
+          }
+        ).then((data) => {
+          console.log(data.content)
+          this.addArchiveId = data.content
+          addFileArchive(
+            {
+              archiveId: this.addArchiveId,
+              fileName: this.addData.fileName,
+              filePath: this.addData.filePath,
+              fileSize: Math.ceil(this.addData.fileSize)
+            }
+          ).then((data) => {
+            findList2(
+              {
+                pageNum: this.currentPage,
+                pageSize: this.nowSize,
+                searchText: this.keyword,
+              }
+            ).then((data) => {
+              this.archiveList = data.content.rows
+              this.count = data.content.total
+            })
+          })
+        })
+
+        
+
+      },
+
+      delList(){
+        deleteList(this.archiveListId).then((data)=>{
+          deleteFileList(this.archiveListId).then((data)=>{
+            findList2(
+                {
+                  pageNum: this.currentPage,
+                  pageSize: this.nowSize,
+                  searchText: this.keyword,
+                }
+              ).then((data) => {
+                this.archiveList = data.content.rows
+                this.count = data.content.total
+                this.currentPage=1
+              })
+          })
+        })
+        
+        alert("删除成功")
+      },
+      check(id){
+        this.dialogVisible=true
+        this.detailId=id
+      },
+
+      mydata1(val){
+        this.updatedData = val
+        console.log(this.updatedData);
+      },
+
+      showedit(id){
+        this.dialogVisibleedit=true;
+        this.detailId=id
+      },
+      edit(){
+        console.log(this.updatedData);
+        updateArchive(
+          {
+            id: this.detailId,
+            securityClass: this.updatedData.mj,
+            enablePublish: this.updatedData.resource==="是"?1:0
+          }
+        ).then((data)=>{
+          if(data.content==1) {
+            this.dialogVisibleedit=false;
+            alert("修改成功")
+            findList2(
+              {
+                pageNum: this.currentPage,
+                pageSize: this.nowSize,
+                searchText: this.keyword,
+              }
+            ).then((data) => {
+              this.archiveList = data.content.rows
+              this.count = data.content.total
+            })
+          }
+        })
+      },
+      del(id){
+        del(id).then((data)=>{
+          delFile(id).then((data)=>{
+            findList2(
+              {
+                pageNum: this.currentPage,
+                pageSize: this.nowSize,
+                searchText: this.keyword,
+              }
+            ).then((data) => {
+              this.archiveList = data.content.rows
+              this.count = data.content.total
+              this.currentPage=1
+            })
+          })
+        })
+        
+        alert("删除成功")
+      }
+    },
+
+    created() {
+      findList2(
+        {
+          pageNum: this.currentPage,
+          pageSize: this.nowSize,
+          searchText: this.keyword,
+        }
+      ).then((data) => {
+        this.archiveList = data.content.rows
+        this.count = data.content.total
+        console.log(this.archiveList);
+        console.log(this.count);
+      });
+    }
+  }
+</script>
+  
+<style lang="scss" scoped>
+.m{
+  margin: 30px 0 0 50px;
+}
+</style>
+  

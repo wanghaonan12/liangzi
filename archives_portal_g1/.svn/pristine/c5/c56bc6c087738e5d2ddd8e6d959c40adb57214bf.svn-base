@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pde.pdes.portal.chronicle.mapper.PdesPortalChronicleEventsFileMapper">
+    <!-- 批量发布 -->
+<!--    <select id="getChronicleFileById" parameterType="com.pde.pdes.portal.chronicle.dto.PdesPortalChronicleEventsFileDto" resultType="com.pde.pdes.portal.chronicle.po.PdesPortalChronicleEventsFile">-->
+<!--        select * FROM pdes_portal_chronicle_events_file WHERE pdes_portal_chronicle_events_file.chronicle_events_id = #{chronicleEventsId}-->
+<!--    </select>-->
+
+<!--    <delete id="deleteChronicleByIds" parameterType="com.pde.pdes.portal.chronicle.dto.PublishDto">-->
+<!--        DELETE pdes_portal_chronicle_events,pdes_portal_chronicle_events_file from pdes_portal_chronicle_events LEFT JOIN pdes_portal_chronicle_events_file ON pdes_portal_chronicle_events.id=pdes_portal_chronicle_events_file.chronicle_events_id  WHERE pdes_portal_chronicle_events.id IN-->
+<!--        <foreach collection="ids" item="item" separator="," open="(" close=")">-->
+<!--            #{item}-->
+<!--        </foreach>-->
+<!--    </delete>-->
+
+</mapper>

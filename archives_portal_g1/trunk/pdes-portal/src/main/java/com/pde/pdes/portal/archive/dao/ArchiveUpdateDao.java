@@ -1,0 +1,48 @@
+package com.pde.pdes.portal.archive.dao;
+
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * 开放档案更新的实体类
+ * @author xiaozp
+ * @date 2022-12-21 19：00
+ */
+@Data
+@Builder
+public class ArchiveUpdateDao {
+    /**
+     * 主键
+     */
+    @NotEmpty(message = "id不能为空")
+    @ApiModelProperty("id")
+    private Integer id;
+
+    /**
+     * 密级
+     */
+    @TableField(value="security_class")
+    @ApiModelProperty("密级")
+    private String securityClass;
+
+
+    /**
+     * 启用发布;0未发布；1已发布
+     */
+    @TableField(value="enable_publish")
+    @ApiModelProperty("启用发布;0未发布；1已发布")
+    private Short enablePublish;
+
+
+
+}

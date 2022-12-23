@@ -1,0 +1,24 @@
+/** When your routing table is too long, you can split it into small modules **/
+
+import Layout from '@/layout'
+
+const homeManagementRouter = {
+  path: '/home-management',
+  component: Layout,
+  redirect: '/home-management/index',
+  name: 'HomeManagement',
+  meta: {
+    title: '首页维护',
+    icon: 'form'
+  },
+  children: [
+    {
+      path: 'index',
+      component: () => import('@/views/homeManagement'),
+      name: 'HomeManagementIndex',
+      meta: { title: '首页维护' }
+    }
+  ]
+}
+
+export default homeManagementRouter

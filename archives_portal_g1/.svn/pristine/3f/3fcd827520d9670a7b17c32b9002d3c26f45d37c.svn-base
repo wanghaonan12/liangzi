@@ -1,0 +1,87 @@
+<template>
+  <div>
+    <div class="right float-right">
+      <p class="block-title">
+        视频档案 <span class="view-more"><router-link to="/portal/video">更多 ></router-link></span>
+      </p>
+      <el-carousel height="150px" :interval="4000" type="card">
+        <el-carousel-item v-for="item in videoList" :key="item">
+          <router-link :to="'/portal/video/file/' + item.id">
+            <el-image :src="item.frontPath" style="width: 100%" fit="fill"> </el-image
+          ></router-link>
+        </el-carousel-item>
+      </el-carousel>
+    </div>
+  </div>
+</template>
+
+<script>
+import { getPortalVideoListApi } from '@/api/videoManagement'
+export default {
+  name: 'PortalVideoList',
+
+  data() {
+    return {
+      videoList: [],
+      queryParam: {
+        pageNum: 1,
+        pageSize: 6
+      }
+    }
+  },
+  mounted() {
+    this.getVideoTableData()
+  },
+  methods: {
+    async getVideoTableData() {
+      const res = await getPortalVideoListApi(this.queryParam)
+      console.log(res)
+      if (res && res.status) {
+        this.videoList = res.content.data
+      } else {
+        this.$message(res.message)
+      }
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.honour-file {
+  overflow: hidden;
+  margin-top: 12px;
+  padding: 16px 8px;
+  border: 1px solid #dfdfdf;
+
+  .left {
+    width: 48%;
+  }
+
+  .right {
+    width: 50%;
+  }
+}
+.float-left {
+  float: left;
+}
+.float-right {
+  float: right;
+}
+.block-title {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  // color: #0085d0;
+
+  h4,
+  h3,
+  p {
+    padding: 0;
+    margin: 0;
+  }
+}
+.view-more {
+  font-size: 13px;
+  color: #666;
+}
+</style>

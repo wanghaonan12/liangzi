@@ -1,0 +1,152 @@
+package com.pde.pdes.portal.notify.po;
+
+import com.baomidou.mybatisplus.annotation.*;
+import java.io.Serializable;
+import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+
+import javax.validation.constraints.NotNull;
+
+/**
+ * 通知公告附件
+ * @author jiangyiheng
+ * @TableName pdes_portal_notify_file
+ */
+@TableName(value ="pdes_portal_notify_file")
+@Data
+@AllArgsConstructor
+@Builder
+public class PortalNotifyFile implements Serializable {
+
+
+    /**
+     * 主键;附件ID
+     */
+    @TableId(type = IdType.AUTO)
+    @NotNull(message = "不可为空")
+    private Integer id;
+
+    /**
+     * 通知公告ID
+     */
+    @TableField("notify_id")
+    private Integer notifyId;
+
+    /**
+     * 附件标题
+     */
+    @TableField("file_name")
+    private String fileName;
+
+    /**
+     * 附件大小
+     * 二进制位数 单位Byte
+     */
+    @TableField("file_size")
+    private Integer fileSize;
+
+    /**
+     * 后缀
+     */
+    @TableField("file_suffix")
+    private String fileSuffix;
+
+    /**
+     * 存储路径
+     */
+    @TableField("file_path")
+    private String filePath;
+
+    /**
+     * 备注
+     */
+    private String memo;
+
+    /**
+     * 排序号
+     */
+    @TableField("order_seq")
+    private Integer orderSeq;
+
+    /**
+     * 创建时间
+     */
+    @TableField(value = "create_time",fill = FieldFill.INSERT)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    @TableField(value = "modified_time",fill = FieldFill.INSERT_UPDATE)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date modifiedTime;
+
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
+
+    @Override
+    public boolean equals(Object that) {
+        if (this == that) {
+            return true;
+        }
+        if (that == null) {
+            return false;
+        }
+        if (getClass() != that.getClass()) {
+            return false;
+        }
+        PortalNotifyFile other = (PortalNotifyFile) that;
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getNotifyId() == null ? other.getNotifyId() == null : this.getNotifyId().equals(other.getNotifyId()))
+            && (this.getFileName() == null ? other.getFileName() == null : this.getFileName().equals(other.getFileName()))
+            && (this.getFileSize() == null ? other.getFileSize() == null : this.getFileSize().equals(other.getFileSize()))
+            && (this.getFileSuffix() == null ? other.getFileSuffix() == null : this.getFileSuffix().equals(other.getFileSuffix()))
+            && (this.getFilePath() == null ? other.getFilePath() == null : this.getFilePath().equals(other.getFilePath()))
+            && (this.getMemo() == null ? other.getMemo() == null : this.getMemo().equals(other.getMemo()))
+            && (this.getOrderSeq() == null ? other.getOrderSeq() == null : this.getOrderSeq().equals(other.getOrderSeq()))
+            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+            && (this.getModifiedTime() == null ? other.getModifiedTime() == null : this.getModifiedTime().equals(other.getModifiedTime()));
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        result = prime * result + ((getNotifyId() == null) ? 0 : getNotifyId().hashCode());
+        result = prime * result + ((getFileName() == null) ? 0 : getFileName().hashCode());
+        result = prime * result + ((getFileSize() == null) ? 0 : getFileSize().hashCode());
+        result = prime * result + ((getFileSuffix() == null) ? 0 : getFileSuffix().hashCode());
+        result = prime * result + ((getFilePath() == null) ? 0 : getFilePath().hashCode());
+        result = prime * result + ((getMemo() == null) ? 0 : getMemo().hashCode());
+        result = prime * result + ((getOrderSeq() == null) ? 0 : getOrderSeq().hashCode());
+        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
+        result = prime * result + ((getModifiedTime() == null) ? 0 : getModifiedTime().hashCode());
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", notifyId=").append(notifyId);
+        sb.append(", fileName=").append(fileName);
+        sb.append(", fileSize=").append(fileSize);
+        sb.append(", fileSuffix=").append(fileSuffix);
+        sb.append(", filePath=").append(filePath);
+        sb.append(", memo=").append(memo);
+        sb.append(", orderSeq=").append(orderSeq);
+        sb.append(", createTime=").append(createTime);
+        sb.append(", modifiedTime=").append(modifiedTime);
+        sb.append(", serialVersionUID=").append(serialVersionUID);
+        sb.append("]");
+        return sb.toString();
+    }
+}

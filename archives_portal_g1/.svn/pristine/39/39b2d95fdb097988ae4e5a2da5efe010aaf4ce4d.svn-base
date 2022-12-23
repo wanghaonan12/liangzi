@@ -1,0 +1,81 @@
+package com.pde.pdes.portal.chronicle.service.impl;
+
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pde.pdes.portal.chronicle.dto.PdesPortalChronicleEventsFileDto;
+import com.pde.pdes.portal.chronicle.po.PdesPortalChronicleEventsFile;
+import com.pde.pdes.portal.chronicle.mapper.PdesPortalChronicleEventsFileMapper;
+import com.pde.pdes.portal.chronicle.service.PdesPortalChronicleEventsFileService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
+import java.util.Date;
+import java.util.List;
+
+/**
+ * @author SYKCOMPUTER
+ */
+@Service
+public class PdesPortalChronicleEventsFileServiceImpl extends ServiceImpl<PdesPortalChronicleEventsFileMapper, PdesPortalChronicleEventsFile> implements PdesPortalChronicleEventsFileService {
+    @Override
+    public boolean add(PdesPortalChronicleEventsFileDto entity) {
+        Assert.notNull(entity, "保存对象不能为空.");
+        return save(PdesPortalChronicleEventsFile
+                .builder()
+                .chronicleEventsId(entity.getChronicleEventsId())
+                .filePath(entity.getFilePath())
+                .fileName(entity.getFileName())
+                .fileSuffix(entity.getFileSuffix())
+                .modifiedTime(new Date())
+                .fileSize(entity.getFileSize())
+                .memo(entity.getMemo())
+                .orderSeq(entity.getOrderSeq())
+                .createTime(new Date())
+                .build());
+    }
+
+    @Override
+    public boolean deleteById(String id) {
+        Assert.hasText(id, "删除主键不能为空.");
+        return removeById(id);
+    }
+
+    @Override
+    public boolean deleteByIds(List<Integer> ids) {
+        Assert.hasText(ids.toString(), "删除主键不能为空.");
+        return removeByIds(ids);
+    }
+
+    @Override
+    public PdesPortalChronicleEventsFile findById(String id) {
+        Assert.hasText(id, "查询条件不能为空.");
+        return getById(id);
+    }
+
+    @Override
+    public List<PdesPortalChronicleEventsFile> find(String searchText) {
+        if (StringUtils.isEmpty(searchText)) {
+            return list();
+        } else {
+            return list(Wrappers.lambdaQuery(PdesPortalChronicleEventsFile.class).like(PdesPortalChronicleEventsFile::getFileName, searchText).or()
+                    .like(PdesPortalChronicleEventsFile::getChronicleEventsId, searchText).or().like(PdesPortalChronicleEventsFile::getFileSuffix, searchText).or().like(PdesPortalChronicleEventsFile::getMemo,searchText));
+        }
+    }
+
+    @Override
+    public boolean updateEvent(PdesPortalChronicleEventsFile events) {
+        PdesPortalChronicleEventsFile pde = PdesPortalChronicleEventsFile.builder()
+                .id(events.getId())
+                .chronicleEventsId(events.getChronicleEventsId())
+                .filePath(events.getFilePath())
+                .fileName(events.getFileName())
+                .fileSuffix(events.getFileSuffix())
+                .modifiedTime(new Date())
+                .fileSize(events.getFileSize())
+                .memo(events.getMemo())
+                .orderSeq(events.getOrderSeq())
+                .build();
+        return updateById(pde);
+    }
+}

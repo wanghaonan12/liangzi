@@ -1,0 +1,23 @@
+/** When your routing table is too long, you can split it into small modules **/
+
+import Layout from '@/layout'
+
+const honorManagementIndex = {
+  path: '/honor',
+  component: Layout,
+  redirect: '/honor/list',
+  name: 'Honor',
+  meta: {
+    title: '荣誉档案',
+    icon: 'el-icon-picture'
+  },
+  children: [
+    {
+      path: 'list',
+      component: () => import('@/views/honorManagement/index'),
+      name: 'HonorManagementIndex',
+      meta: { title: '荣誉档案理' }
+    }
+  ]
+}
+export default honorManagementIndex

@@ -1,0 +1,109 @@
+<template>
+  <div>
+    <el-dialog :title="dialogTitle" :visible.sync="show" width="560px" :destroy-on-close="true">
+      <el-form
+        ref="ruleForm"
+        :rules="rules"
+        :model="ruleForm"
+        label-width="100px"
+        class="demo-ruleForm"
+        v-loading="loading">
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="标题：" prop="title">
+              <el-input v-model="ruleForm.title" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="描述：" prop="description">
+              <el-input v-model="ruleForm.description" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" size="mini" @click="doSubmit">确定</el-button>
+        <el-button size="mini" @click="onCancel">取消</el-button>
+      </div>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+import { insertVideoInfoApi, updateVideoInfoApi } from '@/api/videoManagement'
+
+export default {
+  name: 'ModifyDialog',
+  data() {
+    return {
+      dialogTitle: '新增',
+      show: false,
+      modalType: 'add',
+      ruleForm: {
+        title: '',
+        description: ''
+      },
+      loading: false,
+      rules: {
+        title: [{ required: true, message: '请输入标题', trigger: 'blur' }],
+        description: [{ required: true, message: '请输入描述', trigger: 'blur' }]
+      }
+    }
+  },
+  methods: {
+    showDialog(row, type) {
+      this.dialogTitle = type === 'add' ? '新增' : '编辑'
+      this.modalType = type
+      this.show = true
+      this.ruleForm.title = row.title
+      this.ruleForm.description = row.description
+      if (type == 'edit') {
+        this.ruleForm.id = row.id
+      }
+      console.log(this.ruleForm)
+    },
+    doSubmit() {
+      this.$refs['ruleForm'].validate((valid) => {
+        if (valid) {
+          if (this.modalType == 'add') {
+            this.loading = true
+            insertVideoInfoApi(this.ruleForm).then((res) => {
+              if (res && res.status) {
+                this.$message('新增成功')
+                this.show = false
+                this.$emit('refreshTableData')
+              } else {
+                this.$message(res.message)
+              }
+            })
+            this.loading = false
+          } else {
+            this.loading = true
+            updateVideoInfoApi(this.ruleForm).then((res) => {
+              if (res && res.status) {
+                this.$message('修改成功')
+                this.show = false
+                this.$emit('refreshTableData')
+              } else {
+                this.$message(res.message)
+              }
+            })
+            this.loading = false
+          }
+        } else {
+          return false
+        }
+      })
+    },
+    onCancel() {
+      this.show = false
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped></style>

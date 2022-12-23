@@ -1,0 +1,138 @@
+<template>
+  <div class="namebox">
+    <div>
+      <div class="title">开放档案</div>
+      <div style="display:flex;margin:10px;padding:2px;">
+        <el-input v-model="keyword" style="width:230px"></el-input>
+        <el-button type="info" plain style="margin-left:1rem" @click="search">搜索</el-button>
+      </div>
+      <hr style="font-size:2px;color:black" />
+    </div>
+    <el-table
+    :data="archiveList" 
+    >
+      <el-table-column prop="title" label="标题" min-width="80%">
+          <template slot-scope="scope">
+            <router-link :to="'detail/'+scope.row.id">{{scope.row.title}}</router-link>
+          </template>
+      </el-table-column>
+    
+      <el-table-column
+        prop="createTime"
+        label="日期"
+        min-width="20%">
+      </el-table-column>
+    </el-table>
+
+    <div class="block">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-sizes="[2, 4, 6, 8]"
+        :page-size="nowSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="count">
+      </el-pagination>
+    </div>
+  </div>
+</template>
+
+<script>
+  import {findList} from '@/api/archive'
+  export default {
+    data() {
+      return{
+        archiveList: [],
+        currentPage: 1,
+        nowSize:4,
+        keyword:"",
+        count:0
+
+      }
+    },
+    created() {
+      findList(
+        {
+          pageNum: this.currentPage,
+          pageSize: this.nowSize,
+          searchText: this.keyword,
+        }
+      ).then((data) => {
+        this.archiveList = data.content.rows
+        this.count = data.content.total
+        console.log(this.count);
+      });
+
+
+    },
+    methods: {
+      handleSizeChange(val) {
+        this.nowSize=val;
+        findList(
+        {
+          pageNum: this.currentPage,
+          pageSize: this.nowSize,
+          searchText: this.keyword,
+        }
+      ).then((data) => {
+        this.archiveList = data.content.rows
+      })
+        console.log(`每页 ${val} 条`);
+      },
+      handleCurrentChange(val) {
+        this.currentPage=val;
+        findList(
+        {
+          pageNum: this.currentPage,
+          pageSize: this.nowSize,
+          searchText: this.keyword,
+        }
+      ).then((data) => {
+        this.archiveList = data.content.rows
+      })
+        console.log(`当前页: ${val}`);
+      },
+      search(){
+        console.log("----------------------------------"+this.keyword);
+        // findList(
+        //   {
+        //     pageNum: this.currentPage,
+        //     searchText: this.keyword,
+        //   }
+        // ).then((data) => {
+          
+        // });
+
+        findList(
+        {
+          pageNum: this.currentPage,
+          pageSize: this.nowSize,
+          searchText: this.keyword,
+        }
+        ).then((data) => {
+          this.archiveList = data.content.rows
+          this.count = data.content.total
+        })
+      }
+    },
+  }
+</script>
+<style lang="scss" scoped>
+  .namebox {
+    width: 65%;
+    margin: 0 auto;
+    margin-top:20px;
+    // background-color:gainsboro;
+    text-align: center;
+  }
+  .title {
+    font-size:25px;
+    color:#312799;
+    font-weight:550;
+    margin: 20px;
+  }
+  .block {
+    margin: 40px;
+  }
+</style>

@@ -1,0 +1,45 @@
+package com.pde.pdes.portal.standard.service.impl;
+
+import com.pde.pdes.portal.standard.Utils.AliYunOssClientUtils;
+import com.pde.pdes.portal.standard.dto.StandardFileDto;
+import com.pde.pdes.portal.standard.service.StandardFileService;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.io.File;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * @author : WangRich
+ * @Description : description
+ * @date : 2022/12/1 10:35
+ */
+class StandardFileServiceImplTest {
+
+    @Autowired
+    StandardFileService standardFileService;
+    @Test
+    void add() {
+
+    }
+
+    @Test
+    void update() {
+    }
+
+    @Test
+    void deleteByIds() {
+        String fileName="2.jpg";
+        String firstName = fileName.substring(0, fileName.indexOf(".")) ;
+        System.out.println(firstName);
+    }
+
+    @Test
+    void getStandardFileById() {
+    }
+
+    @Test
+    void findAll() {
+    }
+}

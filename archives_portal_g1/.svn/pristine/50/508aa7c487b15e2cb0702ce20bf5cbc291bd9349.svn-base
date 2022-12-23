@@ -1,0 +1,28 @@
+import request from '@/utils/request'
+
+// 查询列表
+export function getStorageListApi(data) {
+  return request({
+    url: '/storageManagement/list',
+    method: 'post',
+    data
+  })
+}
+
+// 编辑列表
+export function updateStorageInfoApi(data) {
+  return request({
+    url: `/storageManagement/updateList`,
+    method: 'post',
+    data
+  })
+}
+
+// 删除条目
+export function delStorageListApi(data) {
+  return request({
+    url: `/storageManagement/deleteList`,
+    method: 'post',
+    data
+  })
+}

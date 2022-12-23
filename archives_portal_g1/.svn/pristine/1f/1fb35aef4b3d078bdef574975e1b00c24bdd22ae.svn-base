@@ -1,0 +1,61 @@
+package com.pde.pdes.portal.standard.service;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.pde.pdes.portal.standard.dto.StandardDto;
+import com.pde.pdes.portal.standard.dto.StandardFileDto;
+import com.pde.pdes.portal.standard.po.Standard;
+import com.pde.pdes.portal.standard.po.StandardFile;
+import org.springframework.stereotype.Component;
+
+import java.io.Serializable;
+import java.util.List;
+
+/**
+ * @author wangRich
+ * @description 针对表【pdes_portal_standard_file(标准文件表;)】的数据库操作Service
+ * @createDate 2022-11-30 10:56:45
+ */
+@Component
+public interface StandardFileService {
+
+    /**
+     * 添加standardFile
+     *
+     * @param standardFileDto standardFileDto
+     * @return 添加状态
+     */
+    boolean add(StandardFileDto standardFileDto);
+
+
+    /**
+     * 更新StandardFile
+     *
+     * @param standardFile standardFile
+     * @return 更新状态
+     */
+    boolean update(StandardFile standardFile);
+
+//    /**
+//     *  删除
+//     * @param id id
+//     * @return 移除状态
+//     */
+//    boolean deleteById(Integer id);
+
+    /**
+     *  批量删除
+     * @param ids id列表
+     * @return 删除状态
+     */
+    boolean deleteByIds(List<Integer> ids);
+
+    /**
+     * 获取StandardFile
+     * @param id id
+     * @return StandardFile列表
+     */
+    List<StandardFile> getFileStandardById(Integer id);
+
+
+
+}

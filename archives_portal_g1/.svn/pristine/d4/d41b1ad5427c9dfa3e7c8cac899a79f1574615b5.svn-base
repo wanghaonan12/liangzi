@@ -1,0 +1,11 @@
+package com.pde.pdes.portal.Constants;
+
+public class Constants {
+
+    public static final String EXECUTOR_NAME = "PdeDefaultThreadPool";
+
+    public static final String MINIO_URL_PREFIX = "http://www.patrickstarm.top:9090/pde-file";
+
+    public static final String DEFAULT_FRONT_PATH = "http://www.patrickstarm.top:9090/pde-file";
+
+}

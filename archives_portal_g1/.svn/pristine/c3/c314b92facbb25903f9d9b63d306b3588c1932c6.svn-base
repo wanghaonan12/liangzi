@@ -1,0 +1,202 @@
+<template>
+  <div>
+    <div class="top-line"></div>
+    <h1 style="text-align: center">{{ currentVideo.title }}</h1>
+    <el-row type="flex" justify="center">
+      <el-col :span="16" v-loading="loading">
+        <center>
+          <video-play
+            :videoUrl="currentVideo.filePath"
+            :videoCover="currentVideo.frontPath"
+            :width="800"
+            :height="450"
+            :autoplay="true"
+            :controls="true"
+            :loop="false"
+            :muted="false"
+            preload="auto"
+            :playWidth="96"
+            zoom="none">
+          </video-play>
+        </center>
+      </el-col>
+    </el-row>
+    <el-row class="thumbnail-box" type="flex" justify="space-around" align="middle" style="padding-top: 10px">
+      <el-col :span="1" align="middle">
+        <el-tooltip effect="light" content="上一页" placement="top-start">
+          <button @click="prevPage" type="button" class="el-carousel__arrow">
+            <i class="el-icon-arrow-left"></i>
+          </button>
+        </el-tooltip>
+      </el-col>
+      <el-col align="middle">
+        <el-row style="height: 12vh" type="flex" justify="left" align="middle">
+          <el-col :span="2" :offset="1" v-for="(item, index) in videoFileList" :key="index">
+            <div
+              @click="pickVideo(item, index)"
+              class="check-box"
+              :style="{
+                borderColor: index == isCheck ? '#e2534d' : '#9aba60',
+                borderWidth: index == isCheck ? '5px' : '1px'
+              }">
+              <el-image fit="fill" :src="item.frontPath"></el-image>
+            </div>
+          </el-col>
+        </el-row>
+      </el-col>
+      <el-col :span="2" align="middle">
+        <el-tooltip effect="light" content="下一页" placement="top-start">
+          <button @click="nextPage" type="button" class="el-carousel__arrow">
+            <i class="el-icon-arrow-right"></i>
+          </button>
+        </el-tooltip>
+      </el-col>
+    </el-row>
+  </div>
+</template>
+
+<script>
+import { getPortalVideoFileListApi } from '@/api/videoManagement'
+import VideoPlay from '@/views/video/components/VideoPlay'
+export default {
+  name: 'VideoFileList',
+  components: {
+    VideoPlay
+  },
+  props: ['id'],
+  data() {
+    return {
+      photoUrl: '',
+      urlList: [],
+      isCheck: 0,
+      pageIndex: 1,
+      pageSize: 8,
+      loading: false,
+      queryParam: {
+        pageIndex: 1,
+        pageSize: 8,
+        id: this.$route.params.id
+      },
+      videoFileList: [],
+      currentVideo: {
+        filePath: '',
+        frontPath: '',
+        title: ''
+      },
+      total: 0,
+      pages: 0
+    }
+  },
+  beforeMount() {},
+  created() {
+    this.getVideoListData()
+  },
+  mounted() {},
+  methods: {
+    // 获取视频专辑文件列表
+    async getVideoListData() {
+      const res = await getPortalVideoFileListApi(this.queryParam)
+      console.log(res)
+      if (res && res.status) {
+        this.videoFileList = res.content.data
+        this.total = res.content.total
+        this.currentVideo.title = this.videoFileList[0].title
+        this.currentVideo.filePath = this.videoFileList[0].filePath
+        this.currentVideo.frontPath = this.videoFileList[0].frontPath
+      } else {
+        this.$message(res.message)
+      }
+    },
+
+    pickVideo(item, index) {
+      console.log(item)
+      this.loading = true
+      this.currentVideo.filePath = item.filePath
+      this.currentVideo.frontPath = item.frontPath
+      this.currentVideo.title = item.title
+      this.isCheck = index
+      this.loading = false
+    },
+    prevPage() {
+      if (this.pageIndex > 1) {
+        this.data.pageIndex = this.data.pageIndex - 1
+        this.getData(this.data)
+      } else {
+        this.$message({
+          message: '已经是第一页了'
+        })
+      }
+    },
+    nextPage() {
+      if (this.pageIndex < this.pages) {
+        this.data.pageIndex = this.data.pageIndex + 1
+        console.log(this.data)
+        this.getData(this.data)
+      } else {
+        this.$message({
+          message: '已经是最后一页了'
+        })
+      }
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.top-line {
+  background-color: grey;
+  height: 1vh;
+  width: 100vw;
+  margin-bottom: 20px;
+}
+
+.el-carousel__arrow {
+  width: 60px;
+  height: 60px;
+  .el-icon-arrow-left {
+    content: attr('上一页');
+    font-size: 22px;
+  }
+  .el-icon-arrow-right {
+    font-size: 22px;
+  }
+}
+
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
+}
+
+.photo {
+  display: flex;
+  justify-content: center;
+}
+.thumbnail-box {
+  margin: 5px;
+  border: 1px solid;
+  border-image: linear-gradient(45deg, #90cf5b, #00afee) 1;
+  clip-path: inset(0 round 10px);
+  .check-box {
+    overflow: hidden;
+    border: 1px solid;
+    width: 11vh;
+    height: 11vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .el-carousel__arrow {
+    width: 40px;
+    height: 40px;
+    .el-icon-arrow-left {
+      font-size: 12px;
+    }
+    .el-icon-arrow-right {
+      font-size: 12px;
+    }
+  }
+}
+</style>

@@ -1,0 +1,82 @@
+package com.pde.pdes.portal.archive.po;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.models.auth.In;
+import lombok.*;
+
+/**
+ * pdes_portal_public_archive
+ * @author xiaozp
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ApiModel(value = "DEMO开放档案", description = "DEMO开放档案")
+@TableName("pdes_portal_public_archive")
+@Builder
+public class ArchivePo implements Serializable {
+    /**
+     * 主键
+     */
+    @TableId(value = "id",type = IdType.AUTO)
+    private Integer id;
+
+    /**
+     * 档号
+     */
+    @TableField(value="archival_code")
+    private String archivalCode;
+
+    /**
+     * 全宗
+     */
+    private String fonds;
+
+    /**
+     * 年度
+     */
+    private String year;
+
+    /**
+     * 密级
+     */
+    @TableField(value="security_class")
+    private String securityClass;
+
+    /**
+     * 保管期限
+     */
+    @TableField(value="retention_period")
+    private String retentionPeriod;
+
+    /**
+     * 题名
+     */
+    private String title;
+
+    /**
+     * 启用发布;0未发布；1已发布
+     */
+    @TableField(value="enable_publish")
+    private Short enablePublish;
+
+    /**
+     * 创建时间
+     */
+    @TableField(value="create_time")
+    private Date createTime;
+
+    /**
+     * 修改时间
+     */
+    @TableField(value="modified_time")
+    private Date modifiedTime;
+
+}

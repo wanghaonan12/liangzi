@@ -1,0 +1,44 @@
+package com.pde.pdes.portal.photo.service;
+
+import com.pde.pdes.portal.photo.dto.PhotoDTO;
+import com.pde.pdes.portal.photo.po.PhotoPO;
+
+import java.util.List;
+
+public interface PhotoService {
+    /**
+     * 增
+     * @param entity
+     * @return
+     */
+    boolean add(PhotoDTO entity);
+
+    /**
+     * 删
+     * @param id
+     * @return
+     */
+    boolean deleteById(String id);
+
+    /**
+     * 改
+     * @param po
+     * @return
+     */
+    boolean update(PhotoPO po);
+
+    /**
+     * id单查
+     * @param id
+     * @return
+     */
+    PhotoPO findById(String id);
+
+    /**
+     * 内容多查
+     * @param searchText
+     * @return
+     */
+    List<PhotoPO> find(String searchText);
+
+}

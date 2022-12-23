@@ -1,0 +1,185 @@
+package com.pde.pdes.portal.video.service;
+
+import com.pde.pdes.portal.video.dto.VideoDTO;
+import com.pde.pdes.portal.video.dto.VideoFileDTO;
+import com.pde.pdes.portal.video.dto.VideoFileFrontDTO;
+import com.pde.pdes.portal.video.dto.VideoQueryCondition;
+import com.pde.pdes.portal.video.po.VideoFilePO;
+import com.pde.pdes.portal.video.po.VideoPO;
+import com.pde.pdes.portal.video.vo.VideoFileFrontListVO;
+import com.pde.pdes.portal.video.vo.VideoFileListVO;
+import com.pde.pdes.portal.video.vo.VideoUploadVO;
+import com.pde.pdes.portal.video.vo.portal.PortalFileVO;
+import com.pde.pdes.portal.video.vo.portal.PortalVideoVO;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author: mth
+ * @date: 2022/11/30
+ * @description: 视频档案模块 service服务层
+ */
+public interface VideoService {
+
+    /**
+     * 首页 视频档案列表
+     *
+     * @return 已发布的视频档案列表
+     */
+    List<PortalVideoVO> findPortalVideoList();
+
+    /**
+     * 首页 视频档案文件列表
+     *
+     * @param id 视频档案 id
+     * @return 视频档案的文件列表
+     */
+    List<PortalFileVO> findPortalVideoFileListByVideoId(Integer id);
+
+    /**
+     * 分页模糊查询视频专辑
+     *
+     * @param query 查询条件
+     * @return 分页结果
+     */
+    Map<String, Object> findByPage(VideoQueryCondition query);
+
+    /**
+     * 新增视频专辑
+     *
+     * @param video 视频专辑实体
+     * @return 新增结果
+     */
+    Boolean insert(VideoDTO video);
+
+    /**
+     * 根据ids批量删除视频专辑
+     *
+     * @param ids ids
+     * @return 删除结果
+     */
+    Integer delByIds(List<Integer> ids);
+
+    /**
+     * 根据id查询视频专辑
+     *
+     * @param id 视频专辑id
+     * @return 查询结果
+     */
+    VideoPO findById(Integer id);
+
+    /**
+     * 更新视频专辑
+     *
+     * @param po 更新信息
+     * @return 结果
+     */
+    Boolean update(VideoPO po);
+
+    /**
+     * 批量发布视频档案
+     *
+     * @param ids 视频档案id list
+     * @return 结果
+     */
+    Boolean enableByIds(List<Integer> ids);
+
+    /**
+     * 批量取消发布视频档案
+     *
+     * @param ids 视频档案id list
+     * @return 结果
+     */
+    Boolean disableByIds(List<Integer> ids);
+
+    /**
+     * 根据文件id查询视频文件信息
+     *
+     * @param id 视频文件id
+     * @return 文件信息
+     */
+    VideoFileListVO findFileById(Integer id);
+
+    /**
+     * 根据视频档案id查询视频列表
+     *
+     * @param id       视频档案id
+     * @param pageNum  页码
+     * @param pageSize 页面大小
+     * @return 视频列表
+     */
+    Map<String, Object> findByVideoId(Integer id, Integer pageNum, Integer pageSize);
+
+    /**
+     * 视频档案新增视频文件
+     *
+     * @param dto dto
+     * @return 新增文件id
+     */
+    Integer insertFile(VideoFileDTO dto);
+
+    /**
+     * 根据id更新视频文件信息
+     *
+     * @param po 更新信息
+     * @return 结果
+     */
+    Boolean updateFile(VideoFilePO po);
+
+    /**
+     * 批量删除视频文件
+     *
+     * @param ids ids
+     * @return 删除结果
+     */
+    Integer delFileByIds(List<Integer> ids);
+
+    /**
+     * 文件上传并帧截取
+     *
+     * @param bucketName 存储桶
+     * @param count      截取帧数
+     * @param folder     文件夹
+     * @param video      视频文件
+     * @return 文件信息
+     * @throws Exception e
+     */
+    VideoUploadVO uploadVideo(String bucketName, String folder, Integer count, MultipartFile video) throws Exception;
+
+    /**
+     * 新增视频封面信息
+     *
+     * @param frontList 封面列表
+     * @return 新增结果
+     */
+    Boolean insertFileFront(List<VideoFileFrontDTO> frontList);
+
+    /**
+     * 根据视频文件id查询封面列表
+     *
+     * @param id 视频文件id
+     * @return 封面列表
+     */
+    List<VideoFileFrontListVO> findFrontByVideoFileId(Integer id);
+
+    /**
+     * 设置视频文件封面
+     *
+     * @param frontId 封面id
+     * @param fileId  视频文件id
+     * @return 设置结果
+     */
+    Boolean updateVideoFileByFront(Integer fileId, Integer frontId);
+
+    /**
+     * 设置视频专辑的封面
+     *
+     * @param videoId 视频专辑id
+     * @param fileId  视频文件id
+     * @return 设置结果
+     */
+    Boolean updateVideoFrontByFile(Integer videoId, Integer fileId);
+
+}

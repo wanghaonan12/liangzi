@@ -1,0 +1,333 @@
+<template>
+  <div>
+    <!-- search 模块-->
+    <div class="notice-search-box">
+      <el-form :inline="true" :model="tableQuery" class="notice-form-inline">
+        <el-form-item label="搜索:">
+          <el-input v-model="tableQuery.searchText" placeholder="搜索" />
+        </el-form-item>
+        <el-form-item label="是否发布">
+          <el-select v-model="tableQuery.enablePublish" placeholder="是否发布">
+            <el-option label="已发布" value="0" />
+            <el-option label="未发布" value="1" />
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button size="small" type="primary" icon="el-icon-search" @click="search()">搜索</el-button>
+          <el-button size="small" icon="el-icon-refresh" @click="onReset">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+    <!-- 分页展示 -->
+    <div class="notice-table-box">
+      <div class="notice-btn-list">
+        <el-button size="small" type="primary" icon="el-icon-plus" @click="onAddButtonClick">新增</el-button>
+        <el-popover v-model="deleteVisible" placement="top" width="160">
+          <p>确定要删除吗？</p>
+          <div style="text-align: right; margin-top: 8px">
+            <el-button size="small" type="primary" @click="deleteBatch()">确定</el-button>
+            <el-button size="small" type="primary" link @click="deleteVisible = fasle">取消</el-button>
+          </div>
+          <template #reference>
+            <el-button
+              icon="el-icon-delete"
+              size="small"
+              style="margin-left: 10px"
+              @click="deleteVisible = true"
+            >删除</el-button>
+          </template>
+        </el-popover>
+      </div>
+    </div>
+
+    <el-table
+      :data="rows"
+      border
+      style="width: 100%;margin-left: 20px"
+      tooltip-effect="dark"
+      row-key="id"
+      height="660"
+      :highlight-current-row="true"
+      @select="onSelectionChange"
+    >
+      <el-table-column type="selection" width="55" />
+      <el-table-column align="left" label="id" prop="id" width="55" />
+      <el-table-column align="left" label="标题" width="180" prop="title" />
+      <el-table-column align="left" label="正文内容" prop="content" width="300" :show-overflow-tooltip="true">
+        <template slot-scope="scope">
+          <div style="height:auto" v-html="scope.row.content" />
+        </template>
+      </el-table-column>>
+      <el-table-column align="left" label="摘要" :show-overflow-tooltip="true" prop="contentAbstract" width="200" />
+      <el-table-column align="left" label="是否发布" prop="enablePublish" width="200" :formatter="enablePublishFormat" />
+      <el-table-column align="left" label="创建时间" prop="createTime" width="200" />
+      <el-table-column align="left" label="修改时间" prop="modifiedTime" width="200" />
+      <el-table-column align="left" label="按钮组">
+        <template slot-scope="scope">
+          <el-button
+            type="primary"
+            link
+            icon="el-icon-edit"
+            size="small"
+            class="table-button"
+            @click="onModifyButtonClick(scope.row)"
+          > 修改
+          </el-button>
+          <el-button
+            type="primary"
+            link
+            icon="el-icon-delete"
+            size="small"
+            @click="deleteByid(scope.row)"
+          >删除</el-button>
+          <el-button type="primary" link icon="el-icon-download" size="small" @click="getFileData(scope.row)">附件</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <div class="block">
+      <pagination
+        v-show="tableQuery.total > 0"
+        layout="total,sizes, prev, pager, next, jumper"
+        :total="tableQuery.total"
+        :page.sync="tableQuery.pageNum"
+        :limit.sync="tableQuery.pageSize"
+        @pagination="getData()"
+      />
+    </div>
+    <el-drawer :title="Notice_title" :visible.sync="drawerShow" direction="rtl" size="40%" @closed="closedfunc">
+      <el-table :data="drawerRows">
+        <el-table-column property="id" label="id" width="50" />
+        <el-table-column property="fileName" label="文件名" />
+        <el-table-column property="fileSize" label="文件大小" :formatter="FormatFileSizeInfo" />
+        <el-table-column property="createTime" label="创建时间" />
+        <el-table-column align="left" label="按钮组">
+          <!-- slot-scope="scope" -->
+          <template slot-scope="scope">
+            <el-link :underline="false" disabled="true">
+              <el-button type="primary" link icon="el-icon-delete" size="small" style="margin-right: 10px;" @click="deleteFileById(scope.row)">删除</el-button>
+            </el-link>
+            <el-link :underline="false" :href="scope.row.filePath" target="_blank">
+              <el-button type="primary" link icon="el-icon-download" size="small">下载</el-button>
+            </el-link>
+          </template>
+        </el-table-column>
+      </el-table>
+      <el-upload
+        class="upload-demo"
+        drag
+        action
+        :http-request="uploadFile"
+        multiple
+        style="text-align: center;"
+        :headers="headers"
+      >
+        <i class="el-icon-upload" />
+        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+      </el-upload>
+    </el-drawer>
+    <!-- 新增或者编辑页面 -->
+    <Dialog ref="Dialog" @refreshTableData="getData" />
+  </div>
+</template>
+<script>
+import Pagination from '@/components/Pagination'
+import { selectApi, selectBySearchText, deleteById, deleteBatch } from '@/api/notice'
+import { selectNoticeFileApi, deleteNoticeFileApi, addNoticeFileApi } from '@/api/noticeFile'
+import Dialog from '@/views/noticeManagement/components/Dialog'
+export default {
+  components: {
+    Pagination,
+    Dialog
+  },
+  data() {
+    return {
+      tableQuery: {
+        pageNum: 1,
+        pageSize: 20,
+        total: 100,
+        searchText: '',
+        enablePublish: ''
+      },
+      drawerShow: false,
+      Notice_title: '',
+      drawerId: 0,
+      deleteVisible: false,
+      tableSelection: [],
+      rows: [],
+      drawerRows: [],
+      // 请求头
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }
+  },
+  mounted() {
+    this.getData()
+  },
+  methods: {
+    // 上传文件的接口
+    uploadFile(item) {
+      this.$message.success('文件上传中........')
+      // 上传文件的需要formdata类型;所以要转
+      const FormDatas = new FormData()
+      FormDatas.append('file', item.file)
+      addNoticeFileApi(FormDatas, this.drawerId).then((res) => {
+        if (res && res.status) {
+          this.$message.success(res.message)
+          location.reload()
+        } else {
+          this.$message.warning(res.message)
+        }
+      })
+    },
+    // 对文件的size进行改写信息
+    FormatFileSizeInfo(row, column) {
+      if ((row.fileSize / 1024) < 1024) {
+        return (row.fileSize / 1024).toFixed(2) + 'KB'
+      } else if ((row.fileSize / 1024 / 1024) < 1024) {
+        return (row.fileSize / 1024 / 1024).toFixed(2) + 'MB'
+      }
+    },
+    // 对附件进行删除操作
+    deleteFileById(row) {
+      deleteNoticeFileApi(row.id).then((res) => {
+        if (res && res.status) {
+          this.$message.success(res.message)
+          location.reload()
+        } else {
+          this.$message.warning(res.message)
+        }
+      })
+    },
+    // drawer抽屉的回调函数
+    closedfunc() {
+      this.drawerRows = []
+    },
+    // 获取附件的信息
+    getFileData(row) {
+      this.Notice_title = '公告:\t' + row.title + '的附件管理'
+      this.drawerId = row.id
+      this.drawerShow = true
+      selectNoticeFileApi(row.id).then((res) => {
+        if (res && res.status) {
+          this.drawerRows = res.content
+        } else {
+          this.$message.warning(res.message)
+        }
+      })
+    },
+    // 弹出新增的窗口
+    onAddButtonClick() {
+      this.$refs.Dialog.showDialogAdd('add')
+    },
+    // 弹出修改的窗口
+    onModifyButtonClick(row) {
+      row.enablePublish = ''
+      this.$refs.Dialog.showDialog(row, 'edit')
+    },
+    // 选中的数据行
+    onSelectionChange(s, row) {
+      this.tableSelection = s
+    },
+    // 重置输入框的信息
+    onReset() {
+      this.tableQuery.searchText = ''
+      this.tableQuery.enablePublish = ''
+    },
+    // 获取分页信息
+    getData() {
+      selectApi(this.tableQuery).then((res) => {
+        if (res && res.status) {
+          this.rows = res.content.rows
+          this.tableQuery.total = res.content.total
+        } else {
+          this.$message(res.message)
+        }
+      })
+    },
+    // 获取未发布的公告信息
+    getDisableData() {
+      selectBySearchText(this.tableQuery).then((res) => {
+        if (res && res.status) {
+          this.rows = res.content.rows
+          this.tableQuery.total = res.content.total
+        } else {
+          this.$message(res.message)
+        }
+      })
+    },
+    enablePublishFormat(row, column) {
+      if (row.enablePublish === 0) {
+        return '已发布'
+      } else {
+        return '未发布'
+      }
+    },
+    // 进行搜索的操作
+    search() {
+      if (this.tableQuery.enablePublish === '0' || this.tableQuery.enablePublish === '') {
+        this.getData()
+      } else {
+        this.getDisableData()
+      }
+    },
+    // 进行删除操作
+    deleteByid(row) {
+      deleteById(row.id).then((res) => {
+        if (res && res.status) {
+          this.$message.success('删除成功')
+          location.reload()
+        } else {
+          this.$message.warning('删除错误' + res.message)
+          // location.reload()
+        }
+      })
+    },
+    // 批量删除操作
+    deleteBatch() {
+      const list = []
+      let index
+      for (index in this.tableSelection) {
+        list.push(this.tableSelection[index].id.toString())
+      }
+      deleteBatch(list).then((res) => {
+        if (res && res.status) {
+          this.$message.success('删除成功')
+          location.reload()
+        } else {
+          this.$message.warning('删除错误' + res.message)
+        }
+      })
+    }
+
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+div {
+  margin: 0;
+}
+
+.notice-search-box {
+  padding: 24px;
+  padding-bottom: 2px;
+  background-color: #fff;
+  border-radius: 2px;
+}
+
+.notice-table-box {
+  padding: 10px 20px;
+  background-color: #fff;
+  border-radius: 2px;
+}
+
+.notice-btn-list {
+  margin-bottom: 12px;
+  display: flex;
+}
+
+.block {
+  text-align: right;
+  padding-bottom: 5px;
+}
+</style>

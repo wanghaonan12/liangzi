@@ -1,0 +1,198 @@
+<template>
+  <div>
+    <div class='top-line'></div>
+    <el-row class='search-input' style='margin-bottom: 15px'>
+      <el-col :span='3' :offset='2' style='margin-right: 15px'>
+        <el-input v-model='honorQuery.title' size='small' clearable placeholder='根据相册名称搜索'></el-input>
+      </el-col>
+      <el-col :span='2'>
+        <el-button type='primary' size='small' icon='el-icon-search' @click='searchAblum'>搜索</el-button>
+      </el-col>
+    </el-row>
+    <el-row class='row' type='flex' justify='left'>
+      <el-col :span='24 / 5' :offset='2' v-for='(item, index) in albumList' :key='index'>
+        <router-link
+          :to="'photoDetail/' + item.id"
+        >
+          <el-card class='box-card' :body-style="{ padding: '20px' }">
+            <div class='box-image'>
+              <img :src='item.file_path' class='image' />
+            </div>
+            <div class='album-title'>
+              <p v-text='item.title'></p>
+              <el-divider></el-divider>
+              <p v-text='item.create_time'></p>
+            </div>
+          </el-card>
+        </router-link>
+      </el-col>
+    </el-row>
+    <el-pagination
+      align='center'
+      @size-change='handleSizeChange'
+      @current-change='handleCurrentChange'
+      @prev-click='prevClick'
+      @next-click='nextClick'
+      :current-page='photoQuery.pageNum'
+      :page-sizes='[1, 5, 10, 15, 20]'
+      :page-size='photoQuery.pageSize'
+      layout='total, sizes, prev, pager, next, jumper'
+      :total='pageTotal'>
+    </el-pagination>
+  </div>
+</template>
+
+<script>
+import { getPhotoList } from '@/api/photoManagement'
+
+export default {
+  name: 'HonorAlbum',
+  data() {
+    return {
+      albumList: [],
+      keyword: '',
+      photoQuery: {
+        pageNum: 1,
+        pageSize: 5,
+        title: ''
+      },
+      pageTotal: 0
+    }
+  },
+  created() {
+    getPhotoList(this.photoQuery).then((data) => {
+      this.albumList = data.content.rows
+      this.pageTotal = data.content.total
+    })
+  },
+  methods: {
+    // 根据标题模糊搜索
+    searchAblum() {
+      getPhotoList(this.photoQuery).then((data) => {
+        this.albumList = data.content.rows
+        this.pageTotal = data.content.total
+      })
+    },
+    // 页面数量改变
+    handleSizeChange(val) {
+      this.photoQuery.pageSize = val
+      getPhotoList(this.photoQuery).then((data) => {
+        this.albumList = data.content.rows
+        this.pageTotal = data.content.total
+      })
+    },
+    // 切换页面
+    handleCurrentChange(val) {
+      this.photoQuery.pageNum = val
+      getPhotoList(this.photoQuery).then((data) => {
+        this.albumList = data.content.rows
+        this.pageTotal = data.content.total
+      })
+    },
+    // 上一页
+    prevClick(val) {
+      this.photoQuery.pageNum = val
+      getPhotoList(this.photoQuery).then((data) => {
+        this.albumList = data.content.rows
+        this.pageTotal = data.content.total
+      })
+    },
+    // 下一页
+    nextClick(val) {
+
+      this.photoQuery.pageNum = val
+      getPhotoList(this.photoQuery).then((data) => {
+        this.albumList = data.content.rows
+        this.pageTotal = data.content.total
+      })
+    }
+  }
+}
+</script>
+
+<style lang='scss' scoped>
+.top-line {
+  background-color: #036eaa;
+  height: 1vh;
+  width: 100vw;
+  margin-bottom: 20px;
+}
+
+.time {
+  font-size: 13px;
+  color: #999;
+}
+
+.row {
+  // display: flex;
+  flex-wrap: wrap;
+}
+
+.bottom {
+  margin-top: 13px;
+  line-height: 12px;
+}
+
+.button {
+  padding: 0;
+  float: right;
+}
+
+.box-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+
+  .box-image {
+    height: 15vh;
+    width: 15vh;
+    display: flex;
+    background-color: rgba(211, 211, 211, 0.774);
+    opacity: 0.9;
+    justify-content: center;
+    align-items: center;
+
+    .image {
+      width: 15vh;
+      height: 15vh;
+      background-size: contain;
+    }
+  }
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: '';
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.box-card {
+  width: 200px;
+  height: 260px;
+  font-size: 14px;
+
+  .album-title {
+    padding-top: 30px;
+    text-align: center;
+    overflow: hidden;
+
+    .el-divider {
+      margin: 1px;
+    }
+
+    p {
+      display: block/inline-block;
+      white-space: nowrap;
+      margin: 1px;
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.363);
+    }
+  }
+}
+</style>

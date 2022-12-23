@@ -1,0 +1,23 @@
+package com.pde.pdes.portal.honor.utils;
+
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
+
+public class GetResourceLengthUtils {
+
+    /**
+     * 给定url地址获取资源的大小（以字节为单位）
+     * @param urlStr
+     * @return
+     * @throws IOException
+     */
+    public static long getResourceLength(String urlStr) throws IOException {
+        URL url=new URL(urlStr);
+        URLConnection urlConnection=url.openConnection();
+        urlConnection.connect();
+        //返回响应报文头字段Content-Length的值
+        return urlConnection.getContentLength();
+    }
+
+}

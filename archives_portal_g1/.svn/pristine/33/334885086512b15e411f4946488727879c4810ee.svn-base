@@ -1,0 +1,62 @@
+package com.pde.pdes.portal.video.service.impl;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.pde.pdes.portal.video.dto.VideoDTO;
+import com.pde.pdes.portal.video.dto.VideoFileDTO;
+import com.pde.pdes.portal.video.mapper.VideoFileMapper;
+import com.pde.pdes.portal.video.po.VideoFilePO;
+import com.pde.pdes.portal.video.po.VideoPO;
+import com.pde.pdes.portal.video.service.VideoFileService;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
+import java.util.List;
+
+import static com.pde.pdes.portal.video.utils.MyBeanUtilsHelper.getNullPropertyNames;
+
+/**
+ * @author: mth
+ * @date: 2022/12/1
+ * @description: 视频文件 impl实现
+ */
+@Service
+public class VideoFileServiceImpl implements VideoFileService {
+    @Autowired
+    private VideoFileMapper videoFileMapper;
+
+    @Override
+    public VideoFilePO findById(Integer id) {
+        Assert.notNull(id, "id不能为空");
+        return videoFileMapper.selectById(id);
+    }
+
+    @Override
+    public List<VideoFilePO> findByVideoId(Integer id) {
+        Assert.notNull(id, "视频档案id值不能为空.");
+        return videoFileMapper.selectAll(new QueryWrapper<VideoFilePO>().eq("video_id", id));
+    }
+
+    @Override
+    public Boolean insert(VideoFileDTO dto) {
+        Assert.notNull(dto, "保存对象不能为空.");
+        int insert = videoFileMapper.insert(VideoFilePO.builder()
+                .video_id(dto.getVideoId())
+                .file_name(dto.getFileName())
+                .file_path(dto.getFilePath())
+                .file_size(dto.getFileSize())
+                .build());
+        return insert > 0;
+    }
+
+    @Override
+    public Boolean update(VideoFilePO po) {
+        VideoFilePO newPo = videoFileMapper.selectById(po.getId());
+        Assert.notNull(po, "更新对象不能为空.");
+        Assert.notNull(newPo, "id不存在");
+        BeanUtils.copyProperties(po, newPo, getNullPropertyNames(po));
+        int i = videoFileMapper.updateById(newPo);
+        return i > 0;
+    }
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pde.pdes.portal.honor.mapper.HonorFileMapper">
+
+    <resultMap id="BaseResultMap" type="com.pde.pdes.portal.honor.po.HonorFilePO">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="honorId" column="honor_id" jdbcType="INTEGER"/>
+        <result property="fileName" column="file_name" jdbcType="VARCHAR"/>
+        <result property="filePath" column="file_path" jdbcType="VARCHAR"/>
+        <result property="fileSize" column="file_size" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="enableFront" column="enable_front" jdbcType="SMALLINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,honor_id,file_name,
+        file_path,file_size,create_time,
+        enable_front
+    </sql>
+    <select id="selectAllByHonorId" resultType="com.pde.pdes.portal.honor.po.HonorFilePO">
+        SELECT *
+        FROM pdes_portal_honor_file
+        where honor_id = #{honorId}
+    </select>
+    <select id="selectByHonorIdAndEnableFront"
+            resultType="com.pde.pdes.portal.honor.po.HonorFilePO">
+        SELECT *
+        FROM pdes_portal_honor_file
+        WHERE honor_id = #{honorId}
+          AND enable_front = #{enableFront}
+    </select>
+</mapper>

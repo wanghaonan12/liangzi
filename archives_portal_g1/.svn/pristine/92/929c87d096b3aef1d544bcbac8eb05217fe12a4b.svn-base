@@ -1,0 +1,25 @@
+package com.pde.pdes.portal.dto;
+
+import java.io.Serializable;
+
+import javax.validation.constraints.NotEmpty;
+
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+@Data
+public class CompanyDTO implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3721012487541784316L;
+	
+	@NotEmpty(message = "公司名称不能为空")
+	@ApiModelProperty("公司名称")
+	private String name;
+	
+	@ApiModelProperty("公司地址")
+	private String address;
+
+}

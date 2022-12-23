@@ -1,0 +1,114 @@
+package com.pde.pdes.portal.notify.po;
+
+import com.baomidou.mybatisplus.annotation.*;
+import java.io.Serializable;
+import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
+import javax.validation.constraints.NotNull;
+
+/**
+ * 通知公告
+ * @author jiangyiheng
+ * @TableName pdes_portal_notify
+ */
+@TableName(value ="pdes_portal_notify")
+@Data
+public class PortalNotify implements Serializable {
+    /**
+     * 主键;文章ID
+     */
+    @TableId(type = IdType.AUTO)
+    @NotNull(message = "不可为空")
+    private Integer id;
+
+    /**
+     * 标题
+     */
+    private String title;
+
+    /**
+     * 内容
+     */
+    private String content;
+
+    /**
+     * 摘要
+     */
+    private String contentAbstract;
+
+    /**
+     * 启用发布;0=待发布，1=已发布
+     */
+    private Integer enablePublish;
+
+    /**
+     * 创建时间
+     */
+    @TableField(fill = FieldFill.INSERT)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date createTime;
+
+    /**
+     * 修改时间
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date modifiedTime;
+
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
+
+    @Override
+    public boolean equals(Object that) {
+        if (this == that) {
+            return true;
+        }
+        if (that == null) {
+            return false;
+        }
+        if (getClass() != that.getClass()) {
+            return false;
+        }
+        PortalNotify other = (PortalNotify) that;
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
+            && (this.getContent() == null ? other.getContent() == null : this.getContent().equals(other.getContent()))
+            && (this.getContentAbstract() == null ? other.getContentAbstract() == null : this.getContentAbstract().equals(other.getContentAbstract()))
+            && (this.getEnablePublish() == null ? other.getEnablePublish() == null : this.getEnablePublish().equals(other.getEnablePublish()))
+            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+            && (this.getModifiedTime() == null ? other.getModifiedTime() == null : this.getModifiedTime().equals(other.getModifiedTime()));
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        result = prime * result + ((getTitle() == null) ? 0 : getTitle().hashCode());
+        result = prime * result + ((getContent() == null) ? 0 : getContent().hashCode());
+        result = prime * result + ((getContentAbstract() == null) ? 0 : getContentAbstract().hashCode());
+        result = prime * result + ((getEnablePublish() == null) ? 0 : getEnablePublish().hashCode());
+        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
+        result = prime * result + ((getModifiedTime() == null) ? 0 : getModifiedTime().hashCode());
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", title=").append(title);
+        sb.append(", content=").append(content);
+        sb.append(", contentAbstract=").append(contentAbstract);
+        sb.append(", enablePublish=").append(enablePublish);
+        sb.append(", createTime=").append(createTime);
+        sb.append(", modifiedTime=").append(modifiedTime);
+        sb.append(", serialVersionUID=").append(serialVersionUID);
+        sb.append("]");
+        return sb.toString();
+    }
+}

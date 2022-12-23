@@ -1,0 +1,45 @@
+package com.pde.pdes.portal.news.service;
+
+import com.pde.pdes.portal.news.po.NewsFilePo;
+
+import java.util.List;
+
+/**
+ * @author 沈建树
+ */
+public interface NewsFileService {
+    /**
+     * 模糊查询获取新闻附件，查询条件为空则返回所有新闻附件
+     * @param searchText 查询条件
+     * @return 附件列表
+     */
+    List<NewsFilePo> getFiles(String searchText);
+
+    /**
+     * 根据ID获取附件信息
+     *
+     * @param id 附件ID
+     * @return 附件信息
+     */
+    NewsFilePo getFileById(Integer id);
+
+    /**
+     * 添加新附件
+     * @param newsFilePo 附件实体
+     * @return 是否添加成功
+     */
+    boolean addFile(NewsFilePo newsFilePo);
+
+    /**
+     * 根据ID删除附件
+     * @param id 附件ID
+     * @return 是否删除成功
+     */
+    boolean deleteFileById(Integer id);
+    /**
+     * 根据新闻附件实体参数的ID更新附件信息
+     * @param newsFilePo 新闻附件实体
+     * @return 是否更新成功
+     */
+    boolean update(NewsFilePo newsFilePo);
+}

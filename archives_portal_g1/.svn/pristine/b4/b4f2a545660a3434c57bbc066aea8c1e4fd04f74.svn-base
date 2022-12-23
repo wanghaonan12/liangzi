@@ -1,0 +1,118 @@
+package com.pde.pdes.portal.chronicle.po;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
+
+
+import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
+
+/**
+* 档案大事记附件
+* @author SYKCOMPUTER
+ * @TableName pdes_portal_chronicle_events_file
+*/
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ApiModel(value = "文档大事记-附件", description = "文档大事记-附件")
+@TableName("pdes_portal_chronicle_events_file")
+public class PdesPortalChronicleEventsFile  {
+
+    /**
+    * 主键;附件ID
+    */
+    @ApiModelProperty("id")
+    @TableId(value = "id",type = IdType.AUTO)
+    private Integer id;
+
+    /**
+    * 大事记ID
+    */
+    @NotNull(message="[大事记ID]不能为空")
+    @ApiModelProperty("大事记ID")
+    @TableField(value = "chronicle_events_id")
+    private Integer chronicleEventsId;
+    /**
+    * 附件标题
+    */
+    @NotBlank(message="[附件标题]不能为空")
+    @Size(max= 255,message="编码长度不能超过255")
+    @ApiModelProperty("附件标题")
+    @Length(max= 255,message="编码长度不能超过255")
+    @TableField(value = "file_name")
+    private String fileName;
+    /**
+    * 附件大小
+    */
+    @NotNull(message="[附件大小]不能为空")
+    @ApiModelProperty("附件大小")
+    @TableField(value = "file_size")
+    private Integer fileSize;
+    /**
+    * 后缀
+    */
+    @Size(max= 10,message="编码长度不能超过10")
+    @ApiModelProperty("后缀")
+    @Length(max= 10,message="编码长度不能超过10")
+    @TableField(value = "file_suffix")
+    private String fileSuffix;
+    /**
+    * 存储路径
+    */
+    @NotBlank(message="[存储路径]不能为空")
+    @Size(max= 255,message="编码长度不能超过255")
+    @ApiModelProperty("存储路径")
+    @Length(max= 255,message="编码长度不能超过255")
+    @TableField(value = "file_path")
+    private String filePath;
+    /**
+    * 备注
+    */
+    @Size(max= 255,message="编码长度不能超过255")
+    @ApiModelProperty("备注")
+    @Length(max= 255,message="编码长度不能超过255")
+    private String memo;
+    /**
+    * 排序号
+    */
+    @NotNull(message="[排序号]不能为空")
+    @ApiModelProperty("排序号")
+    @TableField(value = "order_seq")
+    private Integer orderSeq;
+    /**
+    * 创建时间
+    */
+    @NotNull(message="[创建时间]不能为空")
+    @ApiModelProperty("创建时间")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @TableField(value = "create_time")
+    private Date createTime;
+    /**
+    * 更新时间
+    */
+    @ApiModelProperty("更新时间")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @TableField(value = "modified_time")
+    private Date modifiedTime;
+
+
+
+}

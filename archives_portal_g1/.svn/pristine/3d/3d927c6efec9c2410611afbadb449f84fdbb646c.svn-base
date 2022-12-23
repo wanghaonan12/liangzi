@@ -1,0 +1,53 @@
+package com.pde.pdes.portal.news.service;
+
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.mysql.cj.util.StringUtils;
+import com.pde.pdes.portal.news.mapper.NewsFileMapper;
+import com.pde.pdes.portal.news.po.NewsFilePo;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
+import javax.annotation.Resource;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * @author 沈建树
+ */
+@Service
+public class NewsFileServiceImpl extends ServiceImpl<NewsFileMapper, NewsFilePo> implements NewsFileService {
+
+    @Override
+    public List<NewsFilePo> getFiles(String searchText) {
+        if (StringUtils.isNullOrEmpty(searchText)) {
+            return list();
+        }
+        return list(Wrappers.lambdaQuery(NewsFilePo.class).like(NewsFilePo::getFile_name, searchText));
+    }
+
+    @Override
+    public NewsFilePo getFileById(Integer id) {
+        Assert.hasText(String.valueOf(id),"查询ID不能为空");
+        return getById(id);
+    }
+
+    @Override
+    public boolean addFile(NewsFilePo newsFilePo) {
+        Assert.notNull(newsFilePo,"保存信息不能为空");
+        return save(newsFilePo);
+    }
+
+    @Override
+    public boolean deleteFileById(Integer id) {
+        Assert.hasText(String.valueOf(id),"删除ID不能为空");
+        return removeById(id);
+    }
+
+    @Override
+    public boolean update(NewsFilePo newsFilePo) {
+        Assert.notNull(newsFilePo, "更新信息不能为空");
+        newsFilePo.setModified_time(new Date());
+        return updateById(newsFilePo);
+    }
+}

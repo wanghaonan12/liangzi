@@ -1,0 +1,18 @@
+package com.pde.pdes.portal.news.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.pde.pdes.portal.news.po.NewsFilePo;
+import com.pde.pdes.portal.news.po.NewsPo;
+import org.apache.ibatis.annotations.*;
+
+import java.io.Serializable;
+import java.util.List;
+
+/**
+ * 新闻附件mapper
+ * @author 沈建树
+ */
+@Mapper
+public interface NewsFileMapper extends BaseMapper<NewsFilePo> {
+
+}

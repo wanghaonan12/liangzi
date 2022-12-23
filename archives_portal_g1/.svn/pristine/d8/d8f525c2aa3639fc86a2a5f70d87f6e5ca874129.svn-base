@@ -1,0 +1,49 @@
+package com.pde.pdes.portal.video.service;
+
+import com.pde.pdes.portal.video.dto.VideoDTO;
+import com.pde.pdes.portal.video.dto.VideoFileDTO;
+import com.pde.pdes.portal.video.po.VideoFilePO;
+
+import java.util.List;
+
+/**
+ * @author: mth
+ * @date: 2022/12/1
+ * @description: 视频文件 service
+ */
+
+public interface VideoFileService {
+    /**
+     * 根据id查询视频文件信息
+     *
+     * @param id 视频文件id
+     * @return 文件信息
+     */
+    VideoFilePO findById(Integer id);
+
+    /**
+     * 根据视频档案id查询视频列表
+     *
+     * @param id 视频档案id
+     * @return 视频列表
+     */
+    List<VideoFilePO> findByVideoId(Integer id);
+
+    /**
+     * 视频档案新增视频文件
+     *
+     * @param dto dto
+     * @return 新增结果
+     */
+    Boolean insert(VideoFileDTO dto);
+
+    /**
+     * 根据id更新视频文件信息
+     *
+     * @param po 更新信息
+     * @return 结果
+     */
+    Boolean update(VideoFilePO po);
+
+
+}

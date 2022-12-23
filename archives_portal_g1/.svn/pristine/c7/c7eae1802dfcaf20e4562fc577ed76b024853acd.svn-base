@@ -1,0 +1,28 @@
+package com.pde.pdes.portal.video.dto;
+
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
+import lombok.Data;
+
+import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
+
+/**
+ * @author: mth
+ * @date: 2022/12/1
+ * @description: 新增视频专辑dto
+ */
+@Data
+@Builder
+public class VideoDTO implements Serializable {
+
+    private static final long serialVersionUID = -6985527302858872877L;
+    @NotEmpty(message = "专辑名称不能为空")
+    @ApiModelProperty("专辑名称")
+    private String title;
+
+    @NotEmpty(message = "描述不能为空")
+    @ApiModelProperty("描述")
+    private String description;
+
+}

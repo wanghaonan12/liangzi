@@ -1,0 +1,93 @@
+2022-12-06 09:07:09.953 572  [main] INFO  - Starting Application on wangfugui with PID 4600 (started by wangRich in D:\DeskTop\量子\archives_portal_g1\trunk\pdes-portal)
+2022-12-06 09:07:09.957 576  [main] DEBUG - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+2022-12-06 09:07:09.957 576  [main] INFO  - No active profile set, falling back to default profiles: default
+2022-12-06 09:07:11.014 1633 [main] INFO  - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-12-06 09:07:11.016 1635 [main] INFO  - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-12-06 09:07:11.030 1649 [main] INFO  - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-12-06 09:07:11.031 1650 [main] INFO  - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@128c502c' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-12-06 09:07:11.032 1651 [main] INFO  - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-12-06 09:07:11.034 1653 [main] INFO  - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-12-06 09:07:11.197 1816 [main] INFO  - Tomcat initialized with port(s): 8088 (http)
+2022-12-06 09:07:11.203 1822 [main] INFO  - Starting service [Tomcat]
+2022-12-06 09:07:11.203 1822 [main] INFO  - Starting Servlet engine: [Apache Tomcat/9.0.30]
+2022-12-06 09:07:11.204 1823 [main] INFO  - Loaded APR based Apache Tomcat Native library [1.2.33] using APR version [1.7.0].
+2022-12-06 09:07:11.204 1823 [main] INFO  - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2022-12-06 09:07:11.204 1823 [main] INFO  - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2022-12-06 09:07:11.217 1836 [main] INFO  - OpenSSL successfully initialized [OpenSSL 1.1.1o  3 May 2022]
+2022-12-06 09:07:11.289 1908 [main] INFO  - Initializing Spring embedded WebApplicationContext
+2022-12-06 09:07:11.290 1909 [main] INFO  - Root WebApplicationContext: initialization completed in 1270 ms
+2022-12-06 09:07:11.416 2035 [main] INFO  - Init DruidDataSource
+2022-12-06 09:07:11.550 2169 [main] INFO  - {dataSource-1} inited
+2022-12-06 09:07:12.695 3314 [main] INFO  - Initializing ExecutorService
+2022-12-06 09:07:12.696 3315 [main] INFO  - Initializing ExecutorService 'PdeDefaultThreadPool'
+2022-12-06 09:07:12.706 3325 [main] INFO  - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2022-12-06 09:07:12.937 3556 [main] INFO  - Creating filter chain: Ant [pattern='/v1/**'], []
+2022-12-06 09:07:12.938 3557 [main] INFO  - Creating filter chain: Ant [pattern='/**/*.html'], []
+2022-12-06 09:07:12.938 3557 [main] INFO  - Creating filter chain: Ant [pattern='/**/*.css'], []
+2022-12-06 09:07:12.938 3557 [main] INFO  - Creating filter chain: Ant [pattern='/**/*.js'], []
+2022-12-06 09:07:12.938 3557 [main] INFO  - Creating filter chain: Ant [pattern='/static/**'], []
+2022-12-06 09:07:12.938 3557 [main] INFO  - Creating filter chain: Ant [pattern='/theme/**'], []
+2022-12-06 09:07:12.938 3557 [main] INFO  - Creating filter chain: Ant [pattern='/plugin/**'], []
+2022-12-06 09:07:12.938 3557 [main] INFO  - Creating filter chain: Ant [pattern='/*.ico'], []
+2022-12-06 09:07:12.938 3557 [main] INFO  - Creating filter chain: Ant [pattern='/v3/**'], []
+2022-12-06 09:07:12.938 3557 [main] INFO  - Creating filter chain: Ant [pattern='/v1/auth/login'], []
+2022-12-06 09:07:12.938 3557 [main] INFO  - Creating filter chain: Ant [pattern='/principal'], []
+2022-12-06 09:07:12.938 3557 [main] INFO  - Creating filter chain: Ant [pattern='/actuator/**'], []
+2022-12-06 09:07:12.938 3557 [main] INFO  - Creating filter chain: Ant [pattern='/druid/**'], []
+2022-12-06 09:07:12.938 3557 [main] INFO  - Creating filter chain: Ant [pattern='/v2/api-docs'], []
+2022-12-06 09:07:12.938 3557 [main] INFO  - Creating filter chain: Ant [pattern='/webjars/springfox-swagger-ui/**'], []
+2022-12-06 09:07:12.938 3557 [main] INFO  - Creating filter chain: Ant [pattern='/swagger-resources/**'], []
+2022-12-06 09:07:12.938 3557 [main] INFO  - Creating filter chain: Ant [pattern='/swagger-ui.html'], []
+2022-12-06 09:07:12.960 3579 [main] INFO  - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@634ca3e7, org.springframework.security.web.context.SecurityContextPersistenceFilter@587c5c1, org.springframework.security.web.header.HeaderWriterFilter@5e50df2e, org.springframework.security.web.authentication.logout.LogoutFilter@22ead351, com.pde.p10c.auth.JwtAuthenticationTokenFilter@ab4aa5e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1f78d415, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@153cb763, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@b14b60a, org.springframework.security.web.session.SessionManagementFilter@613f7eb7, org.springframework.security.web.access.ExceptionTranslationFilter@798cb6d9, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2744dcae]
+2022-12-06 09:07:12.994 3613 [main] INFO  - Context refreshed
+2022-12-06 09:07:13.004 3623 [main] INFO  - Found 1 custom documentation plugin(s)
+2022-12-06 09:07:13.029 3648 [main] INFO  - Scanning for api listing references
+2022-12-06 09:07:13.103 3722 [main] WARN  - Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2022-12-06 09:07:13.108 3727 [main] INFO  - Generating unique operation named: addUsingPOST_1
+2022-12-06 09:07:13.115 3734 [main] INFO  - Generating unique operation named: getListUsingPOST_1
+2022-12-06 09:07:13.117 3736 [main] INFO  - Generating unique operation named: removeByIdUsingDELETE_1
+2022-12-06 09:07:13.124 3743 [main] INFO  - Generating unique operation named: addUsingPOST_2
+2022-12-06 09:07:13.134 3753 [main] INFO  - Generating unique operation named: findByIdUsingGET_1
+2022-12-06 09:07:13.139 3758 [main] INFO  - Generating unique operation named: addUsingPOST_3
+2022-12-06 09:07:13.141 3760 [main] INFO  - Generating unique operation named: deleteUsingDELETE_1
+2022-12-06 09:07:13.143 3762 [main] INFO  - Generating unique operation named: findUsingPOST_1
+2022-12-06 09:07:13.148 3767 [main] INFO  - Generating unique operation named: findByIdUsingGET_2
+2022-12-06 09:07:13.149 3768 [main] INFO  - Generating unique operation named: updateUsingPOST_1
+2022-12-06 09:07:13.152 3771 [main] INFO  - Generating unique operation named: addUsingPOST_4
+2022-12-06 09:07:13.154 3773 [main] INFO  - Generating unique operation named: findByIdUsingGET_3
+2022-12-06 09:07:13.155 3774 [main] INFO  - Generating unique operation named: getListUsingPOST_2
+2022-12-06 09:07:13.160 3779 [main] INFO  - Generating unique operation named: removeByIdUsingDELETE_2
+2022-12-06 09:07:13.161 3780 [main] INFO  - Generating unique operation named: removeByIdUsingDELETE_3
+2022-12-06 09:07:13.165 3784 [main] INFO  - Generating unique operation named: addUsingPOST_5
+2022-12-06 09:07:13.165 3784 [main] INFO  - Generating unique operation named: findByIdUsingGET_4
+2022-12-06 09:07:13.167 3786 [main] INFO  - Generating unique operation named: getListUsingPOST_3
+2022-12-06 09:07:13.168 3787 [main] INFO  - Generating unique operation named: removeByIdUsingDELETE_4
+2022-12-06 09:07:13.169 3788 [main] INFO  - Generating unique operation named: removeByIdUsingDELETE_5
+2022-12-06 09:07:13.171 3790 [main] INFO  - Generating unique operation named: updateEventUsingPOST_1
+2022-12-06 09:07:13.173 3792 [main] INFO  - Generating unique operation named: addUsingPOST_6
+2022-12-06 09:07:13.174 3793 [main] INFO  - Generating unique operation named: findByIdUsingGET_5
+2022-12-06 09:07:13.175 3794 [main] INFO  - Generating unique operation named: getListUsingPOST_4
+2022-12-06 09:07:13.176 3795 [main] INFO  - Generating unique operation named: removeByIdUsingDELETE_6
+2022-12-06 09:07:13.177 3796 [main] INFO  - Generating unique operation named: updateUsingPUT_1
+2022-12-06 09:07:13.179 3798 [main] INFO  - Generating unique operation named: addUsingPOST_7
+2022-12-06 09:07:13.180 3799 [main] INFO  - Generating unique operation named: findByIdUsingGET_6
+2022-12-06 09:07:13.180 3799 [main] INFO  - Generating unique operation named: getListUsingPOST_5
+2022-12-06 09:07:13.181 3800 [main] INFO  - Generating unique operation named: removeByIdUsingDELETE_7
+2022-12-06 09:07:13.183 3802 [main] INFO  - Generating unique operation named: updateUsingPUT_2
+2022-12-06 09:07:13.184 3803 [main] INFO  - Generating unique operation named: addUsingPOST_8
+2022-12-06 09:07:13.187 3806 [main] INFO  - Generating unique operation named: updateUsingPOST_2
+2022-12-06 09:07:13.195 3814 [main] INFO  - Generating unique operation named: addStandardUsingPOST_1
+2022-12-06 09:07:13.196 3815 [main] INFO  - Generating unique operation named: findStandardByIdUsingGET_1
+2022-12-06 09:07:13.196 3815 [main] INFO  - Generating unique operation named: removeStandardByIdUsingDELETE_1
+2022-12-06 09:07:13.197 3816 [main] INFO  - Generating unique operation named: upDataUsingPOST_1
+2022-12-06 09:07:13.201 3820 [main] INFO  - Generating unique operation named: addUsingPOST_9
+2022-12-06 09:07:13.233 3852 [main] INFO  - Tomcat started on port(s): 8088 (http) with context path ''
+2022-12-06 09:07:13.235 3854 [main] INFO  - Started Application in 3.69 seconds (JVM running for 4.501)
+2022-12-06 09:07:42.208 32827 [http-nio-8088-exec-1] INFO  - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-12-06 09:07:42.208 32827 [http-nio-8088-exec-1] INFO  - Initializing Servlet 'dispatcherServlet'
+2022-12-06 09:07:42.212 32831 [http-nio-8088-exec-1] INFO  - Completed initialization in 4 ms
+2022-12-06 09:07:42.293 32912 [http-nio-8088-exec-1] INFO  - 用户admin验证.
+2022-12-06 09:07:46.403 37022 [http-nio-8088-exec-8] INFO  - 用户admin验证.
+2022-12-06 10:31:52.217 5082836 [http-nio-8088-exec-4] INFO  - 用户admin验证.
+2022-12-06 14:26:19.402 19150021 [SpringContextShutdownHook] INFO  - Shutting down ExecutorService 'PdeDefaultThreadPool'
+2022-12-06 14:26:19.414 19150033 [SpringContextShutdownHook] INFO  - {dataSource-1} closed

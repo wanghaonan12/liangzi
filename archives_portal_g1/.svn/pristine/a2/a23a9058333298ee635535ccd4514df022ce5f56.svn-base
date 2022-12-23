@@ -1,0 +1,88 @@
+package com.pde.pdes.portal.archive.service.Impl;
+
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pde.pdes.portal.archive.dao.ArchiveFileAddDao;
+import com.pde.pdes.portal.archive.dao.ArchiveFileUpdateDao;
+import com.pde.pdes.portal.archive.mapper.Archive;
+import com.pde.pdes.portal.archive.mapper.ArchiveFile;
+import com.pde.pdes.portal.archive.po.ArchiveFilePo;
+import com.pde.pdes.portal.archive.po.ArchivePo;
+import com.pde.pdes.portal.archive.service.ArchiveFlieService;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
+import static java.util.Collections.list;
+
+@Service
+public class ArchiveFileServiceImpl extends ServiceImpl<ArchiveFile, ArchiveFilePo> implements ArchiveFlieService {
+    @Resource
+    public ArchiveFile archiveFile;
+
+    @Resource
+    public Archive archive;
+
+    @Override
+    public List<ArchiveFilePo> selectAll(String searchText) {
+        if (StringUtils.isEmpty(searchText)) {
+            return list();
+        }
+        else {
+            return list(Wrappers.lambdaQuery(ArchiveFilePo.class).like(ArchiveFilePo::getFileName, searchText).or());
+        }
+    }
+
+
+    @Override
+    public ArchiveFilePo selectById(Integer id) {
+        return archiveFile.selectById(id);
+    }
+
+
+    @Override
+    public Integer update(ArchiveFileUpdateDao archiveFileUpdateDao) {
+        UpdateWrapper<ArchiveFilePo> wrapper = Wrappers.update();
+        wrapper.lambda()
+                .set(ArchiveFilePo::getFilePath, archiveFileUpdateDao.getFilePath())
+                .set(ArchiveFilePo::getFileSize, archiveFileUpdateDao.getFileSize())
+                .set(ArchiveFilePo::getFileName, archiveFileUpdateDao.getFileName())
+                .set(ArchiveFilePo::getCreateTime, new Date())
+                .eq(ArchiveFilePo::getArchiveId, archiveFileUpdateDao.getArchiveId());
+        return archiveFile.update(null,wrapper);
+    }
+
+    @Override
+    public Boolean del(Integer id) {
+        if(archiveFile.deleteById(id)==1){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public Integer delList(Integer[] list) {
+        return archiveFile.deleteBatchIds(Arrays.asList(list));
+    }
+
+    @Override
+    public Integer add(ArchiveFileAddDao archiveFileAddDao) {
+        System.out.println(archiveFileAddDao);
+        return archiveFile.insert(ArchiveFilePo.builder()
+                        .archiveId(archiveFileAddDao.getArchiveId())
+                        .fileName(archiveFileAddDao.getFileName())
+                        .filePath(archiveFileAddDao.getFilePath())
+                        .fileSize(archiveFileAddDao.getFileSize())
+                        .createTime(new Date())
+                .build());
+    }
+
+
+}

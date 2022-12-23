@@ -1,0 +1,74 @@
+<template>
+  <div style="text-align:center">
+    <el-container>
+      <el-header>
+        <el-row>
+          <el-col offset="4">
+            <el-input v-model="tableQuery.title" style=" width:15%" placeholder="请输入检索内容" />
+            <el-button style="margin-left: 16px;" plain @click="getStandardList">查询</el-button>
+          </el-col>
+        </el-row>
+      </el-header>
+      <el-main>
+        <el-row :gutter="20">
+          <el-col :span="3" offset="3">
+            <div class="grid-content bg-purple">行业标准</div>
+          </el-col>
+          <el-col :span="12">
+            <el-table ref="multipleTable" stripe :default-sort="{ prop: 'date', order: 'descending' }" :data="tableData"
+              @selection-change="handleSelectionChange" @row-click="toDetail">
+              <el-table-column label="名称" prop="title" width="600" />
+              <el-table-column sortable prop="publishDate" label="发布日期" />
+              <el-table-column sortable prop="useDate" label="创建的日期" />
+            </el-table>
+          </el-col>
+        </el-row>
+      </el-main>
+    </el-container>
+    <pagination v-show="tableQuery.total > 0" layout="total, prev, pager, next, jumper" :total="tableQuery.total"
+      :page.sync="tableQuery.page" :limit.sync="tableQuery.size" @pagination="getStorageTableData" />
+  </div>
+</template>
+<script>
+import Pagination from '@/components/Pagination'
+import { getShowStandardListApi } from '@/api/standard'
+export default {
+  components: {
+    Pagination
+  },
+  data() {
+    return {
+      tableQuery: {
+        total: 0,
+        page: 1,
+        pageSize: 10,
+        title: ''
+      },
+      list: '行业标准',
+      tableData: []
+    }
+  },
+  mounted() {
+    this.getStandardList()
+  },
+  methods: {
+    toDetail(row) {
+      this.$router.push({ name: 'standardDetail', params: { id: row.id } })
+    },
+    getStandardList() {
+      getShowStandardListApi(this.tableQuery).then((res) => {
+        if (res && res.status) {
+          this.tableData = res.content.rows
+          this.tableQuery.total = res.content.total
+        } else {
+          this.$message(res.message)
+        }
+      })
+    }
+  }
+}
+</script>
+
+<style>
+
+</style>

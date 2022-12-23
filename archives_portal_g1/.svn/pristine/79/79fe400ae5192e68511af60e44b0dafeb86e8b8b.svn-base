@@ -1,0 +1,21 @@
+package com.pde.pdes.portal.notify.service.impl;
+
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pde.pdes.portal.notify.po.PortalNotify;
+import com.pde.pdes.portal.notify.service.PortalNotifyService;
+import com.pde.pdes.portal.notify.mapper.PortalNotifyMapper;
+import org.springframework.stereotype.Service;
+
+/**
+* @author jiangyiheng
+* @description 针对表【pdes_portal_notify(通知公告)】的数据库操作Service实现
+* @createDate 2022-11-30 09:59:12
+*/
+@Service
+public class PortalNotifyServiceImpl extends ServiceImpl<PortalNotifyMapper, PortalNotify> implements PortalNotifyService{
+
+}
+
+
+
+

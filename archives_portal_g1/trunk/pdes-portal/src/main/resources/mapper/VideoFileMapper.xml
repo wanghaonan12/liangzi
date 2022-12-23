@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pde.pdes.portal.video.mapper.VideoFileMapper">
+
+    <select id="selectAll" resultType="com.pde.pdes.portal.video.po.VideoFilePO">
+        SELECT *
+        FROM pdes_portal_video_file
+        ${ew.customSqlSegment}
+    </select>
+
+    <select id="selectFileByVideoId" resultType="com.pde.pdes.portal.video.vo.portal.PortalFileVO">
+        SELECT vf.id as id, vf.file_name as title,vf.file_path as filePath,vff.file_path as frontPath
+        FROM pdes_portal_video v
+        LEFT JOIN pdes_portal_video_file vf ON vf.video_id=v.id
+        LEFT JOIN pdes_portal_video_file_front vff ON vff.video_file_id = vf.id
+        WHERE v.id = ${id} and vff.is_front_file = 1
+    </select>
+
+    <select id="selectFrontPathByFileId" resultType="java.lang.String">
+        SELECT vff.file_path
+        FROM pdes_portal_video_file vf
+        LEFT JOIN pdes_portal_video_file_front vff ON vff.video_file_id = vf.id
+        WHERE vf.id = ${id} and vff.is_front_file = 1
+    </select>
+
+</mapper>

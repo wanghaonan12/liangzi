@@ -1,0 +1,136 @@
+<template>
+  <div>
+    <!-- <p>这⾥是id={{ $route.params.id }}</p> -->
+     <div class="top-line"></div>
+    <el-row type="flex" justify="center" align="middle">
+      <el-col span="2">
+        <el-button type="info" icon="el-icon-arrow-left" @click="prev()"></el-button>
+      </el-col>
+
+      <el-col span="8">
+        <photo class="photo" :photoUrl="photoUrl"></photo>
+      </el-col>
+      <el-col span="2" offset="1">
+        <el-button type="info" icon="el-icon-arrow-right" @click="next()"></el-button>
+      </el-col>
+    </el-row>
+    <el-row class="thumbnail-box" type="flex" justify="space-around" align="middle" style="padding-top: 10px">
+      <el-col span="1" align="middle">
+        <el-button type="info" icon="el-icon-arrow-left" @click="prevPage"></el-button>
+      </el-col>
+      <el-col align="middle">
+        <el-row type="flex" justify="left" align="middle">
+          <el-col span="" offset="1" v-for="(item, index) in urlList" :key="index">
+            <div
+              @click="pickImage(item, index)"
+              class="check-box"
+              :style="{
+                borderColor: index == isCheck ? '#e2534d' : '#9aba60',
+                borderWidth: index == isCheck ? '5px' : '1px'
+              }">
+              <el-image style="width: 10vh; height: 10vh" :src="item"> </el-image>
+            </div>
+          </el-col>
+        </el-row>
+      </el-col>
+      <el-col span="1" align="middle">
+        <el-button type="info" icon="el-icon-arrow-right" @click="nextPage"></el-button>
+      </el-col>
+    </el-row>
+  </div>
+</template>
+
+<script>
+import photo from '@/views/honor/components/photo.vue'
+export default {
+  name: 'albumDetail',
+  components: {
+    photo
+  },
+  data() {
+    return {
+      photoUrl: 'https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg',
+      urlList: [
+        'https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg',
+        'https://chl-bucket.oss-cn-hangzhou.aliyuncs.com/avatar/head1.jpg',
+        'https://chl-bucket.oss-cn-hangzhou.aliyuncs.com/banner/banner12.jpg',
+        'https://chl-bucket.oss-cn-hangzhou.aliyuncs.com/avatar/head1.jpg',
+        'https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg',
+        'https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg',
+        'https://chl-bucket.oss-cn-hangzhou.aliyuncs.com/avatar/head1.jpg',
+        'https://chl-bucket.oss-cn-hangzhou.aliyuncs.com/banner/banner12.jpg'
+      ],
+      isCheck: 0,
+      pageIndex: 1,
+      pageSize: 8
+    }
+  },
+  created() {
+    this.photoUrl = this.urlList[0]
+  },
+  methods: {
+    pickImage(item, index) {
+      console.log(item)
+      this.photoUrl = item
+      this.isCheck = index
+      console.log(this.photoUrl)
+    },
+    prev() {
+      if (this.isCheck > 0) {
+        this.photoUrl = this.urlList[--this.isCheck]
+      }
+    },
+    next() {
+      if (this.isCheck < this.urlList.length - 1) {
+        this.photoUrl = this.urlList[++this.isCheck]
+      }
+    },
+    prevPage() {
+      if (pageIndex > 1) {
+        this.pageIndex--
+      }
+    },
+    nextPage() {
+      if (pageIndex < urlList.length - 1) {
+        this.pageIndex++
+      }
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.top-line {
+  background-color: rgb(53, 0, 245);
+  height: 1vh;
+  width: 100vw;
+  margin-bottom: 20px;
+}
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
+}
+
+.photo {
+  display: flex;
+  justify-content: center;
+}
+.thumbnail-box {
+  margin: 5px;
+  border: 1px solid;
+  border-image: linear-gradient(45deg, #90cf5b, #00afee) 1;
+  clip-path: inset(0 round 10px);
+  .check-box {
+    // width: 10vw;
+    // height: 10vh;
+    border: 1px solid;
+    margin: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+</style>

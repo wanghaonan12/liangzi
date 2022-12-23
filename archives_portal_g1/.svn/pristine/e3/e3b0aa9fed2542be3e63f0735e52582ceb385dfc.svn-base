@@ -1,0 +1,72 @@
+<template>
+  <div>
+    <el-row>
+      <el-col :offset="3" span="18">
+        <!-- 根据是否拥有数据进行提示 -->
+        <div v-if="tableData.length > 0">
+          <!-- 多条数据与一条数据用有不同显示效果 -->
+          <el-table v-if="tableData.length > 1" :data="tableData" style="width: 100%">
+            <el-table-column width="50">
+              <el-image :src="src" style="width: 25px; height: 25px" />
+            </el-table-column>
+            <el-table-column prop="fileName" label="姓名" width="600" />
+            <el-table-column prop="createTime" label="日期" />
+            <el-table-column>
+              <template slot-scope="scope">
+                <a :href="scope.row.filePath">下载</a>
+              </template>
+            </el-table-column>
+          </el-table>
+          <div v-else style="text-align: center">
+            <div style="width: 500px; margin: auto">
+              <h3>
+                {{ tableData[0].fileName }}
+              </h3>
+              <div style="display: flex">
+                <h6 style="color: #808080; width: 200px">日期： {{ tableData[0].createTime }}</h6>
+                <a style="margin-left: auto; align-self: center" href="tableData[0].filePath">文件下载</a>
+              </div>
+              <div style="border-top: 1px solid #c0c0c0; margin: auto" />
+              <el-image :src="src" style="width: 500px; height: 500px; margin-top: 20px" />
+            </div>
+          </div>
+        </div>
+        <div v-else style="text-align: center">
+          <h3>暂无数据</h3>
+          <div style="border-top: 1px solid #c0c0c0; margin: auto" />
+          <el-image :src="nuData" style="width: 500px; height: 500px; margin-top: 20px" />
+        </div>
+      </el-col>
+    </el-row>
+  </div>
+</template>
+<script>
+import { getStandardFileListApi } from '@/api/standardFile'
+export default {
+  data() {
+    return {
+      nuData: 'https://img1.baidu.com/it/u=3008748232,3194325827&fm=253&fmt=auto&app=138&f=JPEG?w=578&h=500',
+      src: 'https://www.saac.gov.cn/default/images/icon16/pdf.gif',
+      tableData: []
+    }
+  },
+  computed: {},
+  mounted() {
+    this.getData()
+  },
+  methods: {
+    getData() {
+      getStandardFileListApi(this.$route.params.id).then((res) => {
+        if (res && res.status) {
+          this.tableData = res.content
+          console.log(res)
+        } else {
+          this.$message(res.message)
+        }
+      })
+    }
+  }
+}
+</script>
+
+<style lang="less" scoped></style>

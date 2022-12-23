@@ -1,0 +1,27 @@
+<template>
+  <div class="photo">
+    <p v-text="text"></p>
+    <el-image style="width: 60vh; height: 60vh" :src="photoUrl" fit="fill"> </el-image>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'Photo',
+  props: ['photoUrl', 'text'],
+  data() {
+    return {}
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.photo {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+}
+</style>

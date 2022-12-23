@@ -1,0 +1,121 @@
+<template>
+    <el-form ref="form" :model="form" label-width="80px">
+        <el-form-item label="档号">
+            <el-input v-model="form.archivalCode"></el-input>
+        </el-form-item>
+
+        <el-form-item label="全宗">
+            <el-input v-model="form.founs"></el-input>
+        </el-form-item>
+
+        <el-form-item label="年度">
+            <el-input v-model="form.year"></el-input>
+        </el-form-item>
+        
+        <el-form-item label="密级">
+            <el-select v-model="form.mj" placeholder="请选择密级">
+            <el-option label="绝密" value="绝密"></el-option>
+            <el-option label="公开" value="公开"></el-option>
+            </el-select>
+        </el-form-item>
+
+        <el-form-item label="保管期限">
+            <el-select v-model="form.qx" placeholder="请选择保管期限">
+            <el-option label="定期10年" value="定期10年"></el-option>
+            <el-option label="定期20年" value="定期20年"></el-option>
+            <el-option label="定期30年" value="定期30年"></el-option>
+            <el-option label="长期" value="长期"></el-option>
+            <el-option label="永久" value="永久"></el-option>
+            </el-select>
+        </el-form-item>
+
+        <el-form-item label="题名">
+            <el-input v-model="form.title"></el-input>
+        </el-form-item>
+
+        <el-form-item label="是否发布">
+            <el-radio-group v-model="form.resource">
+            <el-radio label="是" value=1></el-radio>
+            <el-radio label="否" value=0></el-radio>
+            </el-radio-group>
+        </el-form-item>
+
+
+        <el-form-item label="选择文件">
+          <el-upload
+            class="upload-demo"
+            :on-change="handleChange"
+            action="#"
+            :before-upload="onBeforeUploadImage"
+            :http-request="UploadImage"
+            >
+            <el-button size="small" type="primary">点击上传</el-button>
+            <div slot="tip" class="el-upload__tip" style="color:red">只能上传一个文件！</div>
+          </el-upload>
+        </el-form-item>
+
+
+    </el-form>
+</template>
+
+<script>
+import { uploadFile } from '@/api/archive';
+import { fromTextArea } from 'codemirror';
+export default {
+    data() {
+      return {
+        form: {
+          archivalCode: '',
+          founs: '',
+          year: '',
+          mj: '',
+          qx: "",
+          title: "",
+          resource: ""
+        },
+        file: {},
+        fileSize: 0.0,
+        fileName: "",
+        filePath:"",
+        msgData:{}
+      }
+    },
+    methods: {
+      handleChange(file) {
+        this.fileSize = file.size / 1024 + file.size % 1024;
+        this.fileName = file.name;
+      },
+
+      onBeforeUploadImage(file) {
+        this.fileSize = file.size / 1024 + file.size % 1024;
+        this.fileName = file.name;
+        this.file=file
+      },
+      UploadImage(){
+        const formData = new FormData()
+        formData.append('folder', "archive")
+        formData.append('files', this.file)
+        uploadFile(formData).then((data) => {
+          this.filePath=data.content[0].filePath;
+          console.log(data.content[0].filePath);
+
+          this.$emit("msg",
+          {
+            'form':this.form,
+            'fileName': this.fileName,
+            'fileSize':this.fileSize,
+            'filePath':this.filePath
+
+          });
+
+        }).catch(response => {
+          console.log('上传失败')
+        })
+    },
+    }
+  }
+</script>
+
+<style scoped>
+
+</style>

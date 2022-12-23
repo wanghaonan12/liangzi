@@ -1,0 +1,24 @@
+/** When your routing table is too long, you can split it into small modules **/
+
+import Layout from '@/layout'
+
+const navbarManagementRouter = {
+  path: '/navbar-management',
+  component: Layout,
+  redirect: '/navbar-management/index',
+  name: 'NavbarManagement',
+  meta: {
+    title: '导航栏维护',
+    icon: 'form'
+  },
+  children: [
+    {
+      path: 'index',
+      component: () => import('@/views/navbarManagement'),
+      name: 'NavbarManagementIndex',
+      meta: { title: '导航栏维护' }
+    }
+  ]
+}
+
+export default navbarManagementRouter

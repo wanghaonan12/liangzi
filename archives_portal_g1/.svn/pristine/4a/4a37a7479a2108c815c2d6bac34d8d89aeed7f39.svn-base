@@ -1,0 +1,248 @@
+<template>
+  <div class="wrapper">
+    <el-dialog title="附件" :visible.sync="show" width="80%" fullscreen>
+      <el-row class="table-toolbar">
+        <div class="left">
+          <el-input placeholder="请输入检索关键字" size="mini" class="search-input" v-model="searchData" />
+          <el-button size="mini" type="primary" @click="handleSearch">检索</el-button>
+        </div>
+        <div class="right">
+          <el-button size="mini" type="primary" @click="onAddButtonClick(id)">新增</el-button>
+          <el-button size="mini" type="danger" @click="onDelButtonClick">删除</el-button>
+        </div>
+      </el-row>
+      <template>
+        <el-table
+          :data="tableData"
+          border
+          stripe
+          style="width: 100%; text-align: center"
+          @select="handleSelectionChange"
+          @select-all="selectAll">
+          <el-table-column type="selection" width="80" align="center"> </el-table-column>
+          <el-table-column label="序号">
+            <template slot-scope="scope">
+              {{ scope.$index + 1 }}
+            </template>
+          </el-table-column>
+          <el-table-column label="创建日期" width="180" align="center">
+            <template slot-scope="scope">
+              <i class="el-icon-time"></i>
+              <span style="margin-left: 10px">{{ scope.row.createTime }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="附件标题" width="230" align="center">
+            <template slot-scope="scope">
+              <div slot="reference" class="name-wrapper">
+                <el-tag size="medium">{{ scope.row.fileName }}</el-tag>
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column label="附件大小" width="100" align="center">
+            <template slot-scope="scope">
+              <span style="margin-left: 10px">{{ scope.row.fileSize }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="后缀" width="100" align="center">
+            <template slot-scope="scope">
+              <span style="margin-left: 10px">{{ scope.row.fileSuffix }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="存储路径" width="450" align="center">
+            <template slot-scope="scope">
+              <span style="margin-left: 10px">{{ scope.row.filePath }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="备注" width="180" align="center">
+            <template slot-scope="scope">
+              <span style="margin-left: 10px">{{ scope.row.memo }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="操作" align="center">
+            <template slot-scope="scope">
+              <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </template>
+    </el-dialog>
+    <chronicle-file-add-dialog
+      ref="chronicleFileAddDialog"
+      @refreshTableData="getChronicleFileData"></chronicle-file-add-dialog>
+    <chronicle-file-update-dialog
+      ref="chronicleFileEditDialog"
+      @refreshTableData="getChronicleFileData"></chronicle-file-update-dialog>
+  </div>
+</template>
+
+<script>
+import { getChronicleFileByChronicleId, deleteChronicleFileByIds, topChronicleFile } from '@/api/chronicle'
+import ChronicleFileAddDialog from '@/views/chronicleManagement/components/ChronicleFileAddDialog'
+import ChronicleFileUpdateDialog from '@/views/chronicleManagement/components/ChronicleFileUpdateDialog.vue'
+export default {
+  components: {
+    ChronicleFileAddDialog,
+    ChronicleFileUpdateDialog
+  },
+  data() {
+    return {
+      // dialogTitle: '新增',
+      show: false,
+      id: 0,
+      // modalType: 'add',
+      searchData: '',
+      total: 0,
+      tableData: [],
+      querySearch: {
+        pageNum: 1,
+        pageSize: 5,
+        searchText: ''
+      },
+      topDto: {
+        ids: [],
+        orderSeq: 0
+      },
+      tableSelection: []
+    }
+  },
+  created() {
+    this.getChronicleFileData()
+  },
+  methods: {
+    async getChronicleFileData() {
+      const res = await getChronicleFileByChronicleId(parseInt(this.id))
+      console.log(res)
+      if (res && res.status) {
+        this.tableData = res.content
+        this.total = res.content.total
+        // this.$emit('refreshTableData')
+      } else {
+        this.$message(res.message)
+      }
+    },
+    handleSearch() {
+      const filterList =
+        this.tableData && this.tableData.length
+          ? this.tableData.filter((item) => {
+              console.log(typeof item.fileSize.toString())
+              console.log(typeof item.fileName)
+              return (
+                item.fileName.indexOf(this.searchData) !== -1 ||
+                item.fileSize.toString().indexOf(this.searchData) !== -1 ||
+                item.fileSuffix.indexOf(this.searchData) !== -1
+              )
+            })
+          : []
+      if (this.searchData != '') {
+        this.tableData = filterList
+      } else {
+        this.getChronicleFileData()
+      }
+    },
+    handleEdit(row) {
+      this.$refs.chronicleFileEditDialog.showDialog(row)
+      console.log('=============================')
+      console.log(row.id)
+      console.log('=============================')
+    },
+    selectAll(selection) {
+      this.tableSelection = []
+      this.tableSelection = selection
+    },
+    onDelButtonClick() {
+      if (!this.tableSelection.length) {
+        this.$message('请勾选条目')
+        return
+      }
+      this.$confirm('确定执行该操作吗？', '确认')
+        .then((r) => {
+          let ids = []
+          const tableSelection = this.tableSelection
+          tableSelection.map((item) => {
+            ids.push(item.id)
+          })
+          var di = ids.toString().substring(0, ids.toString().length)
+          deleteChronicleFileByIds({ ids: di }).then((res) => {
+            console.log(res)
+            if (res.status) {
+              this.$message('删除成功')
+              this.getChronicleFileData()
+            } else {
+              this.$message('删除失败')
+            }
+          })
+        })
+        .catch()
+    },
+    handleSelectionChange(s, row) {
+      console.log(s)
+      console.log(row.$index)
+      this.tableSelection = s
+    },
+    handleIndex(index) {
+      console.log(index)
+    },
+
+    showDialog(row) {
+      this.id = row.id
+      console.log(this.id)
+      console.log('下面是传到dialog---------------')
+      this.getChronicleFileData()
+      console.log(this.tableData)
+      this.show = true
+      // this.ruleForm = { ...row }
+    },
+    onAddButtonClick() {
+      this.$refs.chronicleFileAddDialog.showAddDialog(this.id)
+    },
+    onTopButtonClick() {},
+    doSubmit() {
+      // this.$refs['ruleForm'].validate((valid) => {
+      //   if (valid) {
+      //     updateStorageInfoApi(this.ruleForm).then((res) => {
+      //       if (res && res.status) {
+      //         this.$message('修改成功')
+      //         this.show = false
+      //         this.$emit('refreshTableData')
+      //       } else {
+      //         this.$message(res.message)
+      //       }
+      //     })
+      //   } else {
+      //     return false
+      //   }
+      // })
+    },
+    onCancel() {
+      this.show = false
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.rowCenter {
+  text-align: center;
+}
+.wrapper {
+  padding: 20px 18px;
+
+  .table-toolbar {
+    margin-bottom: 10px;
+
+    .left {
+      float: left;
+
+      .search-input {
+        width: 210px;
+        margin-right: 10px;
+      }
+    }
+
+    .right {
+      float: right;
+    }
+  }
+}
+</style>

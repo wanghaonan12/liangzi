@@ -1,0 +1,182 @@
+<template>
+  <div class="wrapper">
+    <el-dialog title="新增附件" :visible.sync="show" width="40%">
+      <el-form ref="ruleForm" :model="ruleForm" label-width="100px" class="demo-ruleForm" :rules="rules">
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="备注：" prop="memo">
+              <el-input v-model="ruleForm.memo" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <el-row class="rowCenter">
+        <el-upload
+          ref="uploadMutiple"
+          :auto-upload="false"
+          action="#"
+          :on-success="allHandleSuccess"
+          :on-change="handleChange"
+          :file-list="fileList"
+          multiple
+          >选取文件</el-upload
+        >
+        <el-button type="primary" size="small" @click="allUpload">上传</el-button>
+      </el-row>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" size="mini" :disabled="isUploaded" @click="doSubmit">确定</el-button>
+        <el-button size="mini" @click="show = false">取消</el-button>
+      </div>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+import { addChronicleFile } from '@/api/chronicle'
+import { uploadFiles } from '@/api/file'
+
+export default {
+  data() {
+    return {
+      dialogTitle: '新增附件',
+      id: 0,
+      isUploaded: true,
+      fileList: [],
+      uploadedFileList: [],
+      show: false,
+      modalType: 'add',
+      ruleForm: {
+        fileName: '',
+        filePath: '',
+        fileSize: '',
+        fileSuffix: '',
+        memo: '',
+        orderSeq: 1,
+        chronicleEventsId: 0
+      },
+
+      rules: {
+        memo: [{ required: true, message: '请给附件添加备注', trigger: 'blur' }]
+      }
+    }
+  },
+  methods: {
+    showAddDialog(id) {
+      this.id = id
+      // this.ruleForm.chronicleEventsId = id
+      this.show = true
+      console.log(this.id)
+    },
+    allUpload() {
+      let formData2 = new FormData()
+      this.fileList.forEach((file) => {
+        console.log(file)
+        formData2.append('files', file.raw)
+      })
+      formData2.append('folder', 'chronicle')
+      uploadFiles(formData2).then((res) => {
+        this.uploadedFileList = res.content
+        console.log('----------')
+        console.log(this.uploadedFileList)
+        console.log('------------')
+        if (res && res.status) {
+          this.$message('上传成功')
+          this.isUploaded = false
+          // this.show = false
+          // this.$emit('refreshTableData')
+        } else {
+          this.$message('上传失败')
+          return
+        }
+      })
+    },
+    allHandleSuccess() {
+      this.fileList = []
+    },
+    handleRemove(file, fileList) {
+      this.fileList = []
+    },
+    handleChange(file, fileList) {
+      this.fileList = fileList
+    },
+    submitUpload() {
+      this.$refs.uploadMutiple.submit()
+    },
+    handlePreview(file) {
+      console.log(file)
+    },
+    handleEdit(index, row) {
+      console.log(index, row)
+    },
+    handleDelete(index, row) {
+      console.log(index, row)
+    },
+    doSubmit() {
+      console.log('================')
+      this.$refs['ruleForm'].validate(async (valid) => {
+        if (valid) {
+          for (let index = 0; index < this.uploadedFileList.length; index++) {
+            console.log('ssssssss')
+            console.log(index)
+
+            this.ruleForm.fileName = this.uploadedFileList[index].fileName
+            console.log(this.ruleForm.fileName)
+            this.ruleForm.fileSize = this.uploadedFileList[index].fileSize
+            this.ruleForm.filePath = this.uploadedFileList[index].filePath
+            this.ruleForm.chronicleEventsId = parseInt(this.id)
+            this.ruleForm.fileSuffix = this.uploadedFileList[index].fileName.substring(
+              this.uploadedFileList[index].fileName.lastIndexOf('.') + 1
+            )
+            console.log(this.ruleForm.fileSuffix)
+            const res = await addChronicleFile(this.ruleForm)
+            // console.log("--");
+            // console.log(this.ruleForm.fileName);
+            if (res && res.status) {
+              this.$message('新增成功')
+              this.show = false
+              this.ruleForm.fileName = ''
+              this.ruleForm.fileSize = ''
+              this.ruleForm.filePath = ''
+              this.ruleForm.chronicleEventsId = 0
+              this.ruleForm.fileSuffix = ''
+              this.ruleForm.memo = ''
+              this.fileList = []
+              this.$emit('refreshTableData')
+            } else {
+              this.$message(res.message)
+            }
+          }
+        } else {
+          return false
+        }
+      })
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.rowCenter {
+  text-align: center;
+}
+.wrapper {
+  padding: 20px 18px;
+
+  .table-toolbar {
+    margin-bottom: 10px;
+
+    .left {
+      float: left;
+
+      .search-input {
+        width: 210px;
+        margin-right: 10px;
+      }
+    }
+
+    .right {
+      float: right;
+    }
+  }
+}
+</style>

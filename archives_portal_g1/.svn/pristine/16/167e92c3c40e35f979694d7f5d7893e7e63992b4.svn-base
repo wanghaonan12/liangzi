@@ -1,0 +1,25 @@
+package com.pde.pdes.portal.video.service.impl;
+
+import com.pde.pdes.portal.video.po.VideoFilePO;
+import com.pde.pdes.portal.video.service.VideoFileService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/**
+ * @author: mth
+ * @date: 2022/12/1
+ * @description:
+ */
+@Service
+public class VideoFileServiceImpl implements VideoFileService {
+    @Override
+    public List<VideoFilePO> findByVideoId(String id) {
+        return null;
+    }
+
+    @Override
+    public Boolean insert(VideoFilePO videoFile) {
+        return null;
+    }
+}

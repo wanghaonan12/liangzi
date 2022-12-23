@@ -1,0 +1,151 @@
+<template>
+  <div>
+    <el-dialog :title="dialogTitle" :visible.sync="show" width="65%">
+      <el-form ref="ruleForm" :model="ruleForm" label-width="100px" class="demo-ruleForm">
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="标题：" prop="title">
+              <el-input v-model="ruleForm.title" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="正文内容:" prop="content">
+              <vue-editor
+                v-model="ruleForm.content"
+                use-custom-image-handler
+                @image-added="handleImageAdded"
+              />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="摘要：" prop="contentAbstract">
+              <el-input v-model="ruleForm.contentAbstract" type="textarea" rows="2" :show-word-limit="true" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="是否发布：" prop="enablePublish">
+              <el-select v-model="ruleForm.enablePublish" placeholder="是否发布">
+                <el-option label="发布" value="0" />
+                <el-option label="不发布" value="1" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" size="mini" @click="doSubmit">确定</el-button>
+        <el-button size="mini" @click="onCancel">取消</el-button>
+      </div>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+import { updateById, addById } from '@/api/notice'
+import { addNoticeFile } from '@/api/noticeFile'
+import { VueEditor } from 'vue2-editor'
+export default {
+  components: {
+    VueEditor
+  },
+  data() {
+    return {
+      dialogTitle: '新增',
+      show: false,
+      modalType: 'add',
+      ruleForm: {
+        id: '',
+        title: '',
+        content: '',
+        contentAbstract: '',
+        enablePublish: ''
+      }
+    }
+  },
+  methods: {
+    showDialog(row, type) {
+      this.dialogTitle = type === 'add' ? '新增' : '编辑'
+      this.modalType = type
+      this.show = true
+      this.ruleForm = { ...row }
+    },
+    showDialogAdd(type) {
+      this.dialogTitle = type === 'add' ? '新增' : '编辑'
+      this.modalType = type
+      this.show = true
+      this.ruleForm = {
+        id: '',
+        title: '',
+        content: '',
+        contentAbstract: '',
+        enablePublish: ''
+      }
+    },
+    handleImageAdded: function(file, Editor, cursorLocation, resetUploader) {
+      // 上传文件的接口
+      this.$message.success('文件上传中........')
+      // 上传文件的需要formdata类型;所以要转
+      const FormDatas = new FormData()
+      FormDatas.append('files', file)
+      addNoticeFile(FormDatas).then((res) => {
+        if (res && res.status) {
+          this.$message.success(res.message)
+          const url = res.content[0].filePath
+          Editor.insertEmbed(cursorLocation, 'image', url)
+          resetUploader()
+        } else {
+          this.$message.warning(res.message)
+        }
+      })
+    },
+    doSubmit() {
+      this.$refs['ruleForm'].validate((valid) => {
+        console.log(this.ruleForm)
+        if (valid) {
+          if (this.modalType === 'edit' || this.dialogTitle === '修改') {
+            updateById(this.ruleForm).then((res) => {
+              if (res && res.status) {
+                this.$message.success('修改成功')
+                this.show = false
+                location.reload()
+              } else {
+                this.$message.error('修改失败' + res.message)
+              }
+            })
+          // eslint-disable-next-line no-empty
+          } else {
+            addById(this.ruleForm).then((res) => {
+              if (res && res.status) {
+                this.$message.success('新增成功')
+                this.show = false
+                location.reload()
+              } else {
+                this.$message.error('新增失败' + res.message)
+              }
+            })
+          }
+        } else {
+          return false
+        }
+      })
+    },
+    onCancel() {
+      this.show = false
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+
+</style>

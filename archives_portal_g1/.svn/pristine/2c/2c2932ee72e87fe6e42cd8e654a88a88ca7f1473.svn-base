@@ -1,0 +1,71 @@
+package com.pde.pdes.portal.standard.service;
+
+import com.pde.pdes.portal.standard.dto.StandardDto;
+import com.pde.pdes.portal.standard.po.Standard;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+/**
+ * @author wangRich
+ * @description 针对表【pdes_portal_standard(标准;)】的数据库操作Service
+ * @createDate 2022-11-30 10:56:45
+ */
+@Component
+public interface StandardService {
+
+    /**
+     * 添加standard
+     *
+     * @param standard standard对象
+     * @return 添加状态
+     */
+    boolean add(StandardDto standard);
+
+    /**
+     * 更新standard
+     *
+     * @param standard standard对象
+     * @return 更新状态
+     */
+    boolean update(Standard standard);
+
+
+    /**
+     * 根据standard的id删除standard
+     *
+     * @param id id
+     * @return 移除状态
+     */
+    boolean deleteByIds(Integer id);
+
+    /**
+     * 根据standard的title模糊查询
+     *
+     * @param title title
+     * @return List<Standard>
+     */
+   List<Standard> getStandardByTitle(String title);
+
+    /**
+     * 获取全部Standard
+     *
+     * @return List<Standard>
+     */
+    List<Standard> findAll();
+
+    /**
+     * 获取enable_publish属性为1的Standard
+     *
+     * @return List<Standard>
+     */
+    List<Standard> findShow();
+
+    /**
+     * 根据standard的title模糊查询且enable_publish属性为1的Standard
+     *
+     * @param title title
+     * @return List<Standard>
+     */
+    List<Standard> getShowStandardByTitle(String title);
+}

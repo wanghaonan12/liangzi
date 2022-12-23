@@ -1,0 +1,31 @@
+package com.pde.pdes.portal.video.service;
+
+import com.pde.pdes.portal.video.po.VideoFilePO;
+
+import java.util.List;
+
+/**
+ * @author: mth
+ * @date: 2022/12/1
+ * @description:
+ */
+
+public interface VideoFileService {
+    /**
+     * 根据视频档案id查询视频列表
+     *
+     * @param id 视频档案id
+     * @return 视频列表
+     */
+    List<VideoFilePO> findByVideoId(String id);
+
+    /**
+     * 视频档案新增视频文件
+     *
+     * @param videoFile 视频文件
+     * @return 新增结果
+     */
+    Boolean insert(VideoFilePO videoFile);
+
+
+}

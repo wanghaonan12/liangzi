@@ -1,0 +1,23 @@
+package com.pde.pdes.portal.video.dto;
+
+import lombok.Builder;
+import lombok.Data;
+
+import java.io.Serializable;
+
+@Data
+@Builder
+public class VideoQueryCondition implements Serializable {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5032796741401844543L;
+
+    private int pageNum;
+
+    private int pageSize;
+
+    private String searchText;
+
+}

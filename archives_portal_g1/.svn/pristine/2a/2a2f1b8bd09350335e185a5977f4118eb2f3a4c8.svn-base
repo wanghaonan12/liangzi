@@ -1,0 +1,90 @@
+<template>
+  <div>
+    <el-dialog :title="dialogTitle" :visible.sync="show" width="560px">
+      <el-form :rules='rules' ref="validateForm" :model="addForm" label-width="100px" class="demo-addForm">
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="相册名称：" prop="title">
+              <el-input v-model="addForm.title" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="描述：" prop="description">
+              <el-input
+                v-model="addForm.description"
+                type="textarea"
+                :autosize="{ minRows: 2, maxRows: 4}"
+                placeholder="请输入内容" >
+              </el-input>
+
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="默认发布：" prop="enablePublish">
+              <el-checkbox v-model="addForm.enablePublish" :true-label="1" :false-label="0" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" size="mini" @click="doSubmit">确定</el-button>
+        <el-button size="mini" @click="onCancel">取消</el-button>
+      </div>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+import { addPhoto } from '@/api/photoManagement'
+
+export default {
+  data() {
+    return {
+      dialogTitle: '新增',
+      show: false,
+      modalType: 'add',
+      addForm: {
+        title: '',
+        description: '',
+        enablePublish: '0'
+      },
+      rules: {
+        title: [{ required: true, message: '请输入相册名', trigger: 'blur' }],
+      }
+    }
+  },
+  methods: {
+    showDialog() {
+      this.show = true
+      console.log(this.show)
+    },
+    doSubmit() {
+      this.$refs['validateForm'].validate((valid) => {
+        if (valid) {
+          console.log(this.addForm)
+          addPhoto(this.addForm).then(res => {
+            console.log(res)
+            this.show = false
+            // this.$emit("load",load)
+            this.$parent.load()
+          })
+        } else {
+          return false
+        }
+      })
+    },
+    onCancel() {
+      this.show = false
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped></style>

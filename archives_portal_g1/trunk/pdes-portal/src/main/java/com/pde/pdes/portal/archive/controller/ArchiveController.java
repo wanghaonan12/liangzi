@@ -1,0 +1,157 @@
+package com.pde.pdes.portal.archive.controller;
+
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.pde.pdes.portal.Constants.Constants;
+import com.pde.pdes.portal.archive.dao.ArchiveAddDao;
+import com.pde.pdes.portal.archive.dao.ArchiveUpdateDao;
+import com.pde.pdes.portal.archive.dao.ArchiveDao;
+import com.pde.pdes.portal.archive.po.ArchivePo;
+import com.pde.pdes.portal.archive.service.ArchiveFlieService;
+import com.pde.pdes.portal.archive.service.ArchiveService;
+import com.pde.pdes.portal.company.dto.QueryCondition;
+import com.pde.pdes.portal.company.po.CompanyPO;
+import com.pde.pdes.portal.vo.SimpleResponse;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.async.WebAsyncTask;
+
+import javax.annotation.Resource;
+import java.util.*;
+
+/**
+ * @author xiaozp
+ * @date 2022-12-21 19：00
+ */
+
+@Api(tags = {"开发档案服务"})
+@RequestMapping("/")
+@RestController
+@Slf4j
+public class ArchiveController {
+
+    @Resource
+    private ArchiveService pdesPortalPublicArchiveService;
+
+    @Resource
+    private ArchiveFlieService pdesPortalPublicArchiveFlieService;
+
+    /**
+     * @Title 分页，每页8条
+     * @param query
+     * @return WebAsyncTask<SimpleResponse<Object>>
+     */
+    @PostMapping("v1/archive/findList")
+    @ApiOperation(value = "查询所有内容，分页，每页8条")
+    public WebAsyncTask<SimpleResponse<?>> selectAll(@RequestBody QueryCondition query) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            Map<String, Object> map = new HashMap<String, Object>();
+            Page<ArchivePo> page = PageHelper.startPage(query.getPageNum(), query.getPageSize(), true, false, false);
+            pdesPortalPublicArchiveService.selectAll(query.getSearchText());
+            map.put("total", page.getTotal());
+            map.put("rows", page.getResult());
+            return new SimpleResponse<Object>(true, "操作成功", map);
+        });
+    }
+
+    /**
+     * @Title 后台查询所有内容，分页
+     * @param query
+     * @return WebAsyncTask<SimpleResponse<Object>>
+     */
+    @PostMapping("v1/archive/findListAll")
+    @ApiOperation(value = "查询所有内容，分页，每页8条")
+    public WebAsyncTask<SimpleResponse<?>> selectAll2(@RequestBody QueryCondition query) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            Map<String, Object> map = new HashMap<String, Object>();
+            Page<ArchivePo> page = PageHelper.startPage(query.getPageNum(), query.getPageSize(), true, false, false);
+            pdesPortalPublicArchiveService.selectAll2(query.getSearchText());
+            map.put("total", page.getTotal());
+            map.put("rows", page.getResult());
+            return new SimpleResponse<Object>(true, "操作成功", map);
+        });
+    }
+
+    /**
+     * @Title 查询单条内容
+     * @param id
+     * @return WebAsyncTask<SimpleResponse<ArchivePo>>
+     */
+    @GetMapping("v1/archive/findById/{id}")
+    @ApiOperation(value = "根据id查询单条内容")
+    public WebAsyncTask<SimpleResponse<?>> findById(@PathVariable Integer id) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            return new SimpleResponse<ArchivePo>(pdesPortalPublicArchiveService.selectById(id));
+        });
+    }
+
+    /**
+     * @Title 修改条目信息
+     * @param archiveAddDao
+     * @return WebAsyncTask<SimpleResponse<Integer>>
+     */
+    @PostMapping("archive/update")
+    @ApiOperation(value = "根据id修改条目信息（密纪和是否发布）")
+    public WebAsyncTask<SimpleResponse<?>> update(@RequestBody ArchiveUpdateDao archiveAddDao) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            return new SimpleResponse<Integer>(pdesPortalPublicArchiveService.update(archiveAddDao));
+        });
+    }
+
+    /**
+     * @Title 单个删除
+     * @param id
+     * @return WebAsyncTask<SimpleResponse<Boolean>>
+     */
+    @GetMapping("archive/del/{id}")
+    @ApiOperation(value = "根据id删除单个条目")
+    public WebAsyncTask<SimpleResponse<?>> del(@PathVariable Integer id) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            return new SimpleResponse<Boolean>(pdesPortalPublicArchiveService.del(id));
+        });
+    }
+
+    /**
+     * @Title 批量删除
+     * @param list
+     * @return WebAsyncTask<SimpleResponse<Integer>>
+     */
+    @PostMapping("archive/delList")
+    @ApiOperation(value = "根据id批量删除")
+    public WebAsyncTask<SimpleResponse<?>> delList(@RequestBody Integer[] list) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            return new SimpleResponse<Integer>(pdesPortalPublicArchiveService.delList(list));
+        });
+    }
+
+    /**
+     * @Title 插入
+     * @param archiveAddDao
+     * @return WebAsyncTask<SimpleResponse<Integer>>
+     */
+    @PostMapping("archive/insert")
+    public WebAsyncTask<SimpleResponse<?>> insert(@RequestBody ArchiveAddDao archiveAddDao) {
+        System.out.println("--------------------"+archiveAddDao);
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            ArchivePo archivePo = ArchivePo.builder()
+                    .archivalCode(archiveAddDao.getArchivalCode())
+                    .fonds(archiveAddDao.getFonds())
+                    .year(archiveAddDao.getYear())
+                    .securityClass(archiveAddDao.getSecurityClass())
+                    .retentionPeriod(archiveAddDao.getRetentionPeriod())
+                    .title(archiveAddDao.getTitle())
+                    .enablePublish((short) (archiveAddDao.getEnablePublish().equals("是")?1:0))
+                    .createTime(new Date())
+                    .modifiedTime(new Date())
+                    .build();
+            pdesPortalPublicArchiveService.add(archivePo);
+            System.out.println(archivePo.getId());
+            return new SimpleResponse<Integer>(archivePo.getId());
+        });
+    }
+
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pde.pdes.portal.archive.mapper.ArchiveFileMapper">
+  <resultMap id="BaseResultMap" type="com.pde.pdes.portal.archive.po.ArchiveFilePo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="archive_id" jdbcType="INTEGER" property="archiveId" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="file_path" jdbcType="VARCHAR" property="filePath" />
+    <result column="file_size" jdbcType="INTEGER" property="fileSize" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, archive_id, file_name, file_path, file_size, create_time
+  </sql>
+
+
+</mapper>

@@ -1,0 +1,31 @@
+package com.pde.pdes.portal.honor.service;
+
+import com.pde.pdes.portal.honor.dto.HonorDTO;
+import com.pde.pdes.portal.honor.dto.HonorFileDTO;
+import com.pde.pdes.portal.honor.po.HonorFilePO;
+import com.pde.pdes.portal.honor.vo.HonorVO;
+
+import java.util.List;
+
+public interface HonorService {
+    Boolean addHonor(HonorDTO dto);
+
+    boolean removeById(Integer[] ids);
+
+    boolean update(HonorDTO dto);
+
+
+    List<HonorVO> findImage(String title);
+
+    boolean addImage(HonorFileDTO dto);
+
+    List<HonorFilePO> findImage(Integer honorId);
+
+    boolean updateImage(HonorFileDTO dto);
+
+
+    boolean removeImageById(Integer[] ids);
+
+    List<HonorVO> getCoverList();
+
+}

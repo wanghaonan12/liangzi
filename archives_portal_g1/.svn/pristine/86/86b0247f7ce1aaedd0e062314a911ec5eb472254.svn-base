@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pde.pdes.portal.video.mapper.VideoMapper">
+
+    <select id="selectAll" resultType="com.pde.pdes.portal.video.po.VideoPO">
+        SELECT *
+        FROM pdes_portal_video
+        ${ew.customSqlSegment}
+    </select>
+</mapper>

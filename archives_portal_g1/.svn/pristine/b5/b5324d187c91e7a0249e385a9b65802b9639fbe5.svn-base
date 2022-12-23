@@ -1,0 +1,215 @@
+<template>
+  <div class="notify">
+    <!-- 通知公告条目 -->
+    <div class="notify-header">
+      通知公告
+      <hr>
+      <!-- <hr style=" height:5px;border:none;border-top:2px dotted ;"><hr> -->
+
+    </div>
+    <!-- 列表渲染 -->
+    <div v-show="showBool" class="notify-list">
+      <ul class="notify-list-ul">
+        <li v-for="(item, index) in notifyList" :key="index + 1">
+          <span class="fr">{{ item.createTime.substring(0,10) }}</span>
+          <span> · </span>
+          <a href="#" @click="changeShow(item.id)">{{ item.title }}</a>
+          <hr v-show="(index + 1) % 5 == 0" style=" height:5px;border:none;border-top:2px dotted #D3D3D3;">
+        </li>
+      </ul>
+      <div class="block">
+        <pagination
+          v-show="tableQuery.total > 0"
+          layout="total, prev, pager, next, jumper"
+          :total="tableQuery.total"
+          :page.sync="tableQuery.pageNum"
+          :limit.sync="tableQuery.pageSize"
+          @pagination="getData()"
+        />
+      </div>
+    </div>
+    <div v-show="!showBool" class="notify-details">
+      <!-- 标题 -->
+      <div class="title">
+        {{ notifyDetails.title }}
+      </div>
+      <!-- 切换列表 -->
+      <img src="https://jyhload.oss-cn-shanghai.aliyuncs.com/img/20221218152537.png" alt="返回" style="width: 18px;height: 18px; ">
+      <a href="#" @click="showBool=!showBool"> 公告列表 </a>
+      <!-- date 日期 -->
+      <div v-if="notifyDetails.createTime" class="date">
+        {{ notifyDetails.createTime.substring(0,10) }}
+      </div>
+      <!-- 正文 -->
+      <div class="content" v-html="notifyDetails.content" />
+      <!-- date 日期 -->
+      <div v-if="notifyDetails.modifiedTime" class="modifiedDate">
+        {{ notifyDetails.modifiedTime.substring(0,10) }}
+      </div>
+      <!-- 附件 -->
+      <div class="file">
+        <p v-for="(item, index) in fileList" :key="index + 1">
+          附件{{ index + 1 }} : <a :href="item.filePath" title="点击下载" target="_blank">{{ item.fileName }}</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import Pagination from '@/components/Pagination'
+import { selectApi, selectById } from '@/api/notice'
+import { selectNoticeFileApi } from '@/api/noticeFile'
+export default {
+  components: {
+    Pagination
+  },
+  data() {
+    return {
+      notifyList: [],
+      tableQuery: {
+        pageNum: 1,
+        pageSize: 20,
+        enablePublish: 0,
+        total: 100
+      },
+      showBool: true,
+      notifyDetails: {},
+      fileList: [],
+      routeId: ''
+    }
+  },
+  mounted() {
+    if (this.$route.params.id != null) {
+      this.routeId = this.$route.params.id
+      this.changeShow(this.routeId)
+    }
+    this.getData()
+  },
+  methods: {
+    getData(Num) {
+      if (Num !== undefined) {
+        this.tableQuery.pageNum = Num
+      }
+      selectApi(this.tableQuery).then((res) => {
+        if (res && res.status) {
+          this.notifyList = res.content.rows
+          this.tableQuery.total = res.content.total
+        } else {
+          this.$message(res.message)
+        }
+      })
+    },
+    // 获取附件的信息
+    getFileData(id) {
+      selectNoticeFileApi(id).then((res) => {
+        if (res && res.status) {
+          this.fileList = res.content
+        } else {
+          this.$message.warning(res.message)
+        }
+      })
+      selectById(id).then((res) => {
+        if (res && res.status) {
+          this.notifyDetails = res.content
+        } else {
+          this.$message(res.message)
+        }
+      })
+    },
+    changeShow: function(index) {
+      this.showBool = !this.showBool
+      this.getFileData(index)
+    }
+  }
+}
+</script>
+<style lang="scss" scoped>
+.notify-list-footer {
+  text-align: right;
+}
+
+.notify-header {
+  margin: 0 auto;
+  width: 70%;
+  color: #222222;
+  height: 39px;
+  font-size: 18px;
+  line-height: 39px;
+  font-weight: bold;
+}
+
+.notify-list {
+  margin: 0 auto;
+  width: 70%;
+  color: #222222;
+  font-size: 14px;
+  line-height: 30px;
+
+  a:hover {
+    color: #1890ff;
+  }
+}
+
+.notify-list-ul {
+  list-style-type: none;
+  padding: 10px 10px 0 10px;
+}
+
+.block {
+  text-align: right;
+}
+
+.notify-details {
+  height: 100%;
+  margin: 0 auto;
+  width: 70%;
+  a:hover {
+    color: #1890ff;
+  }
+
+  .title {
+    font-size: 24px;
+    color: #565656;
+    text-align: center;
+    line-height: 30px;
+    margin-top: 42px;
+  }
+
+  .date {
+    text-align: right;
+    font-size: 15px;
+    height: 35px;
+    overflow: hidden;
+    font-family: "微软雅黑", "宋体";
+    margin-top: 40px;
+    border-bottom: 1px solid #eaeaea;
+  }
+  .modifiedDate{
+    text-align: right;
+    font-size: 15px;
+    height: 35px;
+    overflow: hidden;
+    font-family: "微软雅黑", "宋体";
+  }
+
+  .content {
+    padding: 30px 15px;
+    line-height: 30px;
+    font-family: "微软雅黑";
+    text-decoration: none;
+  }
+  .file{
+    font-family: "微软雅黑";
+    padding-left: 30px;
+    a{
+      color: #333;
+    text-decoration: none;
+    padding-left: 10px;
+    }
+    a:hover{
+      color: #1890ff;
+    }
+  }
+}
+</style>

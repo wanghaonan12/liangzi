@@ -1,0 +1,88 @@
+package com.pde.pdes.portal.archive.service.Impl;
+
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pde.p10c.auth.JwtTokenManager;
+import com.pde.pdes.portal.archive.dao.ArchiveAddDao;
+import com.pde.pdes.portal.archive.dao.ArchiveUpdateDao;
+import com.pde.pdes.portal.archive.mapper.Archive;
+import com.pde.pdes.portal.archive.mapper.ArchiveFile;
+import com.pde.pdes.portal.archive.po.ArchivePo;
+import com.pde.pdes.portal.archive.service.ArchiveService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+import javax.annotation.Resource;
+import java.util.*;
+
+@Service
+public class ArchiveServiceImpl extends ServiceImpl<Archive, ArchivePo> implements ArchiveService {
+
+    @Resource
+    public ArchiveFile archiveFile;
+
+    @Resource
+    public Archive archive;
+
+    public static void main(String[] args) {
+        JwtTokenManager jtm = new JwtTokenManager();
+        String token = jtm.createToken("xzp");
+        System.out.println(token);
+    }
+
+    @Override
+    public List<ArchivePo> selectAll(String searchText) {
+        if (StringUtils.isEmpty(searchText)) {
+            return list(Wrappers.lambdaQuery(ArchivePo.class).eq(ArchivePo::getEnablePublish, 1).or());
+        }
+        else {
+            return list(Wrappers.lambdaQuery(ArchivePo.class).like(ArchivePo::getTitle, searchText).eq(ArchivePo::getEnablePublish, 1).or());
+        }
+    }
+
+    @Override
+    public List<ArchivePo> selectAll2(String searchText) {
+        if (StringUtils.isEmpty(searchText)) {
+            return list(Wrappers.lambdaQuery(ArchivePo.class).or());
+        }
+        else {
+            return list(Wrappers.lambdaQuery(ArchivePo.class).like(ArchivePo::getTitle, searchText).or());
+        }
+    }
+
+    @Override
+    public ArchivePo selectById(Integer id) {
+        return archive.selectById(id);
+    }
+
+    @Override
+    public Integer update(ArchiveUpdateDao archiveAddDao) {
+        UpdateWrapper<ArchivePo> wrapper = Wrappers.update();
+        wrapper.lambda()
+                .set(ArchivePo::getSecurityClass, archiveAddDao.getSecurityClass())
+                .set(ArchivePo::getEnablePublish, archiveAddDao.getEnablePublish())
+                .set(ArchivePo::getModifiedTime, new Date())
+                .eq(ArchivePo::getId, archiveAddDao.getId());
+        return archive.update(null,wrapper);
+    }
+
+    @Override
+    public Boolean del(Integer id) {
+        if(archive.deleteById(id)==1){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public Integer delList(Integer[] list) {
+        return archive.deleteBatchIds(Arrays.asList(list));
+    }
+
+    @Override
+    public Integer add(ArchivePo archivePo) {
+        return archive.myInsert(archivePo);
+    }
+
+}

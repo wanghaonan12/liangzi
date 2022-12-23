@@ -1,0 +1,151 @@
+import request from '@/utils/request'
+
+// 档案大事记
+// 前端模块
+export function getChronicleList(data) {
+  return request({
+    url: 'v1/chronicle/find',
+    method: 'post',
+    data: data
+  })
+}
+
+export function getChronicleById(id) {
+  return request({
+    url: 'v1/chronicle/'+id,
+    method: 'get',
+  })
+}
+
+
+
+
+
+
+// 档案大事记附件
+// 前端模块
+export function getChronicleFileList(data) {
+  return request({
+    url: 'v1/chronicle/adjust/find',
+    method: 'post',
+    data: data
+  })
+}
+
+
+// 根据附件id查询附件
+export function getChronicleFileById(id) {
+  return request({
+    url: 'v1/chronicle/adjust/'+id,
+    method: 'get',
+  })
+}
+
+//  根据大事件id查询对应附件
+export function getChronicleFileByChronicleId(chronicleId) {
+  return request({
+    url: 'v1/chronicle/adjust/file/'+chronicleId,
+    method: 'get',
+  })
+}
+
+// // 后台管理模块
+
+
+// 批量删除大事件
+export function deleteChronicleByIds(ids) {
+  return request(
+    {
+      url: `chronicle/deleteByIds`,
+      method: 'delete',
+      params: ids
+    }
+  ) 
+}
+
+// 批量删除大事件附件
+export function deleteChronicleFileByIds(ids) {
+  return request(
+    {
+      url: `chronicle/adjust/deleteByIds`,
+      method: 'delete',
+      params: ids
+    }
+  ) 
+}
+
+// 新增大事件
+export function addChronicle(addDto) {
+  return request(
+    {
+      url: `chronicle/add`,
+      method: 'post',
+      data: addDto  
+    }
+  ) 
+}
+
+// 新增大事件附件
+export function addChronicleFile(addDto) {
+  return request(
+    {
+      url: `chronicle/adjust/add`,
+      method: 'post',
+      data: addDto  
+    }
+  ) 
+}
+
+
+
+// 编辑大事件
+export function updateChronicle(editDto) {
+  return request(
+    {
+      url: `chronicle/update`,
+      method: 'post',
+      data: editDto  
+    }
+  ) 
+}
+
+// 编辑大事件附件
+export function updateChronicleFile(editDto) {
+  return request(
+    {
+      url: `chronicle/adjust/update`,
+      method: 'post',
+      data: editDto  
+    }
+  ) 
+}
+
+
+// 发布大事件
+export function pulishChronicle(publishDto) {
+  return request(
+    {
+      url: `chronicle/updateByIds`,
+      method: 'post',
+      data: publishDto  
+    }
+  ) 
+}
+
+
+// 置顶大事件附件
+export function topChronicleFile(topDto) {
+  return request(
+    {
+      url: `chronicle/adjust/top`,
+      method: 'post',
+      data: topDto  
+    }
+  ) 
+}
+
+
+
+
+
+

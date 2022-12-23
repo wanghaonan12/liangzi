@@ -1,0 +1,71 @@
+package com.pde.pdes.portal.honor.service.imp;
+
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pde.pdes.portal.honor.dto.HonorDTO;
+import com.pde.pdes.portal.honor.mapper.HonorFileMapper;
+import com.pde.pdes.portal.honor.mapper.HonorMapper;
+import com.pde.pdes.portal.honor.po.HonorFilePO;
+import com.pde.pdes.portal.honor.po.HonorPO;
+import com.pde.pdes.portal.honor.service.HonorService;
+import com.pde.pdes.portal.honor.vo.HonorVO;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
+
+import java.util.Arrays;
+import java.util.List;
+
+@Service
+public class HonorServiceImp extends ServiceImpl<HonorMapper, HonorPO> implements HonorService {
+
+
+    @Autowired
+    private HonorMapper honorMapper;
+
+    @Autowired
+    private HonorFileMapper honorFileMapper;
+
+    @Override
+    public Boolean addHonor(HonorDTO dto) {
+        Assert.notNull(dto, "数据不能为空");
+        HonorPO honorPO = new HonorPO();
+        BeanUtils.copyProperties(dto, honorPO, "id,create_time");
+        honorMapper.insert(honorPO);
+        return true;
+    }
+
+    @Override
+    public boolean removeById(Integer[] ids) {
+        Assert.notNull(ids, "相册id为空");
+        List<Integer> list = Arrays.asList(ids);
+        // 删除相册对应照片
+        for (Integer id : list) {
+            List<HonorFilePO> honorFileS = honorFileMapper.selectAllByHonorId(id);
+            honorFileMapper.deleteBatchIds(honorFileS);
+        }
+        honorMapper.deleteBatchIds(list);
+        return true;
+    }
+
+    @Override
+    public boolean update(HonorDTO dto) {
+        Assert.notNull(dto, "不能为空");
+        HonorPO honorPO = honorMapper.selectById(dto.getId());
+        Assert.notNull(honorPO, "没有此相册");
+        BeanUtils.copyProperties(dto, honorPO);
+        honorMapper.updateById(honorPO);
+        return true;
+    }
+
+
+    @Override
+    public List<HonorVO> find(String title) {
+        return  honorMapper.selectLiekTile(title) ;
+
+    }
+
+
+}

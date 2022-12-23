@@ -1,0 +1,580 @@
+<template>
+  <div>
+    <div class="banner">
+      <el-carousel height="200px">
+        <el-carousel-item v-for="item in 1" :key="item">
+          <img src="./../../../assets/banner-pic.png" class="banner-bg" />
+        </el-carousel-item>
+      </el-carousel>
+    </div>
+    <div class="bottom">
+      <!-- 通知公告 -->
+      <div class="notify">
+        <div class="block-title">
+          <h4>通知公告</h4>
+          <p class="view-more"><router-link to="/portal/notify">查看更多 ></router-link></p>
+        </div>
+        <div>
+          <div class="left float-left">
+            <el-carousel height="240px">
+              <el-carousel-item v-for="(item, index) in notifyPhotoList" :key="index">
+                <!-- <div class="carousel-item" /> -->
+                <img :src="item.filePath" class="banner-bg" />
+              </el-carousel-item>
+            </el-carousel>
+          </div>
+          <div class="right float-right">
+            <ul>
+              <li v-for="(item, index) in notifyListOne" :key="item.id">
+                <div>
+                  <span class="order-number">0{{ index + 1 }}</span>
+                  <a href="#" class="content" @click="notifyPush(item.id)">{{ item.title }}</a>
+                </div>
+                <span class="time float-right">{{ item.createTime.substring(0, 10) }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 快速通道 -->
+      <div class="quick-menu">
+        <div class="block-title">
+          <h4>快速通道</h4>
+          <p class="view-more"><router-link to="/portal/notify">查看更多 ></router-link></p>
+        </div>
+
+        <ul>
+          <li class="float-left">
+            <p>标题标题标题标题标题标题</p>
+          </li>
+
+          <li class="float-left">
+            <p>标题标题标题标题标题标题</p>
+          </li>
+
+          <li class="float-left">
+            <p>标题标题标题标题标题标题</p>
+          </li>
+
+          <li class="float-left">
+            <p>标题标题标题标题标题标题</p>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 法律法规 -->
+      <div style="overflow: hidden">
+        <div class="law-list float-left">
+          <p class="block-title">档案标准 <router-link to="/standard" class="view-more">更多 ></router-link></p>
+          <ul>
+            <li v-for="(item, index) in tableData" :key="item.id">
+              <div>
+                <span class="order-number">0{{ index + 1 }}</span>
+                <a class="content" @click="toDetail(item.id)">{{ item.title }}</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- <div class="open-file float-left">
+          <p class="block-title">开放档案 <router-link to="/portal/archive">查看更多 ></router-link></p>
+          <ul>
+              <li v-for="(item, index) in archiveList" :key="item.id">
+                <div>
+                  <span class="order-number">0{{ index + 1 }}</span>
+                  <router-link :to="'detail/'+item.id">
+                    <span class="content">{{ item.title }}</span>
+                  </router-link>
+                </div>
+                <span class="time float-right">{{ item.createTime }}</span>
+              </li>
+
+          </ul>
+        </div> -->
+        <archive />
+
+        <div class="year-box float-left">
+          <p class="block-title">年鉴 <span class="view-more">更多 ></span></p>
+        </div>
+      </div>
+
+      <!-- 大事记 -->
+      <div style="overflow: hidden">
+        <chronicle />
+
+        <div class="photo float-left">
+          <p class="block-title">照片专题 <span class="view-more">更多 ></span></p>
+          <el-carousel height="200px" class="float-left">
+            <el-carousel-item v-for="item in 4" :key="item">
+              <h3 class="small">{{ item }}</h3>
+            </el-carousel-item>
+          </el-carousel>
+
+          <ul class="photo-list float-right">
+            <li v-for="item in 6" :key="item" class="float-left">
+              <p>标题</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 荣誉档案 -->
+      <div class="honour-file">
+        <!-- <div class="left float-left">
+        <p class="block-title">荣誉档案 <router-link to="/portal/honor" class="view-more">更多 ></router-link></p>
+        <el-carousel height="150px">
+          <el-carousel-item v-for="(item, index) in albumList" :key="index">
+            <router-link :to="'albumDetail/' + item.id">
+              <el-image :src="item.file_path" style="width: 100%" fit="fill"> </el-image
+            ></router-link>
+          </el-carousel-item>
+        </el-carousel>
+      </div> -->
+        <honor />
+        <portal-video />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import Honor from '@/views/honor/index.vue'
+
+import { selectApi, selectPhoto } from '@/api/notice'
+import Chronicle from '@/views/chronicle/index.vue'
+import Archive from '@/views/archive/index2.vue'
+import PortalVideo from '@/views/video/index.vue'
+import { getShowStandardListApi } from '@/api/standard'
+export default {
+  components: {
+    Honor,
+    Chronicle,
+    Archive,
+    PortalVideo
+  },
+  data() {
+    return {
+      notifyList: [
+        {
+          id: 1,
+          content: '北京昌平首次将档案工作纳入年度绩效考核',
+          time: '2022-09-23 13:27:34'
+        },
+        {
+          id: 2,
+          content: '北京昌平首次将档案工作纳入年度绩效考核',
+          time: '2022-09-23 13:27:34'
+        },
+        {
+          id: 3,
+          content: '北京昌平首次将档案工作纳入年度绩效考核',
+          time: '2022-09-23 13:27:34'
+        },
+        {
+          id: 4,
+          content: '北京昌平首次将档案工作纳入年度绩效考核',
+          time: '2022-09-23 13:27:34'
+        },
+        {
+          id: 5,
+          content: '北京昌平首次将档案工作纳入年度绩效考核',
+          time: '2022-09-23 13:27:34'
+        },
+        {
+          id: 6,
+          content: '北京昌平首次将档案工作纳入年度绩效考核',
+          time: '2022-09-23 13:27:34'
+        },
+        {
+          id: 7,
+          content: '北京昌平首次将档案工作纳入年度绩效考核',
+          time: '2022-09-23 13:27:34'
+        },
+        {
+          id: 8,
+          content: '北京昌平首次将档案工作纳入年度绩效考核',
+          time: '2022-09-23 13:27:34'
+        }
+      ],
+      imgUrl: 'http://uplaod-189989.oss-cn-hangzhou.aliyuncs.com/banner/banner19.jpg',
+      notifyListOne: [],
+      notifyPhotoList: [],
+      tableData: []
+    }
+  },
+  created() {},
+  mounted() {
+    this.getNotifyData(),
+      this.getStandardList()
+  },
+  methods: {
+    // 获取分页信息
+    getNotifyData() {
+      var tableQuery = {
+        pageNum: 1,
+        pageSize: 8,
+        enablePublish: 0
+      }
+      selectApi(tableQuery).then((res) => {
+        if (res && res.status) {
+          this.notifyListOne = res.content.rows
+        } else {
+          this.$message(res.message)
+        }
+      })
+      selectPhoto(4).then((res) => {
+        if (res && res.status) {
+          this.notifyPhotoList = res.content
+        } else {
+          this.$message(res.message)
+        }
+      })
+    },
+    notifyPush(id) {
+      this.$router.push({
+        name: 'Notify',
+        params: {
+          id: id
+        }
+      })
+    },
+    toDetail(id) {
+      this.$router.push({ name: 'standardDetail', params: { id: id } })
+    },
+    getStandardList() {
+      getShowStandardListApi({
+        pageNum: 1,
+        pageSize: 8
+      }).then((res) => {
+        if (res && res.status) {
+          this.tableData = res.content.rows
+        } else {
+          this.$message(res.message)
+        }
+      })
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.banner-bg {
+  width: 100%;
+  height: 100%;
+}
+
+.bottom {
+  width: 70%;
+  margin: auto;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.view-more {
+  font-size: 13px;
+  color: #666;
+}
+
+.block-title {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  // color: #0085d0;
+
+  h4,
+  h3,
+  p {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+ul,
+li,
+p {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.notify {
+  overflow: hidden;
+  padding: 10px;
+  margin-top: 12px;
+  border: 1px solid #dfdfdf;
+  background: #eef6fb;
+
+  .left {
+    width: 40%;
+
+    .carousel-item {
+      width: 100%;
+      height: 100%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-image: url(./../../../assets/p1.png);
+    }
+  }
+
+  .right {
+    width: 54%;
+
+    li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .order-number {
+        padding: 2px;
+        margin-right: 16px;
+        color: #fff;
+        font-size: 13px;
+        background-color: #31adfc;
+      }
+
+      .content {
+        font-size: 13px;
+        color: #666;
+        text-align: left;
+        height: 30px;
+        line-height: 30px;
+        text-decoration: none;
+      }
+
+      .time {
+        font-size: 13px;
+        color: #888;
+      }
+    }
+  }
+}
+
+.quick-menu {
+  margin-top: 12px;
+  padding: 10px;
+  border: 1px solid #dfdfdf;
+
+  ul {
+    overflow: hidden;
+  }
+
+  li {
+    width: 120px;
+    margin: 10px 20px;
+
+    a {
+      display: block;
+      height: 60px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-image: url(./../../../assets//p1.png);
+    }
+
+    p {
+      margin-top: 10px;
+      font-size: 14px;
+      text-align: center;
+    }
+  }
+}
+
+.law-list {
+  width: 30%;
+  height: 320px;
+  margin-top: 12px;
+  padding: 16px 8px;
+  border: 1px solid #dfdfdf;
+  overflow: hidden;
+  background-color: #eef6fb;
+
+  ul {
+    padding: 20px;
+
+    li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      white-space: nowrap;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      .order-number {
+        padding: 2px;
+        margin-right: 16px;
+        color: #fff;
+        font-size: 13px;
+        background-color: #31adfc;
+      }
+
+      .content {
+        width: 200px;
+        font-size: 13px;
+        color: #666;
+        text-align: left;
+        height: 30px;
+        line-height: 30px;
+        text-decoration: none;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .time {
+        font-size: 13px;
+        color: #888;
+      }
+    }
+  }
+}
+
+.open-file {
+  width: 45%;
+  height: 320px;
+  margin-top: 12px;
+  padding: 16px 8px;
+  border-top: 1px solid #dfdfdf;
+  border-bottom: 1px solid #dfdfdf;
+  background-color: #eef6fb;
+  overflow: hidden;
+
+  ul {
+    padding: 20px;
+
+    li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .order-number {
+        padding: 2px;
+        margin-right: 16px;
+        color: #fff;
+        font-size: 13px;
+        background-color: #31adfc;
+      }
+
+      .content {
+        font-size: 13px;
+        color: #666;
+        text-align: left;
+        height: 30px;
+        line-height: 30px;
+        text-decoration: none;
+      }
+
+      .time {
+        font-size: 13px;
+        color: #888;
+      }
+    }
+  }
+}
+
+.year-box {
+  width: 25%;
+  height: 320px;
+  margin-top: 12px;
+  padding: 16px 8px;
+  border: 1px solid #dfdfdf;
+  overflow: hidden;
+}
+
+.events {
+  width: 30%;
+  height: 320px;
+  margin-top: 12px;
+  padding: 16px 8px;
+  border: 1px solid #dfdfdf;
+  border-right: none;
+  overflow: hidden;
+
+  .content {
+    margin-top: 20px;
+    font-size: 14px;
+    text-indent: 2em;
+    line-height: 22px;
+    text-align: justify;
+
+    img {
+      display: block;
+      width: 80px;
+      margin: 10px;
+    }
+  }
+}
+
+.photo {
+  width: 70%;
+  height: 320px;
+  margin-top: 12px;
+  padding: 16px 8px;
+  border: 1px solid #dfdfdf;
+  overflow: hidden;
+
+  .el-carousel {
+    margin-top: 20px;
+    width: 45%;
+  }
+
+  .photo-list {
+    width: 50%;
+
+    li {
+      width: 32%;
+      height: 80px;
+      margin-top: 20px;
+      margin-left: 2%;
+      text-align: center;
+
+      a {
+        display: block;
+        width: 100%;
+        height: 70px;
+        margin-bottom: 3px;
+        background-image: url(./../../../assets//p1.png);
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        border: 1px solid #dfdfdf;
+      }
+    }
+
+    li:nth-child(3n - 2) {
+      margin-left: 0;
+    }
+  }
+}
+
+.honour-file {
+  overflow: hidden;
+  margin-top: 12px;
+  padding: 16px 8px;
+  border: 1px solid #dfdfdf;
+
+  .left {
+    width: 48%;
+  }
+
+  .right {
+    width: 50%;
+  }
+}
+
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
+}
+</style>

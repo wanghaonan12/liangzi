@@ -1,0 +1,50 @@
+package com.pde.pdes.portal.service;
+
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pde.pdes.portal.dto.CompanyDTO;
+import com.pde.pdes.portal.mapper.CompanyMapper;
+import com.pde.pdes.portal.po.CompanyPO;
+import com.pde.pdes.portal.utils.StringHelper;
+
+@Service
+public class CompanyServiceImpl extends ServiceImpl<CompanyMapper, CompanyPO> implements CompanyService {
+
+	@Override
+	public boolean add(CompanyDTO entity) {
+		Assert.notNull(entity, "保存对象不能为空.");
+		return save(CompanyPO.builder().name(entity.getName())
+				                            .address(entity.getAddress())
+				                            .id(StringHelper.getPrimaryKey())
+				                            .build());
+	}
+
+	@Override
+	public CompanyPO findById(String id) {
+		Assert.hasText(id, "查询条件不能为空.");
+		return getById(id);
+	}
+
+	@Override
+	public List<CompanyPO> find(String searchText) {
+		if (StringUtils.isEmpty(searchText)) {
+			return list();	
+		}
+		else {
+			return list(Wrappers.lambdaQuery(CompanyPO.class).like(CompanyPO::getName, searchText).or()
+					.like(CompanyPO::getAddress, searchText));
+		}
+	}
+
+	@Override
+	public boolean deleteById(String id) {
+		Assert.hasText(id, "删除主键不能为空.");
+		return removeById(id);
+	}
+}

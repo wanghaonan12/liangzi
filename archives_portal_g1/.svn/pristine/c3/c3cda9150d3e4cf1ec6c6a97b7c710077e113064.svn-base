@@ -1,0 +1,244 @@
+package com.pde.pdes.portal.standard.service.impl;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.pde.pdes.portal.standard.mapper.StandardFileMapper;
+import com.pde.pdes.portal.standard.po.StandardFile;
+import com.pde.pdes.portal.standard.utils.AliYunOssClientUtils;
+
+
+
+import org.apache.commons.io.IOUtils;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
+import java.io.*;
+import java.util.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@RunWith(MockitoJUnitRunner.class)
+public class StandardFileServiceImplTest {
+
+    @Mock
+    private StandardFileMapper mockStandardFileMapper;
+    @Mock
+    private AliYunOssClientUtils mockAliYunOssClientUtils;
+
+    @InjectMocks
+    private StandardFileServiceImpl standardFileServiceImplUnderTest;
+
+    @Test
+    public void testAdd() throws IOException {
+        // Setup
+        MultipartFile multipartFile = null;
+        String filePath = "D:/test";
+        File dir = new File(filePath);
+        // 检查放置文件的文件夹路径是否存在，不存在则创建
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        File file = new File(filePath + "/filename.txt");
+        FileWriter writer = null;
+        try {
+            // 检查目标文件是否存在，不存在则创建
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            writer = new FileWriter(file, true);
+            writer.append(" content");
+            writer.flush();
+        } catch ( IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != writer)
+                writer.close();
+        }
+        when(mockAliYunOssClientUtils.uploadObjectOss(file, "liangzi")).thenReturn("filePath");
+
+
+        FileInputStream input = new FileInputStream(file);
+        multipartFile = new MockMultipartFile("file", file.getName(), "text/plain", IOUtils.toByteArray(input));
+        // Run the test
+        final boolean result = standardFileServiceImplUnderTest.add(multipartFile, "title", 0);
+
+        // Verify the results
+        assertFalse(result);
+    }
+
+    @Test
+    public void testUpdate() {
+        // Setup
+        final StandardFile standardFile = StandardFile.builder()
+                .id(0)
+                .standardId(0)
+                .fileName("title")
+                .filePath("filePath")
+                .fileSize(0)
+                .createTime(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .build();
+
+        // Run the test
+        final boolean result = standardFileServiceImplUnderTest.update(standardFile);
+
+        // Verify the results
+        assertFalse(result);
+    }
+
+    @Test
+    public void testDeleteById() {
+        // Setup
+        // Configure StandardFileMapper.selectById(...).
+        final StandardFile standardFile = StandardFile.builder()
+                .id(0)
+                .standardId(0)
+                .fileName("title")
+                .filePath("filePath")
+                .fileSize(0)
+                .createTime(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .build();
+        when(mockStandardFileMapper.selectById(40)).thenReturn(standardFile);
+
+        // Run the test
+        final boolean result = standardFileServiceImplUnderTest.deleteById(40);
+
+        // Verify the results
+        assertFalse(result);
+        verify(mockAliYunOssClientUtils).removeObjectBatch(Arrays.asList("value"));
+    }
+
+    @Test
+    public void testDeleteByStandardId() {
+        // Setup
+        // Configure StandardFileMapper.selectList(...).
+        final List<StandardFile> standardFiles = Arrays.asList(StandardFile.builder()
+                .id(0)
+                .standardId(0)
+                .fileName("title")
+                .filePath("filePath")
+                .fileSize(0)
+                .createTime(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .build());
+        when(mockStandardFileMapper.selectList(any(QueryWrapper.class))).thenReturn(standardFiles);
+
+        when(mockStandardFileMapper.delete(any(QueryWrapper.class))).thenReturn(0);
+
+        // Run the test
+        final int result = standardFileServiceImplUnderTest.deleteByStandardId(0);
+
+        // Verify the results
+        assertEquals(0, result);
+        verify(mockAliYunOssClientUtils).removeObjectBatch(Arrays.asList("value"));
+    }
+
+    @Test
+    public void testDeleteByStandardId_StandardFileMapperSelectListReturnsNoItems() {
+        // Setup
+        when(mockStandardFileMapper.selectList(any(QueryWrapper.class))).thenReturn(Collections.emptyList());
+        when(mockStandardFileMapper.delete(any(QueryWrapper.class))).thenReturn(0);
+
+        // Run the test
+        final int result = standardFileServiceImplUnderTest.deleteByStandardId(0);
+
+        // Verify the results
+        assertEquals(0, result);
+        verify(mockAliYunOssClientUtils).removeObjectBatch(Arrays.asList("value"));
+    }
+
+    @Test
+    public void testGetFileByStandardId() {
+        // Setup
+        final List<StandardFile> expectedResult = Arrays.asList(StandardFile.builder()
+                .id(0)
+                .standardId(0)
+                .fileName("title")
+                .filePath("filePath")
+                .fileSize(0)
+                .createTime(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .build());
+
+        // Configure StandardFileMapper.selectList(...).
+        final List<StandardFile> standardFiles = Arrays.asList(StandardFile.builder()
+                .id(0)
+                .standardId(0)
+                .fileName("title")
+                .filePath("filePath")
+                .fileSize(0)
+                .createTime(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .build());
+        when(mockStandardFileMapper.selectList(any(QueryWrapper.class))).thenReturn(standardFiles);
+
+        // Run the test
+        final List<StandardFile> result = standardFileServiceImplUnderTest.getFileByStandardId(0);
+
+        // Verify the results
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void testGetFileByStandardId_StandardFileMapperReturnsNoItems() {
+        // Setup
+        when(mockStandardFileMapper.selectList(any(QueryWrapper.class))).thenReturn(Collections.emptyList());
+
+        // Run the test
+        final List<StandardFile> result = standardFileServiceImplUnderTest.getFileByStandardId(0);
+
+        // Verify the results
+        assertEquals(Collections.emptyList(), result);
+    }
+
+    @Test
+    public void testGetById() {
+        // Setup
+        final StandardFile expectedResult = StandardFile.builder()
+                .id(0)
+                .standardId(0)
+                .fileName("title")
+                .filePath("filePath")
+                .fileSize(0)
+                .createTime(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .build();
+
+        // Configure StandardFileMapper.selectById(...).
+        final StandardFile standardFile = StandardFile.builder()
+                .id(0)
+                .standardId(0)
+                .fileName("title")
+                .filePath("filePath")
+                .fileSize(0)
+                .createTime(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .build();
+        when(mockStandardFileMapper.selectById(0)).thenReturn(standardFile);
+
+        // Run the test
+        final StandardFile result = standardFileServiceImplUnderTest.getById(0);
+
+        // Verify the results
+        assertEquals(expectedResult, result);
+    }
+//    public static MultipartFile getMultipartFile(File file) {
+//        FileItem item = new DiskFileItemFactory().createItem("file"
+//                , MediaType.MULTIPART_FORM_DATA_VALUE
+//                , true
+//                , file.getName());
+//        try (InputStream input = new FileInputStream(file);
+//             OutputStream os = item.getOutputStream()) {
+//            // 流转移
+//            IOUtils.copy(input, os);
+//        } catch (Exception e) {
+//            throw new IllegalArgumentException("Invalid file: " + e, e);
+//        }
+//
+//        return new CommonsMultipartFile(item);
+//    }
+}

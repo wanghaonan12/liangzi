@@ -1,0 +1,211 @@
+package com.pde.pdes.portal.video.service.impl;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.pde.pdes.portal.Constants.Constants;
+import com.pde.pdes.portal.video.dto.VideoDTO;
+import com.pde.pdes.portal.video.dto.VideoFileDTO;
+import com.pde.pdes.portal.video.dto.VideoQueryCondition;
+import com.pde.pdes.portal.video.mapper.VideoFileFrontMapper;
+import com.pde.pdes.portal.video.mapper.VideoFileMapper;
+import com.pde.pdes.portal.video.mapper.VideoMapper;
+import com.pde.pdes.portal.video.po.VideoFileFrontPO;
+import com.pde.pdes.portal.video.po.VideoFilePO;
+import com.pde.pdes.portal.video.po.VideoPO;
+import com.pde.pdes.portal.video.service.VideoService;
+import com.pde.pdes.portal.video.utils.FileUtils;
+import com.pde.pdes.portal.video.utils.MinIoUtils;
+import com.pde.pdes.portal.video.vo.FrontFileStream;
+import com.pde.pdes.portal.video.vo.FrontFileVO;
+import com.pde.pdes.portal.video.vo.VideoUploadVO;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import static com.pde.pdes.portal.video.utils.MyBeanUtilsHelper.getNullPropertyNames;
+
+/**
+ * @author: mth
+ * @date: 2022/11/30
+ * @description: 视频档案 impl实现
+ */
+@Service
+public class VideoServiceImpl implements VideoService {
+
+    @Autowired
+    private VideoMapper videoMapper;
+
+    @Autowired
+    private VideoFileMapper videoFileMapper;
+
+    @Autowired
+    private VideoFileFrontMapper videoFileFrontMapper;
+
+    @Autowired
+    private MinIoUtils minIoUtils;
+
+    @Autowired
+    private FileUtils fileUtils;
+
+    @Override
+    public List<VideoPO> findByPage(VideoQueryCondition query) {
+        QueryWrapper<VideoPO> queryWrapper = new QueryWrapper<>();
+        String searchText = query.getSearchText();
+        // 模糊查询条件构造
+        if (StringUtils.isNotEmpty(searchText)) {
+            queryWrapper.like("v.title", searchText)
+                    .or().like("v.description", searchText)
+                    .or().like("f.file_name", searchText);
+        }
+        queryWrapper.orderByDesc("create_time");
+        return videoMapper.selectAll(queryWrapper);
+    }
+
+    @Override
+    public Boolean insert(VideoDTO video) {
+        Assert.notNull(video, "保存对象不能为空.");
+        int insert = videoMapper.insert(VideoPO.builder()
+                .title(video.getTitle())
+                .description(video.getDescription()).build());
+        return insert > 0;
+    }
+
+    @Override
+    public Integer delByIds(List<Integer> ids) {
+        return videoMapper.deleteBatchIds(ids);
+    }
+
+    @Override
+    public VideoPO findById(Integer id) {
+        return videoMapper.selectById(id);
+    }
+
+    @Override
+    public Boolean update(VideoPO po) {
+        VideoPO newPo = videoMapper.selectById(po.getId());
+        Assert.notNull(po, "更新对象不能为空.");
+        Assert.notNull(newPo, "id不存在");
+        BeanUtils.copyProperties(po, newPo, getNullPropertyNames(po));
+        int i = videoMapper.updateById(newPo);
+        return i > 0;
+    }
+
+    @Override
+    @Transactional
+    public Boolean enableByIds(List<Integer> ids) {
+        ids.forEach(id -> {
+            VideoPO videoPo = videoMapper.selectById(id);
+            Assert.notNull(videoPo, "指定id不存在");
+            Assert.isTrue(videoPo.getEnable_publish() != 1, videoPo.getTitle() + "已发布，不可重复发布");
+            VideoPO video = VideoPO.builder().id(id).enable_publish(1).build();
+            System.out.println(video);
+            videoMapper.updateById(video);
+        });
+        return true;
+    }
+
+    @Override
+    @Transactional
+    public Boolean disableByIds(List<Integer> ids) {
+        ids.forEach(id -> {
+            VideoPO videoPo = videoMapper.selectById(id);
+            Assert.notNull(videoPo, "指定id不存在");
+            Assert.isTrue(videoPo.getEnable_publish() != 0, videoPo.getTitle() + "未发布，不可取消发布");
+            VideoPO video = VideoPO.builder().id(id).enable_publish(0).build();
+            System.out.println(video);
+            videoMapper.updateById(video);
+        });
+        return true;
+    }
+
+    @Override
+    public VideoFilePO findFileById(Integer id) {
+        Assert.notNull(id, "id不能为空");
+        return videoFileMapper.selectById(id);
+    }
+
+    @Override
+    public List<VideoFilePO> findByVideoId(Integer id) {
+        Assert.notNull(id, "视频档案id值不能为空.");
+        return videoFileMapper.selectAll(new QueryWrapper<VideoFilePO>().eq("video_id", id));
+    }
+
+    @Override
+    public Boolean insertFile(VideoFileDTO dto) {
+        Assert.notNull(dto, "保存对象不能为空.");
+        int insert = videoFileMapper.insert(VideoFilePO.builder()
+                .video_id(dto.getVideoId())
+                .file_name(dto.getFileName())
+                .file_path(dto.getFilePath())
+                .file_size(dto.getFileSize())
+                .is_front_file(false)
+                .build());
+        return insert > 0;
+    }
+
+    @Override
+    public Boolean updateFile(VideoFilePO po) {
+        VideoFilePO newPo = videoFileMapper.selectById(po.getId());
+        Assert.notNull(po, "更新对象不能为空.");
+        Assert.notNull(newPo, "id不存在");
+        BeanUtils.copyProperties(po, newPo, getNullPropertyNames(po));
+        int i = videoFileMapper.updateById(newPo);
+        return i > 0;
+    }
+
+    @Override
+    public Integer delFileByIds(List<Integer> ids) {
+        return videoFileMapper.deleteBatchIds(ids);
+    }
+
+    @Override
+    public VideoUploadVO uploadVideo(String bucketName, String folder, Integer count, MultipartFile video) throws Exception {
+        // 存储视频文件到MinIO
+        VideoUploadVO videoInfo = minIoUtils.videoUpload(bucketName, folder, video);
+        // 随机截取视频帧
+        List<FrontFileStream> frontFileStreams = fileUtils.randomGrabberFfmpegImage(video, count);
+        List<FrontFileVO> frontFileList = new ArrayList<>();
+        frontFileStreams.forEach(frontFileStream -> {
+            try {
+                String fileName = UUID.randomUUID() + ".jpg";
+                String objectName = "/" + folder + "/" + fileName;
+                minIoUtils.putObject(bucketName, objectName, frontFileStream.getInputStream());
+                frontFileList.add(FrontFileVO.builder()
+                        .fileSize(frontFileStream.getFileSize())
+                        .fileName(fileName)
+                        .filePath(Constants.MINIO_URL_PREFIX + objectName)
+                        .isFrontFile(false).build());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            } finally {
+
+            }
+        });
+        videoInfo.setFrontFileInfoList(frontFileList);
+        return videoInfo;
+    }
+
+    @Override
+    @Transactional
+    public Boolean insertFileFront(Integer videoFileId, List<VideoFileFrontPO> frontList) {
+        frontList.forEach(front -> {
+            int insert = videoFileFrontMapper.insert(VideoFileFrontPO.builder()
+                    .video_file_id(videoFileId)
+                    .file_name(front.getFile_name())
+                    .file_path(front.getFile_path())
+                    .file_size(front.getFile_size())
+                    .is_front_file(false).build());
+            Assert.isTrue(insert > 0, "新增失败");
+        });
+        return true;
+    }
+
+
+}

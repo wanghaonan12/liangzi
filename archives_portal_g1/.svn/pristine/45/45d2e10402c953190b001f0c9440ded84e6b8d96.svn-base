@@ -1,0 +1,27 @@
+package com.pde.pdes.portal.notify.service.impl;
+
+import com.pde.Application;
+import com.pde.pdes.portal.company.dto.QueryCondition;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import javax.annotation.Resource;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * @author jiangyiheng
+ * @date 2022-11-30 12:20
+ */
+@SpringBootTest(classes = Application.class)
+class PortalNotifyServiceImplTest {
+
+    @Resource
+    private PortalNotifyServiceImpl portalNotifyServiceImpl;
+
+
+    @Test
+    void selectInvitationRecord() {
+        System.out.println(portalNotifyServiceImpl.find("123"));
+    }
+}

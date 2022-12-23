@@ -1,0 +1,444 @@
+<template>
+  <div>
+    <!-- 详情 -->
+    <el-dialog :destroy-on-close="true" :title="dialogTitle" :visible.sync="show" width="75%">
+      <el-row :gutter="6" class="search-input">
+        <el-col :span="12">
+          <el-button type="primary" size="small" icon="el-icon-plus" @click="showAddDialog">新增</el-button>
+          <!-- <el-button type="primary" size="small" icon="el-icon-delete">批量删除</el-button> -->
+        </el-col>
+      </el-row>
+      <div class="max-box">
+        <div class="box-left">
+          <el-table
+            v-loading="loading"
+            height="500px"
+            max-height="500px"
+            ref="multipleTable"
+            :data="tableData"
+            :border="true"
+            tooltip-effect="dark"
+            :header-cell-style="{ backgroundColor: '#c2ccd0', color: '#fff' }"
+            style="width: 100%">
+            <el-table-column type="selection" width="55" align="center"> </el-table-column>
+            <el-table-column prop="date" label="操作" align="center">
+              <template slot-scope="scope">
+                <el-button
+                  @click.native.prevent="editDialog(scope.row.id)"
+                  size="mini"
+                  icon="el-icon-edit"
+                  circle></el-button>
+                <el-button @click="deleteRow(scope.row)" size="mini" icon="el-icon-delete" circle></el-button>
+                <el-button
+                  :disabled="scope.row.isFrontFile"
+                  @click="setFront(scope.row)"
+                  size="mini"
+                  icon="el-icon-upload2"
+                  circle></el-button>
+              </template>
+            </el-table-column>
+            <el-table-column label="封面" align="center">
+              <template slot-scope="scope">
+                <el-image
+                  style="width: 80px; height: 80px"
+                  :src="scope.row.frontPath"
+                  fit="fill"
+                  :preview-src-list="[scope.row.frontPath]"></el-image>
+              </template>
+            </el-table-column>
+            <el-table-column prop="fileName" align="center" label="文件名称"> </el-table-column>
+            <el-table-column prop="filePath" align="center" label="视频文件路径">
+              <template slot-scope="scope">
+                <el-button type="text" @click="handleDownload(scope.row.fileName, scope.row.filePath)"
+                  >点击下载视频文件</el-button
+                >
+              </template>
+            </el-table-column>
+            <el-table-column prop="fileSize" align="center" label="文件大小">
+              <template slot-scope="scope">
+                <span v-text="Math.ceil(scope.row.fileSize / 1024) + ' kb'"></span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="createTime" label="上传日期" align="center" width="200px"></el-table-column>
+            <el-table-column prop="enableFront" align="center" label="是否为视频专辑封面">
+              <template slot-scope="scope">
+                <el-tag type="success" v-if="scope.row.isFrontFile">是</el-tag>
+                <el-tag type="info" v-else>否</el-tag>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
+        <div class="box-right">
+          <div class="box-right-title">
+            <span>视频专辑信息</span>
+            <i class="el-icon-d-arrow-right"></i>
+          </div>
+          <el-image class="img" :src="videoInfo.frontPath"></el-image>
+          <p v-text="'标题：' + videoInfo.title"></p>
+          <p v-text="'描述：' + videoInfo.description"></p>
+          <p v-text="'创建日期：' + videoInfo.createTime"></p>
+        </div>
+      </div>
+
+      <!-- 修改弹出框 -->
+      <el-dialog
+        append-to-body
+        title="修改视频文件信息"
+        :destroy-on-close="true"
+        :visible.sync="editVideoFileDialog"
+        width="30%">
+        <el-form :model="editVideoFileForm" v-loading="editLoading">
+          <el-form-item label="视频文件名称" label-width="auto" :required="true">
+            <el-input v-model="editVideoFileForm.fileName" size="medium" autocomplete="off"></el-input>
+          </el-form-item>
+          <!-- <el-form-item label="视频封面" label-width="auto">
+            <br /> -->
+
+          <div style="display: flex">
+            <div style="width: 120px; height: 120px" v-for="(item, index) in editVideoFileForm.frontList" :key="index">
+              <el-image
+                style="width: 100px; height: 100px"
+                :src="item.filePath"
+                fit="fill"
+                :preview-src-list="[item.filePath]"></el-image>
+              <el-radio v-model="frontRadio" :label="item.id">封面</el-radio>
+            </div>
+          </div>
+
+          <!-- </el-form-item> -->
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="editVideoFileDialog = false">取 消</el-button>
+          <el-button type="primary" @click="submitEditVideoFile(editVideoFileForm)">确 定</el-button>
+        </div>
+      </el-dialog>
+
+      <!-- 新增弹窗 -->
+      <el-dialog
+        append-to-body
+        :destroy-on-close="true"
+        title="新增图片"
+        :visible.sync="addDialog"
+        width="30%"
+        accept=".mp4">
+        <el-form :model="addVideoFileForm" v-loading="addLoading">
+          <el-form-item label="视频文件名称" label-width="auto" :required="true">
+            <el-input
+              v-model="addVideoFileForm.fileName"
+              size="medium"
+              autocomplete="off"
+              :disabled="addFileNameDisable"></el-input>
+          </el-form-item>
+          <el-form-item label="上传视频文件" label-width="auto">
+            <el-upload
+              class="avatar-uploader"
+              action="#"
+              :on-change="filechange"
+              :before-upload="beforeUpload"
+              :show-file-list="false">
+              <i class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
+          <div style="display: flex">
+            <div style="width: 120px; height: 120px" v-for="(item, index) in addFrontList" :key="index">
+              <el-image
+                style="width: 100px; height: 100px"
+                :src="item.filePath"
+                fit="fill"
+                :preview-src-list="[item.filePath]"></el-image>
+              <el-radio v-model="addFrontRadio" :label="index">封面</el-radio>
+            </div>
+          </div>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="addDialog = false">取 消</el-button>
+          <el-button type="primary" @click="submitAddVideoFile(addVideoFileForm)">确 定</el-button>
+        </div>
+      </el-dialog>
+
+      <pagination
+        layout="total, prev, pager, next, jumper"
+        :total="total"
+        align="center"
+        :page.sync="tableQuery.pageIndex"
+        :limit.sync="tableQuery.pageSize"
+        @pagination="getVideoFileTableData" />
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+import {
+  getVideoFileListApi,
+  getVideoFileInfoByIdApi,
+  uploadVideoFileApi,
+  insertVideoFileInfoApi,
+  updateVideoFileInfoApi,
+  deleteVideoFileInfoApi,
+  updateVideoFileByFrontApi,
+  updateVideoFrontByFileApi
+} from '@/api/videoManagement'
+import { getToken } from '@/utils/auth'
+import Pagination from '@/components/Pagination'
+import { uploadFiles } from '@/api/file'
+export default {
+  name: 'VideoDetailDialog',
+  components: {
+    Pagination
+  },
+  data() {
+    return {
+      show: false,
+      dialogTitle: '视频档案详情',
+      videoInfo: {},
+      tableData: [],
+      total: 0,
+      tableQuery: {
+        videoId: 0,
+        pageNum: 1,
+        pageSize: 5
+      },
+      addFrontList: [],
+      addVideoFileForm: {},
+      addFrontRadio: null,
+      addDialog: false,
+      loading: false,
+      editLoading: false,
+      addLoading: false,
+      frontRadio: 0,
+      count: 0,
+      addFileNameDisable: true,
+      src: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+      input: '',
+      imgForm: {},
+      imageTableData: [],
+      imageTotal: 0,
+      pageData: {
+        pageNum: 1,
+        pageSize: 5,
+        id: null
+      },
+      editVideoFileDialog: false,
+      editVideoFileForm: {},
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: getToken()
+      },
+      fileList: []
+    }
+  },
+  mounted() {},
+  methods: {
+    async showDialog(row) {
+      this.videoInfo = { ...row }
+      this.show = true
+      this.tableQuery.videoId = row.id
+      this.loading = true
+      await this.getVideoFileTableData()
+      this.loading = false
+    },
+    // 获取列表信息
+    async getVideoFileTableData() {
+      const res = await getVideoFileListApi(this.tableQuery)
+      if (res && res.status) {
+        this.tableData = res.content.data
+        this.total = res.content.total
+        console.log(this.tableData)
+      } else {
+        this.$message(res.message)
+      }
+    },
+    // 点击下载文件
+    handleDownload(fileName, filePath) {
+      var suffix = filePath.substring(filePath.lastIndexOf('.'), filePath.length)
+      fetch(filePath)
+        .then((res) => res.blob())
+        .then((blob) => {
+          const a = document.createElement('a')
+          const objectUrl = window.URL.createObjectURL(blob)
+          a.download = fileName + suffix
+          a.href = objectUrl
+          a.click()
+          window.revokeObjectURL(objectUrl)
+        })
+    },
+    /*文件上传前判断处理*/
+    beforeAvatarUpload(file) {
+      let types = ['video/mpeg4']
+      const isVideo = types.includes(file.type)
+      if (!isVideo) {
+        this.$message.error('上传视频格式错误，格式只能为 mp4 !!!')
+        return false
+      }
+    },
+    clear() {
+      this.$refs.file.clearFiles()
+      // this.$refs.file.fileList = []
+    },
+    // 根据相册id获取照片
+    async getImageByAbulumId() {},
+    // 新增图片弹窗
+    showAddDialog() {
+      this.addDialog = true
+      this.addVideoFileForm = {}
+      this.addFrontList = []
+      this.addFileNameDisable = true
+      this.addFrontRadio = null
+    },
+
+    // 图片修改弹窗
+    async editDialog(id) {
+      this.editVideoFileDialog = true
+      this.editLoading = true
+      const res = await getVideoFileInfoByIdApi(id)
+      this.editVideoFileForm = res.content
+      const frontList = res.content.frontList
+      frontList.forEach((item) => {
+        if (item.isFrontFile) {
+          this.frontRadio = item.id
+        }
+      })
+      this.editLoading = false
+    },
+    // 提交图片修改
+    async submitEditVideoFile(editVideoFileForm) {
+      this.editLoading = true
+      console.log(editVideoFileForm)
+      const updateParam = {
+        id: editVideoFileForm.id,
+        file_name: editVideoFileForm.fileName
+      }
+      updateVideoFileInfoApi(updateParam).then((res) => {
+        if (res && res.status) {
+        } else {
+          this.$message(res.message)
+        }
+      })
+      const params = {
+        fileId: editVideoFileForm.id,
+        frontId: this.frontRadio
+      }
+
+      await updateVideoFileByFrontApi(params)
+      await this.getVideoFileTableData()
+      this.editLoading = false
+      this.editVideoFileDialog = false
+    },
+
+    /*文件变化*/
+    async filechange(file) {
+      let formData = new FormData()
+      formData.append('video', file.raw)
+      formData.append('folder', 'video')
+      this.addLoading = true
+      const res = await uploadVideoFileApi(formData)
+      this.addVideoFileForm = res.content
+      this.addFrontList = res.content.frontFileInfoList
+      console.log(res)
+      this.addFileNameDisable = false
+      this.addLoading = false
+    },
+    /*文件上传前处理*/
+    beforeUpload() {},
+    // 新增视频文件
+    async submitAddVideoFile(addVideoFileForm) {
+      this.addLoading = true
+      addVideoFileForm.videoId = this.tableQuery.videoId
+      addVideoFileForm.frontFileInfoList[this.addFrontRadio].isFrontFile = true
+      console.log(addVideoFileForm)
+      insertVideoFileInfoApi(addVideoFileForm).then((res) => {
+        if (res && res.status) {
+        } else {
+          this.$message(res.message)
+        }
+      })
+      const params = {
+        fileId: addVideoFileForm.videoId,
+        frontId: this.frontRadio
+      }
+      await updateVideoFileByFrontApi(params)
+      await this.getVideoFileTableData()
+      this.addLoading = false
+      this.addDialog = false
+    },
+    // 删除视频文件
+    async deleteRow(row) {
+      this.loading = true
+      const res = await deleteVideoFileInfoApi([row.id])
+      if (res && res.status) {
+        this.$message('删除成功')
+      } else {
+        this.$message(res.message)
+      }
+      await this.getVideoFileTableData()
+      this.loading = false
+    },
+    // 设置文件为专辑封面文件
+    async setFront(row) {
+      this.loading = true
+      const params = {
+        videoId: this.tableQuery.videoId,
+        fileId: row.id
+      }
+      console.log(params)
+      const res = await updateVideoFrontByFileApi(params)
+      console.log(res)
+      if (res && res.status) {
+        this.$message('设为专辑封面成功')
+      } else {
+        this.$message(res.message)
+      }
+      await this.getVideoFileTableData()
+      this.loading = false
+      this.$emit('getVideoList')
+      this.show = false
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.max-box {
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+
+  .box-right {
+    overflow: hidden;
+    display: inline-block;
+    width: 20%;
+    height: 500px;
+    box-shadow: 0px 0px 11px 1px #ccc;
+    border: 6px none;
+    border-left-style: double;
+    border-left-color: #c4ccd4;
+    border-right-style: none;
+    border-right-color: #c4ccd4;
+    border-top-style: double;
+    border-top-color: #c4ccd4;
+    padding: 2px;
+    font-size: 12px;
+    .box-right-title {
+      display: flex;
+      justify-content: space-between;
+      background: #e9f1f6;
+      box-shadow: 0px 0px 5px 1px #ccc;
+      font-size: 15px;
+    }
+    .img {
+      width: 100px;
+      height: 100px;
+      margin: 5px;
+      margin-top: 10px;
+      box-shadow: 0px 0px 11px 1px #ccc;
+      border: 2px double #c4ccd4;
+      padding-right: 1px;
+      padding-bottom: 1px;
+    }
+  }
+  .box-left {
+    display: inline-block;
+    width: 80%;
+  }
+}
+</style>

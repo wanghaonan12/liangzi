@@ -1,0 +1,106 @@
+import request from '@/utils/request'
+
+export function findList(data) {
+    console.log(data)
+    return request({
+        url: 'v1/archive/findList',
+        method: 'post',
+        data: data
+    })
+}
+
+export function findList2(data) {
+    console.log(data)
+    return request({
+        url: 'v1/archive/findListAll',
+        method: 'post',
+        data: data
+    })
+}
+
+
+export function findFileById(data) {
+    console.log(data)
+    return request({
+        url: 'v1/archiveFile/findById/'+data,
+        method: 'get',
+        data: null,
+    })
+}
+
+export function findById(data) {
+    console.log(data)
+    return request({
+        url: 'v1/archive/findById/'+data,
+        method: 'get',
+        data: null,
+    })
+}
+
+export function uploadFile(data) {
+    return request({
+       url: '/files/upload',
+       method: 'post',
+       data
+    })
+}
+
+
+export function addArchive(data) {
+    return request({
+       url: 'archive/insert',
+       method: 'post',
+       data:data
+    })
+}
+
+
+export function addFileArchive(data) {
+    return request({
+       url: 'archiveFile/insert',
+       method: 'post',
+       data:data
+    })
+}
+
+
+export function updateArchive(data) {
+    return request({
+       url: 'archive/update',
+       method: 'post',
+       data:data
+    })
+}
+
+
+export function del(data) {
+    return request({
+       url: 'archive/del/'+data,
+       method: 'get',
+       data:null
+    })
+}
+
+export function deleteList(data) {
+    return request({
+       url: 'archive/delList',
+       method: 'post',
+       data:data
+    })
+}
+
+export function delFile(data) {
+    return request({
+       url: 'archiveFile/del/'+data,
+       method: 'get',
+       data:null
+    })
+}
+
+export function deleteFileList(data) {
+    return request({
+       url: 'archiveFile/delList',
+       method: 'post',
+       data:data
+    })
+}

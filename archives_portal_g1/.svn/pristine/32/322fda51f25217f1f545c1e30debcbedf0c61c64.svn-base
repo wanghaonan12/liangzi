@@ -1,0 +1,24 @@
+/** When your routing table is too long, you can split it into small modules **/
+
+import Layout from '@/layout'
+
+const newsManagementRouter = {
+  path: '/news-management',
+  component: Layout,
+  redirect: '/news-management/index',
+  name: 'NewsManagement',
+  meta: {
+    title: '新闻管理',
+    icon: 'form'
+  },
+  children: [
+    {
+      path: 'index',
+      component: () => import('@/views/newsManagement'),
+      name: 'NewsManagementIndex',
+      meta: { title: '新闻管理' }
+    }
+  ]
+}
+
+export default newsManagementRouter

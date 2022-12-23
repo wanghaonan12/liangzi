@@ -1,0 +1,67 @@
+package com.pde.pdes.portal.archive.dao;
+
+import com.baomidou.mybatisplus.annotation.TableField;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.models.auth.In;
+import lombok.Builder;
+import lombok.Data;
+
+import java.util.Date;
+
+/**
+ * 添加开放档案的实体类
+ * @author xiaozp
+ * @date 2022-12-21 19：00
+ */
+@Data
+@Builder
+public class ArchiveAddDao {
+
+    /**
+     * 档号
+     */
+    @ApiModelProperty("档案号")
+    @TableField(value="archival_code")
+    private String archivalCode;
+
+    /**
+     * 全宗
+     */
+    @ApiModelProperty("全宗")
+    private String fonds;
+
+    /**
+     * 年度
+     */
+    @ApiModelProperty("年度")
+    private String year;
+
+    /**
+     * 密级
+     */
+    @TableField(value="security_class")
+    @ApiModelProperty("密级")
+    private String securityClass;
+
+    /**
+     * 保管期限
+     */
+    @TableField(value="retention_period")
+    @ApiModelProperty("保管期限")
+    private String retentionPeriod;
+
+    /**
+     * 是否发布
+     */
+    @TableField(value="enable_publish")
+    @ApiModelProperty("是否发布")
+    private String enablePublish;
+
+
+    /**
+     * 题名
+     */
+    @ApiModelProperty("题名")
+    private String title;
+
+}

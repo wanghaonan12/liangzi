@@ -1,0 +1,66 @@
+<template>
+    <div>
+        <el-dialog title="附件管理" :visible.sync="outsideShow" width="560px">
+            <el-upload :on-preview="download" :on-success="afterUpload" :on-remove="delFile" :file-list="fileListData" ref="upload" name="files"
+                class="upload" :action=fileUrl :headers="headers" multiple>
+                <el-button size="small" type="primary">上传附件</el-button>
+            </el-upload>
+        </el-dialog>
+    </div>
+</template>
+<script>
+import Cookies from 'js-cookie';
+import { delNewsFile } from '@/api/newsManagement'
+export default {
+    data() {
+        return {
+            fileListData: [],
+            outsideShow: false,
+            newsId: 0,
+            headers: {
+                'Authorization': Cookies.get('token'),
+            },
+            fileUrl:""
+        }
+    },
+    methods: {
+    
+        showDialog(data, id) {
+            this.fileListData = data
+            this.fileListData.forEach(element => {
+                element.name = element.fileName
+            });
+            this.outsideShow = true
+            this.fileUrl = '/newsFile/upload/?newsId='+ id
+        },
+        download(file) {
+            var a = document.createElement('a');
+            var event = new MouseEvent('click');
+            a.download = file.name;
+            a.href = file.url;
+            a.dispatchEvent(event);
+        },
+        afterUpload(){
+            this.$message('上传成功')
+            this.outsideShow = false
+        },
+        async delFile(file) {
+            const res = await delNewsFile(file.id)
+            if (res && res.code) {
+                this.$message('删除成功')
+            } else {
+                this.$message(res.message)
+            }
+        }
+    }
+}
+</script>
+<style scoped>
+.upload {
+    margin-top: 1em;
+}
+
+.file {
+    margin: 1em;
+}
+</style>

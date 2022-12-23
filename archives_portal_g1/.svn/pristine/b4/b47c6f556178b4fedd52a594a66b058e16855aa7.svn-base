@@ -1,0 +1,154 @@
+import request from '@/utils/request'
+import qs from 'querystring'
+
+// 首页-专辑轮播
+export function getPortalVideoListApi(params) {
+  return request({
+    url: '/v1/video',
+    method: 'get',
+    params
+  })
+}
+
+// 首页-专辑视频文件列表
+export function getPortalVideoFileListApi(params) {
+  return request({
+    url: '/v1/video/file',
+    method: 'get',
+    params
+  })
+}
+
+// 分页模糊查询视频档案列表
+export function getVideoListApi(params) {
+  return request({
+    url: '/video',
+    method: 'get',
+    params
+  })
+}
+
+// 分页查询视频档案文件列表
+export function getVideoFileListApi(params) {
+  return request({
+    url: '/video/file',
+    method: 'get',
+    params
+  })
+}
+
+// 新增视频专辑信息
+export function insertVideoInfoApi(data) {
+  return request({
+    url: '/video',
+    method: 'post',
+    data
+  })
+}
+
+// 修改视频专辑信息
+export function updateVideoInfoApi(data) {
+  return request({
+    url: '/video',
+    method: 'put',
+    data
+  })
+}
+
+// 删除视频专辑信息
+export function deleteVideoInfoApi(data) {
+  return request({
+    url: '/video',
+    method: 'delete',
+    data
+  })
+}
+
+// 批量发布视频档案
+export function enableVideoByIdsApi(data) {
+  return request({
+    url: '/video/enable',
+    method: 'put',
+    data
+  })
+}
+
+// 批量发布视频档案
+export function disableVideoByIdsApi(data) {
+  return request({
+    url: '/video/disable',
+    method: 'put',
+    data
+  })
+}
+
+// 上传视频文件
+export function uploadVideoFileApi(data) {
+  return request({
+    url: '/video/file/upload',
+    method: 'post',
+    timeout: 30000,
+    data
+  })
+}
+
+// 新增视频文件信息
+export function insertVideoFileInfoApi(data) {
+  return request({
+    url: '/video/file',
+    method: 'post',
+    data
+  })
+}
+
+// 修改视频文件信息
+export function updateVideoFileInfoApi(data) {
+  return request({
+    url: '/video/file',
+    method: 'put',
+    data
+  })
+}
+
+// 删除视频文件
+export function deleteVideoFileInfoApi(data) {
+  return request({
+    url: '/video/file',
+    method: 'delete',
+    data
+  })
+}
+
+// 根据id查询视频文件信息
+export function getVideoFileInfoByIdApi(id) {
+  return request({
+    url: '/video/file/id?id=' + id,
+    method: 'get'
+  })
+}
+
+// 新增视频文件封面
+export function insertVideoFileFrontApi(data) {
+  return request({
+    url: '/video/file/front',
+    method: 'post',
+    data
+  })
+}
+
+// 设置视频文件封面
+export function updateVideoFileByFrontApi(data) {
+  return request({
+    url: '/video/file/front',
+    method: 'put',
+    data
+  })
+}
+// 设置视频专辑封面
+export function updateVideoFrontByFileApi(data) {
+  return request({
+    url: '/video/front',
+    method: 'put',
+    data
+  })
+}

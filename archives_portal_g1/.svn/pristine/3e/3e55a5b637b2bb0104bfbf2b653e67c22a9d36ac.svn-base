@@ -1,0 +1,20 @@
+package com.pde.pdes.portal.video.vo;
+
+import lombok.Builder;
+import lombok.Data;
+
+import java.io.InputStream;
+
+/**
+ * @author: mth
+ * @date: 2022/12/6
+ * @description: 封面文件流对象
+ */
+@Data
+@Builder
+public class FrontFileStream {
+
+    private Integer fileSize;
+
+    private InputStream inputStream;
+}

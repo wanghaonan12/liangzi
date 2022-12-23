@@ -1,0 +1,64 @@
+package com.pde.pdes.portal.photo.service;
+
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pde.pdes.portal.photo.dto.PhotoFileDTO;
+import com.pde.pdes.portal.photo.mapper.PhotoFileMapper;
+import com.pde.pdes.portal.photo.po.PhotoFilePO;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class PhotoFileServiceImpl extends ServiceImpl<PhotoFileMapper,PhotoFilePO> implements PhotoFileService {
+
+    @Override
+    public boolean add(PhotoFileDTO entity) {
+        return save(PhotoFilePO.builder()
+                .photo_id(entity.getPhotoId())
+                .file_name(entity.getFileName())
+                .file_path(entity.getFilePath())
+                .file_size(entity.getFileSize())
+                .enable_front(entity.getEnableFront())
+                .build());
+    }
+
+    @Override
+    public boolean deleteById(String id) {
+        return removeById(id);
+    }
+
+    @Override
+    public boolean update(PhotoFilePO po) {
+        return updateById(PhotoFilePO.builder()
+                .id(po.getId())
+                .photo_id(po.getPhoto_id())
+                .file_name(po.getFile_name())
+                .file_path(po.getFile_path())
+                .file_size(po.getFile_size())
+                .enable_front(po.getEnable_front())
+                .build());
+    }
+
+    @Override
+    public PhotoFilePO findById(String id) {
+        return getById(id);
+    }
+
+    @Override
+    public List<PhotoFilePO> find(String searchText) {
+        if (StringUtils.isEmpty(searchText)){
+            return list();
+        }
+        else {
+            return list(Wrappers.lambdaQuery(PhotoFilePO.class)
+                    .like(PhotoFilePO::getPhoto_id,searchText).or()
+                    .like(PhotoFilePO::getFile_name,searchText).or()
+                    .like(PhotoFilePO::getFile_path,searchText).or()
+                    .like(PhotoFilePO::getFile_size,searchText).or()
+                    .like(PhotoFilePO::getCreate_time,searchText).or()
+                    .like(PhotoFilePO::getEnable_front,searchText));
+        }
+    }
+}

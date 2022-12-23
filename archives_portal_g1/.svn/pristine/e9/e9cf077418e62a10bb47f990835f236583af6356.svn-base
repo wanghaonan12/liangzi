@@ -1,0 +1,54 @@
+package com.pde.pdes.portal.video.service;
+
+import com.github.pagehelper.Page;
+import com.pde.pdes.portal.video.dto.VideoDTO;
+import com.pde.pdes.portal.video.po.VideoPO;
+
+import java.util.List;
+
+/**
+ * @author: mth
+ * @date: 2022/11/30
+ * @description:
+ */
+public interface VideoService {
+    /**
+     * 分页模糊查询视频专辑
+     *
+     * @param videoDTO dto
+     * @return 分页结果
+     */
+    Page<VideoPO> findByPage(VideoDTO videoDTO);
+
+    /**
+     * 新增视频专辑
+     *
+     * @param video 视频专辑实体
+     * @return 新增结果
+     */
+    Boolean insert(VideoDTO video);
+
+    /**
+     * 根据ids批量删除视频专辑
+     *
+     * @param ids ids
+     * @return 删除结果
+     */
+    Integer delByIds(List<Integer> ids);
+
+    /**
+     * 根据id查询视频专辑
+     *
+     * @param id 视频专辑id
+     * @return 查询结果
+     */
+    VideoPO findById(String id);
+
+    /**
+     * 更新视频专辑
+     *
+     * @param video 视频专辑实体
+     * @return 更新结果
+     */
+    Boolean update(VideoDTO video);
+}

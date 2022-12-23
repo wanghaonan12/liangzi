@@ -1,0 +1,221 @@
+<template>
+  <div>
+    <!-- <p>这⾥是id={{ $route.params.id }}</p> -->
+    <div class='top-line'></div>
+
+    <el-row type='flex' justify='center' align='middle'>
+      <el-col :span='2'>
+        <button @click='prev()' type='button' class='el-carousel__arrow'>
+          <i class='el-icon-arrow-left'></i>
+        </button>
+      </el-col>
+      <el-col :span='8'>
+        <photo class='photo' :text='title' :photoUrl='photoUrl'></photo>
+      </el-col>
+      <el-col :span='2' :offset='1'>
+        <button @click='next()' type='button' class='el-carousel__arrow'>
+          <i class='el-icon-arrow-right'></i>
+        </button>
+      </el-col>
+    </el-row>
+    <el-row class='thumbnail-box' type='flex' justify='space-around' align='middle' style='padding-top: 10px'>
+      <el-col :span='1' align='middle'>
+        <el-tooltip effect='light' content='上一页' placement='top-start'>
+          <button @click='prevPage' type='button' class='el-carousel__arrow'>
+            <i class='el-icon-arrow-left'></i>
+          </button>
+        </el-tooltip>
+      </el-col>
+      <el-col align='middle'>
+        <el-row style='height: 12vh' type='flex' justify='left' align='middle'>
+          <el-col :span='2' :offset='1' v-for='(item, index) in urlList' :key='index'>
+            <div
+              @click='pickImage(item, index)'
+              class='check-box'
+              :style="{
+                  borderColor: index == isCheck ? '#e2534d' : '#9aba60',
+                  borderWidth: index == isCheck ? '5px' : '1px'
+                }">
+              <el-image fit='fill' :src='item.file_path'></el-image>
+            </div>
+          </el-col>
+        </el-row>
+      </el-col>
+      <el-col :span='2' align='middle'>
+        <el-tooltip effect='light' content='下一页' placement='top-start'>
+          <button @click='nextPage' type='button' class='el-carousel__arrow'>
+            <i class='el-icon-arrow-right'></i>
+          </button>
+        </el-tooltip>
+      </el-col>
+    </el-row>
+  </div>
+</template>
+
+<script>
+import photo from '@/views/photo/photo.vue'
+import { getPhotoFileList } from '@/api/photoManagement'
+
+export default {
+  name: 'AlbumDetail',
+  components: {
+    photo
+  },
+  props: ['id'],
+  data() {
+    return {
+      photoUrl: '',
+      urlList: [],
+      isCheck: 0,
+      pageIndex: 1,
+      pageSize: 8,
+      data: {
+        pageIndex: 1,
+        pageSize: 8,
+        photoId: this.$route.params.id
+      },
+      total: 0,
+      pages: 0,
+      title: ''
+    }
+  },
+  created() {
+    getPhotoFileList(this.data).then((data) => {
+      this.urlList = data.content.rows
+      this.total = data.content.total
+      console.log(data)
+    })
+  },
+  mounted() {
+  },
+  methods: {
+    // 手动选择图片
+    pickImage(item, index) {
+      console.log(item)
+      this.photoUrl = item.file_path
+      this.isCheck = index
+      this.title = item.file_name
+      const list = this.photoUrl.split('.')
+      this.title += '.' + list[list.length - 1]
+    },
+    // 上一张
+    prev() {
+      if (this.isCheck > 0) {
+        this.photoUrl = this.urlList[--this.isCheck].file_path
+        this.title = this.urlList[this.isCheck].file_name
+        const list = this.photoUrl.split('.')
+        this.title += '.' + list[list.length - 1]
+      }
+    },
+    // 下一张
+    next() {
+      if (this.isCheck < this.urlList.length - 1) {
+        this.photoUrl = this.urlList[++this.isCheck].file_path
+        this.title = this.urlList[this.isCheck].file_name
+        const list = this.photoUrl.split('.')
+        this.title += '.' + list[list.length - 1]
+      }
+    },
+    // 上一页
+    prevPage() {
+      this.isCheck = 0
+      if (this.pageIndex > 1) {
+        this.data.pageIndex = this.data.pageIndex - 1
+        getPhotoFileList(this.data).then((data) => {
+          this.urlList = data.content.rows
+          this.total = data.content.total
+          console.log(data)
+        })
+      } else {
+        this.$message({
+          message: '已经是第一页了'
+        })
+      }
+    },
+    // 下一页
+    nextPage() {
+      this.isCheck = 0
+      if (this.data.pageIndex < this.pages) {
+        this.data.pageIndex = this.data.pageIndex + 1
+        console.log(this.data)
+        getPhotoFileList(this.data).then((data) => {
+          this.urlList = data.content.rows
+          this.total = data.content.total
+          console.log(data)
+        })
+      } else {
+        this.$message({
+          message: '已经是最后一页了'
+        })
+      }
+    }
+
+  }
+}
+</script>
+
+<style lang='scss' scoped>
+.top-line {
+  background-color: #036eaa;
+  height: 1vh;
+  width: 100vw;
+  margin-bottom: 20px;
+}
+
+.el-carousel__arrow {
+  width: 60px;
+  height: 60px;
+
+  .el-icon-arrow-left {
+    content: attr('上一页');
+    font-size: 22px;
+  }
+
+  .el-icon-arrow-right {
+    font-size: 22px;
+  }
+}
+
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
+}
+
+.photo {
+  display: flex;
+  justify-content: center;
+}
+
+.thumbnail-box {
+  margin: 5px;
+  border: 1px solid;
+  border-image: linear-gradient(45deg, #90cf5b, #00afee) 1;
+  clip-path: inset(0 round 10px);
+
+  .check-box {
+    overflow: hidden;
+    border: 1px solid;
+    width: 11vh;
+    height: 11vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .el-carousel__arrow {
+    width: 40px;
+    height: 40px;
+
+    .el-icon-arrow-left {
+      font-size: 12px;
+    }
+
+    .el-icon-arrow-right {
+      font-size: 12px;
+    }
+  }
+}
+</style>

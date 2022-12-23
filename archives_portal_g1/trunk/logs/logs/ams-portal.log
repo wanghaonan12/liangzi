@@ -1,0 +1,955 @@
+2022-12-23 09:03:51.038 1025 [main] INFO  - Starting Application on wangfugui with PID 22096 (started by wangRich in D:\DeskTop\量子\archives_portal_g1\trunk\pdes-portal)
+2022-12-23 09:03:51.045 1032 [main] DEBUG - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+2022-12-23 09:03:51.047 1034 [main] INFO  - No active profile set, falling back to default profiles: default
+2022-12-23 09:03:53.248 3235 [main] INFO  - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-12-23 09:03:53.255 3242 [main] INFO  - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-12-23 09:03:53.279 3266 [main] INFO  - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-12-23 09:03:53.282 3269 [main] INFO  - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@706eab5d' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-12-23 09:03:53.283 3270 [main] INFO  - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-12-23 09:03:53.286 3273 [main] INFO  - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-12-23 09:03:53.565 3552 [main] INFO  - Tomcat initialized with port(s): 8088 (http)
+2022-12-23 09:03:53.575 3562 [main] INFO  - Starting service [Tomcat]
+2022-12-23 09:03:53.576 3563 [main] INFO  - Starting Servlet engine: [Apache Tomcat/9.0.30]
+2022-12-23 09:03:53.577 3564 [main] INFO  - Loaded APR based Apache Tomcat Native library [1.2.33] using APR version [1.7.0].
+2022-12-23 09:03:53.578 3565 [main] INFO  - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2022-12-23 09:03:53.578 3565 [main] INFO  - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2022-12-23 09:03:53.593 3580 [main] INFO  - OpenSSL successfully initialized [OpenSSL 1.1.1o  3 May 2022]
+2022-12-23 09:03:53.757 3744 [main] INFO  - Initializing Spring embedded WebApplicationContext
+2022-12-23 09:03:53.758 3745 [main] INFO  - Root WebApplicationContext: initialization completed in 2636 ms
+2022-12-23 09:03:53.971 3958 [main] INFO  - Init DruidDataSource
+2022-12-23 09:03:54.203 4190 [main] INFO  - {dataSource-1} inited
+2022-12-23 09:03:56.594 6581 [main] INFO  - Initializing ExecutorService
+2022-12-23 09:03:56.595 6582 [main] INFO  - Initializing ExecutorService 'PdeDefaultThreadPool'
+2022-12-23 09:03:56.614 6601 [main] INFO  - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2022-12-23 09:03:57.227 7214 [main] INFO  - Creating filter chain: Ant [pattern='/v1/**'], []
+2022-12-23 09:03:57.227 7214 [main] INFO  - Creating filter chain: Ant [pattern='/**/*.html'], []
+2022-12-23 09:03:57.227 7214 [main] INFO  - Creating filter chain: Ant [pattern='/**/*.css'], []
+2022-12-23 09:03:57.227 7214 [main] INFO  - Creating filter chain: Ant [pattern='/**/*.js'], []
+2022-12-23 09:03:57.227 7214 [main] INFO  - Creating filter chain: Ant [pattern='/static/**'], []
+2022-12-23 09:03:57.227 7214 [main] INFO  - Creating filter chain: Ant [pattern='/theme/**'], []
+2022-12-23 09:03:57.227 7214 [main] INFO  - Creating filter chain: Ant [pattern='/plugin/**'], []
+2022-12-23 09:03:57.228 7215 [main] INFO  - Creating filter chain: Ant [pattern='/*.ico'], []
+2022-12-23 09:03:57.228 7215 [main] INFO  - Creating filter chain: Ant [pattern='/v3/**'], []
+2022-12-23 09:03:57.228 7215 [main] INFO  - Creating filter chain: Ant [pattern='/v1/auth/login'], []
+2022-12-23 09:03:57.228 7215 [main] INFO  - Creating filter chain: Ant [pattern='/principal'], []
+2022-12-23 09:03:57.228 7215 [main] INFO  - Creating filter chain: Ant [pattern='/actuator/**'], []
+2022-12-23 09:03:57.228 7215 [main] INFO  - Creating filter chain: Ant [pattern='/druid/**'], []
+2022-12-23 09:03:57.229 7216 [main] INFO  - Creating filter chain: Ant [pattern='/v2/api-docs'], []
+2022-12-23 09:03:57.229 7216 [main] INFO  - Creating filter chain: Ant [pattern='/webjars/springfox-swagger-ui/**'], []
+2022-12-23 09:03:57.229 7216 [main] INFO  - Creating filter chain: Ant [pattern='/swagger-resources/**'], []
+2022-12-23 09:03:57.229 7216 [main] INFO  - Creating filter chain: Ant [pattern='/swagger-ui.html'], []
+2022-12-23 09:03:57.285 7272 [main] INFO  - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@73e4bb60, org.springframework.security.web.context.SecurityContextPersistenceFilter@6b2aafbc, org.springframework.security.web.header.HeaderWriterFilter@51b87df7, org.springframework.security.web.authentication.logout.LogoutFilter@7c71c889, com.pde.p10c.auth.JwtAuthenticationTokenFilter@9a9aa68, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@49491770, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@42d9e8d2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3a3883c4, org.springframework.security.web.session.SessionManagementFilter@62cf6a84, org.springframework.security.web.access.ExceptionTranslationFilter@615439f7, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3360283]
+2022-12-23 09:03:57.397 7384 [main] INFO  - Context refreshed
+2022-12-23 09:03:57.424 7411 [main] INFO  - Found 1 custom documentation plugin(s)
+2022-12-23 09:03:57.525 7512 [main] INFO  - Scanning for api listing references
+2022-12-23 09:03:57.806 7793 [main] INFO  - Generating unique operation named: delUsingGET_1
+2022-12-23 09:03:57.809 7796 [main] INFO  - Generating unique operation named: delListUsingPOST_1
+2022-12-23 09:03:57.812 7799 [main] INFO  - Generating unique operation named: findByIdUsingGET_1
+2022-12-23 09:03:57.830 7817 [main] INFO  - Generating unique operation named: updateUsingPOST_1
+2022-12-23 09:03:57.835 7822 [main] INFO  - Generating unique operation named: addUsingPOST_1
+2022-12-23 09:03:57.838 7825 [main] INFO  - Generating unique operation named: findByIdUsingGET_2
+2022-12-23 09:03:57.854 7841 [main] WARN  - Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2022-12-23 09:03:57.867 7854 [main] INFO  - Generating unique operation named: addUsingPOST_2
+2022-12-23 09:03:57.885 7872 [main] INFO  - Generating unique operation named: getListUsingPOST_1
+2022-12-23 09:03:57.903 7890 [main] INFO  - Generating unique operation named: removeByIdUsingDELETE_1
+2022-12-23 09:03:57.932 7919 [main] INFO  - Generating unique operation named: addUsingPOST_3
+2022-12-23 09:03:57.962 7949 [main] INFO  - Generating unique operation named: findByIdUsingGET_3
+2022-12-23 09:03:57.965 7952 [main] INFO  - Generating unique operation named: updateUsingPOST_2
+2022-12-23 09:03:57.969 7956 [main] INFO  - Generating unique operation named: addUsingPOST_4
+2022-12-23 09:03:57.973 7960 [main] INFO  - Generating unique operation named: deleteUsingDELETE_1
+2022-12-23 09:03:57.976 7963 [main] INFO  - Generating unique operation named: findUsingPOST_1
+2022-12-23 09:03:57.979 7966 [main] INFO  - Generating unique operation named: findByIdUsingGET_4
+2022-12-23 09:03:57.981 7968 [main] WARN  - Trying to infer dataType org.springframework.web.multipart.MultipartFile[]
+2022-12-23 09:03:57.994 7981 [main] INFO  - Generating unique operation named: addUsingPOST_5
+2022-12-23 09:03:57.997 7984 [main] INFO  - Generating unique operation named: findByIdUsingGET_5
+2022-12-23 09:03:58.001 7988 [main] INFO  - Generating unique operation named: getListUsingPOST_2
+2022-12-23 09:03:58.011 7998 [main] INFO  - Generating unique operation named: removeByIdUsingDELETE_2
+2022-12-23 09:03:58.015 8002 [main] INFO  - Generating unique operation named: removeByIdUsingDELETE_3
+2022-12-23 09:03:58.038 8025 [main] INFO  - Generating unique operation named: addUsingPOST_6
+2022-12-23 09:03:58.046 8033 [main] INFO  - Generating unique operation named: findByIdUsingGET_6
+2022-12-23 09:03:58.050 8037 [main] INFO  - Generating unique operation named: getListUsingPOST_3
+2022-12-23 09:03:58.055 8042 [main] INFO  - Generating unique operation named: publishByIdsUsingPOST_1
+2022-12-23 09:03:58.060 8047 [main] INFO  - Generating unique operation named: removeByIdUsingDELETE_4
+2022-12-23 09:03:58.068 8055 [main] INFO  - Generating unique operation named: removeByIdUsingDELETE_5
+2022-12-23 09:03:58.082 8069 [main] INFO  - Generating unique operation named: updateEventUsingPOST_1
+2022-12-23 09:03:58.093 8080 [main] INFO  - Generating unique operation named: addUsingPOST_7
+2022-12-23 09:03:58.111 8098 [main] INFO  - Generating unique operation named: findByIdUsingGET_7
+2022-12-23 09:03:58.119 8106 [main] INFO  - Generating unique operation named: getListUsingPOST_4
+2022-12-23 09:03:58.130 8117 [main] INFO  - Generating unique operation named: removeByIdUsingDELETE_6
+2022-12-23 09:03:58.141 8128 [main] INFO  - Generating unique operation named: updateUsingPUT_1
+2022-12-23 09:03:58.152 8139 [main] INFO  - Generating unique operation named: addUsingPOST_8
+2022-12-23 09:03:58.161 8148 [main] INFO  - Generating unique operation named: findByIdUsingGET_8
+2022-12-23 09:03:58.169 8156 [main] INFO  - Generating unique operation named: updateUsingPUT_2
+2022-12-23 09:03:58.174 8161 [main] INFO  - Generating unique operation named: addFileUsingPOST_1
+2022-12-23 09:03:58.223 8210 [main] INFO  - Generating unique operation named: addStandardUsingPOST_1
+2022-12-23 09:03:58.227 8214 [main] INFO  - Generating unique operation named: removeStandardByIdUsingDELETE_1
+2022-12-23 09:03:58.232 8219 [main] INFO  - Generating unique operation named: upDataUsingPOST_1
+2022-12-23 09:03:58.244 8231 [main] INFO  - Generating unique operation named: addUsingPOST_9
+2022-12-23 09:03:58.253 8240 [main] INFO  - Generating unique operation named: addFileUsingPOST_2
+2022-12-23 09:03:58.258 8245 [main] INFO  - Generating unique operation named: disableByIdsUsingPUT_1
+2022-12-23 09:03:58.262 8249 [main] INFO  - Generating unique operation named: enableByIdsUsingPUT_1
+2022-12-23 09:03:58.268 8255 [main] INFO  - Generating unique operation named: getListUsingGET_1
+2022-12-23 09:03:58.296 8283 [main] INFO  - Generating unique operation named: updateVideoFileUsingPUT_1
+2022-12-23 09:03:58.375 8362 [main] INFO  - Tomcat started on port(s): 8088 (http) with context path ''
+2022-12-23 09:03:58.380 8367 [main] INFO  - Started Application in 8.155 seconds (JVM running for 9.69)
+2022-12-23 09:04:05.794 15781 [http-nio-8088-exec-1] INFO  - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-12-23 09:04:05.794 15781 [http-nio-8088-exec-1] INFO  - Initializing Servlet 'dispatcherServlet'
+2022-12-23 09:04:05.803 15790 [http-nio-8088-exec-1] INFO  - Completed initialization in 8 ms
+2022-12-23 09:04:07.193 17180 [pde-thread-3] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_photo AS a LEFT JOIN pdes_portal_photo_file AS b ON a.id = b.photo_id WHERE b.enable_front = 1 AND a.enable_publish = 1
+2022-12-23 09:04:07.384 17371 [pde-thread-3] DEBUG - ==> Parameters: 
+2022-12-23 09:04:07.446 17433 [pde-thread-3] DEBUG - <==      Total: 1
+2022-12-23 09:04:07.453 17440 [pde-thread-3] DEBUG - ==>  Preparing: select a.*, b.file_path from pdes_portal_photo as a left join pdes_portal_photo_file as b on a.id = b.photo_id where b.enable_front = 1 and a.enable_publish = 1 LIMIT ?
+2022-12-23 09:04:07.454 17441 [pde-thread-3] DEBUG - ==> Parameters: 4(Integer)
+2022-12-23 09:04:07.495 17482 [pde-thread-3] DEBUG - <==      Total: 4
+2022-12-23 09:04:07.496 17483 [pde-thread-4] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_honor AS a LEFT JOIN pdes_portal_honor_file AS b ON a.id = b.honor_id WHERE b.enable_front = 1 AND a.enable_publish = 1
+2022-12-23 09:04:07.497 17484 [pde-thread-4] DEBUG - ==> Parameters: 
+2022-12-23 09:04:07.533 17520 [pde-thread-4] DEBUG - <==      Total: 1
+2022-12-23 09:04:07.534 17521 [pde-thread-4] DEBUG - ==>  Preparing: select a.*, b.file_path from pdes_portal_honor as a left join pdes_portal_honor_file as b on a.id = b.honor_id where b.enable_front = 1 and a.enable_publish = 1 LIMIT ?
+2022-12-23 09:04:07.534 17521 [pde-thread-4] DEBUG - ==> Parameters: 4(Integer)
+2022-12-23 09:04:07.576 17563 [pde-thread-4] DEBUG - <==      Total: 4
+2022-12-23 09:04:07.576 17563 [pde-thread-5] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_video WHERE (enable_publish = ?)
+2022-12-23 09:04:07.577 17564 [pde-thread-5] DEBUG - ==> Parameters: 1(Integer)
+2022-12-23 09:04:07.613 17600 [pde-thread-5] DEBUG - <==      Total: 1
+2022-12-23 09:04:07.613 17600 [pde-thread-5] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish,create_time FROM pdes_portal_video WHERE (enable_publish = ?) ORDER BY create_time DESC,enable_publish DESC LIMIT ?
+2022-12-23 09:04:07.614 17601 [pde-thread-5] DEBUG - ==> Parameters: 1(Integer), 6(Integer)
+2022-12-23 09:04:07.650 17637 [pde-thread-5] DEBUG - <==      Total: 3
+2022-12-23 09:04:07.651 17638 [pde-thread-2] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_public_archive WHERE (enable_publish = ?)
+2022-12-23 09:04:07.651 17638 [pde-thread-2] DEBUG - ==> Parameters: 1(Integer)
+2022-12-23 09:04:07.688 17675 [pde-thread-2] DEBUG - <==      Total: 1
+2022-12-23 09:04:07.689 17676 [pde-thread-2] DEBUG - ==>  Preparing: SELECT id,archival_code AS archivalCode,fonds,year,security_class AS securityClass,retention_period AS retentionPeriod,title,enable_publish AS enablePublish,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_public_archive WHERE (enable_publish = ?) LIMIT ?
+2022-12-23 09:04:07.689 17676 [pde-thread-2] DEBUG - ==> Parameters: 1(Integer), 8(Integer)
+2022-12-23 09:04:07.745 17732 [pde-thread-2] DEBUG - <==      Total: 8
+2022-12-23 09:04:07.746 17733 [pde-thread-6] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_photo AS a LEFT JOIN (SELECT b.file_path, b.photo_id FROM pdes_portal_photo_file AS b WHERE b.enable_front = 1) AS c ON a.id = c.photo_id WHERE a.title LIKE "%%"
+2022-12-23 09:04:07.747 17734 [pde-thread-6] DEBUG - ==> Parameters: 
+2022-12-23 09:04:07.783 17770 [pde-thread-6] DEBUG - <==      Total: 1
+2022-12-23 09:04:07.783 17770 [pde-thread-6] DEBUG - ==>  Preparing: select a.*, c.file_path from pdes_portal_photo as a left join (SELECT b.file_path, b.photo_id from pdes_portal_photo_file as b where b.enable_front = 1) as c on a.id = c.photo_id where a.title like "%%" LIMIT ?
+2022-12-23 09:04:07.783 17770 [pde-thread-6] DEBUG - ==> Parameters: 6(Integer)
+2022-12-23 09:04:07.820 17807 [pde-thread-6] DEBUG - <==      Total: 6
+2022-12-23 09:04:07.822 17809 [pde-thread-1] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_chronicle_events
+2022-12-23 09:04:07.823 17810 [pde-thread-1] DEBUG - ==> Parameters: 
+2022-12-23 09:04:07.857 17844 [pde-thread-1] DEBUG - <==      Total: 1
+2022-12-23 09:04:07.858 17845 [pde-thread-1] DEBUG - ==>  Preparing: SELECT id,title,content,content_abstract AS contentAbstract,enable_publish AS enablePublish,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_chronicle_events LIMIT ?
+2022-12-23 09:04:07.858 17845 [pde-thread-1] DEBUG - ==> Parameters: 10(Integer)
+2022-12-23 09:04:07.894 17881 [http-nio-8088-exec-1] ERROR - Responding with unauthorized error. Message:Full authentication is required to access this resource, url:/notify/select
+2022-12-23 09:04:07.899 17886 [pde-thread-1] DEBUG - <==      Total: 10
+2022-12-23 09:04:07.899 17886 [http-nio-8088-exec-2] ERROR - Responding with unauthorized error. Message:Full authentication is required to access this resource, url:/standard/findShow
+2022-12-23 09:04:07.900 17887 [pde-thread-5] DEBUG - ==>  Preparing: SELECT vff.file_path FROM pdes_portal_video v LEFT JOIN pdes_portal_video_file vf ON vf.video_id=v.id LEFT JOIN pdes_portal_video_file_front vff ON vff.video_file_id = vf.id WHERE v.id = 13 and vf.is_front_file = 1 and vff.is_front_file = 1
+2022-12-23 09:04:07.904 17891 [pde-thread-5] DEBUG - ==> Parameters: 
+2022-12-23 09:04:07.943 17930 [pde-thread-5] DEBUG - <==      Total: 1
+2022-12-23 09:04:07.944 17931 [pde-thread-5] DEBUG - ==>  Preparing: SELECT vff.file_path FROM pdes_portal_video v LEFT JOIN pdes_portal_video_file vf ON vf.video_id=v.id LEFT JOIN pdes_portal_video_file_front vff ON vff.video_file_id = vf.id WHERE v.id = 10 and vf.is_front_file = 1 and vff.is_front_file = 1
+2022-12-23 09:04:07.944 17931 [pde-thread-5] DEBUG - ==> Parameters: 
+2022-12-23 09:04:07.982 17969 [pde-thread-5] DEBUG - <==      Total: 1
+2022-12-23 09:04:07.982 17969 [pde-thread-5] DEBUG - ==>  Preparing: SELECT vff.file_path FROM pdes_portal_video v LEFT JOIN pdes_portal_video_file vf ON vf.video_id=v.id LEFT JOIN pdes_portal_video_file_front vff ON vff.video_file_id = vf.id WHERE v.id = 7 and vf.is_front_file = 1 and vff.is_front_file = 1
+2022-12-23 09:04:07.983 17970 [pde-thread-5] DEBUG - ==> Parameters: 
+2022-12-23 09:04:08.019 18006 [pde-thread-5] DEBUG - <==      Total: 1
+2022-12-23 09:04:08.059 18046 [http-nio-8088-exec-6] ERROR - Responding with unauthorized error. Message:Full authentication is required to access this resource, url:/notify/photo/select/4
+2022-12-23 09:04:08.139 18126 [pde-thread-7] DEBUG - ==>  Preparing: select p1.id,p1.chronicle_events_id chronicleEventsId,p1.file_name fileName,p1.file_size fileSize,p1.file_suffix fileSuffix,p1.file_path filePath,p1.memo memo,p1.order_seq orderSeq,p1.create_time createTime FROM pdes_portal_chronicle_events_file as p1 WHERE p1.chronicle_events_id = ?
+2022-12-23 09:04:08.141 18128 [pde-thread-7] DEBUG - ==> Parameters: 20(Integer)
+2022-12-23 09:04:08.190 18177 [pde-thread-7] DEBUG - <==      Total: 4
+2022-12-23 09:04:11.489 21476 [http-nio-8088-exec-8] INFO  - 用户admin验证.
+2022-12-23 09:04:16.468 26455 [pde-thread-9] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_photo AS a LEFT JOIN pdes_portal_photo_file AS b ON a.id = b.photo_id WHERE b.enable_front = 1 AND a.enable_publish = 1
+2022-12-23 09:04:16.468 26455 [pde-thread-9] DEBUG - ==> Parameters: 
+2022-12-23 09:04:16.470 26457 [pde-thread-13] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_chronicle_events
+2022-12-23 09:04:16.470 26457 [pde-thread-13] DEBUG - ==> Parameters: 
+2022-12-23 09:04:16.529 26516 [pde-thread-9] DEBUG - <==      Total: 1
+2022-12-23 09:04:16.531 26518 [pde-thread-9] DEBUG - ==>  Preparing: select a.*, b.file_path from pdes_portal_photo as a left join pdes_portal_photo_file as b on a.id = b.photo_id where b.enable_front = 1 and a.enable_publish = 1 LIMIT ?
+2022-12-23 09:04:16.531 26518 [pde-thread-13] DEBUG - <==      Total: 1
+2022-12-23 09:04:16.531 26518 [pde-thread-9] DEBUG - ==> Parameters: 4(Integer)
+2022-12-23 09:04:16.531 26518 [pde-thread-13] DEBUG - ==>  Preparing: SELECT id,title,content,content_abstract AS contentAbstract,enable_publish AS enablePublish,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_chronicle_events LIMIT ?
+2022-12-23 09:04:16.531 26518 [pde-thread-13] DEBUG - ==> Parameters: 10(Integer)
+2022-12-23 09:04:16.569 26556 [pde-thread-9] DEBUG - <==      Total: 4
+2022-12-23 09:04:16.569 26556 [pde-thread-13] DEBUG - <==      Total: 10
+2022-12-23 09:04:16.572 26559 [pde-thread-12] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_honor AS a LEFT JOIN pdes_portal_honor_file AS b ON a.id = b.honor_id WHERE b.enable_front = 1 AND a.enable_publish = 1
+2022-12-23 09:04:16.572 26559 [pde-thread-12] DEBUG - ==> Parameters: 
+2022-12-23 09:04:16.573 26560 [pde-thread-10] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_public_archive WHERE (enable_publish = ?)
+2022-12-23 09:04:16.576 26563 [pde-thread-10] DEBUG - ==> Parameters: 1(Integer)
+2022-12-23 09:04:16.623 26610 [pde-thread-12] DEBUG - <==      Total: 1
+2022-12-23 09:04:16.623 26610 [pde-thread-12] DEBUG - ==>  Preparing: select a.*, b.file_path from pdes_portal_honor as a left join pdes_portal_honor_file as b on a.id = b.honor_id where b.enable_front = 1 and a.enable_publish = 1 LIMIT ?
+2022-12-23 09:04:16.623 26610 [pde-thread-12] DEBUG - ==> Parameters: 4(Integer)
+2022-12-23 09:04:16.657 26644 [pde-thread-10] DEBUG - <==      Total: 1
+2022-12-23 09:04:16.657 26644 [pde-thread-10] DEBUG - ==>  Preparing: SELECT id,archival_code AS archivalCode,fonds,year,security_class AS securityClass,retention_period AS retentionPeriod,title,enable_publish AS enablePublish,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_public_archive WHERE (enable_publish = ?) LIMIT ?
+2022-12-23 09:04:16.658 26645 [pde-thread-10] DEBUG - ==> Parameters: 1(Integer), 8(Integer)
+2022-12-23 09:04:16.659 26646 [pde-thread-12] DEBUG - <==      Total: 4
+2022-12-23 09:04:16.659 26646 [pde-thread-11] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_photo AS a LEFT JOIN (SELECT b.file_path, b.photo_id FROM pdes_portal_photo_file AS b WHERE b.enable_front = 1) AS c ON a.id = c.photo_id WHERE a.title LIKE "%%"
+2022-12-23 09:04:16.660 26647 [pde-thread-11] DEBUG - ==> Parameters: 
+2022-12-23 09:04:16.781 26768 [pde-thread-11] DEBUG - <==      Total: 1
+2022-12-23 09:04:16.781 26768 [pde-thread-11] DEBUG - ==>  Preparing: select a.*, c.file_path from pdes_portal_photo as a left join (SELECT b.file_path, b.photo_id from pdes_portal_photo_file as b where b.enable_front = 1) as c on a.id = c.photo_id where a.title like "%%" LIMIT ?
+2022-12-23 09:04:16.781 26768 [pde-thread-11] DEBUG - ==> Parameters: 6(Integer)
+2022-12-23 09:04:16.785 26772 [pde-thread-10] DEBUG - <==      Total: 8
+2022-12-23 09:04:16.786 26773 [pde-thread-14] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_notify WHERE (enable_publish = ?)
+2022-12-23 09:04:16.786 26773 [pde-thread-14] DEBUG - ==> Parameters: 0(Integer)
+2022-12-23 09:04:16.881 26868 [pde-thread-14] DEBUG - <==      Total: 1
+2022-12-23 09:04:16.882 26869 [pde-thread-14] DEBUG - ==>  Preparing: SELECT id,title,content,content_abstract AS contentAbstract,enable_publish AS enablePublish,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_notify WHERE (enable_publish = ?) ORDER BY create_time DESC LIMIT ?
+2022-12-23 09:04:16.883 26870 [pde-thread-14] DEBUG - ==> Parameters: 0(Integer), 8(Integer)
+2022-12-23 09:04:16.885 26872 [pde-thread-11] DEBUG - <==      Total: 6
+2022-12-23 09:04:16.904 26891 [pde-thread-16] DEBUG - ==>  Preparing: SELECT id,notify_id AS notifyId,file_name AS fileName,file_size AS fileSize,file_suffix AS fileSuffix,file_path AS filePath,memo,order_seq AS orderSeq,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_notify_file WHERE (file_suffix IN (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)) ORDER BY create_time ASC limit 4
+2022-12-23 09:04:16.907 26894 [pde-thread-16] DEBUG - ==> Parameters: .xbm(String), .tif(String), .pjp(String), .svgz(String), .jpg(String), .jpeg(String), .ico(String), .tiff(String), .gif(String), .svg(String), .jfif(String), .webp(String), .png(String), .bmp(String), .pjpeg(String), .avif(String)
+2022-12-23 09:04:17.021 27008 [pde-thread-16] DEBUG - <==      Total: 4
+2022-12-23 09:04:17.022 27009 [pde-thread-15] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_video WHERE (enable_publish = ?)
+2022-12-23 09:04:17.023 27010 [pde-thread-15] DEBUG - ==> Parameters: 1(Integer)
+2022-12-23 09:04:17.066 27053 [pde-thread-15] DEBUG - <==      Total: 1
+2022-12-23 09:04:17.066 27053 [pde-thread-15] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish,create_time FROM pdes_portal_video WHERE (enable_publish = ?) ORDER BY create_time DESC,enable_publish DESC LIMIT ?
+2022-12-23 09:04:17.066 27053 [pde-thread-15] DEBUG - ==> Parameters: 1(Integer), 6(Integer)
+2022-12-23 09:04:17.194 27181 [pde-thread-14] DEBUG - <==      Total: 8
+2022-12-23 09:04:17.195 27182 [pde-thread-17] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 09:04:17.195 27182 [pde-thread-17] DEBUG - ==> Parameters: 1(String)
+2022-12-23 09:04:17.247 27234 [pde-thread-17] DEBUG - <==      Total: 1
+2022-12-23 09:04:17.248 27235 [pde-thread-17] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?
+2022-12-23 09:04:17.248 27235 [pde-thread-17] DEBUG - ==> Parameters: 1(String), 8(Integer)
+2022-12-23 09:04:17.397 27384 [pde-thread-17] DEBUG - <==      Total: 8
+2022-12-23 09:04:17.402 27389 [pde-thread-18] DEBUG - ==>  Preparing: select p1.id,p1.chronicle_events_id chronicleEventsId,p1.file_name fileName,p1.file_size fileSize,p1.file_suffix fileSuffix,p1.file_path filePath,p1.memo memo,p1.order_seq orderSeq,p1.create_time createTime FROM pdes_portal_chronicle_events_file as p1 WHERE p1.chronicle_events_id = ?
+2022-12-23 09:04:17.402 27389 [pde-thread-18] DEBUG - ==> Parameters: 20(Integer)
+2022-12-23 09:04:17.447 27434 [pde-thread-18] DEBUG - <==      Total: 4
+2022-12-23 09:04:18.008 27995 [pde-thread-15] DEBUG - <==      Total: 3
+2022-12-23 09:04:18.008 27995 [pde-thread-15] DEBUG - ==>  Preparing: SELECT vff.file_path FROM pdes_portal_video v LEFT JOIN pdes_portal_video_file vf ON vf.video_id=v.id LEFT JOIN pdes_portal_video_file_front vff ON vff.video_file_id = vf.id WHERE v.id = 13 and vf.is_front_file = 1 and vff.is_front_file = 1
+2022-12-23 09:04:18.008 27995 [pde-thread-15] DEBUG - ==> Parameters: 
+2022-12-23 09:04:18.069 28056 [pde-thread-15] DEBUG - <==      Total: 1
+2022-12-23 09:04:18.070 28057 [pde-thread-15] DEBUG - ==>  Preparing: SELECT vff.file_path FROM pdes_portal_video v LEFT JOIN pdes_portal_video_file vf ON vf.video_id=v.id LEFT JOIN pdes_portal_video_file_front vff ON vff.video_file_id = vf.id WHERE v.id = 10 and vf.is_front_file = 1 and vff.is_front_file = 1
+2022-12-23 09:04:18.071 28058 [pde-thread-15] DEBUG - ==> Parameters: 
+2022-12-23 09:04:18.214 28201 [pde-thread-15] DEBUG - <==      Total: 1
+2022-12-23 09:04:18.215 28202 [pde-thread-15] DEBUG - ==>  Preparing: SELECT vff.file_path FROM pdes_portal_video v LEFT JOIN pdes_portal_video_file vf ON vf.video_id=v.id LEFT JOIN pdes_portal_video_file_front vff ON vff.video_file_id = vf.id WHERE v.id = 7 and vf.is_front_file = 1 and vff.is_front_file = 1
+2022-12-23 09:04:18.215 28202 [pde-thread-15] DEBUG - ==> Parameters: 
+2022-12-23 09:04:18.256 28243 [pde-thread-15] DEBUG - <==      Total: 1
+2022-12-23 09:04:39.245 49232 [pde-thread-21] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_honor AS a LEFT JOIN pdes_portal_honor_file AS b ON a.id = b.honor_id WHERE b.enable_front = 1 AND a.enable_publish = 1
+2022-12-23 09:04:39.246 49233 [pde-thread-22] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_photo AS a LEFT JOIN (SELECT b.file_path, b.photo_id FROM pdes_portal_photo_file AS b WHERE b.enable_front = 1) AS c ON a.id = c.photo_id WHERE a.title LIKE "%%"
+2022-12-23 09:04:39.246 49233 [pde-thread-20] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_photo AS a LEFT JOIN pdes_portal_photo_file AS b ON a.id = b.photo_id WHERE b.enable_front = 1 AND a.enable_publish = 1
+2022-12-23 09:04:39.246 49233 [pde-thread-21] DEBUG - ==> Parameters: 
+2022-12-23 09:04:39.246 49233 [pde-thread-22] DEBUG - ==> Parameters: 
+2022-12-23 09:04:39.246 49233 [pde-thread-20] DEBUG - ==> Parameters: 
+2022-12-23 09:04:39.290 49277 [pde-thread-21] DEBUG - <==      Total: 1
+2022-12-23 09:04:39.290 49277 [pde-thread-22] DEBUG - <==      Total: 1
+2022-12-23 09:04:39.291 49278 [pde-thread-21] DEBUG - ==>  Preparing: select a.*, b.file_path from pdes_portal_honor as a left join pdes_portal_honor_file as b on a.id = b.honor_id where b.enable_front = 1 and a.enable_publish = 1 LIMIT ?
+2022-12-23 09:04:39.291 49278 [pde-thread-22] DEBUG - ==>  Preparing: select a.*, c.file_path from pdes_portal_photo as a left join (SELECT b.file_path, b.photo_id from pdes_portal_photo_file as b where b.enable_front = 1) as c on a.id = c.photo_id where a.title like "%%" LIMIT ?
+2022-12-23 09:04:39.291 49278 [pde-thread-21] DEBUG - ==> Parameters: 4(Integer)
+2022-12-23 09:04:39.291 49278 [pde-thread-22] DEBUG - ==> Parameters: 6(Integer)
+2022-12-23 09:04:39.295 49282 [pde-thread-20] DEBUG - <==      Total: 1
+2022-12-23 09:04:39.296 49283 [pde-thread-20] DEBUG - ==>  Preparing: select a.*, b.file_path from pdes_portal_photo as a left join pdes_portal_photo_file as b on a.id = b.photo_id where b.enable_front = 1 and a.enable_publish = 1 LIMIT ?
+2022-12-23 09:04:39.296 49283 [pde-thread-20] DEBUG - ==> Parameters: 4(Integer)
+2022-12-23 09:04:39.329 49316 [pde-thread-22] DEBUG - <==      Total: 6
+2022-12-23 09:04:39.331 49318 [pde-thread-19] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_public_archive WHERE (enable_publish = ?)
+2022-12-23 09:04:39.332 49319 [pde-thread-21] DEBUG - <==      Total: 4
+2022-12-23 09:04:39.333 49320 [pde-thread-20] DEBUG - <==      Total: 4
+2022-12-23 09:04:39.332 49319 [pde-thread-19] DEBUG - ==> Parameters: 1(Integer)
+2022-12-23 09:04:39.337 49324 [pde-thread-23] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_chronicle_events
+2022-12-23 09:04:39.338 49325 [pde-thread-23] DEBUG - ==> Parameters: 
+2022-12-23 09:04:39.337 49324 [pde-thread-24] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_notify WHERE (enable_publish = ?)
+2022-12-23 09:04:39.338 49325 [pde-thread-24] DEBUG - ==> Parameters: 0(Integer)
+2022-12-23 09:04:39.369 49356 [pde-thread-19] DEBUG - <==      Total: 1
+2022-12-23 09:04:39.369 49356 [pde-thread-19] DEBUG - ==>  Preparing: SELECT id,archival_code AS archivalCode,fonds,year,security_class AS securityClass,retention_period AS retentionPeriod,title,enable_publish AS enablePublish,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_public_archive WHERE (enable_publish = ?) LIMIT ?
+2022-12-23 09:04:39.369 49356 [pde-thread-19] DEBUG - ==> Parameters: 1(Integer), 8(Integer)
+2022-12-23 09:04:39.373 49360 [pde-thread-24] DEBUG - <==      Total: 1
+2022-12-23 09:04:39.373 49360 [pde-thread-24] DEBUG - ==>  Preparing: SELECT id,title,content,content_abstract AS contentAbstract,enable_publish AS enablePublish,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_notify WHERE (enable_publish = ?) ORDER BY create_time DESC LIMIT ?
+2022-12-23 09:04:39.373 49360 [pde-thread-24] DEBUG - ==> Parameters: 0(Integer), 8(Integer)
+2022-12-23 09:04:39.377 49364 [pde-thread-23] DEBUG - <==      Total: 1
+2022-12-23 09:04:39.377 49364 [pde-thread-23] DEBUG - ==>  Preparing: SELECT id,title,content,content_abstract AS contentAbstract,enable_publish AS enablePublish,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_chronicle_events LIMIT ?
+2022-12-23 09:04:39.377 49364 [pde-thread-23] DEBUG - ==> Parameters: 10(Integer)
+2022-12-23 09:04:39.412 49399 [pde-thread-19] DEBUG - <==      Total: 8
+2022-12-23 09:04:39.462 49449 [pde-thread-23] DEBUG - <==      Total: 10
+2022-12-23 09:04:39.495 49482 [pde-thread-24] DEBUG - <==      Total: 8
+2022-12-23 09:04:39.658 49645 [pde-thread-25] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_video WHERE (enable_publish = ?)
+2022-12-23 09:04:39.659 49646 [pde-thread-25] DEBUG - ==> Parameters: 1(Integer)
+2022-12-23 09:04:39.661 49648 [pde-thread-27] DEBUG - ==>  Preparing: SELECT id,notify_id AS notifyId,file_name AS fileName,file_size AS fileSize,file_suffix AS fileSuffix,file_path AS filePath,memo,order_seq AS orderSeq,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_notify_file WHERE (file_suffix IN (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)) ORDER BY create_time ASC limit 4
+2022-12-23 09:04:39.662 49649 [pde-thread-27] DEBUG - ==> Parameters: .xbm(String), .tif(String), .pjp(String), .svgz(String), .jpg(String), .jpeg(String), .ico(String), .tiff(String), .gif(String), .svg(String), .jfif(String), .webp(String), .png(String), .bmp(String), .pjpeg(String), .avif(String)
+2022-12-23 09:04:39.663 49650 [pde-thread-26] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 09:04:39.664 49651 [pde-thread-26] DEBUG - ==> Parameters: 1(String)
+2022-12-23 09:04:39.696 49683 [pde-thread-25] DEBUG - <==      Total: 1
+2022-12-23 09:04:39.696 49683 [pde-thread-25] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish,create_time FROM pdes_portal_video WHERE (enable_publish = ?) ORDER BY create_time DESC,enable_publish DESC LIMIT ?
+2022-12-23 09:04:39.696 49683 [pde-thread-25] DEBUG - ==> Parameters: 1(Integer), 6(Integer)
+2022-12-23 09:04:39.696 49683 [pde-thread-26] DEBUG - <==      Total: 1
+2022-12-23 09:04:39.697 49684 [pde-thread-26] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?
+2022-12-23 09:04:39.697 49684 [pde-thread-26] DEBUG - ==> Parameters: 1(String), 8(Integer)
+2022-12-23 09:04:39.700 49687 [pde-thread-27] DEBUG - <==      Total: 4
+2022-12-23 09:04:39.732 49719 [pde-thread-25] DEBUG - <==      Total: 3
+2022-12-23 09:04:39.733 49720 [pde-thread-25] DEBUG - ==>  Preparing: SELECT vff.file_path FROM pdes_portal_video v LEFT JOIN pdes_portal_video_file vf ON vf.video_id=v.id LEFT JOIN pdes_portal_video_file_front vff ON vff.video_file_id = vf.id WHERE v.id = 13 and vf.is_front_file = 1 and vff.is_front_file = 1
+2022-12-23 09:04:39.733 49720 [pde-thread-25] DEBUG - ==> Parameters: 
+2022-12-23 09:04:39.734 49721 [pde-thread-26] DEBUG - <==      Total: 8
+2022-12-23 09:04:39.784 49771 [pde-thread-25] DEBUG - <==      Total: 1
+2022-12-23 09:04:39.784 49771 [pde-thread-25] DEBUG - ==>  Preparing: SELECT vff.file_path FROM pdes_portal_video v LEFT JOIN pdes_portal_video_file vf ON vf.video_id=v.id LEFT JOIN pdes_portal_video_file_front vff ON vff.video_file_id = vf.id WHERE v.id = 10 and vf.is_front_file = 1 and vff.is_front_file = 1
+2022-12-23 09:04:39.784 49771 [pde-thread-25] DEBUG - ==> Parameters: 
+2022-12-23 09:04:39.794 49781 [pde-thread-28] DEBUG - ==>  Preparing: select p1.id,p1.chronicle_events_id chronicleEventsId,p1.file_name fileName,p1.file_size fileSize,p1.file_suffix fileSuffix,p1.file_path filePath,p1.memo memo,p1.order_seq orderSeq,p1.create_time createTime FROM pdes_portal_chronicle_events_file as p1 WHERE p1.chronicle_events_id = ?
+2022-12-23 09:04:39.794 49781 [pde-thread-28] DEBUG - ==> Parameters: 20(Integer)
+2022-12-23 09:04:39.822 49809 [pde-thread-25] DEBUG - <==      Total: 1
+2022-12-23 09:04:39.822 49809 [pde-thread-25] DEBUG - ==>  Preparing: SELECT vff.file_path FROM pdes_portal_video v LEFT JOIN pdes_portal_video_file vf ON vf.video_id=v.id LEFT JOIN pdes_portal_video_file_front vff ON vff.video_file_id = vf.id WHERE v.id = 7 and vf.is_front_file = 1 and vff.is_front_file = 1
+2022-12-23 09:04:39.822 49809 [pde-thread-25] DEBUG - ==> Parameters: 
+2022-12-23 09:04:39.831 49818 [pde-thread-28] DEBUG - <==      Total: 4
+2022-12-23 09:04:39.858 49845 [pde-thread-25] DEBUG - <==      Total: 1
+2022-12-23 09:04:43.158 53145 [pde-thread-29] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 09:04:43.158 53145 [pde-thread-29] DEBUG - ==> Parameters: 1(String)
+2022-12-23 09:04:43.195 53182 [pde-thread-29] DEBUG - <==      Total: 1
+2022-12-23 09:04:43.195 53182 [pde-thread-29] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?
+2022-12-23 09:04:43.195 53182 [pde-thread-29] DEBUG - ==> Parameters: 1(String), 10(Integer)
+2022-12-23 09:04:43.234 53221 [pde-thread-29] DEBUG - <==      Total: 10
+2022-12-23 09:04:45.871 55858 [pde-thread-30] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 09:04:45.871 55858 [pde-thread-30] DEBUG - ==> Parameters: 1(String)
+2022-12-23 09:04:45.906 55893 [pde-thread-30] DEBUG - <==      Total: 1
+2022-12-23 09:04:45.906 55893 [pde-thread-30] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?, ?
+2022-12-23 09:04:45.907 55894 [pde-thread-30] DEBUG - ==> Parameters: 1(String), 10(Long), 10(Integer)
+2022-12-23 09:04:45.948 55935 [pde-thread-30] DEBUG - <==      Total: 10
+2022-12-23 09:04:48.812 58799 [pde-thread-3] DEBUG - ==>  Preparing: SELECT id,standard_id AS standardId,file_name AS fileName,file_path AS filePath,file_size AS fileSize,create_time AS createTime FROM pdes_portal_standard_file WHERE (standard_id = ?)
+2022-12-23 09:04:48.812 58799 [pde-thread-3] DEBUG - ==> Parameters: 19(Integer)
+2022-12-23 09:04:48.848 58835 [pde-thread-3] DEBUG - <==      Total: 4
+2022-12-23 09:04:55.291 65278 [pde-thread-2] DEBUG - ==>  Preparing: SELECT id,standard_id AS standardId,file_name AS fileName,file_path AS filePath,file_size AS fileSize,create_time AS createTime FROM pdes_portal_standard_file WHERE (standard_id = ?)
+2022-12-23 09:04:55.291 65278 [pde-thread-2] DEBUG - ==> Parameters: 19(Integer)
+2022-12-23 09:04:55.331 65318 [pde-thread-2] DEBUG - <==      Total: 4
+2022-12-23 09:04:58.991 68978 [pde-thread-1] DEBUG - ==>  Preparing: SELECT id,standard_id AS standardId,file_name AS fileName,file_path AS filePath,file_size AS fileSize,create_time AS createTime FROM pdes_portal_standard_file WHERE (standard_id = ?)
+2022-12-23 09:04:58.991 68978 [pde-thread-1] DEBUG - ==> Parameters: 19(Integer)
+2022-12-23 09:04:59.027 69014 [pde-thread-1] DEBUG - <==      Total: 4
+2022-12-23 09:05:00.699 70686 [pde-thread-5] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 09:05:00.699 70686 [pde-thread-5] DEBUG - ==> Parameters: 1(String)
+2022-12-23 09:05:00.739 70726 [pde-thread-5] DEBUG - <==      Total: 1
+2022-12-23 09:05:00.739 70726 [pde-thread-5] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?
+2022-12-23 09:05:00.740 70727 [pde-thread-5] DEBUG - ==> Parameters: 1(String), 10(Integer)
+2022-12-23 09:05:00.776 70763 [pde-thread-5] DEBUG - <==      Total: 10
+2022-12-23 09:05:03.348 73335 [pde-thread-7] DEBUG - ==>  Preparing: SELECT id,standard_id AS standardId,file_name AS fileName,file_path AS filePath,file_size AS fileSize,create_time AS createTime FROM pdes_portal_standard_file WHERE (standard_id = ?)
+2022-12-23 09:05:03.349 73336 [pde-thread-7] DEBUG - ==> Parameters: 34(Integer)
+2022-12-23 09:05:03.388 73375 [pde-thread-7] DEBUG - <==      Total: 0
+2022-12-23 09:05:05.518 75505 [pde-thread-8] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 09:05:05.518 75505 [pde-thread-8] DEBUG - ==> Parameters: 1(String)
+2022-12-23 09:05:05.554 75541 [pde-thread-8] DEBUG - <==      Total: 1
+2022-12-23 09:05:05.555 75542 [pde-thread-8] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?
+2022-12-23 09:05:05.555 75542 [pde-thread-8] DEBUG - ==> Parameters: 1(String), 10(Integer)
+2022-12-23 09:05:05.593 75580 [pde-thread-8] DEBUG - <==      Total: 10
+2022-12-23 09:05:06.823 76810 [pde-thread-13] DEBUG - ==>  Preparing: SELECT id,standard_id AS standardId,file_name AS fileName,file_path AS filePath,file_size AS fileSize,create_time AS createTime FROM pdes_portal_standard_file WHERE (standard_id = ?)
+2022-12-23 09:05:06.823 76810 [pde-thread-13] DEBUG - ==> Parameters: 31(Integer)
+2022-12-23 09:05:06.968 76955 [pde-thread-13] DEBUG - <==      Total: 0
+2022-12-23 09:05:08.667 78654 [pde-thread-9] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 09:05:08.667 78654 [pde-thread-9] DEBUG - ==> Parameters: 1(String)
+2022-12-23 09:05:08.876 78863 [pde-thread-9] DEBUG - <==      Total: 1
+2022-12-23 09:05:08.876 78863 [pde-thread-9] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?
+2022-12-23 09:05:08.879 78866 [pde-thread-9] DEBUG - ==> Parameters: 1(String), 10(Integer)
+2022-12-23 09:05:09.014 79001 [pde-thread-9] DEBUG - <==      Total: 10
+2022-12-23 09:05:10.537 80524 [pde-thread-12] DEBUG - ==>  Preparing: SELECT id,standard_id AS standardId,file_name AS fileName,file_path AS filePath,file_size AS fileSize,create_time AS createTime FROM pdes_portal_standard_file WHERE (standard_id = ?)
+2022-12-23 09:05:10.538 80525 [pde-thread-12] DEBUG - ==> Parameters: 29(Integer)
+2022-12-23 09:05:10.688 80675 [pde-thread-12] DEBUG - <==      Total: 0
+2022-12-23 09:05:12.271 82258 [pde-thread-10] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 09:05:12.271 82258 [pde-thread-10] DEBUG - ==> Parameters: 1(String)
+2022-12-23 09:05:12.308 82295 [pde-thread-10] DEBUG - <==      Total: 1
+2022-12-23 09:05:12.309 82296 [pde-thread-10] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?
+2022-12-23 09:05:12.309 82296 [pde-thread-10] DEBUG - ==> Parameters: 1(String), 10(Integer)
+2022-12-23 09:05:12.382 82369 [pde-thread-10] DEBUG - <==      Total: 10
+2022-12-23 09:05:13.889 83876 [pde-thread-11] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 09:05:13.889 83876 [pde-thread-11] DEBUG - ==> Parameters: 1(String)
+2022-12-23 09:05:13.928 83915 [pde-thread-11] DEBUG - <==      Total: 1
+2022-12-23 09:05:13.928 83915 [pde-thread-11] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?, ?
+2022-12-23 09:05:13.928 83915 [pde-thread-11] DEBUG - ==> Parameters: 1(String), 10(Long), 10(Integer)
+2022-12-23 09:05:13.966 83953 [pde-thread-11] DEBUG - <==      Total: 10
+2022-12-23 09:05:15.123 85110 [pde-thread-16] DEBUG - ==>  Preparing: SELECT id,standard_id AS standardId,file_name AS fileName,file_path AS filePath,file_size AS fileSize,create_time AS createTime FROM pdes_portal_standard_file WHERE (standard_id = ?)
+2022-12-23 09:05:15.124 85111 [pde-thread-16] DEBUG - ==> Parameters: 21(Integer)
+2022-12-23 09:05:15.159 85146 [pde-thread-16] DEBUG - <==      Total: 1
+2022-12-23 09:05:18.458 88445 [pde-thread-14] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 09:05:18.458 88445 [pde-thread-14] DEBUG - ==> Parameters: 1(String)
+2022-12-23 09:05:18.493 88480 [pde-thread-14] DEBUG - <==      Total: 1
+2022-12-23 09:05:18.493 88480 [pde-thread-14] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?
+2022-12-23 09:05:18.493 88480 [pde-thread-14] DEBUG - ==> Parameters: 1(String), 10(Integer)
+2022-12-23 09:05:18.529 88516 [pde-thread-14] DEBUG - <==      Total: 10
+2022-12-23 09:05:20.574 90561 [pde-thread-17] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 09:05:20.574 90561 [pde-thread-17] DEBUG - ==> Parameters: 1(String)
+2022-12-23 09:05:20.610 90597 [pde-thread-17] DEBUG - <==      Total: 1
+2022-12-23 09:05:20.612 90599 [pde-thread-17] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?, ?
+2022-12-23 09:05:20.612 90599 [pde-thread-17] DEBUG - ==> Parameters: 1(String), 10(Long), 10(Integer)
+2022-12-23 09:05:20.669 90656 [pde-thread-17] DEBUG - <==      Total: 10
+2022-12-23 09:05:21.988 91975 [pde-thread-18] DEBUG - ==>  Preparing: SELECT id,standard_id AS standardId,file_name AS fileName,file_path AS filePath,file_size AS fileSize,create_time AS createTime FROM pdes_portal_standard_file WHERE (standard_id = ?)
+2022-12-23 09:05:21.989 91976 [pde-thread-18] DEBUG - ==> Parameters: 21(Integer)
+2022-12-23 09:05:22.030 92017 [pde-thread-18] DEBUG - <==      Total: 1
+2022-12-23 09:05:24.429 94416 [pde-thread-15] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 09:05:24.430 94417 [pde-thread-15] DEBUG - ==> Parameters: 1(String)
+2022-12-23 09:05:24.466 94453 [pde-thread-15] DEBUG - <==      Total: 1
+2022-12-23 09:05:24.467 94454 [pde-thread-15] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?
+2022-12-23 09:05:24.467 94454 [pde-thread-15] DEBUG - ==> Parameters: 1(String), 10(Integer)
+2022-12-23 09:05:24.503 94490 [pde-thread-15] DEBUG - <==      Total: 10
+2022-12-23 09:05:33.670 103657 [pde-thread-22] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard
+2022-12-23 09:05:33.670 103657 [pde-thread-22] DEBUG - ==> Parameters: 
+2022-12-23 09:05:33.709 103696 [pde-thread-22] DEBUG - <==      Total: 1
+2022-12-23 09:05:33.709 103696 [pde-thread-22] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard ORDER BY id DESC LIMIT ?
+2022-12-23 09:05:33.710 103697 [pde-thread-22] DEBUG - ==> Parameters: 10(Integer)
+2022-12-23 09:05:33.768 103755 [pde-thread-22] DEBUG - <==      Total: 10
+2022-12-23 09:05:37.224 107211 [pde-thread-20] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard
+2022-12-23 09:05:37.224 107211 [pde-thread-20] DEBUG - ==> Parameters: 
+2022-12-23 09:05:37.260 107247 [pde-thread-20] DEBUG - <==      Total: 1
+2022-12-23 09:05:37.260 107247 [pde-thread-20] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard ORDER BY id DESC LIMIT ?, ?
+2022-12-23 09:05:37.260 107247 [pde-thread-20] DEBUG - ==> Parameters: 10(Long), 10(Integer)
+2022-12-23 09:05:37.296 107283 [pde-thread-20] DEBUG - <==      Total: 10
+2022-12-23 09:05:40.285 110272 [pde-thread-21] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard
+2022-12-23 09:05:40.285 110272 [pde-thread-21] DEBUG - ==> Parameters: 
+2022-12-23 09:05:40.322 110309 [pde-thread-21] DEBUG - <==      Total: 1
+2022-12-23 09:05:40.322 110309 [pde-thread-21] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard ORDER BY id DESC LIMIT ?
+2022-12-23 09:05:40.322 110309 [pde-thread-21] DEBUG - ==> Parameters: 10(Integer)
+2022-12-23 09:05:40.362 110349 [pde-thread-21] DEBUG - <==      Total: 10
+2022-12-23 09:05:45.460 115447 [pde-thread-19] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard
+2022-12-23 09:05:45.460 115447 [pde-thread-19] DEBUG - ==> Parameters: 
+2022-12-23 09:05:45.496 115483 [pde-thread-19] DEBUG - <==      Total: 1
+2022-12-23 09:05:45.496 115483 [pde-thread-19] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard ORDER BY id DESC LIMIT ?, ?
+2022-12-23 09:05:45.496 115483 [pde-thread-19] DEBUG - ==> Parameters: 10(Long), 10(Integer)
+2022-12-23 09:05:45.535 115522 [pde-thread-19] DEBUG - <==      Total: 10
+2022-12-23 09:13:23.022 573009 [pde-thread-23] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_photo AS a LEFT JOIN (SELECT b.file_path, b.photo_id FROM pdes_portal_photo_file AS b WHERE b.enable_front = 1) AS c ON a.id = c.photo_id WHERE a.title LIKE "%%"
+2022-12-23 09:13:23.023 573010 [pde-thread-23] DEBUG - ==> Parameters: 
+2022-12-23 09:13:23.060 573047 [pde-thread-23] DEBUG - <==      Total: 1
+2022-12-23 09:13:23.061 573048 [pde-thread-23] DEBUG - ==>  Preparing: select a.*, c.file_path from pdes_portal_photo as a left join (SELECT b.file_path, b.photo_id from pdes_portal_photo_file as b where b.enable_front = 1) as c on a.id = c.photo_id where a.title like "%%" LIMIT ?
+2022-12-23 09:13:23.061 573048 [pde-thread-23] DEBUG - ==> Parameters: 5(Integer)
+2022-12-23 09:13:23.097 573084 [pde-thread-23] DEBUG - <==      Total: 5
+2022-12-23 09:13:45.361 595348 [pde-thread-24] DEBUG - ==>  Preparing: SELECT count(0) FROM (SELECT DISTINCT v.* FROM pdes_portal_video v LEFT JOIN pdes_portal_video_file f ON f.video_id = v.id) table_count
+2022-12-23 09:13:45.361 595348 [pde-thread-24] DEBUG - ==> Parameters: 
+2022-12-23 09:13:45.397 595384 [pde-thread-24] DEBUG - <==      Total: 1
+2022-12-23 09:13:45.398 595385 [pde-thread-24] DEBUG - ==>  Preparing: SELECT DISTINCT v.* FROM pdes_portal_video v LEFT JOIN pdes_portal_video_file f ON f.video_id=v.id ORDER BY create_time DESC LIMIT ?
+2022-12-23 09:13:45.398 595385 [pde-thread-24] DEBUG - ==> Parameters: 10(Integer)
+2022-12-23 09:13:45.436 595423 [pde-thread-24] DEBUG - <==      Total: 3
+2022-12-23 09:13:45.445 595432 [pde-thread-24] DEBUG - ==>  Preparing: SELECT vff.file_path FROM pdes_portal_video v LEFT JOIN pdes_portal_video_file vf ON vf.video_id=v.id LEFT JOIN pdes_portal_video_file_front vff ON vff.video_file_id = vf.id WHERE v.id = 13 and vf.is_front_file = 1 and vff.is_front_file = 1
+2022-12-23 09:13:45.445 595432 [pde-thread-24] DEBUG - ==> Parameters: 
+2022-12-23 09:13:45.481 595468 [pde-thread-24] DEBUG - <==      Total: 1
+2022-12-23 09:13:45.481 595468 [pde-thread-24] DEBUG - ==>  Preparing: SELECT vff.file_path FROM pdes_portal_video v LEFT JOIN pdes_portal_video_file vf ON vf.video_id=v.id LEFT JOIN pdes_portal_video_file_front vff ON vff.video_file_id = vf.id WHERE v.id = 10 and vf.is_front_file = 1 and vff.is_front_file = 1
+2022-12-23 09:13:45.481 595468 [pde-thread-24] DEBUG - ==> Parameters: 
+2022-12-23 09:13:45.517 595504 [pde-thread-24] DEBUG - <==      Total: 1
+2022-12-23 09:13:45.517 595504 [pde-thread-24] DEBUG - ==>  Preparing: SELECT vff.file_path FROM pdes_portal_video v LEFT JOIN pdes_portal_video_file vf ON vf.video_id=v.id LEFT JOIN pdes_portal_video_file_front vff ON vff.video_file_id = vf.id WHERE v.id = 7 and vf.is_front_file = 1 and vff.is_front_file = 1
+2022-12-23 09:13:45.517 595504 [pde-thread-24] DEBUG - ==> Parameters: 
+2022-12-23 09:13:45.552 595539 [pde-thread-24] DEBUG - <==      Total: 1
+2022-12-23 09:13:50.233 600220 [pde-thread-27] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_public_archive
+2022-12-23 09:13:50.233 600220 [pde-thread-27] DEBUG - ==> Parameters: 
+2022-12-23 09:13:50.271 600258 [pde-thread-27] DEBUG - <==      Total: 1
+2022-12-23 09:13:50.271 600258 [pde-thread-27] DEBUG - ==>  Preparing: SELECT id,archival_code AS archivalCode,fonds,year,security_class AS securityClass,retention_period AS retentionPeriod,title,enable_publish AS enablePublish,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_public_archive LIMIT ?
+2022-12-23 09:13:50.271 600258 [pde-thread-27] DEBUG - ==> Parameters: 4(Integer)
+2022-12-23 09:13:50.307 600294 [pde-thread-27] DEBUG - <==      Total: 4
+2022-12-23 09:13:52.035 602022 [pde-thread-26] DEBUG - ==>  Preparing: select count(0) from ( select a.*, c.file_path from pdes_portal_honor as a left join (SELECT b.file_path, b.honor_id from pdes_portal_honor_file as b where b.enable_front = 1) as c on a.id = c.honor_id where a.title like "%"?"%" ORDER BY id ASC ) tmp_count
+2022-12-23 09:13:52.035 602022 [pde-thread-26] DEBUG - ==> Parameters: (String)
+2022-12-23 09:13:52.072 602059 [pde-thread-26] DEBUG - <==      Total: 1
+2022-12-23 09:13:52.072 602059 [pde-thread-26] DEBUG - ==>  Preparing: select a.*, c.file_path from pdes_portal_honor as a left join (SELECT b.file_path, b.honor_id from pdes_portal_honor_file as b where b.enable_front = 1) as c on a.id = c.honor_id where a.title like "%"?"%" ORDER BY id ASC LIMIT ?
+2022-12-23 09:13:52.072 602059 [pde-thread-26] DEBUG - ==> Parameters: (String), 10(Integer)
+2022-12-23 09:13:52.108 602095 [pde-thread-26] DEBUG - <==      Total: 8
+2022-12-23 09:13:52.491 602478 [pde-thread-28] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_chronicle_events
+2022-12-23 09:13:52.491 602478 [pde-thread-28] DEBUG - ==> Parameters: 
+2022-12-23 09:13:52.527 602514 [pde-thread-28] DEBUG - <==      Total: 1
+2022-12-23 09:13:52.527 602514 [pde-thread-28] DEBUG - ==>  Preparing: SELECT id,title,content,content_abstract AS contentAbstract,enable_publish AS enablePublish,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_chronicle_events LIMIT ?
+2022-12-23 09:13:52.527 602514 [pde-thread-28] DEBUG - ==> Parameters: 8(Integer)
+2022-12-23 09:13:52.570 602557 [pde-thread-28] DEBUG - <==      Total: 8
+2022-12-23 09:13:52.804 602791 [pde-thread-25] DEBUG - ==>  Preparing: select p1.id,p1.chronicle_events_id chronicleEventsId,p1.file_name fileName,p1.file_size fileSize,p1.file_suffix fileSuffix,p1.file_path filePath,p1.memo memo,p1.order_seq orderSeq,p1.create_time createTime FROM pdes_portal_chronicle_events_file as p1 WHERE p1.chronicle_events_id = ?
+2022-12-23 09:13:52.804 602791 [pde-thread-25] DEBUG - ==> Parameters: 0(Integer)
+2022-12-23 09:13:52.844 602831 [pde-thread-25] DEBUG - <==      Total: 0
+2022-12-23 09:13:53.569 603556 [pde-thread-29] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard
+2022-12-23 09:13:53.569 603556 [pde-thread-29] DEBUG - ==> Parameters: 
+2022-12-23 09:13:53.605 603592 [pde-thread-29] DEBUG - <==      Total: 1
+2022-12-23 09:13:53.605 603592 [pde-thread-29] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard ORDER BY id DESC LIMIT ?
+2022-12-23 09:13:53.606 603593 [pde-thread-29] DEBUG - ==> Parameters: 10(Integer)
+2022-12-23 09:13:53.640 603627 [pde-thread-29] DEBUG - <==      Total: 10
+2022-12-23 09:14:18.228 628215 [pde-thread-30] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (title LIKE ?)
+2022-12-23 09:14:18.228 628215 [pde-thread-30] DEBUG - ==> Parameters: %66%(String)
+2022-12-23 09:14:18.383 628370 [pde-thread-30] DEBUG - <==      Total: 1
+2022-12-23 09:14:18.384 628371 [pde-thread-30] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (title LIKE ?) LIMIT ?
+2022-12-23 09:14:18.384 628371 [pde-thread-30] DEBUG - ==> Parameters: %66%(String), 10(Integer)
+2022-12-23 09:14:18.583 628570 [pde-thread-30] DEBUG - <==      Total: 1
+2022-12-23 09:14:25.720 635707 [pde-thread-3] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard
+2022-12-23 09:14:25.720 635707 [pde-thread-3] DEBUG - ==> Parameters: 
+2022-12-23 09:14:25.755 635742 [pde-thread-3] DEBUG - <==      Total: 1
+2022-12-23 09:14:25.756 635743 [pde-thread-3] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard ORDER BY id DESC LIMIT ?
+2022-12-23 09:14:25.756 635743 [pde-thread-3] DEBUG - ==> Parameters: 10(Integer)
+2022-12-23 09:14:25.791 635778 [pde-thread-3] DEBUG - <==      Total: 10
+2022-12-23 09:41:16.688 2246675 [pde-thread-4] DEBUG - ==>  Preparing: SELECT id,standard_id AS standardId,file_name AS fileName,file_path AS filePath,file_size AS fileSize,create_time AS createTime FROM pdes_portal_standard_file WHERE (standard_id IN (?,?))
+2022-12-23 09:41:16.689 2246676 [pde-thread-4] DEBUG - ==> Parameters: 38(Integer), 37(Integer)
+2022-12-23 09:41:16.723 2246710 [pde-thread-4] DEBUG - <==      Total: 0
+2022-12-23 09:41:16.730 2246717 [pde-thread-4] DEBUG - ==>  Preparing: DELETE FROM pdes_portal_standard_file WHERE (standard_id IN (?,?))
+2022-12-23 09:41:16.731 2246718 [pde-thread-4] DEBUG - ==> Parameters: 38(Integer), 37(Integer)
+2022-12-23 09:41:16.795 2246782 [pde-thread-4] DEBUG - <==    Updates: 0
+2022-12-23 09:41:16.861 2246848 [pde-thread-4] DEBUG - ==>  Preparing: DELETE FROM pdes_portal_standard WHERE id IN ( ? , ? )
+2022-12-23 09:41:16.861 2246848 [pde-thread-4] DEBUG - ==> Parameters: 38(Integer), 37(Integer)
+2022-12-23 09:41:16.927 2246914 [pde-thread-4] DEBUG - <==    Updates: 2
+2022-12-23 09:41:16.944 2246931 [pde-thread-2] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard
+2022-12-23 09:41:16.944 2246931 [pde-thread-2] DEBUG - ==> Parameters: 
+2022-12-23 09:41:16.987 2246974 [pde-thread-2] DEBUG - <==      Total: 1
+2022-12-23 09:41:16.987 2246974 [pde-thread-2] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard ORDER BY id DESC LIMIT ?
+2022-12-23 09:41:16.988 2246975 [pde-thread-2] DEBUG - ==> Parameters: 10(Integer)
+2022-12-23 09:41:17.020 2247007 [pde-thread-2] DEBUG - <==      Total: 10
+2022-12-23 09:51:42.983 2872970 [pde-thread-6] DEBUG - ==>  Preparing: SELECT id,standard_id AS standardId,file_name AS fileName,file_path AS filePath,file_size AS fileSize,create_time AS createTime FROM pdes_portal_standard_file WHERE (standard_id = ?)
+2022-12-23 09:51:42.984 2872971 [pde-thread-6] DEBUG - ==> Parameters: 36(Integer)
+2022-12-23 09:51:43.077 2873064 [pde-thread-6] DEBUG - <==      Total: 0
+2022-12-23 09:51:55.003 2884990 [pde-thread-1] INFO  - 图片路径：https://wang-rich.oss-cn-hangzhou.aliyuncs.com/liangzi/2022-12-23/09:51:54/file_6101157561984757329.pdf
+2022-12-23 09:51:55.376 2885363 [pde-thread-1] DEBUG - ==>  Preparing: INSERT INTO pdes_portal_standard_file ( standard_id, file_name, file_path, file_size, create_time ) VALUES ( ?, ?, ?, ?, ? )
+2022-12-23 09:51:55.379 2885366 [pde-thread-1] DEBUG - ==> Parameters: 36(Integer), 123(String), https://wang-rich.oss-cn-hangzhou.aliyuncs.com/liangzi/2022-12-23/09:51:54/file_6101157561984757329.pdf(String), 225590(Integer), 2022-12-23 09:51:55.376(Timestamp)
+2022-12-23 09:51:55.442 2885429 [pde-thread-1] DEBUG - <==    Updates: 1
+2022-12-23 09:51:56.585 2886572 [pde-thread-7] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard
+2022-12-23 09:51:56.586 2886573 [pde-thread-7] DEBUG - ==> Parameters: 
+2022-12-23 09:51:56.629 2886616 [pde-thread-7] DEBUG - <==      Total: 1
+2022-12-23 09:51:56.630 2886617 [pde-thread-7] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard ORDER BY id DESC LIMIT ?
+2022-12-23 09:51:56.630 2886617 [pde-thread-7] DEBUG - ==> Parameters: 10(Integer)
+2022-12-23 09:51:56.664 2886651 [pde-thread-7] DEBUG - <==      Total: 10
+2022-12-23 09:51:59.333 2889320 [pde-thread-8] DEBUG - ==>  Preparing: SELECT id,standard_id AS standardId,file_name AS fileName,file_path AS filePath,file_size AS fileSize,create_time AS createTime FROM pdes_portal_standard_file WHERE (standard_id = ?)
+2022-12-23 09:51:59.333 2889320 [pde-thread-8] DEBUG - ==> Parameters: 36(Integer)
+2022-12-23 09:51:59.367 2889354 [pde-thread-8] DEBUG - <==      Total: 1
+2022-12-23 09:52:07.871 2897858 [pde-thread-13] DEBUG - ==>  Preparing: SELECT id,standard_id AS standardId,file_name AS fileName,file_path AS filePath,file_size AS fileSize,create_time AS createTime FROM pdes_portal_standard_file WHERE (standard_id IN (?,?))
+2022-12-23 09:52:07.872 2897859 [pde-thread-13] DEBUG - ==> Parameters: 36(Integer), 35(Integer)
+2022-12-23 09:52:07.910 2897897 [pde-thread-13] DEBUG - <==      Total: 1
+2022-12-23 09:52:07.929 2897916 [pde-thread-13] WARN  - [Unknown]Unable to execute HTTP request: Connection pool shut down
+2022-12-23 09:52:08.096 2898083 [http-nio-8088-exec-5] ERROR - Servlet.service() for servlet [dispatcherServlet] threw exception
+java.lang.IllegalStateException: Connection pool shut down
+	at org.apache.http.util.Asserts.check(Asserts.java:34)
+	at org.apache.http.pool.AbstractConnPool.lease(AbstractConnPool.java:196)
+	at org.apache.http.impl.conn.PoolingHttpClientConnectionManager.requestConnection(PoolingHttpClientConnectionManager.java:268)
+	at org.apache.http.impl.execchain.MainClientExec.execute(MainClientExec.java:176)
+	at org.apache.http.impl.execchain.ProtocolExec.execute(ProtocolExec.java:186)
+	at org.apache.http.impl.execchain.RedirectExec.execute(RedirectExec.java:110)
+	at org.apache.http.impl.client.InternalHttpClient.doExecute(InternalHttpClient.java:185)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:83)
+	at com.aliyun.oss.common.comm.DefaultServiceClient.sendRequestCore(DefaultServiceClient.java:124)
+	at com.aliyun.oss.common.comm.ServiceClient.sendRequestImpl(ServiceClient.java:133)
+	at com.aliyun.oss.common.comm.ServiceClient.sendRequest(ServiceClient.java:70)
+	at com.aliyun.oss.internal.OSSOperation.send(OSSOperation.java:83)
+	at com.aliyun.oss.internal.OSSOperation.doOperation(OSSOperation.java:145)
+	at com.aliyun.oss.internal.OSSOperation.doOperation(OSSOperation.java:102)
+	at com.aliyun.oss.internal.OSSObjectOperation.deleteObjects(OSSObjectOperation.java:535)
+	at com.aliyun.oss.OSSClient.deleteObjects(OSSClient.java:611)
+	at com.pde.pdes.portal.standard.utils.AliYunOssClientUtils.removeObjectBatch(AliYunOssClientUtils.java:98)
+	at com.pde.pdes.portal.standard.utils.AliYunOssClientUtils$$FastClassBySpringCGLIB$$8de717f9.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:769)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:747)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:366)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:99)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:747)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:689)
+	at com.pde.pdes.portal.standard.utils.AliYunOssClientUtils$$EnhancerBySpringCGLIB$$9e458908.removeObjectBatch(<generated>)
+	at com.pde.pdes.portal.standard.service.impl.StandardFileServiceImpl.deleteByStandardIds(StandardFileServiceImpl.java:116)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:344)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:198)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:366)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:99)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:212)
+	at com.sun.proxy.$Proxy135.deleteByStandardIds(Unknown Source)
+	at com.pde.pdes.portal.standard.service.impl.StandardServiceImpl.deleteByIds(StandardServiceImpl.java:61)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:344)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:205)
+	at com.sun.proxy.$Proxy136.deleteByIds(Unknown Source)
+	at com.pde.pdes.portal.standard.controlller.StandardController.lambda$removeStandardByIds$2(StandardController.java:54)
+	at org.springframework.web.context.request.async.WebAsyncManager.lambda$startCallableProcessing$4(WebAsyncManager.java:328)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+2022-12-23 09:52:08.099 2898086 [http-nio-8088-exec-5] ERROR - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is com.aliyun.oss.ClientException: 网络连接错误，详细信息：Connection pool shut down
+[ErrorCode]: Unknown
+[RequestId]: Unknown] with root cause
+java.lang.IllegalStateException: Connection pool shut down
+	at org.apache.http.util.Asserts.check(Asserts.java:34)
+	at org.apache.http.pool.AbstractConnPool.lease(AbstractConnPool.java:196)
+	at org.apache.http.impl.conn.PoolingHttpClientConnectionManager.requestConnection(PoolingHttpClientConnectionManager.java:268)
+	at org.apache.http.impl.execchain.MainClientExec.execute(MainClientExec.java:176)
+	at org.apache.http.impl.execchain.ProtocolExec.execute(ProtocolExec.java:186)
+	at org.apache.http.impl.execchain.RedirectExec.execute(RedirectExec.java:110)
+	at org.apache.http.impl.client.InternalHttpClient.doExecute(InternalHttpClient.java:185)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:83)
+	at com.aliyun.oss.common.comm.DefaultServiceClient.sendRequestCore(DefaultServiceClient.java:124)
+	at com.aliyun.oss.common.comm.ServiceClient.sendRequestImpl(ServiceClient.java:133)
+	at com.aliyun.oss.common.comm.ServiceClient.sendRequest(ServiceClient.java:70)
+	at com.aliyun.oss.internal.OSSOperation.send(OSSOperation.java:83)
+	at com.aliyun.oss.internal.OSSOperation.doOperation(OSSOperation.java:145)
+	at com.aliyun.oss.internal.OSSOperation.doOperation(OSSOperation.java:102)
+	at com.aliyun.oss.internal.OSSObjectOperation.deleteObjects(OSSObjectOperation.java:535)
+	at com.aliyun.oss.OSSClient.deleteObjects(OSSClient.java:611)
+	at com.pde.pdes.portal.standard.utils.AliYunOssClientUtils.removeObjectBatch(AliYunOssClientUtils.java:98)
+	at com.pde.pdes.portal.standard.utils.AliYunOssClientUtils$$FastClassBySpringCGLIB$$8de717f9.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:769)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:747)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:366)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:99)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:747)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:689)
+	at com.pde.pdes.portal.standard.utils.AliYunOssClientUtils$$EnhancerBySpringCGLIB$$9e458908.removeObjectBatch(<generated>)
+	at com.pde.pdes.portal.standard.service.impl.StandardFileServiceImpl.deleteByStandardIds(StandardFileServiceImpl.java:116)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:344)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:198)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:366)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:99)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:212)
+	at com.sun.proxy.$Proxy135.deleteByStandardIds(Unknown Source)
+	at com.pde.pdes.portal.standard.service.impl.StandardServiceImpl.deleteByIds(StandardServiceImpl.java:61)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:344)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:205)
+	at com.sun.proxy.$Proxy136.deleteByIds(Unknown Source)
+	at com.pde.pdes.portal.standard.controlller.StandardController.lambda$removeStandardByIds$2(StandardController.java:54)
+	at org.springframework.web.context.request.async.WebAsyncManager.lambda$startCallableProcessing$4(WebAsyncManager.java:328)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:750)
+2022-12-23 09:52:08.101 2898088 [http-nio-8088-exec-5] WARN  - onError() call failed for listener of type [org.apache.catalina.core.AsyncListenerWrapper]
+java.lang.IllegalArgumentException: Cannot dispatch without an AsyncContext
+	at org.springframework.util.Assert.notNull(Assert.java:198)
+	at org.springframework.web.context.request.async.StandardServletAsyncWebRequest.dispatch(StandardServletAsyncWebRequest.java:131)
+	at org.springframework.web.context.request.async.WebAsyncManager.setConcurrentResultAndDispatch(WebAsyncManager.java:391)
+	at org.springframework.web.context.request.async.WebAsyncManager.lambda$startCallableProcessing$2(WebAsyncManager.java:315)
+	at org.springframework.web.context.request.async.StandardServletAsyncWebRequest.lambda$onError$0(StandardServletAsyncWebRequest.java:146)
+	at java.util.ArrayList.forEach(ArrayList.java:1259)
+	at org.springframework.web.context.request.async.StandardServletAsyncWebRequest.onError(StandardServletAsyncWebRequest.java:146)
+	at org.apache.catalina.core.AsyncListenerWrapper.fireOnError(AsyncListenerWrapper.java:49)
+	at org.apache.catalina.core.AsyncContextImpl.setErrorState(AsyncContextImpl.java:422)
+	at org.apache.catalina.connector.CoyoteAdapter.asyncDispatch(CoyoteAdapter.java:239)
+	at org.apache.coyote.AbstractProcessor.dispatch(AbstractProcessor.java:237)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:59)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1598)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+2022-12-23 09:52:14.202 2904189 [pde-thread-9] DEBUG - ==>  Preparing: SELECT id,standard_id AS standardId,file_name AS fileName,file_path AS filePath,file_size AS fileSize,create_time AS createTime FROM pdes_portal_standard_file WHERE (standard_id IN (?,?))
+2022-12-23 09:52:14.202 2904189 [pde-thread-9] DEBUG - ==> Parameters: 35(Integer), 34(Integer)
+2022-12-23 09:52:14.235 2904222 [pde-thread-9] DEBUG - <==      Total: 0
+2022-12-23 09:52:14.238 2904225 [pde-thread-9] DEBUG - ==>  Preparing: DELETE FROM pdes_portal_standard_file WHERE (standard_id IN (?,?))
+2022-12-23 09:52:14.238 2904225 [pde-thread-9] DEBUG - ==> Parameters: 35(Integer), 34(Integer)
+2022-12-23 09:52:14.303 2904290 [pde-thread-9] DEBUG - <==    Updates: 0
+2022-12-23 09:52:14.365 2904352 [pde-thread-9] DEBUG - ==>  Preparing: DELETE FROM pdes_portal_standard WHERE id IN ( ? , ? )
+2022-12-23 09:52:14.366 2904353 [pde-thread-9] DEBUG - ==> Parameters: 35(Integer), 34(Integer)
+2022-12-23 09:52:14.437 2904424 [pde-thread-9] DEBUG - <==    Updates: 2
+2022-12-23 09:52:14.768 2904755 [pde-thread-12] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard
+2022-12-23 09:52:14.768 2904755 [pde-thread-12] DEBUG - ==> Parameters: 
+2022-12-23 09:52:14.802 2904789 [pde-thread-12] DEBUG - <==      Total: 1
+2022-12-23 09:52:14.803 2904790 [pde-thread-12] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard ORDER BY id DESC LIMIT ?
+2022-12-23 09:52:14.803 2904790 [pde-thread-12] DEBUG - ==> Parameters: 10(Integer)
+2022-12-23 09:52:14.836 2904823 [pde-thread-12] DEBUG - <==      Total: 10
+2022-12-23 09:52:32.749 2922736 [pde-thread-10] DEBUG - ==>  Preparing: INSERT INTO pdes_portal_standard ( title, description, enable_publish, publish_date, use_date ) VALUES ( ?, ?, ?, ?, ? )
+2022-12-23 09:52:32.753 2922740 [pde-thread-10] DEBUG - ==> Parameters: 123(String), 123(String), 0(Integer), 2022-12-23 09:52:32.748(Timestamp), 2022-12-24 00:00:00.0(Timestamp)
+2022-12-23 09:52:32.818 2922805 [pde-thread-10] DEBUG - <==    Updates: 1
+2022-12-23 09:52:33.146 2923133 [pde-thread-11] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard
+2022-12-23 09:52:33.147 2923134 [pde-thread-11] DEBUG - ==> Parameters: 
+2022-12-23 09:52:33.180 2923167 [pde-thread-11] DEBUG - <==      Total: 1
+2022-12-23 09:52:33.180 2923167 [pde-thread-11] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard ORDER BY id DESC LIMIT ?
+2022-12-23 09:52:33.180 2923167 [pde-thread-11] DEBUG - ==> Parameters: 10(Integer)
+2022-12-23 09:52:33.215 2923202 [pde-thread-11] DEBUG - <==      Total: 10
+2022-12-23 09:52:47.763 2937750 [pde-thread-16] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (title LIKE ?)
+2022-12-23 09:52:47.764 2937751 [pde-thread-16] DEBUG - ==> Parameters: %6%(String)
+2022-12-23 09:52:47.797 2937784 [pde-thread-16] DEBUG - <==      Total: 1
+2022-12-23 09:52:47.797 2937784 [pde-thread-16] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (title LIKE ?) LIMIT ?
+2022-12-23 09:52:47.798 2937785 [pde-thread-16] DEBUG - ==> Parameters: %6%(String), 10(Integer)
+2022-12-23 09:52:47.834 2937821 [pde-thread-16] DEBUG - <==      Total: 3
+2022-12-23 09:53:00.507 2950494 [pde-thread-18] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_photo AS a LEFT JOIN (SELECT b.file_path, b.photo_id FROM pdes_portal_photo_file AS b WHERE b.enable_front = 1) AS c ON a.id = c.photo_id WHERE a.title LIKE "%%"
+2022-12-23 09:53:00.507 2950494 [pde-thread-18] DEBUG - ==> Parameters: 
+2022-12-23 09:53:00.539 2950526 [pde-thread-18] DEBUG - <==      Total: 1
+2022-12-23 09:53:00.540 2950527 [pde-thread-18] DEBUG - ==>  Preparing: select a.*, c.file_path from pdes_portal_photo as a left join (SELECT b.file_path, b.photo_id from pdes_portal_photo_file as b where b.enable_front = 1) as c on a.id = c.photo_id where a.title like "%%" LIMIT ?
+2022-12-23 09:53:00.540 2950527 [pde-thread-18] DEBUG - ==> Parameters: 6(Integer)
+2022-12-23 09:53:00.575 2950562 [pde-thread-18] DEBUG - <==      Total: 6
+2022-12-23 09:53:00.575 2950562 [pde-thread-22] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_honor AS a LEFT JOIN pdes_portal_honor_file AS b ON a.id = b.honor_id WHERE b.enable_front = 1 AND a.enable_publish = 1
+2022-12-23 09:53:00.576 2950563 [pde-thread-22] DEBUG - ==> Parameters: 
+2022-12-23 09:53:00.612 2950599 [pde-thread-22] DEBUG - <==      Total: 1
+2022-12-23 09:53:00.613 2950600 [pde-thread-22] DEBUG - ==>  Preparing: select a.*, b.file_path from pdes_portal_honor as a left join pdes_portal_honor_file as b on a.id = b.honor_id where b.enable_front = 1 and a.enable_publish = 1 LIMIT ?
+2022-12-23 09:53:00.613 2950600 [pde-thread-22] DEBUG - ==> Parameters: 4(Integer)
+2022-12-23 09:53:00.649 2950636 [pde-thread-22] DEBUG - <==      Total: 4
+2022-12-23 09:53:00.654 2950641 [pde-thread-14] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_photo AS a LEFT JOIN pdes_portal_photo_file AS b ON a.id = b.photo_id WHERE b.enable_front = 1 AND a.enable_publish = 1
+2022-12-23 09:53:00.655 2950642 [pde-thread-14] DEBUG - ==> Parameters: 
+2022-12-23 09:53:00.694 2950681 [pde-thread-14] DEBUG - <==      Total: 1
+2022-12-23 09:53:00.694 2950681 [pde-thread-14] DEBUG - ==>  Preparing: select a.*, b.file_path from pdes_portal_photo as a left join pdes_portal_photo_file as b on a.id = b.photo_id where b.enable_front = 1 and a.enable_publish = 1 LIMIT ?
+2022-12-23 09:53:00.694 2950681 [pde-thread-14] DEBUG - ==> Parameters: 4(Integer)
+2022-12-23 09:53:00.725 2950712 [pde-thread-14] DEBUG - <==      Total: 4
+2022-12-23 09:53:00.726 2950713 [pde-thread-20] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_video WHERE (enable_publish = ?)
+2022-12-23 09:53:00.726 2950713 [pde-thread-20] DEBUG - ==> Parameters: 1(Integer)
+2022-12-23 09:53:00.758 2950745 [pde-thread-20] DEBUG - <==      Total: 1
+2022-12-23 09:53:00.759 2950746 [pde-thread-20] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish,create_time FROM pdes_portal_video WHERE (enable_publish = ?) ORDER BY create_time DESC,enable_publish DESC LIMIT ?
+2022-12-23 09:53:00.759 2950746 [pde-thread-20] DEBUG - ==> Parameters: 1(Integer), 6(Integer)
+2022-12-23 09:53:00.790 2950777 [pde-thread-20] DEBUG - <==      Total: 3
+2022-12-23 09:53:00.791 2950778 [pde-thread-15] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_public_archive WHERE (enable_publish = ?)
+2022-12-23 09:53:00.791 2950778 [pde-thread-15] DEBUG - ==> Parameters: 1(Integer)
+2022-12-23 09:53:00.824 2950811 [pde-thread-15] DEBUG - <==      Total: 1
+2022-12-23 09:53:00.824 2950811 [pde-thread-15] DEBUG - ==>  Preparing: SELECT id,archival_code AS archivalCode,fonds,year,security_class AS securityClass,retention_period AS retentionPeriod,title,enable_publish AS enablePublish,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_public_archive WHERE (enable_publish = ?) LIMIT ?
+2022-12-23 09:53:00.824 2950811 [pde-thread-15] DEBUG - ==> Parameters: 1(Integer), 8(Integer)
+2022-12-23 09:53:00.857 2950844 [pde-thread-15] DEBUG - <==      Total: 8
+2022-12-23 09:53:00.858 2950845 [pde-thread-17] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_chronicle_events
+2022-12-23 09:53:00.858 2950845 [pde-thread-17] DEBUG - ==> Parameters: 
+2022-12-23 09:53:00.891 2950878 [pde-thread-17] DEBUG - <==      Total: 1
+2022-12-23 09:53:00.892 2950879 [pde-thread-17] DEBUG - ==>  Preparing: SELECT id,title,content,content_abstract AS contentAbstract,enable_publish AS enablePublish,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_chronicle_events LIMIT ?
+2022-12-23 09:53:00.892 2950879 [pde-thread-17] DEBUG - ==> Parameters: 10(Integer)
+2022-12-23 09:53:00.928 2950915 [pde-thread-17] DEBUG - <==      Total: 10
+2022-12-23 09:53:00.930 2950917 [pde-thread-20] DEBUG - ==>  Preparing: SELECT vff.file_path FROM pdes_portal_video v LEFT JOIN pdes_portal_video_file vf ON vf.video_id=v.id LEFT JOIN pdes_portal_video_file_front vff ON vff.video_file_id = vf.id WHERE v.id = 13 and vf.is_front_file = 1 and vff.is_front_file = 1
+2022-12-23 09:53:00.931 2950918 [pde-thread-20] DEBUG - ==> Parameters: 
+2022-12-23 09:53:00.963 2950950 [pde-thread-20] DEBUG - <==      Total: 1
+2022-12-23 09:53:00.963 2950950 [pde-thread-21] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_notify WHERE (enable_publish = ?)
+2022-12-23 09:53:00.964 2950951 [pde-thread-21] DEBUG - ==> Parameters: 0(Integer)
+2022-12-23 09:53:00.996 2950983 [pde-thread-21] DEBUG - <==      Total: 1
+2022-12-23 09:53:00.996 2950983 [pde-thread-21] DEBUG - ==>  Preparing: SELECT id,title,content,content_abstract AS contentAbstract,enable_publish AS enablePublish,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_notify WHERE (enable_publish = ?) ORDER BY create_time DESC LIMIT ?
+2022-12-23 09:53:00.996 2950983 [pde-thread-21] DEBUG - ==> Parameters: 0(Integer), 8(Integer)
+2022-12-23 09:53:01.023 2951010 [pde-thread-20] DEBUG - ==>  Preparing: SELECT vff.file_path FROM pdes_portal_video v LEFT JOIN pdes_portal_video_file vf ON vf.video_id=v.id LEFT JOIN pdes_portal_video_file_front vff ON vff.video_file_id = vf.id WHERE v.id = 10 and vf.is_front_file = 1 and vff.is_front_file = 1
+2022-12-23 09:53:01.023 2951010 [pde-thread-20] DEBUG - ==> Parameters: 
+2022-12-23 09:53:01.059 2951046 [pde-thread-20] DEBUG - <==      Total: 1
+2022-12-23 09:53:01.060 2951047 [pde-thread-19] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 09:53:01.060 2951047 [pde-thread-19] DEBUG - ==> Parameters: 1(String)
+2022-12-23 09:53:01.062 2951049 [pde-thread-21] DEBUG - <==      Total: 8
+2022-12-23 09:53:01.062 2951049 [pde-thread-23] DEBUG - ==>  Preparing: SELECT id,notify_id AS notifyId,file_name AS fileName,file_size AS fileSize,file_suffix AS fileSuffix,file_path AS filePath,memo,order_seq AS orderSeq,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_notify_file WHERE (file_suffix IN (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)) ORDER BY create_time ASC limit 4
+2022-12-23 09:53:01.062 2951049 [pde-thread-23] DEBUG - ==> Parameters: .xbm(String), .tif(String), .pjp(String), .svgz(String), .jpg(String), .jpeg(String), .ico(String), .tiff(String), .gif(String), .svg(String), .jfif(String), .webp(String), .png(String), .bmp(String), .pjpeg(String), .avif(String)
+2022-12-23 09:53:01.092 2951079 [pde-thread-19] DEBUG - <==      Total: 1
+2022-12-23 09:53:01.093 2951080 [pde-thread-19] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?
+2022-12-23 09:53:01.093 2951080 [pde-thread-19] DEBUG - ==> Parameters: 1(String), 8(Integer)
+2022-12-23 09:53:01.095 2951082 [pde-thread-23] DEBUG - <==      Total: 4
+2022-12-23 09:53:01.096 2951083 [pde-thread-20] DEBUG - ==>  Preparing: SELECT vff.file_path FROM pdes_portal_video v LEFT JOIN pdes_portal_video_file vf ON vf.video_id=v.id LEFT JOIN pdes_portal_video_file_front vff ON vff.video_file_id = vf.id WHERE v.id = 7 and vf.is_front_file = 1 and vff.is_front_file = 1
+2022-12-23 09:53:01.096 2951083 [pde-thread-20] DEBUG - ==> Parameters: 
+2022-12-23 09:53:01.127 2951114 [pde-thread-19] DEBUG - <==      Total: 8
+2022-12-23 09:53:01.129 2951116 [pde-thread-20] DEBUG - <==      Total: 1
+2022-12-23 09:53:01.167 2951154 [pde-thread-24] DEBUG - ==>  Preparing: select p1.id,p1.chronicle_events_id chronicleEventsId,p1.file_name fileName,p1.file_size fileSize,p1.file_suffix fileSuffix,p1.file_path filePath,p1.memo memo,p1.order_seq orderSeq,p1.create_time createTime FROM pdes_portal_chronicle_events_file as p1 WHERE p1.chronicle_events_id = ?
+2022-12-23 09:53:01.167 2951154 [pde-thread-24] DEBUG - ==> Parameters: 20(Integer)
+2022-12-23 09:53:01.200 2951187 [pde-thread-24] DEBUG - <==      Total: 4
+2022-12-23 09:53:09.506 2959493 [pde-thread-27] DEBUG - ==>  Preparing: SELECT id,standard_id AS standardId,file_name AS fileName,file_path AS filePath,file_size AS fileSize,create_time AS createTime FROM pdes_portal_standard_file WHERE (standard_id = ?)
+2022-12-23 09:53:09.506 2959493 [pde-thread-27] DEBUG - ==> Parameters: 36(Integer)
+2022-12-23 09:53:09.541 2959528 [pde-thread-27] DEBUG - <==      Total: 1
+2022-12-23 09:53:21.415 2971402 [pde-thread-28] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_public_archive WHERE (enable_publish = ?)
+2022-12-23 09:53:21.415 2971402 [pde-thread-28] DEBUG - ==> Parameters: 1(Integer)
+2022-12-23 09:53:21.419 2971406 [pde-thread-25] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_chronicle_events
+2022-12-23 09:53:21.420 2971407 [pde-thread-25] DEBUG - ==> Parameters: 
+2022-12-23 09:53:21.467 2971454 [pde-thread-25] DEBUG - <==      Total: 1
+2022-12-23 09:53:21.467 2971454 [pde-thread-28] DEBUG - <==      Total: 1
+2022-12-23 09:53:21.468 2971455 [pde-thread-28] DEBUG - ==>  Preparing: SELECT id,archival_code AS archivalCode,fonds,year,security_class AS securityClass,retention_period AS retentionPeriod,title,enable_publish AS enablePublish,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_public_archive WHERE (enable_publish = ?) LIMIT ?
+2022-12-23 09:53:21.468 2971455 [pde-thread-25] DEBUG - ==>  Preparing: SELECT id,title,content,content_abstract AS contentAbstract,enable_publish AS enablePublish,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_chronicle_events LIMIT ?
+2022-12-23 09:53:21.468 2971455 [pde-thread-25] DEBUG - ==> Parameters: 10(Integer)
+2022-12-23 09:53:21.468 2971455 [pde-thread-28] DEBUG - ==> Parameters: 1(Integer), 8(Integer)
+2022-12-23 09:53:21.516 2971503 [pde-thread-25] DEBUG - <==      Total: 10
+2022-12-23 09:53:21.516 2971503 [pde-thread-28] DEBUG - <==      Total: 8
+2022-12-23 09:53:21.724 2971711 [pde-thread-30] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_photo AS a LEFT JOIN pdes_portal_photo_file AS b ON a.id = b.photo_id WHERE b.enable_front = 1 AND a.enable_publish = 1
+2022-12-23 09:53:21.724 2971711 [pde-thread-30] DEBUG - ==> Parameters: 
+2022-12-23 09:53:21.724 2971711 [pde-thread-29] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_photo AS a LEFT JOIN (SELECT b.file_path, b.photo_id FROM pdes_portal_photo_file AS b WHERE b.enable_front = 1) AS c ON a.id = c.photo_id WHERE a.title LIKE "%%"
+2022-12-23 09:53:21.725 2971712 [pde-thread-29] DEBUG - ==> Parameters: 
+2022-12-23 09:53:21.731 2971718 [pde-thread-3] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_notify WHERE (enable_publish = ?)
+2022-12-23 09:53:21.732 2971719 [pde-thread-3] DEBUG - ==> Parameters: 0(Integer)
+2022-12-23 09:53:21.778 2971765 [pde-thread-29] DEBUG - <==      Total: 1
+2022-12-23 09:53:21.778 2971765 [pde-thread-30] DEBUG - <==      Total: 1
+2022-12-23 09:53:21.779 2971766 [pde-thread-29] DEBUG - ==>  Preparing: select a.*, c.file_path from pdes_portal_photo as a left join (SELECT b.file_path, b.photo_id from pdes_portal_photo_file as b where b.enable_front = 1) as c on a.id = c.photo_id where a.title like "%%" LIMIT ?
+2022-12-23 09:53:21.779 2971766 [pde-thread-30] DEBUG - ==>  Preparing: select a.*, b.file_path from pdes_portal_photo as a left join pdes_portal_photo_file as b on a.id = b.photo_id where b.enable_front = 1 and a.enable_publish = 1 LIMIT ?
+2022-12-23 09:53:21.779 2971766 [pde-thread-29] DEBUG - ==> Parameters: 6(Integer)
+2022-12-23 09:53:21.779 2971766 [pde-thread-3] DEBUG - <==      Total: 1
+2022-12-23 09:53:21.779 2971766 [pde-thread-30] DEBUG - ==> Parameters: 4(Integer)
+2022-12-23 09:53:21.780 2971767 [pde-thread-3] DEBUG - ==>  Preparing: SELECT id,title,content,content_abstract AS contentAbstract,enable_publish AS enablePublish,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_notify WHERE (enable_publish = ?) ORDER BY create_time DESC LIMIT ?
+2022-12-23 09:53:21.780 2971767 [pde-thread-3] DEBUG - ==> Parameters: 0(Integer), 8(Integer)
+2022-12-23 09:53:21.810 2971797 [pde-thread-30] DEBUG - <==      Total: 4
+2022-12-23 09:53:21.810 2971797 [pde-thread-29] DEBUG - <==      Total: 6
+2022-12-23 09:53:21.811 2971798 [pde-thread-4] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 09:53:21.812 2971799 [pde-thread-4] DEBUG - ==> Parameters: 1(String)
+2022-12-23 09:53:21.829 2971816 [pde-thread-2] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_honor AS a LEFT JOIN pdes_portal_honor_file AS b ON a.id = b.honor_id WHERE b.enable_front = 1 AND a.enable_publish = 1
+2022-12-23 09:53:21.829 2971816 [pde-thread-2] DEBUG - ==> Parameters: 
+2022-12-23 09:53:21.844 2971831 [pde-thread-4] DEBUG - <==      Total: 1
+2022-12-23 09:53:21.844 2971831 [pde-thread-4] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?
+2022-12-23 09:53:21.844 2971831 [pde-thread-4] DEBUG - ==> Parameters: 1(String), 8(Integer)
+2022-12-23 09:53:21.848 2971835 [pde-thread-3] DEBUG - <==      Total: 8
+2022-12-23 09:53:21.849 2971836 [pde-thread-6] DEBUG - ==>  Preparing: SELECT id,notify_id AS notifyId,file_name AS fileName,file_size AS fileSize,file_suffix AS fileSuffix,file_path AS filePath,memo,order_seq AS orderSeq,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_notify_file WHERE (file_suffix IN (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)) ORDER BY create_time ASC limit 4
+2022-12-23 09:53:21.850 2971837 [pde-thread-6] DEBUG - ==> Parameters: .xbm(String), .tif(String), .pjp(String), .svgz(String), .jpg(String), .jpeg(String), .ico(String), .tiff(String), .gif(String), .svg(String), .jfif(String), .webp(String), .png(String), .bmp(String), .pjpeg(String), .avif(String)
+2022-12-23 09:53:21.861 2971848 [pde-thread-2] DEBUG - <==      Total: 1
+2022-12-23 09:53:21.862 2971849 [pde-thread-2] DEBUG - ==>  Preparing: select a.*, b.file_path from pdes_portal_honor as a left join pdes_portal_honor_file as b on a.id = b.honor_id where b.enable_front = 1 and a.enable_publish = 1 LIMIT ?
+2022-12-23 09:53:21.862 2971849 [pde-thread-2] DEBUG - ==> Parameters: 4(Integer)
+2022-12-23 09:53:21.877 2971864 [pde-thread-4] DEBUG - <==      Total: 8
+2022-12-23 09:53:21.892 2971879 [pde-thread-6] DEBUG - <==      Total: 4
+2022-12-23 09:53:21.897 2971884 [pde-thread-2] DEBUG - <==      Total: 4
+2022-12-23 09:53:22.137 2972124 [pde-thread-1] DEBUG - ==>  Preparing: select p1.id,p1.chronicle_events_id chronicleEventsId,p1.file_name fileName,p1.file_size fileSize,p1.file_suffix fileSuffix,p1.file_path filePath,p1.memo memo,p1.order_seq orderSeq,p1.create_time createTime FROM pdes_portal_chronicle_events_file as p1 WHERE p1.chronicle_events_id = ?
+2022-12-23 09:53:22.137 2972124 [pde-thread-1] DEBUG - ==> Parameters: 20(Integer)
+2022-12-23 09:53:22.139 2972126 [pde-thread-5] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_video WHERE (enable_publish = ?)
+2022-12-23 09:53:22.139 2972126 [pde-thread-5] DEBUG - ==> Parameters: 1(Integer)
+2022-12-23 09:53:22.174 2972161 [pde-thread-1] DEBUG - <==      Total: 4
+2022-12-23 09:53:22.177 2972164 [pde-thread-5] DEBUG - <==      Total: 1
+2022-12-23 09:53:22.177 2972164 [pde-thread-5] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish,create_time FROM pdes_portal_video WHERE (enable_publish = ?) ORDER BY create_time DESC,enable_publish DESC LIMIT ?
+2022-12-23 09:53:22.177 2972164 [pde-thread-5] DEBUG - ==> Parameters: 1(Integer), 6(Integer)
+2022-12-23 09:53:22.214 2972201 [pde-thread-5] DEBUG - <==      Total: 3
+2022-12-23 09:53:22.215 2972202 [pde-thread-5] DEBUG - ==>  Preparing: SELECT vff.file_path FROM pdes_portal_video v LEFT JOIN pdes_portal_video_file vf ON vf.video_id=v.id LEFT JOIN pdes_portal_video_file_front vff ON vff.video_file_id = vf.id WHERE v.id = 13 and vf.is_front_file = 1 and vff.is_front_file = 1
+2022-12-23 09:53:22.215 2972202 [pde-thread-5] DEBUG - ==> Parameters: 
+2022-12-23 09:53:22.249 2972236 [pde-thread-5] DEBUG - <==      Total: 1
+2022-12-23 09:53:22.250 2972237 [pde-thread-5] DEBUG - ==>  Preparing: SELECT vff.file_path FROM pdes_portal_video v LEFT JOIN pdes_portal_video_file vf ON vf.video_id=v.id LEFT JOIN pdes_portal_video_file_front vff ON vff.video_file_id = vf.id WHERE v.id = 10 and vf.is_front_file = 1 and vff.is_front_file = 1
+2022-12-23 09:53:22.250 2972237 [pde-thread-5] DEBUG - ==> Parameters: 
+2022-12-23 09:53:22.285 2972272 [pde-thread-5] DEBUG - <==      Total: 1
+2022-12-23 09:53:22.285 2972272 [pde-thread-5] DEBUG - ==>  Preparing: SELECT vff.file_path FROM pdes_portal_video v LEFT JOIN pdes_portal_video_file vf ON vf.video_id=v.id LEFT JOIN pdes_portal_video_file_front vff ON vff.video_file_id = vf.id WHERE v.id = 7 and vf.is_front_file = 1 and vff.is_front_file = 1
+2022-12-23 09:53:22.285 2972272 [pde-thread-5] DEBUG - ==> Parameters: 
+2022-12-23 09:53:22.320 2972307 [pde-thread-5] DEBUG - <==      Total: 1
+2022-12-23 09:53:26.378 2976365 [pde-thread-7] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 09:53:26.378 2976365 [pde-thread-7] DEBUG - ==> Parameters: 1(String)
+2022-12-23 09:53:26.412 2976399 [pde-thread-7] DEBUG - <==      Total: 1
+2022-12-23 09:53:26.412 2976399 [pde-thread-7] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?
+2022-12-23 09:53:26.412 2976399 [pde-thread-7] DEBUG - ==> Parameters: 1(String), 10(Integer)
+2022-12-23 09:53:26.446 2976433 [pde-thread-7] DEBUG - <==      Total: 10
+2022-12-23 09:53:31.009 2980996 [pde-thread-8] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 09:53:31.009 2980996 [pde-thread-8] DEBUG - ==> Parameters: 1(String)
+2022-12-23 09:53:31.147 2981134 [pde-thread-8] DEBUG - <==      Total: 1
+2022-12-23 09:53:31.147 2981134 [pde-thread-8] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?, ?
+2022-12-23 09:53:31.148 2981135 [pde-thread-8] DEBUG - ==> Parameters: 1(String), 10(Long), 10(Integer)
+2022-12-23 09:53:31.182 2981169 [pde-thread-8] DEBUG - <==      Total: 6
+2022-12-23 09:53:32.769 2982756 [pde-thread-13] DEBUG - ==>  Preparing: SELECT id,standard_id AS standardId,file_name AS fileName,file_path AS filePath,file_size AS fileSize,create_time AS createTime FROM pdes_portal_standard_file WHERE (standard_id = ?)
+2022-12-23 09:53:32.769 2982756 [pde-thread-13] DEBUG - ==> Parameters: 19(Integer)
+2022-12-23 09:53:32.810 2982797 [pde-thread-13] DEBUG - <==      Total: 4
+2022-12-23 09:53:36.223 2986210 [pde-thread-9] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 09:53:36.224 2986211 [pde-thread-9] DEBUG - ==> Parameters: 1(String)
+2022-12-23 09:53:36.259 2986246 [pde-thread-9] DEBUG - <==      Total: 1
+2022-12-23 09:53:36.259 2986246 [pde-thread-9] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?
+2022-12-23 09:53:36.259 2986246 [pde-thread-9] DEBUG - ==> Parameters: 1(String), 10(Integer)
+2022-12-23 09:53:36.296 2986283 [pde-thread-9] DEBUG - <==      Total: 10
+2022-12-23 09:53:39.955 2989942 [pde-thread-12] DEBUG - ==>  Preparing: SELECT id,standard_id AS standardId,file_name AS fileName,file_path AS filePath,file_size AS fileSize,create_time AS createTime FROM pdes_portal_standard_file WHERE (standard_id = ?)
+2022-12-23 09:53:39.955 2989942 [pde-thread-12] DEBUG - ==> Parameters: 26(Integer)
+2022-12-23 09:53:39.990 2989977 [pde-thread-12] DEBUG - <==      Total: 2
+2022-12-23 09:53:41.502 2991489 [pde-thread-10] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 09:53:41.502 2991489 [pde-thread-10] DEBUG - ==> Parameters: 1(String)
+2022-12-23 09:53:41.536 2991523 [pde-thread-10] DEBUG - <==      Total: 1
+2022-12-23 09:53:41.536 2991523 [pde-thread-10] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?
+2022-12-23 09:53:41.537 2991524 [pde-thread-10] DEBUG - ==> Parameters: 1(String), 10(Integer)
+2022-12-23 09:53:41.571 2991558 [pde-thread-10] DEBUG - <==      Total: 10
+2022-12-23 09:53:42.763 2992750 [pde-thread-11] DEBUG - ==>  Preparing: SELECT id,standard_id AS standardId,file_name AS fileName,file_path AS filePath,file_size AS fileSize,create_time AS createTime FROM pdes_portal_standard_file WHERE (standard_id = ?)
+2022-12-23 09:53:42.763 2992750 [pde-thread-11] DEBUG - ==> Parameters: 32(Integer)
+2022-12-23 09:53:42.796 2992783 [pde-thread-11] DEBUG - <==      Total: 0
+2022-12-23 09:53:46.233 2996220 [pde-thread-16] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 09:53:46.234 2996221 [pde-thread-16] DEBUG - ==> Parameters: 1(String)
+2022-12-23 09:53:46.271 2996258 [pde-thread-16] DEBUG - <==      Total: 1
+2022-12-23 09:53:46.271 2996258 [pde-thread-16] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?
+2022-12-23 09:53:46.271 2996258 [pde-thread-16] DEBUG - ==> Parameters: 1(String), 10(Integer)
+2022-12-23 09:53:46.305 2996292 [pde-thread-16] DEBUG - <==      Total: 10
+2022-12-23 10:44:13.198 6023185 [pde-thread-18] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 10:44:13.199 6023186 [pde-thread-18] DEBUG - ==> Parameters: 1(String)
+2022-12-23 10:44:13.259 6023246 [pde-thread-18] DEBUG - <==      Total: 1
+2022-12-23 10:44:13.259 6023246 [pde-thread-18] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?, ?
+2022-12-23 10:44:13.259 6023246 [pde-thread-18] DEBUG - ==> Parameters: 1(String), 10(Long), 10(Integer)
+2022-12-23 10:44:13.294 6023281 [pde-thread-18] DEBUG - <==      Total: 6
+2022-12-23 10:44:16.588 6026575 [pde-thread-22] DEBUG - ==>  Preparing: SELECT id,standard_id AS standardId,file_name AS fileName,file_path AS filePath,file_size AS fileSize,create_time AS createTime FROM pdes_portal_standard_file WHERE (standard_id = ?)
+2022-12-23 10:44:16.589 6026576 [pde-thread-22] DEBUG - ==> Parameters: 20(Integer)
+2022-12-23 10:44:16.623 6026610 [pde-thread-22] DEBUG - <==      Total: 2
+2022-12-23 10:44:23.365 6033352 [pde-thread-15] DEBUG - ==>  Preparing: SELECT id,standard_id AS standardId,file_name AS fileName,file_path AS filePath,file_size AS fileSize,create_time AS createTime FROM pdes_portal_standard_file WHERE (standard_id = ?)
+2022-12-23 10:44:23.366 6033353 [pde-thread-15] DEBUG - ==> Parameters: 20(Integer)
+2022-12-23 10:44:23.508 6033495 [pde-thread-15] DEBUG - <==      Total: 2
+2022-12-23 10:44:24.621 6034608 [pde-thread-17] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 10:44:24.622 6034609 [pde-thread-17] DEBUG - ==> Parameters: 1(String)
+2022-12-23 10:44:24.653 6034640 [pde-thread-17] DEBUG - <==      Total: 1
+2022-12-23 10:44:24.653 6034640 [pde-thread-17] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?
+2022-12-23 10:44:24.654 6034641 [pde-thread-17] DEBUG - ==> Parameters: 1(String), 10(Integer)
+2022-12-23 10:44:24.686 6034673 [pde-thread-17] DEBUG - <==      Total: 10
+2022-12-23 10:46:34.099 6164086 [pde-thread-21] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 10:46:34.100 6164087 [pde-thread-21] DEBUG - ==> Parameters: 1(String)
+2022-12-23 10:46:34.132 6164119 [pde-thread-21] DEBUG - <==      Total: 1
+2022-12-23 10:46:34.132 6164119 [pde-thread-21] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?, ?
+2022-12-23 10:46:34.132 6164119 [pde-thread-21] DEBUG - ==> Parameters: 1(String), 10(Long), 10(Integer)
+2022-12-23 10:46:34.164 6164151 [pde-thread-21] DEBUG - <==      Total: 6
+2022-12-23 10:46:35.623 6165610 [pde-thread-23] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 10:46:35.624 6165611 [pde-thread-23] DEBUG - ==> Parameters: 1(String)
+2022-12-23 10:46:35.655 6165642 [pde-thread-23] DEBUG - <==      Total: 1
+2022-12-23 10:46:35.656 6165643 [pde-thread-23] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?
+2022-12-23 10:46:35.656 6165643 [pde-thread-23] DEBUG - ==> Parameters: 1(String), 10(Integer)
+2022-12-23 10:46:35.687 6165674 [pde-thread-23] DEBUG - <==      Total: 10
+2022-12-23 10:46:39.100 6169087 [pde-thread-19] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 10:46:39.100 6169087 [pde-thread-19] DEBUG - ==> Parameters: 1(String)
+2022-12-23 10:46:39.132 6169119 [pde-thread-19] DEBUG - <==      Total: 1
+2022-12-23 10:46:39.132 6169119 [pde-thread-19] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?, ?
+2022-12-23 10:46:39.133 6169120 [pde-thread-19] DEBUG - ==> Parameters: 1(String), 10(Long), 10(Integer)
+2022-12-23 10:46:39.165 6169152 [pde-thread-19] DEBUG - <==      Total: 6
+2022-12-23 10:46:42.956 6172943 [pde-thread-20] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (title LIKE ? AND enable_publish = ?)
+2022-12-23 10:46:42.957 6172944 [pde-thread-20] DEBUG - ==> Parameters: %82%(String), 1(String)
+2022-12-23 10:46:42.999 6172986 [pde-thread-20] DEBUG - <==      Total: 1
+2022-12-23 10:46:51.803 6181790 [pde-thread-24] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 10:46:51.803 6181790 [pde-thread-24] DEBUG - ==> Parameters: 1(String)
+2022-12-23 10:46:51.962 6181949 [pde-thread-24] DEBUG - <==      Total: 1
+2022-12-23 10:46:51.962 6181949 [pde-thread-24] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?
+2022-12-23 10:46:51.962 6181949 [pde-thread-24] DEBUG - ==> Parameters: 1(String), 10(Integer)
+2022-12-23 10:46:52.097 6182084 [pde-thread-24] DEBUG - <==      Total: 10
+2022-12-23 10:46:54.724 6184711 [pde-thread-27] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 10:46:54.725 6184712 [pde-thread-27] DEBUG - ==> Parameters: 1(String)
+2022-12-23 10:46:54.760 6184747 [pde-thread-27] DEBUG - <==      Total: 1
+2022-12-23 10:46:54.760 6184747 [pde-thread-27] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?, ?
+2022-12-23 10:46:54.760 6184747 [pde-thread-27] DEBUG - ==> Parameters: 1(String), 10(Long), 10(Integer)
+2022-12-23 10:46:54.796 6184783 [pde-thread-27] DEBUG - <==      Total: 6
+2022-12-23 10:46:56.952 6186939 [pde-thread-26] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 10:46:56.952 6186939 [pde-thread-26] DEBUG - ==> Parameters: 1(String)
+2022-12-23 10:46:56.983 6186970 [pde-thread-26] DEBUG - <==      Total: 1
+2022-12-23 10:46:56.983 6186970 [pde-thread-26] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?
+2022-12-23 10:46:56.983 6186970 [pde-thread-26] DEBUG - ==> Parameters: 1(String), 10(Integer)
+2022-12-23 10:46:57.015 6187002 [pde-thread-26] DEBUG - <==      Total: 10
+2022-12-23 10:47:00.118 6190105 [pde-thread-28] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (title LIKE ? AND enable_publish = ?)
+2022-12-23 10:47:00.118 6190105 [pde-thread-28] DEBUG - ==> Parameters: %82%(String), 1(String)
+2022-12-23 10:47:00.200 6190187 [pde-thread-28] DEBUG - <==      Total: 1
+2022-12-23 10:47:00.200 6190187 [pde-thread-28] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (title LIKE ? AND enable_publish = ?) LIMIT ?
+2022-12-23 10:47:00.200 6190187 [pde-thread-28] DEBUG - ==> Parameters: %82%(String), 1(String), 10(Integer)
+2022-12-23 10:47:00.246 6190233 [pde-thread-28] DEBUG - <==      Total: 1
+2022-12-23 10:47:05.648 6195635 [pde-thread-25] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 10:47:05.648 6195635 [pde-thread-25] DEBUG - ==> Parameters: 1(String)
+2022-12-23 10:47:05.683 6195670 [pde-thread-25] DEBUG - <==      Total: 1
+2022-12-23 10:47:05.684 6195671 [pde-thread-25] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?
+2022-12-23 10:47:05.684 6195671 [pde-thread-25] DEBUG - ==> Parameters: 1(String), 10(Integer)
+2022-12-23 10:47:05.721 6195708 [pde-thread-25] DEBUG - <==      Total: 10
+2022-12-23 10:47:28.708 6218695 [pde-thread-29] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_public_archive WHERE (enable_publish = ?)
+2022-12-23 10:47:28.709 6218696 [pde-thread-29] DEBUG - ==> Parameters: 1(Integer)
+2022-12-23 10:47:28.764 6218751 [pde-thread-29] DEBUG - <==      Total: 1
+2022-12-23 10:47:28.764 6218751 [pde-thread-29] DEBUG - ==>  Preparing: SELECT id,archival_code AS archivalCode,fonds,year,security_class AS securityClass,retention_period AS retentionPeriod,title,enable_publish AS enablePublish,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_public_archive WHERE (enable_publish = ?) LIMIT ?
+2022-12-23 10:47:28.764 6218751 [pde-thread-29] DEBUG - ==> Parameters: 1(Integer), 8(Integer)
+2022-12-23 10:47:28.796 6218783 [pde-thread-29] DEBUG - <==      Total: 8
+2022-12-23 10:47:29.012 6218999 [pde-thread-30] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_chronicle_events
+2022-12-23 10:47:29.013 6219000 [pde-thread-30] DEBUG - ==> Parameters: 
+2022-12-23 10:47:29.044 6219031 [pde-thread-30] DEBUG - <==      Total: 1
+2022-12-23 10:47:29.044 6219031 [pde-thread-30] DEBUG - ==>  Preparing: SELECT id,title,content,content_abstract AS contentAbstract,enable_publish AS enablePublish,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_chronicle_events LIMIT ?
+2022-12-23 10:47:29.044 6219031 [pde-thread-30] DEBUG - ==> Parameters: 10(Integer)
+2022-12-23 10:47:29.077 6219064 [pde-thread-30] DEBUG - <==      Total: 9
+2022-12-23 10:47:29.079 6219066 [pde-thread-4] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_photo AS a LEFT JOIN pdes_portal_photo_file AS b ON a.id = b.photo_id WHERE b.enable_front = 1 AND a.enable_publish = 1
+2022-12-23 10:47:29.079 6219066 [pde-thread-4] DEBUG - ==> Parameters: 
+2022-12-23 10:47:29.122 6219109 [pde-thread-4] DEBUG - <==      Total: 1
+2022-12-23 10:47:29.122 6219109 [pde-thread-4] DEBUG - ==>  Preparing: select a.*, b.file_path from pdes_portal_photo as a left join pdes_portal_photo_file as b on a.id = b.photo_id where b.enable_front = 1 and a.enable_publish = 1 LIMIT ?
+2022-12-23 10:47:29.122 6219109 [pde-thread-4] DEBUG - ==> Parameters: 4(Integer)
+2022-12-23 10:47:29.154 6219141 [pde-thread-4] DEBUG - <==      Total: 4
+2022-12-23 10:47:29.154 6219141 [pde-thread-3] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_honor AS a LEFT JOIN pdes_portal_honor_file AS b ON a.id = b.honor_id WHERE b.enable_front = 1 AND a.enable_publish = 1
+2022-12-23 10:47:29.154 6219141 [pde-thread-3] DEBUG - ==> Parameters: 
+2022-12-23 10:47:29.186 6219173 [pde-thread-3] DEBUG - <==      Total: 1
+2022-12-23 10:47:29.187 6219174 [pde-thread-3] DEBUG - ==>  Preparing: select a.*, b.file_path from pdes_portal_honor as a left join pdes_portal_honor_file as b on a.id = b.honor_id where b.enable_front = 1 and a.enable_publish = 1 LIMIT ?
+2022-12-23 10:47:29.187 6219174 [pde-thread-3] DEBUG - ==> Parameters: 4(Integer)
+2022-12-23 10:47:29.221 6219208 [pde-thread-3] DEBUG - <==      Total: 4
+2022-12-23 10:47:29.222 6219209 [pde-thread-6] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_photo AS a LEFT JOIN (SELECT b.file_path, b.photo_id FROM pdes_portal_photo_file AS b WHERE b.enable_front = 1) AS c ON a.id = c.photo_id WHERE a.title LIKE "%%"
+2022-12-23 10:47:29.222 6219209 [pde-thread-6] DEBUG - ==> Parameters: 
+2022-12-23 10:47:29.255 6219242 [pde-thread-6] DEBUG - <==      Total: 1
+2022-12-23 10:47:29.255 6219242 [pde-thread-6] DEBUG - ==>  Preparing: select a.*, c.file_path from pdes_portal_photo as a left join (SELECT b.file_path, b.photo_id from pdes_portal_photo_file as b where b.enable_front = 1) as c on a.id = c.photo_id where a.title like "%%" LIMIT ?
+2022-12-23 10:47:29.255 6219242 [pde-thread-6] DEBUG - ==> Parameters: 6(Integer)
+2022-12-23 10:47:29.289 6219276 [pde-thread-6] DEBUG - <==      Total: 6
+2022-12-23 10:47:29.290 6219277 [pde-thread-2] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_notify WHERE (enable_publish = ?)
+2022-12-23 10:47:29.290 6219277 [pde-thread-2] DEBUG - ==> Parameters: 0(Integer)
+2022-12-23 10:47:29.322 6219309 [pde-thread-2] DEBUG - <==      Total: 1
+2022-12-23 10:47:29.322 6219309 [pde-thread-2] DEBUG - ==>  Preparing: SELECT id,title,content,content_abstract AS contentAbstract,enable_publish AS enablePublish,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_notify WHERE (enable_publish = ?) ORDER BY create_time DESC LIMIT ?
+2022-12-23 10:47:29.322 6219309 [pde-thread-2] DEBUG - ==> Parameters: 0(Integer), 8(Integer)
+2022-12-23 10:47:29.406 6219393 [pde-thread-2] DEBUG - <==      Total: 8
+2022-12-23 10:47:29.406 6219393 [pde-thread-1] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_standard WHERE (enable_publish = ?)
+2022-12-23 10:47:29.407 6219394 [pde-thread-1] DEBUG - ==> Parameters: 1(String)
+2022-12-23 10:47:29.438 6219425 [pde-thread-1] DEBUG - <==      Total: 1
+2022-12-23 10:47:29.438 6219425 [pde-thread-1] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish AS enablePublish,publish_date AS publishDate,use_date AS useDate FROM pdes_portal_standard WHERE (enable_publish = ?) ORDER BY id DESC LIMIT ?
+2022-12-23 10:47:29.438 6219425 [pde-thread-1] DEBUG - ==> Parameters: 1(String), 8(Integer)
+2022-12-23 10:47:29.470 6219457 [pde-thread-1] DEBUG - <==      Total: 8
+2022-12-23 10:47:29.470 6219457 [pde-thread-5] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_video WHERE (enable_publish = ?)
+2022-12-23 10:47:29.471 6219458 [pde-thread-5] DEBUG - ==> Parameters: 1(Integer)
+2022-12-23 10:47:29.495 6219482 [pde-thread-7] DEBUG - ==>  Preparing: SELECT id,notify_id AS notifyId,file_name AS fileName,file_size AS fileSize,file_suffix AS fileSuffix,file_path AS filePath,memo,order_seq AS orderSeq,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_notify_file WHERE (file_suffix IN (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)) ORDER BY create_time ASC limit 4
+2022-12-23 10:47:29.496 6219483 [pde-thread-7] DEBUG - ==> Parameters: .xbm(String), .tif(String), .pjp(String), .svgz(String), .jpg(String), .jpeg(String), .ico(String), .tiff(String), .gif(String), .svg(String), .jfif(String), .webp(String), .png(String), .bmp(String), .pjpeg(String), .avif(String)
+2022-12-23 10:47:29.503 6219490 [pde-thread-5] DEBUG - <==      Total: 1
+2022-12-23 10:47:29.504 6219491 [pde-thread-5] DEBUG - ==>  Preparing: SELECT id,title,description,enable_publish,create_time FROM pdes_portal_video WHERE (enable_publish = ?) ORDER BY create_time DESC,enable_publish DESC LIMIT ?
+2022-12-23 10:47:29.504 6219491 [pde-thread-5] DEBUG - ==> Parameters: 1(Integer), 6(Integer)
+2022-12-23 10:47:29.531 6219518 [pde-thread-7] DEBUG - <==      Total: 4
+2022-12-23 10:47:29.534 6219521 [pde-thread-8] DEBUG - ==>  Preparing: select p1.id,p1.chronicle_events_id chronicleEventsId,p1.file_name fileName,p1.file_size fileSize,p1.file_suffix fileSuffix,p1.file_path filePath,p1.memo memo,p1.order_seq orderSeq,p1.create_time createTime FROM pdes_portal_chronicle_events_file as p1 WHERE p1.chronicle_events_id = ?
+2022-12-23 10:47:29.534 6219521 [pde-thread-8] DEBUG - ==> Parameters: 20(Integer)
+2022-12-23 10:47:29.536 6219523 [pde-thread-5] DEBUG - <==      Total: 3
+2022-12-23 10:47:29.537 6219524 [pde-thread-5] DEBUG - ==>  Preparing: SELECT vff.file_path FROM pdes_portal_video v LEFT JOIN pdes_portal_video_file vf ON vf.video_id=v.id LEFT JOIN pdes_portal_video_file_front vff ON vff.video_file_id = vf.id WHERE v.id = 13 and vf.is_front_file = 1 and vff.is_front_file = 1
+2022-12-23 10:47:29.537 6219524 [pde-thread-5] DEBUG - ==> Parameters: 
+2022-12-23 10:47:29.568 6219555 [pde-thread-5] DEBUG - <==      Total: 1
+2022-12-23 10:47:29.568 6219555 [pde-thread-5] DEBUG - ==>  Preparing: SELECT vff.file_path FROM pdes_portal_video v LEFT JOIN pdes_portal_video_file vf ON vf.video_id=v.id LEFT JOIN pdes_portal_video_file_front vff ON vff.video_file_id = vf.id WHERE v.id = 10 and vf.is_front_file = 1 and vff.is_front_file = 1
+2022-12-23 10:47:29.569 6219556 [pde-thread-8] DEBUG - <==      Total: 4
+2022-12-23 10:47:29.569 6219556 [pde-thread-5] DEBUG - ==> Parameters: 
+2022-12-23 10:47:29.601 6219588 [pde-thread-5] DEBUG - <==      Total: 1
+2022-12-23 10:47:29.603 6219590 [pde-thread-5] DEBUG - ==>  Preparing: SELECT vff.file_path FROM pdes_portal_video v LEFT JOIN pdes_portal_video_file vf ON vf.video_id=v.id LEFT JOIN pdes_portal_video_file_front vff ON vff.video_file_id = vf.id WHERE v.id = 7 and vf.is_front_file = 1 and vff.is_front_file = 1
+2022-12-23 10:47:29.603 6219590 [pde-thread-5] DEBUG - ==> Parameters: 
+2022-12-23 10:47:29.637 6219624 [pde-thread-5] DEBUG - <==      Total: 1
+2022-12-23 10:47:33.660 6223647 [pde-thread-13] DEBUG - ==>  Preparing: SELECT count(0) FROM pdes_portal_notify WHERE (enable_publish = ?)
+2022-12-23 10:47:33.661 6223648 [pde-thread-13] DEBUG - ==> Parameters: 0(Integer)
+2022-12-23 10:47:33.700 6223687 [pde-thread-13] DEBUG - <==      Total: 1
+2022-12-23 10:47:33.700 6223687 [pde-thread-13] DEBUG - ==>  Preparing: SELECT id,title,content,content_abstract AS contentAbstract,enable_publish AS enablePublish,create_time AS createTime,modified_time AS modifiedTime FROM pdes_portal_notify WHERE (enable_publish = ?) ORDER BY create_time DESC LIMIT ?
+2022-12-23 10:47:33.701 6223688 [pde-thread-13] DEBUG - ==> Parameters: 0(Integer), 20(Integer)
+2022-12-23 10:47:33.767 6223754 [pde-thread-13] DEBUG - <==      Total: 20
+2022-12-23 10:52:25.256 6515243 [SpringContextShutdownHook] INFO  - Shutting down ExecutorService 'PdeDefaultThreadPool'
+2022-12-23 10:52:25.266 6515253 [SpringContextShutdownHook] INFO  - {dataSource-1} closed

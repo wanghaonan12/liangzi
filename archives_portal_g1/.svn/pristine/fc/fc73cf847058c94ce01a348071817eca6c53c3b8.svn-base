@@ -1,0 +1,7 @@
+package com.pde.pdes.portal.photo.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.pde.pdes.portal.photo.po.PhotoFilePO;
+
+public interface PhotoFileMapper extends BaseMapper<PhotoFilePO> {
+}

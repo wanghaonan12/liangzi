@@ -1,0 +1,246 @@
+package com.pde.pdes.portal.standard.service.impl;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.pde.pdes.portal.standard.dto.StandardDto;
+import com.pde.pdes.portal.standard.mapper.StandardMapper;
+import com.pde.pdes.portal.standard.po.Standard;
+import com.pde.pdes.portal.standard.service.StandardFileService;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
+public class StandardServiceImplTest {
+
+    private StandardServiceImpl standardServiceImplUnderTest;
+
+    @Before
+    public void setUp() {
+        standardServiceImplUnderTest = new StandardServiceImpl();
+        standardServiceImplUnderTest.standardMapper = mock(StandardMapper.class);
+        standardServiceImplUnderTest.standardFileService = mock(StandardFileService.class);
+    }
+
+    @Test
+    public void testAdd() {
+        // Setup
+        final StandardDto standard = new StandardDto("title", "description", 0,
+                new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
+
+        // Run the test
+        final boolean result = standardServiceImplUnderTest.add(standard);
+
+        // Verify the results
+        assertFalse(result);
+    }
+
+    @Test
+    public void testUpdate() {
+        // Setup
+        final Standard standard = Standard.builder()
+                .id(0)
+                .title("title")
+                .description("description")
+                .enablePublish(0)
+                .publishDate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .useDate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .build();
+
+        // Run the test
+        final boolean result = standardServiceImplUnderTest.update(standard);
+
+        // Verify the results
+        assertFalse(result);
+    }
+
+    @Test
+    public void testDeleteByIds() {
+        // Setup
+        when(standardServiceImplUnderTest.standardFileService.deleteByStandardId(0)).thenReturn(0);
+
+        // Run the test
+        final boolean result = standardServiceImplUnderTest.deleteByIds(0);
+
+        // Verify the results
+        assertFalse(result);
+        verify(standardServiceImplUnderTest.standardFileService).deleteByStandardId(0);
+    }
+
+    @Test
+    public void testGetStandardByTitle() {
+        // Setup
+        final List<Standard> expectedResult = Arrays.asList(Standard.builder()
+                .id(0)
+                .title("title")
+                .description("description")
+                .enablePublish(0)
+                .publishDate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .useDate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .build());
+
+        // Configure StandardMapper.selectList(...).
+        final List<Standard> standards = Arrays.asList(Standard.builder()
+                .id(0)
+                .title("title")
+                .description("description")
+                .enablePublish(0)
+                .publishDate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .useDate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .build());
+        when(standardServiceImplUnderTest.standardMapper.selectList(any(UpdateWrapper.class))).thenReturn(standards);
+
+        // Run the test
+        final List<Standard> result = standardServiceImplUnderTest.getStandardByTitle("title");
+
+        // Verify the results
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void testGetStandardByTitle_StandardMapperReturnsNoItems() {
+        // Setup
+        when(standardServiceImplUnderTest.standardMapper.selectList(any(UpdateWrapper.class)))
+                .thenReturn(Collections.emptyList());
+
+        // Run the test
+        final List<Standard> result = standardServiceImplUnderTest.getStandardByTitle("title");
+
+        // Verify the results
+        assertEquals(Collections.emptyList(), result);
+    }
+
+    @Test
+    public void testFindAll() {
+        // Setup
+        final List<Standard> expectedResult = Arrays.asList(Standard.builder()
+                .id(0)
+                .title("title")
+                .description("description")
+                .enablePublish(0)
+                .publishDate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .useDate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .build());
+
+        // Configure StandardMapper.selectList(...).
+        final List<Standard> standards = Arrays.asList(Standard.builder()
+                .id(0)
+                .title("title")
+                .description("description")
+                .enablePublish(0)
+                .publishDate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .useDate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .build());
+        when(standardServiceImplUnderTest.standardMapper.selectList(any(QueryWrapper.class))).thenReturn(standards);
+
+        // Run the test
+        final List<Standard> result = standardServiceImplUnderTest.findAll();
+
+        // Verify the results
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void testFindAll_StandardMapperReturnsNoItems() {
+        // Setup
+        when(standardServiceImplUnderTest.standardMapper.selectList(any(QueryWrapper.class)))
+                .thenReturn(Collections.emptyList());
+
+        // Run the test
+        final List<Standard> result = standardServiceImplUnderTest.findAll();
+
+        // Verify the results
+        assertEquals(Collections.emptyList(), result);
+    }
+
+    @Test
+    public void testFindShow() {
+        // Setup
+        final List<Standard> expectedResult = Arrays.asList(Standard.builder()
+                .id(0)
+                .title("title")
+                .description("description")
+                .enablePublish(0)
+                .publishDate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .useDate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .build());
+
+        // Configure StandardMapper.selectList(...).
+        final List<Standard> standards = Arrays.asList(Standard.builder()
+                .id(0)
+                .title("title")
+                .description("description")
+                .enablePublish(0)
+                .publishDate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .useDate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .build());
+        when(standardServiceImplUnderTest.standardMapper.selectList(any(UpdateWrapper.class))).thenReturn(standards);
+
+        // Run the test
+        final List<Standard> result = standardServiceImplUnderTest.findShow();
+
+        // Verify the results
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void testFindShow_StandardMapperReturnsNoItems() {
+        // Setup
+        when(standardServiceImplUnderTest.standardMapper.selectList(any(UpdateWrapper.class)))
+                .thenReturn(Collections.emptyList());
+
+        // Run the test
+        final List<Standard> result = standardServiceImplUnderTest.findShow();
+
+        // Verify the results
+        assertEquals(Collections.emptyList(), result);
+    }
+
+    @Test
+    public void testGetShowStandardByTitle() {
+        // Setup
+        final List<Standard> expectedResult = Arrays.asList(Standard.builder()
+                .id(0)
+                .title("title")
+                .description("description")
+                .enablePublish(0)
+                .publishDate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .useDate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .build());
+
+        // Configure StandardMapper.selectList(...).
+        final List<Standard> standards = Arrays.asList(Standard.builder()
+                .id(0)
+                .title("title")
+                .description("description")
+                .enablePublish(0)
+                .publishDate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .useDate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .build());
+        when(standardServiceImplUnderTest.standardMapper.selectList(any(UpdateWrapper.class))).thenReturn(standards);
+
+        // Run the test
+        final List<Standard> result = standardServiceImplUnderTest.getShowStandardByTitle("title");
+
+        // Verify the results
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void testGetShowStandardByTitle_StandardMapperReturnsNoItems() {
+        // Setup
+        when(standardServiceImplUnderTest.standardMapper.selectList(any(UpdateWrapper.class)))
+                .thenReturn(Collections.emptyList());
+
+        // Run the test
+        final List<Standard> result = standardServiceImplUnderTest.getShowStandardByTitle("title");
+
+        // Verify the results
+        assertEquals(Collections.emptyList(), result);
+    }
+}

@@ -1,0 +1,45 @@
+package com.pde.pdes.portal.news.po;
+
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
+
+/**
+ * @author 沈建树
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ApiModel(value = "新闻信息", description = "新闻信息")
+@TableName("pdes_portal_news")
+@Builder
+public class NewsPo {
+    @ApiModelProperty("文章ID")
+    @TableId
+    Integer id;
+
+    @ApiModelProperty("标题")
+    String title;
+
+    @ApiModelProperty("内容")
+    String content;
+
+    @ApiModelProperty("摘要")
+    String content_abstract;
+
+    @ApiModelProperty("启用发布")
+    Integer enable_publish;
+
+    @ApiModelProperty("创建时间")
+    Date create_time;
+
+    @ApiModelProperty("修改时间")
+    Date modified_time;
+}

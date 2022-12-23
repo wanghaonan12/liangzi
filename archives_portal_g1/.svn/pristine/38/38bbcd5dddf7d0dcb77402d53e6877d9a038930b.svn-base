@@ -1,0 +1,83 @@
+import request from '@/utils/request'
+import axios from 'axios'
+import Cookies from 'js-cookie';
+//获取请求token
+export function tokenAsync(){
+    let jwt = axios.post('/v1/auth/login?username=admin&password=ias4WEYIzsXOhZKnqIDv0A==')
+    return jwt
+}
+//获取所有新闻信息
+export async function newsList(data) {
+    return await request({
+        url: '/api/news/find',
+        method: 'post',
+        data,
+        headers: {
+            'Authorization': Cookies.get('token')
+        }
+    });
+}
+//根据id获取新闻信息
+export async function findNewsById(id) {
+    return await request({
+        url: '/api/news/findById?id='+id,
+        method: 'get',
+        headers: {
+            'Authorization': Cookies.get('token')
+        }
+    });
+}
+//批量删除新闻
+export async function delNews(ids) {
+    return await request({
+        url: '/api/news/delete',
+        method: 'delete',
+        // contentType : "application/json" ,
+        data: ids,
+        headers: {
+            'Authorization': Cookies.get('token')
+        }
+    });
+}
+//更新新闻
+export async function updateNews(news) {
+    return await request({
+        url: '/api/news/update',
+        method: 'post',
+        data: news,
+        headers: {
+            'Authorization': Cookies.get('token')
+        }
+    });
+}
+//新增新闻
+export async function addNews(news) {
+    return await request({
+        url: '/api/news/add',
+        method: 'post',
+        data: news,
+        headers: {
+            'Authorization': Cookies.get('token')
+        }
+    });
+}
+//根据新闻id获取对应附件列表
+export async function findByNewsId(newsId) {
+    return await request({
+        url: '/api/newsFile/findByNewsId?newsId='+newsId,
+        method: 'get',
+        headers: {
+            'Authorization': Cookies.get('token')
+        }
+    });
+}
+//删除新闻附件
+export async function delNewsFile(id) {
+    return await request({
+        url: '/api/newsFile/delete?id='+id,
+        method: 'delete',
+        headers: {
+            'Authorization': Cookies.get('token')
+        }
+    });
+}

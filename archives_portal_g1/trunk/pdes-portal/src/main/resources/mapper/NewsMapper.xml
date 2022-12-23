@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pde.pdes.portal.news.mapper.NewsMapper">
+    <select id="getAllNewsBySearchTextResultIds" resultMap="newsMap">
+        select title,
+        content,
+        content_abstract,
+        enable_publish,
+        news_id,
+        file_name,
+        file_path,
+        file_size,
+        file_suffix,
+        memo,
+        order_seq,
+        pdes_portal_news_file.modified_time as nfmt,
+        pdes_portal_news_file.create_time as nfct,
+        pdes_portal_news_file.`id` as nfid,
+        pdes_portal_news.`id` as nid,
+        pdes_portal_news.create_time as nct,
+        pdes_portal_news.modified_time as nmt
+        from pdes_portal_news
+        left join
+        pdes_portal_news_file
+        on pdes_portal_news.id = pdes_portal_news_file.news_id
+        WHERE pdes_portal_news.id in
+        <foreach collection="list" item="id" index="index"
+                 open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+    <select id="getAllNewsIdBySearchText" resultType="int">
+        select pdes_portal_news.id
+        from pdes_portal_news
+        WHERE pdes_portal_news.title like #{searchText} || pdes_portal_news.content like #{searchText} ||
+              pdes_portal_news.content_abstract like #{searchText}
+    </select>
+    <select id="getNewsById" resultType="com.pde.pdes.portal.news.po.NewsPo" resultMap="newsMap">
+        select title,
+               content,
+               content_abstract,
+               enable_publish,
+               news_id,
+               file_name,
+               file_path,
+               file_size,
+               file_suffix,
+               memo,
+               order_seq,
+               pdes_portal_news_file.modified_time as nfmt,
+               pdes_portal_news_file.create_time   as nfct,
+               pdes_portal_news_file.`id`          as nfid,
+               pdes_portal_news.`id`               as nid,
+               pdes_portal_news.create_time        as nct,
+               pdes_portal_news.modified_time      as nmt
+        from pdes_portal_news
+                 left join
+             pdes_portal_news_file
+             on pdes_portal_news.id = pdes_portal_news_file.news_id
+        where pdes_portal_news.id = #{id}
+    </select>
+    <resultMap id="newsMap" type="com.pde.pdes.portal.news.po.NewsPo">
+        <id property="id" column="nid" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="contentAbstract" column="content_abstract" jdbcType="VARCHAR"/>
+        <result property="enablePublish" column="enable_publish" jdbcType="INTEGER"/>
+        <result property="createTime" column="nct" jdbcType="TIMESTAMP"/>
+        <result property="modifiedTime" column="nmt" jdbcType="TIMESTAMP"/>
+        <collection property="newsFilePos" ofType="com.pde.pdes.portal.news.po.NewsFilePo">
+            <id property="id" column="nfid" jdbcType="INTEGER"/>
+            <result property="newsId" column="news_id" jdbcType="INTEGER"/>
+            <result property="fileName" column="file_name" jdbcType="VARCHAR"/>
+            <result property="fileSize" column="file_size" jdbcType="INTEGER"/>
+            <result property="fileSuffix" column="file_suffix" jdbcType="VARCHAR"/>
+            <result property="filePath" column="file_path" jdbcType="VARCHAR"/>
+            <result property="memo" column="memo" jdbcType="VARCHAR"/>
+            <result property="orderSeq" column="order_seq" jdbcType="INTEGER"/>
+            <result property="createTime" column="nfct" jdbcType="TIMESTAMP"/>
+            <result property="modifiedTime" column="nfmt" jdbcType="TIMESTAMP"/>
+        </collection>
+    </resultMap>
+</mapper>

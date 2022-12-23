@@ -1,0 +1,35 @@
+import request from '@/utils/request'
+
+// 查询列表
+export function getStandardFileListApi(id) {
+  return request({
+    url: 'standardFile/getFileByStandardId/' + id,
+    method: 'get'
+  })
+}
+
+// 添加列表
+export function addStandardFileApi(data) {
+  return request({
+    url: `/standardFile/add`,
+    method: 'post',
+    data
+  })
+}
+
+// 删除条目
+export function delStandardDFileApi(id) {
+  return request({
+    url: `/standardFile/delete/` + id,
+    method: 'delete'
+  })
+}
+
+// 更新条目
+export function upDataStandardApi(data) {
+  return request({
+    url: `/standardFile/upData/`,
+    method: 'post',
+    data
+  })
+}

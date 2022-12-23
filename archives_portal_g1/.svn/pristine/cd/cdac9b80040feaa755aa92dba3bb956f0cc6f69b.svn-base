@@ -1,0 +1,71 @@
+package com.pde.pdes.portal.archive.service.Impl;
+
+import com.pde.pdes.portal.archive.dao.ArchiveUpdateDao;
+import com.pde.pdes.portal.archive.po.ArchivePo;
+import com.pde.pdes.portal.archive.service.ArchiveService;
+import org.junit.jupiter.api.Test;
+
+import javax.annotation.Resource;
+
+import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class ArchiveServiceImplTest {
+    @Resource
+    private ArchiveService archiveService;
+
+
+    @Test
+    void selectAll() {
+         System.out.println(archiveService.selectAll("1"));
+    }
+
+    @Test
+    void selectAll2() {
+        System.out.println(archiveService.selectAll2("1"));
+    }
+
+    @Test
+    void selectById() {
+        System.out.println(archiveService.selectById(4));
+    }
+
+    @Test
+    void update() {
+        System.out.println(archiveService.update(
+                ArchiveUpdateDao.builder()
+                        .id(1)
+                        .securityClass("绝密")
+                        .enablePublish((short) 0)
+                        .build()
+        ));
+    }
+
+    @Test
+    void del() {
+        System.out.println(archiveService.del(16));
+    }
+
+    @Test
+    void delList() {
+        System.out.println(archiveService.delList(new Integer[]{1, 2, 3}));
+    }
+
+    @Test
+    void add() {
+        ArchivePo archivePo = ArchivePo.builder()
+                .archivalCode("202212200001")
+                .fonds("南京工业")
+                .year("2022")
+                .securityClass("绝密")
+                .retentionPeriod("永久")
+                .title("11111")
+                .enablePublish((short) 0)
+                .createTime(new Date())
+                .modifiedTime(new Date())
+                .build();
+        System.out.println(archiveService.add(archivePo));
+        System.out.println(archivePo.getId());
+    }
+}

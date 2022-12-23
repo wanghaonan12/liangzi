@@ -1,0 +1,293 @@
+<template>
+  <div>
+    <el-container style=" border: 1px solid #eee">
+      <el-container>
+        <el-header style="text-align: right; font-size: 12px">
+          <el-input v-model="tableQuery.title" style=" width:15%" placeholder="请输入检索内容" />
+          <el-button style="margin-left: 16px;" plain @click="getStandardList">查询</el-button>
+          <el-button style="margin-left: 16px;" plain @click="dialog = true">添加</el-button>
+        </el-header>
+        <el-main>
+          <el-table stripe :default-sort="{ prop: 'date', order: 'descending' }" :data="tableData"
+            @selection-change="handleSelectionChange">
+            <el-table-column type="selection" width="55" />
+            <el-table-column sortable label="名称">
+              <template slot-scope="scope">
+                <span v-show="!scope.row.editname" @click="(scope.row.editname = !scope.row.editname)">{{
+                    scope.row.title
+                }}</span>
+                <el-input v-show="scope.row.editname" v-model="scope.row.title" />
+              </template>
+            </el-table-column>
+            <el-table-column prop="address" label="描述">
+              <template slot-scope="scope">
+                <span v-show="!scope.row.editdesc" @click="(scope.row.editdesc = !scope.row.editdesc)">{{
+                    scope.row.description
+                }}</span>
+                <el-input v-show="scope.row.editdesc" v-model="scope.row.description" />
+              </template>
+            </el-table-column>
+            <el-table-column sortable prop="publishDate" label="创建的日期" />
+            <el-table-column label="发布状态">
+              <template slot-scope="scope">
+                <el-checkbox v-model="scope.row.enablePublish" disabled />
+              </template>
+            </el-table-column>
+            <el-table-column label="操作" width="140">
+              <template slot-scope="scope">
+                <el-button type="text" icon="el-icon-search" @click="search(scope.row.id, scope.row.title)" />
+                <el-button type="text" icon="el-icon-edit" @click="edit(scope.$index)" />
+                <el-button type="text" icon="el-icon-delete" @click="delStandard(scope.row.id)" />
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-main>
+      </el-container>
+    </el-container>
+    <el-dialog title="添加文档" :visible.sync="dialog" inline="true">
+      <el-form :model="standardAddForm" ref="standardAddForm" :rules="rules">
+        <el-form-item label="文档标题" prop="title">
+          <el-input v-model="standardAddForm.title" autocomplete="off" maxlength="20" show-word-limit />
+        </el-form-item>
+        <el-form-item label="文档描述" prop="description">
+          <el-input v-model="standardAddForm.description" autocomplete="on" maxlength="20" show-word-limit />
+        </el-form-item>
+        <el-form-item label="文档公布日期" prop="useDate">
+          <el-date-picker v-model="standardAddForm.useDate" value-format="yyyy-MM-dd HH:mm:ss" type="date"
+            placeholder="选择日期" />
+        </el-form-item>
+      </el-form>
+      <div slot="footer">
+        <el-button @click="dialog = false">取 消</el-button>
+        <el-button type="primary" @click="addStandard(standardAddForm)">确 定</el-button>
+      </div>
+    </el-dialog>
+    <el-drawer :title="drawer_title" :visible.sync="drawer" direction="rtl">
+      <el-container>
+        <el-header>
+          <div style="display: flex; float: right;">
+            <el-input v-model="data.title" autocomplete="on" size="medium" placeholder="设置添加文件名称"
+              style="width:200px; margin-right: 10px;" maxlength="20" show-word-limit />
+            <el-upload ref="upload" action :http-request="uploadFile" :headers="headers" :show-file-list="false"
+              style="margin-right:10px ">
+              <el-button type="primary">选择文件</el-button>
+            </el-upload>
+          </div>
+        </el-header>
+        <el-main>
+          <el-table stripe :data="fileData" :default-sort="{ prop: 'name', order: 'descending' }">
+            <el-table-column sortable prop="fileName" label="名称" width="140" />
+            <el-table-column sortable label="内存">
+              <template slot-scope="scope">
+                {{ scope.row.fileSize > 104857 ? (scope.row.fileSize / 1024 / 1024).toFixed(2) + 'MB' :
+                    (scope.row.fileSize / 1024).toFixed(2) + 'KB'
+                }}
+              </template>
+            </el-table-column>
+            <el-table-column sortable prop="createTime" label="创建的日期" />
+            <el-table-column label="操作" width="140">
+              <template slot-scope="scope" style="align-items:center;text-align: center;">
+                <el-button type="text" icon="el-icon-delete"
+                  @click="delStandardDFile(scope.row.standardId, scope.row.id)" />
+                <el-button type="text" style="margin-left: 10px;">
+                  <el-link :href="scope.row.filePath"><i class="el-icon-download" style="color:#46a6ff" /></el-link>
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-main>
+      </el-container>
+    </el-drawer>
+    <pagination v-show="tableQuery.total > 0" layout="total, prev, pager, next, jumper" :total="tableQuery.total"
+      :page.sync="tableQuery.page" :limit.sync="tableQuery.size" @pagination="getStandardList" />
+  </div>
+</template>
+
+<script>
+import Pagination from '@/components/Pagination'
+import { getStandardListApi, delStandardApi, addStandardApi, upDataStandardApi } from '@/api/standard'
+import { getStandardFileListApi, delStandardDFileApi, addStandardFileApi } from '@/api/standardFile'
+export default {
+  components: {
+    Pagination
+  },
+  data() {
+    const validateNull = (rule, value, callback) => {
+      if (value === '') {
+        return callback(new Error('不能为空'))
+      } else {
+        return callback()
+      }
+    }
+    return {
+      rules: {
+        title: [
+          { validator: validateNull, trigger: 'blur' }
+        ],
+        description: [
+          { validator: validateNull, trigger: 'blur' }
+        ],
+        useDate: [
+          { validator: validateNull, trigger: 'blur' }
+        ]
+      },
+      headers: { 'Content-Type': 'multipart/form-data' },
+      tableQuery: {
+        total: 0,
+        page: 1,
+        pageSize: 15,
+        title: ''
+      },
+      standardAddForm: {
+        title: '',
+        description: '',
+        enablePublish: false,
+        useDate: ''
+      },
+      tableData: [],
+      fileData: [],
+      drawer: false,
+      dialog: false,
+      drawer_title: '',
+      data: {
+        title: '',
+        standardId: ''
+      }
+    }
+  },
+  mounted() {
+    this.getStandardList()
+  },
+  methods: {
+    // 文件上传
+    uploadFile(item) {
+      if (this.data.title !== '') {
+        this.$message.success('文件上传中........')
+        const FormDatas = new FormData()
+        FormDatas.append('file', item.file)
+        FormDatas.append('title', this.data.title)
+        FormDatas.append('standardId', this.data.standardId)
+        console.log(FormDatas)
+        addStandardFileApi(FormDatas).then((res) => {
+          if (res && res.status) {
+            this.$message.success(res.message)
+            location.reload()
+          } else {
+            this.$message.warning(res.message)
+          }
+        })
+      } else {
+        this.$message.warning('请填写文件名后在选择文件')
+      }
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val
+    },
+    // 搜索按钮事件
+    search(id, title) {
+      this.drawer = true
+      this.drawer_title = title + '\t 文件管理'
+      this.getStandardFileList(id)
+      this.data.standardId = id
+    },
+    // 编辑按钮事件
+    edit(index) {
+      this.tableData[index].editname = false
+      this.tableData[index].editdesc = false
+      const upData = {
+        id: this.tableData[index].id,
+        title: this.tableData[index].title,
+        description: this.tableData[index].description,
+        enablePublish: this.tableData[index].enablePublish ? 1 : 0,
+        publishDate: this.tableData[index].publishDate,
+        useDate: this.tableData[index].useDate
+      }
+      upDataStandardApi(upData).then((res) => {
+        if (res && res.status) {
+          this.$message.success(res.message)
+        } else {
+          this.$message.warning(res.message)
+        }
+      })
+    },
+    // 获取文档标准列表
+    getStandardList() {
+      getStandardListApi(this.tableQuery).then((res) => {
+        if (res && res.status) {
+          this.tableData = []
+          res.content.rows.forEach(element => {
+            element.editname = false
+            element.editdesc = false
+            element.enablePublish === 1 ? element.enablePublish = true : element.enablePublish = false
+            this.tableData.push(element)
+          })
+          this.tableQuery.total = res.content.total
+        } else {
+          this.$message(res.message)
+        }
+      })
+    },
+    // 删除文档标准
+    delStandard(id) {
+      delStandardApi(id).then((res) => {
+        if (res && res.status) {
+          this.$message('删除成功！')
+          this.getStandardList()
+        } else {
+          this.$message(res.message)
+        }
+      })
+    },
+    // 添加文档标准
+    addStandard() {
+      if (this.standardAddForm.title !== '' && this.standardAddForm.description !== '' && this.standardAddForm.useDate !== '') {
+        addStandardApi().then((res) => {
+          if (res && res.status) {
+            this.$message.success('添加成功！')
+            this.getStandardList()
+          } else {
+            this.$message.error(res.message)
+          }
+        })
+      } else {
+        this.$message.error('表单校验失败')
+      }
+    },
+    // 获取文档标准文件
+    getStandardFileList(id) {
+      getStandardFileListApi(id).then((res) => {
+        if (res && res.status) {
+          this.fileData = res.content
+        } else {
+          this.$message(res.message)
+        }
+      })
+    },
+    // 删除文档标准文件
+    delStandardDFile(standardId, id) {
+      delStandardDFileApi(id).then((res) => {
+        if (res && res.status) {
+          this.$message('删除成功！')
+          this.getStandardFileList(standardId)
+          this.getStandardList()
+        } else {
+          this.$message(res.message)
+        }
+      })
+    }
+  }
+}
+
+</script>
+
+<style lang="scss" scoped>
+.el-header {
+  background-color: #304156;
+  color: #333;
+  line-height: 60px;
+}
+
+.el-aside {
+  color: #333;
+}
+</style>

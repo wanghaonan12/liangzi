@@ -1,0 +1,411 @@
+<template>
+  <div>
+    <el-row :gutter="6" class="search-input">
+      <el-col :span="12">
+        <el-button type="primary" size="small" icon="el-icon-plus" @click="showAddDialog">新增</el-button>
+        <el-button type="primary" size="small" icon="el-icon-delete" @click="deleteImage(selectionIamgeList)"
+          >批量删除</el-button
+        >
+      </el-col>
+    </el-row>
+    <div class="max-box">
+      <div class="box-left">
+        <!-- 图片展示内容 -->
+        <el-table
+          @selection-change="selectionImageChange"
+          height="500px"
+          max-height="500px"
+          ref="multipleTable"
+          :data="imageTableData"
+          :border="true"
+          tooltip-effect="dark"
+          :header-cell-style="{ backgroundColor: '#f2f2f2', color: '#808080' }"
+          style="width: 100%">
+          <el-table-column type="selection" width="55"> </el-table-column>
+          <el-table-column prop="date" label="操作" align="center">
+            <template slot-scope="scope">
+              <el-button
+                @click.native.prevent="editDialog(scope.row)"
+                size="mini"
+                icon="el-icon-edit"
+                circle></el-button>
+              <el-button
+                @click.native.prevent="deleteImage([scope.row.id])"
+                size="mini"
+                icon="el-icon-delete"
+                circle></el-button>
+            </template>
+          </el-table-column>
+          <el-table-column label="缩略图" align="center">
+            <template slot-scope="scope">
+              <el-image style="width: 50px; height: 50px" :src="scope.row.file_path" fit="fill"></el-image>
+            </template>
+          </el-table-column>
+          <el-table-column prop="file_path" align="center" label="图片路径"> </el-table-column>
+          <el-table-column prop="file_name" align="center" label="图片名称"> </el-table-column>
+          <el-table-column prop="file_size" align="center" label="图片大小">
+            <template slot-scope="scope">
+              <span v-text="Math.ceil(scope.row.file_size / 1024) + ' kb'"></span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="create_time" align="center" label="上传日期" sortable> </el-table-column>
+          <el-table-column prop="enable_front" align="center" label="是否为相册封面">
+            <template slot-scope="scope">
+              <span v-text="scope.row.enable_front ? '是' : '否'"></span>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+      <div class="box-right">
+        <div class="box-right-title">
+          <span>相册信息</span>
+          <i class="el-icon-d-arrow-right"></i>
+        </div>
+        <el-image
+          class="img"
+          :src="
+            ablumData.file_path != null
+              ? ablumData.file_path
+              : 'https://chl-bucket.oss-cn-hangzhou.aliyuncs.com/error/null.jpg'
+          "></el-image>
+        <p v-text="'相册名称：' + ablumData.title"></p>
+        <p v-text="'描述：' + ablumData.description"></p>
+        <p v-text="'创建日期：' + ablumData.create_time"></p>
+      </div>
+    </div>
+
+    <!-- 修改图片弹出框 -->
+    <el-dialog append-to-body title="修改图片信息" destroy-on-close :visible.sync="editImageDialog" width="30%">
+      <el-form :model="editImageForm" :rules="rules" ref="editImageForm">
+        <el-form-item label="图片名称" label-width="1" prop="file_name">
+          <el-input v-model="editImageForm.file_name" size="medium" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label-width="1" prop="file_path">
+          <span>修改图片</span>
+          <el-upload class="avatar-uploader" action="#" :on-change="filechange" :show-file-list="false">
+            <img
+              style="width: 173px; height: 173px; border-radius: 6px"
+              v-if="imageUrl"
+              :src="imageUrl"
+              class="avatar" />
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+        </el-form-item>
+        <el-form-item label="是否设为封面" label-width="1" prop="enable_front">
+          <el-select v-model="editImageForm.enable_front" :value="editImageForm.enable_front">
+            <el-option label="是" :value="true"></el-option>
+            <el-option label="否" :value="false"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="editImageDialog = false">取 消</el-button>
+        <el-button type="primary" @click="submitEditImage(editImageForm)">确 定</el-button>
+      </div>
+    </el-dialog>
+    <!-- 新增图片弹窗 -->
+    <el-dialog append-to-body destroy-on-close title="新增图片" :visible.sync="showAddImageDialog" width="60%">
+      <el-form :model="addImageForm" :rules="rules" ref="addImageForm">
+        <el-form-item label="图片名称" label-width="1" prop="file_name">
+          <el-input v-model="addImageForm.file_name" size="medium" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="选择图片" label-width="1" prop="file_path">
+          <el-upload class="avatar-uploader" action="#" :on-change="filechange" :show-file-list="false">
+            <img
+              style="width: 173px; height: 173px; border-radius: 6px"
+              v-if="imageUrl"
+              :src="imageUrl"
+              class="avatar" />
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+        </el-form-item>
+        <el-form-item label="是否设为封面" label-width="1" prop="enable_front">
+          <el-select v-model="addImageForm.enable_front">
+            <el-option label="是" :value="true"></el-option>
+            <el-option label="否" :value="false"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="showAddImageDialog = false">取 消</el-button>
+        <el-button type="primary" @click="submitAddImage(addImageForm)">确 定</el-button>
+      </div>
+    </el-dialog>
+    <pagination
+      layout="total, prev, pager, next, jumper"
+      :total="imageTotal"
+      align="center"
+      :page.sync="pageData.pageIndex"
+      :limit.sync="pageData.pageSize"
+      @pagination="getImagePageData" />
+  </div>
+</template>
+
+<script>
+import { getToken } from '@/utils/auth'
+import Pagination from '@/components/Pagination'
+import { getPageHonorImageList, updateHonorImage, addHonorImage, removeHonorImage } from '@/api/honor'
+import { uploadFiles } from '@/api/file'
+export default {
+  components: {
+    Pagination
+  },
+  props: {
+    ablumData: {
+      type: Object,
+      default() {
+        return {}
+      }
+    }
+  },
+  data() {
+    return {
+      src: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
+      input: '',
+      showAddImageDialog: false,
+      imgForm: {},
+      imageTableData: [],
+      imageTotal: 0,
+      pageData: {
+        pageIndex: 1,
+        pageSize: 5,
+        honorId: 0
+      },
+      editImageDialog: false,
+      editImageForm: {
+        file_name: '',
+        file_path: '',
+        enable_front: false
+      },
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: getToken()
+      },
+      updateImageData: {
+        folder: 'honor'
+      },
+      fileList: [],
+      imageUrl: '',
+      addImageForm: {},
+      selectionIamgeList: [],
+      rules: {
+        file_name: [
+          { required: true, message: '请输入图片名称', trigger: 'input' },
+          { min: 3, max: 200, message: '长度在 3 到 200 个字符', trigger: 'blur' }
+        ],
+        file_path: [{ required: true, message: '请选择图片', trigger: 'change' }],
+
+        enable_front: [{ required: true, message: '请选择是否为封面', trigger: 'change' }]
+      }
+    }
+  },
+  mounted() {
+    // console.log(this.ablumData)
+    this.pageData.honorId = this.ablumData.id
+    this.getImageByAbulumId(this.pageData)
+  },
+  methods: {
+    // 根据相册id获取照片
+    getImageByAbulumId(pageQuery) {
+      getPageHonorImageList(pageQuery).then((res) => {
+        // console.log(res)
+        this.imageTotal = res.content.total
+        this.imageTableData = res.content.rows
+        // console.log(this.imageTableData)
+      })
+    },
+    // 新增图片弹窗
+    showAddDialog() {
+      this.showAddImageDialog = true
+      this.addImageForm = {}
+      this.imageUrl = ''
+    },
+    // 获取页面数据
+    getImagePageData() {
+      // console.log(this.pageData);
+      this.getImageByAbulumId(this.pageData)
+    },
+    // 图片修改
+    editDialog(row) {
+      this.editImageDialog = true
+      this.editImageForm.file_name = row.file_name
+      this.editImageForm.honor_id = this.ablumData.id
+      this.editImageForm.id = row.id
+      this.editImageForm.file_path = row.file_path
+      this.editImageForm.enable_front = row.enable_front
+      this.imageUrl = row.file_path
+    },
+    // 提交图片修改
+    async submitEditImage(editImageForm) {
+      this.$refs['editImageForm'].validate((valid) => {
+        if (valid) {
+          if (this.imageUrl !== editImageForm.file_path) {
+            editImageForm.file_path = this.imageUrl
+          }
+          // console.log(editImageForm)
+          updateHonorImage(editImageForm).then((res) => {
+            // console.log(res)
+            this.getImageByAbulumId(this.pageData)
+            this.editImageDialog = false
+            // this.$parent.getStorageTableData()
+            this.$message({
+              type: 'success',
+              message: '修改成功!'
+            })
+          })
+        }
+      })
+    },
+
+    /* 文件变化 */
+    filechange(file) {
+      const types = ['image/jpeg', 'image/jpg', 'image/png']
+      const isImage = types.includes(file.raw.type)
+      console.log('--------')
+      console.log(isImage)
+
+      if (isImage) {
+        const formData = new FormData()
+        formData.append('files', file.raw)
+        formData.append('folder', 'honor')
+        uploadFiles(formData).then((res) => {
+          console.log(res)
+          this.imageUrl = res.content[0].filePath
+          this.addImageForm.file_path = res.content[0].filePath
+          this.addImageForm.file_name = res.content[0].fileName.replace(/.jpg|.png|.jpeg/g, '')
+        })
+      } else {
+        this.$message.error('上传图片格式错误，格式只能为 png,jpg,jpeg!!')
+        return false
+      }
+    },
+    // 新增图片
+    async submitAddImage(addImageForm) {
+      this.$refs['addImageForm'].validate((valid) => {
+        if (valid) {
+          addImageForm.file_path = this.imageUrl
+          addImageForm.honor_id = this.ablumData.id
+          addHonorImage(addImageForm).then((res) => {
+            // this.getImageByAbulumId(this.pageQuery)
+            this.getImageByAbulumId(this.pageData)
+            this.showAddImageDialog = false
+            this.$message({
+              type: 'success',
+              message: '新增成功!'
+            })
+          })
+        }
+      })
+    },
+
+    // 用户选择处理
+    selectionImageChange(val) {
+      // 表格选项发生变化
+      // console.log('触发表格事件')
+      this.selectionIamgeList = []
+      val.forEach((element) => {
+        this.selectionIamgeList.push(element.id)
+      })
+    },
+    // 删除图片
+    deleteImage(ids) {
+      console.log(ids)
+      this.$confirm('请确认是否删除?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(() => {
+          removeHonorImage(ids).then((res) => {
+            console.log(res)
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+            this.getImagePageData()
+          })
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.avatar-uploader {
+  border: 1px dashed #cecdcd;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  width: 178px;
+  height: 178px;
+  display: block;
+  padding-top: 1px;
+  padding-left: 1px;
+  // .img {
+  //   width: 100px;
+  //   height: 100px;
+
+  // }
+}
+.avatar-uploader:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.max-box {
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+
+  .box-right {
+    overflow: hidden;
+    display: inline-block;
+    width: 20%;
+    height: 500px;
+    box-shadow: 0px 0px 11px 1px #ccc;
+    border: 6px none;
+    border-left-style: double;
+    border-left-color: #c4ccd4;
+    border-right-style: none;
+    border-right-color: #c4ccd4;
+    border-top-style: double;
+    border-top-color: #c4ccd4;
+    padding: 2px;
+    font-size: 12px;
+    .box-right-title {
+      display: flex;
+      justify-content: space-between;
+      background: #e9f1f6;
+      box-shadow: 0px 0px 5px 1px #ccc;
+      font-size: 15px;
+    }
+    .img {
+      width: 100px;
+      height: 100px;
+      margin: 5px;
+      margin-top: 10px;
+      box-shadow: 0px 0px 11px 1px #ccc;
+      border: 2px double #c4ccd4;
+      padding-right: 1px;
+      padding-bottom: 1px;
+    }
+  }
+  .box-left {
+    display: inline-block;
+    width: 80%;
+  }
+}
+</style>

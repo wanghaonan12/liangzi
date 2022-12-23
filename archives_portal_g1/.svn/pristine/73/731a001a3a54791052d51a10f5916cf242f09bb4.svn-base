@@ -1,0 +1,12 @@
+package com.pde.pdes.portal.honor.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.pde.pdes.portal.honor.po.HonorPO;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
+
+@Mapper
+public interface HonorMapper extends BaseMapper<HonorPO> {
+    List<HonorPO> selectAll();
+}

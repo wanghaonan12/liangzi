@@ -1,0 +1,18 @@
+package com.pde.pdes.portal.honor.service;
+
+import com.pde.pdes.portal.honor.dto.HonorDTO;
+import com.pde.pdes.portal.honor.dto.QueryDTO;
+import com.pde.pdes.portal.honor.po.HonorPO;
+
+import java.util.List;
+
+public interface HonorService {
+    Boolean addHonor(HonorDTO dto);
+
+    boolean removeById(Integer[] ids);
+
+    boolean update(HonorPO po);
+
+
+    List<HonorPO> find(String title);
+}

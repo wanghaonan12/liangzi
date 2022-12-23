@@ -1,0 +1,113 @@
+package com.pde.pdes.portal.honor.service.impl;
+
+import com.pde.pdes.portal.chronicle.dto.PublishDto;
+import com.pde.pdes.portal.honor.dto.HonorDTO;
+import com.pde.pdes.portal.honor.dto.HonorFileDTO;
+import com.pde.pdes.portal.honor.dto.PublishHonorDTO;
+import com.pde.pdes.portal.honor.dto.QueryDTO;
+import com.pde.pdes.portal.honor.service.HonorService;
+import org.junit.Before;
+import org.junit.jupiter.api.Test;
+import org.springframework.util.Assert;
+
+import javax.annotation.Resource;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * @Author chl
+ * @Description TODO
+ * @Date 2022/12/12 9:43
+ * @Version 1.0
+ */
+class HonorServiceImplTest {
+
+    @Resource
+    private HonorService honorService;
+//
+//    @Before
+//    void testBefore() {
+//        HonorDTO honorDTO = HonorDTO.builder()
+//                .id(1)
+//                .title("单元测试")
+//                .description("单元测试")
+//                .enable_publish(true)
+//                .build();
+//        HonorFileDTO honorFileDTO = HonorFileDTO.builder()
+//                .honor_id(2)
+//                .enable_front(true)
+//                .file_name("单元测试")
+//                .file_path("测试")
+//                .id(1)
+//                .build();
+//        QueryDTO queryDTO = QueryDTO.builder()
+//                .pageNum(1)
+//                .pageSize(5)
+//                .title("测试")
+//                .build();
+//        List<Integer> ids = new ArrayList<>();
+//        ids.add(1);
+//        PublishHonorDTO publishHonorDTO = PublishHonorDTO.builder()
+//                .ids(ids)
+//                .enable_publish(true)
+//                .build();
+//    }
+
+    @Test
+    void addHonor() {
+        HonorDTO honorDTO = HonorDTO.builder()
+                .title("单元测试")
+                .description("单元测试")
+                .enable_publish(true)
+                .build();
+        Boolean aBoolean = honorService.addHonor(honorDTO);
+        Assert.isTrue(aBoolean);
+    }
+
+    @Test
+    void removeById() {
+    }
+
+    @Test
+    void update() {
+    }
+
+    @Test
+    void findImage() {
+    }
+
+    @Test
+    void findHonorAlbum() {
+    }
+
+    @Test
+    void publishHonor() {
+    }
+
+    @Test
+    void addImage() {
+    }
+
+    @Test
+    void findPageImage() {
+    }
+
+    @Test
+    void updateImage() {
+    }
+
+    @Test
+    void removeImageById() {
+    }
+
+    @Test
+    void getCoverList() {
+    }
+
+    @Test
+    void getPublishList() {
+    }
+}

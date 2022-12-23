@@ -1,0 +1,70 @@
+package com.pde.pdes.portal.standard.controlller;
+
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.pde.pdes.portal.Constants.Constants;
+import com.pde.pdes.portal.company.po.CompanyPO;
+import com.pde.pdes.portal.standard.dto.PageQuery;
+import com.pde.pdes.portal.standard.dto.StandardDto;
+import com.pde.pdes.portal.standard.dto.StandardFileDto;
+import com.pde.pdes.portal.standard.po.Standard;
+import com.pde.pdes.portal.standard.po.StandardFile;
+import com.pde.pdes.portal.standard.service.StandardFileService;
+import com.pde.pdes.portal.standard.service.StandardService;
+import com.pde.pdes.portal.vo.SimpleResponse;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.async.WebAsyncTask;
+
+import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author wangRich
+ */
+@RestController
+@Api(tags = {"公司信息DEMO服务"})
+@RequestMapping("/standardFile")
+public class StandardFileController {
+
+    @Autowired
+    private StandardFileService standardFileService;
+
+    @PostMapping("/add")
+    @ApiOperation(value = "添加")
+    public WebAsyncTask<SimpleResponse<?>> addStandard(@Valid @RequestBody StandardFileDto standardFileDto) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            return new SimpleResponse<Boolean>(standardFileService.add(standardFileDto));
+        });
+    }
+
+    @DeleteMapping("/delete/{id}")
+    @ApiOperation(value = "删除")
+    public WebAsyncTask<SimpleResponse<?>> removeStandardById(@PathVariable(name = "id", required = true) List<Integer> id) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            return new SimpleResponse<Boolean>(standardFileService.deleteByIds(id));
+        });
+    }
+
+    @PostMapping("/upData/")
+    @ApiOperation(value = "standard更新")
+    public WebAsyncTask<SimpleResponse<?>> upData(@Valid @RequestBody StandardFile standardFile) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            return new SimpleResponse<StandardFile>(standardFileService.update(standardFile));
+        });
+    }
+
+    @GetMapping("/getByStandardId/{id}")
+    @ApiOperation(value = "根据ID获取Standard")
+    public WebAsyncTask<SimpleResponse<?>> findStandardById(@PathVariable(name = "id", required = true) Integer id) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            return new SimpleResponse<List<StandardFile>>(standardFileService.getFileStandardById(id));
+        });
+    }
+
+
+}

@@ -1,0 +1,120 @@
+<template>
+  <div class="body">
+    <el-container class="centerContent">
+      <el-header>
+        <h2>{{ chronicle.title }}</h2>
+      </el-header>
+      <el-main>
+        {{ chronicle.content }}
+        <!-- <p><img :src="imgUrl" alt="" style="width: 80%; height: 80%; margin-top: 80px" /></p> -->
+        <template>
+          <template>
+            <el-carousel type="card" :interval="3000" v-show="isImg">
+              <el-carousel-item v-for="(img, index) in chronicleFileImg" :key="index">
+                <img :src="img" width="100%" height="100%" />
+              </el-carousel-item>
+            </el-carousel>
+          </template>
+        </template>
+      </el-main>
+
+      <template>
+        <div class="centerList">
+          <li v-for="item in chronicleFile" :key="item" class="listLeft">
+            {{ '附件：' + item.fileName }}
+
+            <el-link target="_blank" :href="item.filePath" :underline="false" style="margin-left: 15px">
+              <el-button size="mini" type="primary">附件下载</el-button>
+            </el-link>
+          </li>
+        </div>
+      </template>
+    </el-container>
+  </div>
+</template>
+<script>
+import { getChronicleById, getChronicleFileByChronicleId } from '@/api/chronicle'
+export default {
+  data() {
+    return {
+      chronicle: {},
+      chronicleFile: [],
+      chronicleFileImg: [],
+      chronicleFileText: [],
+      isImg: false,
+      downurl: 'http://www.patrickstarm.top:9090/pde-file/chronicle/d0fefb3e-33f7-4099-9619-7e696522787e.null',
+      imgUrl: 'http://uplaod-189989.oss-cn-hangzhou.aliyuncs.com/meeting.jpg'
+    }
+  },
+  created() {
+    this.getInfo()
+    this.getFileById()
+  },
+  methods: {
+    getInfo() {
+      getChronicleById(this.$route.params.id).then((result) => {
+        console.log(result)
+        this.chronicle = result.content
+        console.log(this.chronicle.id)
+      })
+    },
+    async getFileById() {
+      var reg = /(jpg|bmp|gif|ico|pcx|jpeg|tif|png|raw|tga)$/
+      const res = await getChronicleFileByChronicleId(this.$route.params.id)
+      console.log(res)
+      this.chronicleFile = res.content
+      this.chronicleFile.forEach((val) => {
+        if (reg.test(val.fileSuffix)) {
+          this.isImg = true
+          this.chronicleFileImg.push(val.filePath)
+          console.log('---------------')
+          console.log(this.chronicleFileImg)
+        } else {
+          console.log('不是图片格式,支持下载')
+          this.chronicleFileText.push(val.filePath)
+          // this.isImg = false
+          console.log('---------------')
+          console.log(this.chronicleFileText)
+        }
+      })
+    }
+  }
+}
+</script>
+<style scoped>
+.body {
+  background-image: url('http://uplaod-189989.oss-cn-hangzhou.aliyuncs.com/background.jpg');
+}
+.listLeft {
+  text-align: left;
+}
+.centerList {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 18px;
+  opacity: 0.75;
+  line-height: 300px;
+  margin: 0;
+}
+
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
+}
+.centerContent {
+  margin-left: 15%;
+  margin-right: 15%;
+  text-align: center;
+  background-color: #94b1b1ef;
+  color: #333;
+  line-height: 60px;
+  height: 800px;
+}
+</style>

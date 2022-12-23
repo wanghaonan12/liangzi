@@ -1,0 +1,143 @@
+<template>
+  <div class="wrapper">
+    <el-row class="table-toolbar">
+      <div class="left">
+        <el-input v-model="tableQuery.searchText" placeholder="请输入检索关键字" size="mini" class="search-input" />
+        <el-button size="mini" type="primary" @click="getVideoTableData">检索</el-button>
+      </div>
+      <div class="right">
+        <el-button size="mini" type="primary">新增</el-button>
+        <el-button size="mini" type="primary" @click="onDelButtonClick">删除</el-button>
+      </div>
+    </el-row>
+    <el-table :data="tableData" border stripe size="mini" style="width: 100%" height="660" @select="onSelectionChange">
+      <el-table-column type="selection" />
+      <el-table-column type="index" label="序号" width="80">
+        <template slot-scope="{ $index }">
+          <span>{{ (tableQuery.pageNum - 1) * tableQuery.pageSize + $index + 1 }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="title" label="标题" width="180" />
+      <el-table-column prop="description" label="描述" width="180" />
+      <el-table-column prop="front_path" label="封面" width="600"></el-table-column>
+      <el-table-column prop="enable_publish" label="是否发布">
+        <template slot-scope="{ row }">
+          <span>{{ row.enable_publish | enablePublishFilter }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="memo" label="操作" width="100">
+        <template slot-scope="{ row }">
+          <el-button type="text" size="medium" @click="onModifyButtonClick(row)">编辑</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <pagination
+      v-show="tableQuery.total > 0"
+      layout="total, prev, pager, next, jumper"
+      :total="tableQuery.total"
+      :page.sync="tableQuery.page"
+      :limit.sync="tableQuery.size"
+      @pagination="getVideoTableData" />
+    <modify-dialog ref="modifyDialog" @refreshTableData="getVideoTableData" />
+  </div>
+</template>
+
+<script>
+import { getVideoListApi } from '@/api/videoManagement'
+import Pagination from '@/components/Pagination'
+import ModifyDialog from '@/views/storageManagement/components/ModifyDialog'
+
+export default {
+  components: {
+    Pagination,
+    ModifyDialog
+  },
+  data() {
+    return {
+      tableQuery: {
+        total: 0,
+        pageNum: 1,
+        pageSize: 15,
+        searchText: ''
+      },
+      tableData: [],
+      tableSelection: []
+    }
+  },
+  mounted() {
+    this.getVideoTableData()
+  },
+  methods: {
+    async getVideoTableData() {
+      const res = await getVideoListApi(this.tableQuery)
+      console.log(res)
+      if (res && res.status) {
+        this.tableData = res.content.data
+        this.tableQuery.total = res.content.total
+      } else {
+        this.$message(res.message)
+      }
+    },
+    onSelectionChange(s, row) {
+      this.tableSelection = s
+    },
+    onModifyButtonClick(row) {
+      this.$refs.modifyDialog.showDialog(row, 'edit')
+    },
+    onDelButtonClick() {
+      if (!this.tableSelection.length) {
+        this.$message('请勾选条目')
+        return
+      }
+      this.$confirm('确定执行该操作吗？', '确认')
+        .then((r) => {
+          let ids = []
+          const tableSelection = this.tableSelection
+          tableSelection.map((item) => {
+            ids.push(item.id)
+          })
+          delStorageListApi({ ids }).then((res) => {
+            if (res && res.status) {
+              this.$message('删除成功')
+              this.getVideoTableData()
+            } else {
+              this.$message(res.message)
+            }
+          })
+        })
+        .catch()
+    }
+  },
+  filters: {
+    // defaultUploadFilter: function (value) {
+    //   return value % 2 ? '是' : '否'
+    // },
+    enablePublishFilter: function (value) {
+      return value % 2 ? '是' : '否'
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.wrapper {
+  padding: 10px 18px;
+
+  .table-toolbar {
+    margin-bottom: 10px;
+
+    .left {
+      float: left;
+
+      .search-input {
+        width: 210px;
+        margin-right: 10px;
+      }
+    }
+
+    .right {
+      float: right;
+    }
+  }
+}
+</style>

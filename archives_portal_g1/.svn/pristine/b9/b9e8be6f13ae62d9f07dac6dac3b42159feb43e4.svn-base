@@ -1,0 +1,13 @@
+package com.pde.pdes.portal.notify.service;
+
+import com.pde.pdes.portal.notify.po.PortalNotifyFile;
+import com.baomidou.mybatisplus.extension.service.IService;
+
+/**
+* @author jiangyiheng
+* @description 针对表【pdes_portal_notify_file(通知公告附件)】的数据库操作Service
+* @createDate 2022-11-30 09:59:12
+*/
+public interface PortalNotifyFileService extends IService<PortalNotifyFile> {
+
+}

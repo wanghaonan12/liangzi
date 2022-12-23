@@ -1,0 +1,23 @@
+/** When your routing table is too long, you can split it into small modules **/
+
+import Layout from '@/layout'
+
+const chronicleManagementRouter = {
+  path: '/chronicle-management',
+  component: Layout,
+  redirect: '/chronicle-management/index',
+  name: 'ChronicleManagerment',
+  meta: {
+    title: '档案大事记',
+    icon: 'form'
+  },
+  children: [
+    {
+      path: 'index',
+      component: () => import('@/views/chronicleManagement/index'),
+      name: 'ChronicleManagementIndex',
+      meta: { title: '档案大事记' }
+    }
+  ]
+}
+export default chronicleManagementRouter

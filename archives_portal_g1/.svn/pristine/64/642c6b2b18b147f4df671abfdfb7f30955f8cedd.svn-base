@@ -1,0 +1,75 @@
+package com.pde.pdes.portal.notify.controller;
+
+import com.pde.pdes.portal.Constants.Constants;
+import com.pde.pdes.portal.notify.mapper.PortalNotifyMapper;
+import com.pde.pdes.portal.notify.po.PortalNotify;
+import com.pde.pdes.portal.notify.po.PortalNotifyFile;
+import com.pde.pdes.portal.notify.service.PortalNotifyFileService;
+import com.pde.pdes.portal.notify.service.PortalNotifyService;
+import com.pde.pdes.portal.vo.SimpleResponse;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.async.WebAsyncTask;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+
+/**
+ * @author jiangyiheng
+ * @date 2022-12-09 9:21
+ */
+
+@RestController
+@Api(tags = {"公告新闻附件服务"})
+@RequestMapping("/")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+public class PortalNotifyFileController {
+
+    private final PortalNotifyService portalNotifyService;
+
+    private final PortalNotifyFileService portalNotifyFileServiceImpl;
+
+    @GetMapping("/notify/file/select/{notifyId}")
+    @ApiOperation("查询对应文章公告的附件")
+    public WebAsyncTask<SimpleResponse<?>> deleteById(@PathVariable(name = "notifyId", required = true) Integer notifyId) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            if (portalNotifyService.selectById(notifyId) == null) {
+                return new SimpleResponse<>(false, "没有此条公告");
+            }
+            List<PortalNotifyFile> notifyFiles = portalNotifyFileServiceImpl.selectPortalNotifyFileByNotifyId(notifyId);
+            return new SimpleResponse<>(true, "执行成功", notifyFiles);
+        });
+    }
+
+
+    @PostMapping("/notify/file/add")
+    @ApiOperation("对于公告附件的添加")
+    public WebAsyncTask<SimpleResponse<?>> addFile(MultipartFile file, @RequestParam(name = "notifyId", required = true) Integer notifyId) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            if (portalNotifyService.selectById(notifyId) == null) {
+                return new SimpleResponse<>(false, "没有此条公告");
+            }
+            Integer insert = portalNotifyFileServiceImpl.addPortalNotifyFile(notifyId, file);
+            return insert >= 1 ? new SimpleResponse<>(true, "执行新增成功") : new SimpleResponse<>(false, "执行新增失败");
+        });
+    }
+
+    @DeleteMapping("/notify/file/delete/{id}")
+    @ApiOperation("对于公告附件的删除")
+    public WebAsyncTask<SimpleResponse<?>> addFile(@PathVariable(name = "id", required = true) Integer id) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            return portalNotifyFileServiceImpl.deletePortalNotifyFileById(id) ? new SimpleResponse<>(true, "执行删除成功") : new SimpleResponse<>(false, "执行删除失败");
+        });
+    }
+
+    @GetMapping("/notify/photo/select/{num}")
+    @ApiOperation("轮播图的查询")
+    public WebAsyncTask<SimpleResponse<?>> selectPhoto(@PathVariable(name = "num", required = true) Integer num) {
+        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+            return new SimpleResponse<>(true, "执行成功", portalNotifyFileServiceImpl.selectPortalNotifyFileByJPG(num));
+        });
+    }
+}

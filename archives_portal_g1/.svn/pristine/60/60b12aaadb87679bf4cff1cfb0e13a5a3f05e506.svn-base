@@ -1,0 +1,14 @@
+package com.pde.pdes.portal.chronicle.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.pde.pdes.portal.chronicle.po.PdesPortalChronicleEvents;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Update;
+
+import java.util.List;
+
+@Mapper
+public interface PdesPortalChronicleEventsMapper extends BaseMapper<PdesPortalChronicleEvents>{
+//    @Update("UPDATE pdes_portal_chronicle_events SET enable_publish = #{isPublished} WHERE id IN (#{ids})")
+    boolean publishByIds(Boolean isPublished, List<Integer> ids);
+}

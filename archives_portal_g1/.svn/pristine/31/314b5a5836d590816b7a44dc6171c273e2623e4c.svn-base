@@ -1,0 +1,24 @@
+/** When your routing table is too long, you can split it into small modules **/
+
+import Layout from '@/layout'
+
+const picManagementRouter = {
+  path: '/pic-management',
+  component: Layout,
+  redirect: '/pic-management/index',
+  name: 'PicManagement',
+  meta: {
+    title: '图片管理',
+    icon: 'form'
+  },
+  children: [
+    {
+      path: 'index',
+      component: () => import('@/views/picManagement'),
+      name: 'PicManagementIndex',
+      meta: { title: '图片管理' }
+    }
+  ]
+}
+
+export default picManagementRouter

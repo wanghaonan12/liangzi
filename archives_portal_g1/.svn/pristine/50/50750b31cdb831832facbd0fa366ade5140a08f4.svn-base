@@ -1,0 +1,107 @@
+import request from '@/utils/request'
+
+// 获取首页轮播图
+export function getHomepage() {
+  return request({
+    url: '/v1/honor/homepage',
+    method: 'get'
+  })
+}
+
+// 获取所有相册
+export function getHonorAblumList(data) {
+  return request({
+    url: '/v1/honor/get',
+    method: 'post',
+    data: data
+  })
+}
+// 获取发布相册
+export function getPublishHonorAblumList(data) {
+  return request({
+    url: '/honor/get',
+    method: 'post',
+    data: data
+  })
+}
+
+// 新增相册
+export function addHonorAblum(data) {
+  return request({
+    url: '/honor/add',
+    method: 'post',
+    data: data
+  })
+}
+// 删除相册信息
+export function removeHonorAblum(data) {
+  return request({
+    url: '/honor/remove',
+    method: 'delete',
+    data: data
+  })
+}
+
+// 更新相册信息
+export function updateHonorAblum(data) {
+  return request({
+    url: '/honor/update',
+    method: 'put',
+    data: data
+  })
+}
+
+// 操作发布相册
+export function publishHonorAblum(data) {
+  return request({
+    url: '/honor/publish',
+    method: 'put',
+    data: data
+  })
+}
+
+// 分页查询相册相片
+export function getPageHonorImageList(params) {
+  return request({
+    url: '/v1/honorImage/get',
+    method: 'get',
+    params: params
+  })
+}
+
+
+// 查询相册相片
+export function getHonorImageList(params) {
+  return request({
+    url: '/honorImage/get',
+    method: 'get',
+    params: params
+  })
+}
+
+// 更新相册相片
+export function updateHonorImage(data) {
+  return request({
+    url: '/honorImage/update',
+    method: 'put',
+    data: data
+  })
+}
+
+// 新增相册相片
+export function addHonorImage(data) {
+  return request({
+    url: '/honorImage/add',
+    method: 'post',
+    data: data
+  })
+}
+
+// 删除相册相片
+export function removeHonorImage(data) {
+  return request({
+    url: '/honorImage/remove',
+    method: 'delete',
+    data: data
+  })
+}

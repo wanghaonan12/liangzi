@@ -1,0 +1,24 @@
+/** When your routing table is too long, you can split it into small modules **/
+
+import Layout from '@/layout'
+
+const noticeManagementRouter = {
+  path: '/notice-management',
+  component: Layout,
+  redirect: '/notice-management/index',
+  name: 'NoticeManagement',
+  meta: {
+    title: '通知公告管理',
+    icon: 'form'
+  },
+  children: [
+    {
+      path: 'index',
+      component: () => import('@/views/noticeManagement'),
+      name: 'noticeManagementIndex',
+      meta: { title: '通知公告管理' }
+    }
+  ]
+}
+
+export default noticeManagementRouter

@@ -1,0 +1,89 @@
+package com.pde.pdes.portal.chronicle.po;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
+
+import java.io.Serializable;
+
+import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
+
+/**
+* 档案大事记
+* @author SYKCOMPUTER
+ * @TableName pdes_portal_chronicle_events
+*/
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ApiModel(value = "文档大事记", description = "文档大事记")
+@TableName("pdes_portal_chronicle_events")
+public class PdesPortalChronicleEvents  {
+
+    /**
+    * 主键;文章ID
+    */
+    @ApiModelProperty("id")
+    @TableId(value = "id",type = IdType.AUTO)
+    private Integer id;
+
+    /**
+    * 标题
+    */
+    @NotBlank(message="[标题]不能为空")
+    @Size(max= 255,message="编码长度不能超过255")
+    @ApiModelProperty("标题")
+    @Length(max= 255,message="编码长度不能超过255")
+    private String title;
+    /**
+    * 内容
+    */
+    @NotBlank(message="[内容]不能为空")
+    @ApiModelProperty("内容")
+    @TableField(value = "content")
+    private String content;
+    /**
+    * 摘要
+    */
+    @Size(max= 300,message="编码长度不能超过300")
+    @ApiModelProperty("摘要")
+    @Length(max= 300,message="编码长度不能超过300")
+    @TableField(value = "content_abstract")
+    private String contentAbstract;
+    /**
+    * 启用发布;0=待发布，1=已发布
+    */
+    @NotNull(message="[启用发布;0=待发布，1=已发布]不能为空")
+    @ApiModelProperty("启用发布;0=待发布，1=已发布")
+    @TableField(value = "enable_publish")
+    private Integer enablePublish;
+    /**
+    * 创建时间
+    */
+    @NotNull(message="[创建时间]不能为空")
+    @ApiModelProperty("创建时间")
+    @TableField(fill = FieldFill.INSERT, value = "create_time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
+    /**
+    * 修改时间
+    */
+    @ApiModelProperty("修改时间")
+    @TableField(fill = FieldFill.INSERT_UPDATE,value = "modified_time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date modifiedTime;
+
+}

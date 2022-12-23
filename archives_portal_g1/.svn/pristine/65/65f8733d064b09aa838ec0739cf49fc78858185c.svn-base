@@ -1,0 +1,67 @@
+2022-11-28 17:51:30.810 812  [main] INFO  - Starting Application on TianHaoPC with PID 35852 (D:\StudyWork\code\lzwy\pdes-portal\trunk\pdes-portal\target\classes started by Tian_Hao in D:\StudyWork\code\lzwy\pdes-portal\trunk\pdes-portal)
+2022-11-28 17:51:30.813 815  [main] DEBUG - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+2022-11-28 17:51:30.813 815  [main] INFO  - No active profile set, falling back to default profiles: default
+2022-11-28 17:51:32.343 2345 [main] INFO  - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-28 17:51:32.668 2670 [main] INFO  - Tomcat initialized with port(s): 8088 (http)
+2022-11-28 17:51:32.678 2680 [main] INFO  - Starting service [Tomcat]
+2022-11-28 17:51:32.679 2681 [main] INFO  - Starting Servlet engine: [Apache Tomcat/9.0.30]
+2022-11-28 17:51:32.681 2683 [main] INFO  - Loaded APR based Apache Tomcat Native library [1.2.31] using APR version [1.7.0].
+2022-11-28 17:51:32.681 2683 [main] INFO  - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2022-11-28 17:51:32.682 2684 [main] INFO  - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2022-11-28 17:51:32.710 2712 [main] INFO  - OpenSSL successfully initialized [OpenSSL 1.1.1l  24 Aug 2021]
+2022-11-28 17:51:32.876 2878 [main] INFO  - Initializing Spring embedded WebApplicationContext
+2022-11-28 17:51:32.876 2878 [main] INFO  - Root WebApplicationContext: initialization completed in 1973 ms
+2022-11-28 17:51:33.072 3074 [main] INFO  - Init DruidDataSource
+2022-11-28 17:51:33.248 3250 [main] INFO  - {dataSource-1} inited
+2022-11-28 17:51:33.943 3945 [main] INFO  - Initializing ExecutorService
+2022-11-28 17:51:33.946 3948 [main] INFO  - Initializing ExecutorService 'PdeDefaultThreadPool'
+2022-11-28 17:51:33.969 3971 [main] INFO  - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2022-11-28 17:51:34.269 4271 [main] INFO  - Context refreshed
+2022-11-28 17:51:34.286 4288 [main] INFO  - Found 1 custom documentation plugin(s)
+2022-11-28 17:51:34.316 4318 [main] INFO  - Scanning for api listing references
+2022-11-28 17:51:34.486 4488 [main] INFO  - Tomcat started on port(s): 8088 (http) with context path ''
+2022-11-28 17:51:34.489 4491 [main] INFO  - Started Application in 4.334 seconds (JVM running for 5.517)
+2022-11-28 17:51:45.808 15810 [SpringContextShutdownHook] INFO  - Shutting down ExecutorService 'PdeDefaultThreadPool'
+2022-11-28 17:51:45.809 15811 [SpringContextShutdownHook] INFO  - {dataSource-1} closed
+2022-11-28 17:52:09.948 541  [main] INFO  - Starting Application on TianHaoPC with PID 35644 (D:\StudyWork\code\lzwy\pdes-portal\trunk\pdes-portal\target\classes started by Tian_Hao in D:\StudyWork\code\lzwy\pdes-portal\trunk\pdes-portal)
+2022-11-28 17:52:09.950 543  [main] DEBUG - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+2022-11-28 17:52:09.951 544  [main] INFO  - No active profile set, falling back to default profiles: default
+2022-11-28 17:52:10.265 858  [main] WARN  - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.pde.Application]; nested exception is java.io.FileNotFoundException: class path resource [org/springframework/security/authentication/AuthenticationProvider.class] cannot be opened because it does not exist
+2022-11-28 17:52:10.268 861  [main] INFO  - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-11-28 17:52:10.274 867  [main] ERROR - Application run failed
+org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.pde.Application]; nested exception is java.io.FileNotFoundException: class path resource [org/springframework/security/authentication/AuthenticationProvider.class] cannot be opened because it does not exist
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:184)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:319)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:236)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:275)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:95)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:706)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:532)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:141)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:747)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1215)
+	at com.pde.Application.main(Application.java:15)
+Caused by: java.io.FileNotFoundException: class path resource [org/springframework/security/authentication/AuthenticationProvider.class] cannot be opened because it does not exist
+	at org.springframework.core.io.ClassPathResource.getInputStream(ClassPathResource.java:180)
+	at org.springframework.core.type.classreading.SimpleMetadataReader.getClassReader(SimpleMetadataReader.java:56)
+	at org.springframework.core.type.classreading.SimpleMetadataReader.<init>(SimpleMetadataReader.java:50)
+	at org.springframework.core.type.classreading.SimpleMetadataReaderFactory.getMetadataReader(SimpleMetadataReaderFactory.java:103)
+	at org.springframework.boot.type.classreading.ConcurrentReferenceCachingMetadataReaderFactory.createMetadataReader(ConcurrentReferenceCachingMetadataReaderFactory.java:86)
+	at org.springframework.boot.type.classreading.ConcurrentReferenceCachingMetadataReaderFactory.getMetadataReader(ConcurrentReferenceCachingMetadataReaderFactory.java:73)
+	at org.springframework.core.type.classreading.SimpleMetadataReaderFactory.getMetadataReader(SimpleMetadataReaderFactory.java:81)
+	at org.springframework.context.annotation.ConfigurationClassParser.asSourceClass(ConfigurationClassParser.java:686)
+	at org.springframework.context.annotation.ConfigurationClassParser$SourceClass.getInterfaces(ConfigurationClassParser.java:1007)
+	at org.springframework.context.annotation.ConfigurationClassParser.processInterfaces(ConfigurationClassParser.java:378)
+	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:326)
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:245)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:194)
+	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:298)
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:245)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:202)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:170)
+	... 13 common frames omitted

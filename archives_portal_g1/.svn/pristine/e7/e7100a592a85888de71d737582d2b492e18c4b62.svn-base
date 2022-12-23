@@ -1,0 +1,54 @@
+import request from '@/utils/request'
+
+// 查询全部列表
+export function getStandardListApi(data) {
+  return request({
+    url: '/standard/findAll',
+    method: 'post',
+    data
+  })
+}
+
+// 查询展示列表
+export function getShowStandardListApi(data) {
+  return request({
+    url: '/standard/findShow',
+    method: 'post',
+    data
+  })
+}
+
+// 添加列表
+export function addStandardApi(data) {
+  return request({
+    url: `/standard/add`,
+    method: 'post',
+    data
+  })
+}
+
+// 删除条目
+export function delStandardApi(id) {
+  return request({
+    url: `/standard/delete/` + id,
+    method: 'delete'
+  })
+}
+
+// 批量删除条目
+export function delStandardsApi(data) {
+  return request({
+    url: `/standard/deletes`,
+    method: 'post',
+    data
+  })
+}
+
+// 更新条目
+export function upDataStandardApi(data) {
+  return request({
+    url: `/standard/upData`,
+    method: 'post',
+    data
+  })
+}

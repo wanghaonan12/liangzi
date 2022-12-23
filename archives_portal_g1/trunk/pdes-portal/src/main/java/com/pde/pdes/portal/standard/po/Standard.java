@@ -1,0 +1,76 @@
+package com.pde.pdes.portal.standard.po;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
+
+import java.io.Serializable;
+
+import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
+import lombok.Data;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
+
+/**
+* 标准;
+* @author wangRich
+ * @TableName pdes_portal_standard
+*/
+@Builder
+@Data
+@TableName("pdes_portal_standard")
+public class Standard implements Serializable {
+
+    private static final long serialVersionUID = -1589455486711384893L;
+    /**
+    * 主键
+    */
+    @ApiModelProperty("主键")
+    @TableId(value = "id",type = IdType.AUTO)
+    private Integer id;
+    /**
+    * 名称
+    */
+    @NotBlank(message="[名称]不能为空")
+    @Size(max= 128,message="编码长度不能超过128")
+    @ApiModelProperty("名称")
+    @Length(max= 128,message="编码长度不能超过128")
+    private String title;
+    /**
+    * 描述
+    */
+    @Size(max= 128,message="编码长度不能超过128")
+    @ApiModelProperty("描述")
+    @Length(max= 128,message="编码长度不能超过128")
+    private String description;
+    /**
+    * 启用发布;0待发布;1已发布
+    */
+    @NotNull(message="[启用发布;0待发布;1已发布]不能为空")
+    @ApiModelProperty("启用发布;0待发布;1已发布")
+    @TableField(value="enable_publish")
+    private Integer enablePublish;
+    /**
+    * 发布日期
+    */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @NotNull(message="[发布日期]不能为空")
+    @ApiModelProperty("发布日期")
+    @TableField(value="publish_date")
+    private Date publishDate;
+    /**
+    * 实施日期
+    */
+    @TableField(fill = FieldFill.INSERT_UPDATE,value = "use_date")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @NotNull(message="[实施日期]不能为空")
+    @ApiModelProperty("实施日期")
+    private Date useDate;
+
+}

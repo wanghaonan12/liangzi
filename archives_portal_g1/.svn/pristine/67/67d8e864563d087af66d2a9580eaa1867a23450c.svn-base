@@ -1,0 +1,114 @@
+package com.pde.pdes.portal.vo;
+
+import java.io.Serializable;
+
+
+/**
+ * @author wzheng
+ * 简单请求返回对象
+ */
+
+public class SimpleResponse<T> implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
+	public SimpleResponse(){
+		//空构造器，用于feign传输
+		this.status = true;
+		this.message = "nothing";
+	}
+
+	public SimpleResponse(T content){
+		this.content = content;
+	}
+
+	public SimpleResponse(boolean status){
+		this.status = status;
+		this.message = "";
+	}
+
+	public SimpleResponse(T content, String message){
+		this.content = content;
+		this.message = message;
+	}
+	
+	public SimpleResponse(boolean status, String message) {
+		this.status = status;
+		this.message = message;
+	}
+
+	public SimpleResponse(boolean status, String message, T content){
+		this.content = content;
+		this.status = status;
+		this.message = message;
+	}
+	
+	public SimpleResponse(boolean status, String message, T content, String code){
+		this.content = content;
+		this.status = status;
+		this.message = message;
+		this.code = code;
+	}
+	
+	
+	/**
+	 * "返回内容"
+	 */
+	private T content;
+
+	
+	/**
+	 * "执行状态 true成功 false失败"
+	 */
+	private boolean status = true;
+	
+	
+	/**
+	 * "执行结果描述"
+	 */
+	private String message = "执行成功";
+	
+	
+	/**
+	 * "执行结果内部代码"
+	 */
+	private String code = "PDE-200";
+
+	
+	public T getContent() {
+		return content;
+	}
+
+	public void setContent(T content) {
+		this.content = content;
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getCode() {
+		if(this.code.equals("PDE-200") && !this.status){
+			return "PDE-ERR-000";
+		}
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+
+}

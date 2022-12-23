@@ -1,0 +1,95 @@
+<template>
+  <div>
+    <!-- 荣誉档案 -->
+    <div class="honour-file">
+      <div class="left float-left">
+        <p class="block-title">荣誉档案 <router-link to="honor" class="view-more">更多 ></router-link></p>
+        <el-carousel height="150px">
+          <el-carousel-item v-for="item in albumList" :key="item">
+            <router-link to="albumDetail/1"> <el-image :src="item.file_path" fit="cover"> </el-image></router-link>
+          </el-carousel-item>
+        </el-carousel>
+      </div>
+      <div class="right float-right">
+        <p class="block-title">保护与修复 <span class="view-more">更多 ></span></p>
+        <el-carousel height="150px">
+          <el-carousel-item v-for="item in 4" :key="item">
+            <h3 class="small">{{ item }}</h3>
+          </el-carousel-item>
+        </el-carousel>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { get } from '@/api/honor'
+export default {
+  name: 'honorIndex',
+  data() {
+    return {
+      albumList: [
+        {
+          file_path: 'https://chl-bucket.oss-cn-hangzhou.aliyuncs.com/avatar/head1.jpg'
+        },
+        {
+          file_path: 'https://chl-bucket.oss-cn-hangzhou.aliyuncs.com/banner/banner12.jpg'
+        },
+        {
+          file_path: 'https://chl-bucket.oss-cn-hangzhou.aliyuncs.com/banner/banner13.jpg'
+        }
+      ],
+      queryDTO: JSON.stringify({
+        pageNum: 1,
+        pageSize: 4,
+        title: ''
+      })
+    }
+  },
+  created() {
+    // get(this.queryDTO).then((data) => {
+    //   this.albumList = data.data.content.list
+    // })
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.honour-file {
+  overflow: hidden;
+  margin-top: 12px;
+  padding: 16px 8px;
+  border: 1px solid #dfdfdf;
+
+  .left {
+    width: 48%;
+  }
+
+  .right {
+    width: 50%;
+  }
+}
+.float-left {
+  float: left;
+}
+.float-right {
+  float: right;
+}
+.block-title {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  // color: #0085d0;
+
+  h4,
+  h3,
+  p {
+    padding: 0;
+    margin: 0;
+  }
+}
+.view-more {
+  font-size: 13px;
+  color: #666;
+}
+</style>

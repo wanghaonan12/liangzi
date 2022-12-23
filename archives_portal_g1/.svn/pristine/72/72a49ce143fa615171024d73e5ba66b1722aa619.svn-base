@@ -1,0 +1,84 @@
+package com.pde.pdes.portal.standard.service.impl;
+
+import com.aliyun.oss.OSSClient;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pde.pdes.portal.standard.Utils.AliYunOssClientUtils;
+import com.pde.pdes.portal.standard.dto.StandardFileDto;
+import com.pde.pdes.portal.standard.mapper.StandardFileMapper;
+import com.pde.pdes.portal.standard.po.Standard;
+import com.pde.pdes.portal.standard.po.StandardFile;
+import com.pde.pdes.portal.standard.service.StandardFileService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.util.Date;
+import java.util.List;
+
+
+/**
+ * @author wangRich
+ * @description 针对表【pdes_portal_standard_file(标准文件表;)】的数据库操作Service实现
+ * @createDate 2022-11-30 10:56:45
+ */
+@Service
+public class StandardFileServiceImpl extends ServiceImpl<StandardFileMapper, StandardFile>
+        implements StandardFileService {
+
+    @Autowired
+    StandardFileMapper standardFileMapper;
+
+    @Autowired
+    private AliYunOssClientUtils aliYunOssClientUtils;
+
+    @Override
+    public boolean add(MultipartFile multipartFile, String title, int standardId) {
+        File file = null;
+        int size = (int) multipartFile.getSize();
+        // 获取文件名
+        String fileName = multipartFile.getOriginalFilename();
+        // 获取文件后缀
+        String suffix = fileName.substring(fileName.lastIndexOf("."));
+        // 若须要防止生成的临时文件重复,能够在文件名后添加随机码
+        try {
+            file = File.createTempFile("file_", suffix);
+            multipartFile.transferTo(file);
+        } catch (Exception e) {
+            log.error("MultipartFile转File失败", e);
+        }
+        String path = aliYunOssClientUtils.uploadObjectOss(file, "liangzi");
+        return save(StandardFile.builder().fileName(title)
+                .filePath(path)
+                .fileSize(size)
+                .standardId(standardId)
+                .createTime(new Date())
+                .build());
+    }
+
+    @Override
+    public boolean update(StandardFile standardFile) {
+        UpdateWrapper<StandardFile> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", standardFile.getId());
+        return update(standardFile, updateWrapper);
+    }
+
+    @Override
+    public boolean deleteByIds(List<Integer> ids) {
+        return removeByIds(ids);
+    }
+
+    @Override
+    public List<StandardFile> getFileStandardById(Integer id) {
+        QueryWrapper<StandardFile> queryMapper = new QueryWrapper<>();
+        queryMapper.eq("standard_id", id);
+        return standardFileMapper.selectList(queryMapper);
+    }
+}
+
+
+
+

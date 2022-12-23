@@ -1,0 +1,118 @@
+package com.pde.pdes.portal.notify.service.impl;
+
+import com.pde.Application;
+import com.pde.pdes.portal.notify.po.PortalNotify;
+import com.pde.pdes.portal.notify.service.PortalNotifyService;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
+
+
+@SpringBootTest(classes = Application.class)
+@RunWith(SpringRunner.class)
+public class PortalNotifyServiceImplTest {
+
+    @Resource
+    private PortalNotifyService portalNotifyServiceImplUnderTest;
+
+
+    @Test
+    public void testFind() {
+
+        // Run the test
+        final List<PortalNotify> result = portalNotifyServiceImplUnderTest.find("14");
+
+        // Verify the results
+        System.out.println(result);
+
+    }
+
+    @Test
+    public void testFindDisablePublish() {
+
+        // Run the test
+        final List<PortalNotify> result = portalNotifyServiceImplUnderTest.findDisablePublish("14");
+
+        // Verify the results
+        System.out.println(result);
+
+    }
+
+    @Test
+    public void testDeleteById() {
+
+        // Run the test
+        final boolean result = portalNotifyServiceImplUnderTest.deleteById("58");
+
+        // Verify the results
+        System.out.println(result);
+
+    }
+
+    @Test
+    public void testAdd() {
+        // Setup
+        final PortalNotify portalNotify = new PortalNotify();
+        portalNotify.setId(0);
+        portalNotify.setTitle("title");
+        portalNotify.setContent("content");
+        portalNotify.setContentAbstract("contentAbstract");
+        portalNotify.setEnablePublish(0);
+        portalNotify.setCreateTime(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
+        portalNotify.setModifiedTime(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
+
+        // Run the test
+        final boolean result = portalNotifyServiceImplUnderTest.add(portalNotify);
+
+        // Verify the results
+        System.out.println(result);
+
+    }
+
+    @Test
+    public void testUpdatePortalNotify() {
+        // Setup
+        final PortalNotify portalNotify = new PortalNotify();
+        portalNotify.setId(59);
+        portalNotify.setTitle("title11111111111");
+        portalNotify.setContent("content");
+        portalNotify.setContentAbstract("contentAbstract");
+        portalNotify.setEnablePublish(0);
+        portalNotify.setCreateTime(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
+        portalNotify.setModifiedTime(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
+
+        // Run the test
+        final boolean result = portalNotifyServiceImplUnderTest.updatePortalNotify(portalNotify);
+
+        // Verify the results
+        System.out.println(result);
+    }
+
+    @Test
+    public void testDeleteBatchByIds() {
+
+        // Run the test
+        final Integer result = portalNotifyServiceImplUnderTest.deleteBatchByIds(Arrays.asList(0));
+
+        // Verify the results
+        System.out.println(result);
+
+    }
+
+    @Test
+    public void testSelectById() {
+
+        // Run the test
+        final PortalNotify result = portalNotifyServiceImplUnderTest.selectById(59);
+
+        // Verify the results
+        System.out.println(result);
+    }
+}

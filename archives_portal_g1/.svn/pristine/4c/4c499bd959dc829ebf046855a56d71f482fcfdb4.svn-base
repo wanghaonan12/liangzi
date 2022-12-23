@@ -1,0 +1,32 @@
+import request from '@/utils/request'
+
+export function selectNoticeFileApi(id) {
+  return request({
+    url: '/notify/file/select/' + id,
+    method: 'get'
+  })
+}
+
+export function deleteNoticeFileApi(notifyId) {
+  return request({
+    url: '/notify/file/delete/' + notifyId,
+    method: 'delete'
+  })
+}
+
+export function addNoticeFileApi(data, notifyId) {
+  return request({
+    url: '/notify/file/add/?notifyId=' + notifyId,
+    method: 'post',
+    data
+  })
+}
+
+export function addNoticeFile(data) {
+  return request({
+    url: '/files/upload?folder=notice',
+    method: 'post',
+    headers: { 'Content-Type': 'multipart/form-data' },
+    data
+  })
+}

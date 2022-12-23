@@ -1,0 +1,205 @@
+package com.pde.pdes.portal.honor.service.impl;
+
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.pde.p10c.auth.JwtTokenManager;
+import com.pde.pdes.portal.honor.dto.HonorDTO;
+import com.pde.pdes.portal.honor.dto.HonorFileDTO;
+import com.pde.pdes.portal.honor.dto.PublishHonorDTO;
+import com.pde.pdes.portal.honor.mapper.HonorFileMapper;
+import com.pde.pdes.portal.honor.mapper.HonorMapper;
+import com.pde.pdes.portal.honor.po.HonorFilePO;
+import com.pde.pdes.portal.honor.po.HonorPO;
+import com.pde.pdes.portal.honor.service.HonorService;
+import com.pde.pdes.portal.honor.vo.HonorVO;
+import lombok.SneakyThrows;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
+import static com.pde.pdes.portal.honor.utils.GetResourceLengthUtils.getResourceLength;
+
+/**
+ * @Author chl
+ * @Description TODO
+ * @Date 2022/12/10 11:38
+ * @Version 1.0
+ */
+@Service
+public class HonorServiceImpl implements HonorService {
+
+
+    @Autowired
+    private HonorMapper honorMapper;
+
+    @Autowired
+    private HonorFileMapper honorFileMapper;
+
+
+    @Override
+    public Boolean addHonor(HonorDTO dto) {
+        Assert.notNull(dto, "数据不能为空");
+        HonorPO honorPo = new HonorPO();
+        BeanUtils.copyProperties(dto, honorPo, "id,create_time");
+        honorMapper.insert(honorPo);
+        return true;
+    }
+
+    @Override
+    public boolean removeById(Integer[] ids) {
+        Assert.notNull(ids, "相册id为空");
+        List<Integer> list = Arrays.asList(ids);
+        // 删除相册对应照片
+        for (Integer id : list) {
+            List<Integer> honorFileS = honorFileMapper.selectHonorFileIdByHonorId(id);
+            honorFileMapper.deleteBatchIds(honorFileS);
+        }
+        honorMapper.deleteBatchIds(list);
+        return true;
+    }
+
+    @Override
+    public boolean update(HonorDTO dto) {
+        Assert.notNull(dto, "不能为空");
+        HonorPO honorPo = honorMapper.selectById(dto.getId());
+        Assert.notNull(honorPo, "没有此相册");
+        BeanUtils.copyProperties(dto, honorPo);
+        honorMapper.updateById(honorPo);
+        return true;
+    }
+
+    @Override
+    public List<HonorFilePO> findImage(Integer honorId) {
+        HonorPO honorPo = honorMapper.selectById(honorId);
+        Assert.notNull(honorPo, "没有此相册");
+        return honorFileMapper.selectAllByHonorId(honorId);
+    }
+
+
+    @Override
+    public List<HonorVO> findHonorAlbum(String title) {
+        List<HonorVO> honorVoS = honorMapper.selectLikeTile(title);
+        for (HonorVO honorVO : honorVoS) {
+            if (honorVO.getFile_path() == null) {
+                honorVO.setFile_path("https://chl-bucket.oss-cn-hangzhou.aliyuncs.com/error/1.jpg");
+            }
+        }
+        return honorVoS;
+
+    }
+
+    @Override
+    public boolean publishHonor(PublishHonorDTO dto) {
+        if (dto.getIds().size() == 0) {
+            throw new IllegalArgumentException("id不能为空");
+        }
+        return honorMapper.updateByIdAndEnablePublish(dto.getIds(), dto.getEnable_publish());
+    }
+
+    @SneakyThrows
+    @Override
+    public boolean addImage(HonorFileDTO dto) {
+        HonorPO honorPo = honorMapper.selectById(dto.getHonor_id());
+        Assert.notNull(honorPo, "没有此相册");
+        Assert.notNull(dto.getFile_path(), "图片不能为空");
+
+        // 获取传入图片大小
+        int imageLength = (int) getResourceLength(dto.getFile_path());
+
+        HonorFilePO honorFilePo = new HonorFilePO();
+        BeanUtils.copyProperties(dto, honorFilePo, "id");
+
+        // 设为封面
+        if (honorFilePo.isEnable_front()) {
+            HonorFilePO enableFront = honorFileMapper
+                    .selectByHonorIdAndEnableFront(dto.getHonor_id(), dto.getEnable_front());
+
+            enableFront.setEnable_front(false);
+            honorFileMapper.updateById(enableFront);
+        }
+        honorFilePo.setFile_size(imageLength);
+        honorFileMapper.insert(honorFilePo);
+        return true;
+    }
+
+    @Override
+    public HashMap<String, Object> findPageImage(Integer honorId, Integer pageIndex, Integer pageSize) {
+        HonorPO honorPo = honorMapper.selectById(honorId);
+        Assert.notNull(honorPo, "没有此相册");
+        HashMap<String, Object> map = new HashMap<>(5);
+        Page<Object> page = PageHelper.startPage(pageIndex, pageSize, true, false, false);
+        honorFileMapper.selectAllByHonorId(honorId);
+        map.put("total", page.getTotal());
+        map.put("pageSize", page.getPageSize());
+        map.put("pageNum", page.getPageNum());
+        map.put("pages", page.getPages());
+        map.put("rows", page.getResult());
+        return map;
+    }
+
+    @SneakyThrows
+    @Override
+    public boolean updateImage(HonorFileDTO dto) {
+        Assert.notNull(dto, "不能为空");
+
+
+        // 获取传入图片大小
+        int imageLength = (int) getResourceLength(dto.getFile_path());
+
+        HonorFilePO honorFilePo = honorFileMapper.selectById(dto.getId());
+        Assert.notNull(honorFilePo, "没有此相片");
+        BeanUtils.copyProperties(dto, honorFilePo);
+        // 设为封面
+        if (honorFilePo.isEnable_front()) {
+            HonorFilePO enableFront = honorFileMapper.selectByHonorIdAndEnableFront(honorFilePo.getHonor_id(), honorFilePo.isEnable_front());
+            if (enableFront != null) {
+                enableFront.setEnable_front(false);
+                honorFileMapper.updateById(enableFront);
+            }
+        }
+        honorFilePo.setFile_size(imageLength);
+        honorFileMapper.updateById(honorFilePo);
+
+
+        return true;
+    }
+
+    @Override
+    public boolean removeImageById(Integer[] ids) {
+        Assert.notNull(ids, "id为空");
+        List<Integer> list = Arrays.asList(ids);
+        honorFileMapper.deleteBatchIds(list);
+        return true;
+    }
+
+    @Override
+    public PageInfo<HonorVO> getCoverList() {
+        PageHelper.startPage(1, 4);
+        List<HonorVO> honorVos = honorMapper.selectHomePage();
+        return new PageInfo<>(honorVos);
+    }
+
+    @Override
+    public List<HonorVO> getPublishList(String title) {
+        List<HonorVO> honorVos = honorMapper.selectByPublishLikeTile(title);
+        for (HonorVO honorVO : honorVos) {
+            if (honorVO.getFile_path() == null) {
+                honorVO.setFile_path("https://chl-bucket.oss-cn-hangzhou.aliyuncs.com/error/1.jpg");
+            }
+        }
+        return honorVos;
+    }
+
+    public static void main(String[] args) {
+        JwtTokenManager jtm = new JwtTokenManager();
+        String token = jtm.createToken("chl");
+        System.out.println(token);
+    }
+
+}

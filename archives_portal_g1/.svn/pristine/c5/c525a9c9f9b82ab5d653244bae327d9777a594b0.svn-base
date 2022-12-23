@@ -1,0 +1,709 @@
+2022-11-29 08:42:04.703 1117 [main] INFO  - Starting Application on TianHaoPC with PID 6884 (D:\StudyWork\code\lzwy\pdes-portal\trunk\pdes-portal\target\classes started by Tian_Hao in D:\StudyWork\code\lzwy\pdes-portal\trunk\pdes-portal)
+2022-11-29 08:42:04.709 1123 [main] DEBUG - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+2022-11-29 08:42:04.710 1124 [main] INFO  - No active profile set, falling back to default profiles: default
+2022-11-29 08:42:06.033 2447 [main] INFO  - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-29 08:42:06.037 2451 [main] INFO  - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-29 08:42:06.051 2465 [main] INFO  - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-29 08:42:06.052 2466 [main] INFO  - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@186cb891' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-29 08:42:06.054 2468 [main] INFO  - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-29 08:42:06.057 2471 [main] INFO  - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-29 08:42:06.932 3346 [main] INFO  - Tomcat initialized with port(s): 8088 (http)
+2022-11-29 08:42:06.973 3387 [main] INFO  - Starting service [Tomcat]
+2022-11-29 08:42:06.974 3388 [main] INFO  - Starting Servlet engine: [Apache Tomcat/9.0.30]
+2022-11-29 08:42:06.975 3389 [main] INFO  - Loaded APR based Apache Tomcat Native library [1.2.31] using APR version [1.7.0].
+2022-11-29 08:42:06.975 3389 [main] INFO  - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2022-11-29 08:42:06.975 3389 [main] INFO  - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2022-11-29 08:42:06.985 3399 [main] INFO  - OpenSSL successfully initialized [OpenSSL 1.1.1l  24 Aug 2021]
+2022-11-29 08:42:07.088 3502 [main] INFO  - Initializing Spring embedded WebApplicationContext
+2022-11-29 08:42:07.088 3502 [main] INFO  - Root WebApplicationContext: initialization completed in 2322 ms
+2022-11-29 08:42:07.242 3656 [main] INFO  - Init DruidDataSource
+2022-11-29 08:42:07.475 3889 [main] INFO  - {dataSource-1} inited
+2022-11-29 08:42:09.091 5505 [main] INFO  - Initializing ExecutorService
+2022-11-29 08:42:09.092 5506 [main] INFO  - Initializing ExecutorService 'PdeDefaultThreadPool'
+2022-11-29 08:42:09.110 5524 [main] INFO  - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2022-11-29 08:42:09.448 5862 [main] INFO  - Creating filter chain: Ant [pattern='/**/*.html'], []
+2022-11-29 08:42:09.448 5862 [main] INFO  - Creating filter chain: Ant [pattern='/**/*.css'], []
+2022-11-29 08:42:09.448 5862 [main] INFO  - Creating filter chain: Ant [pattern='/**/*.js'], []
+2022-11-29 08:42:09.448 5862 [main] INFO  - Creating filter chain: Ant [pattern='/static/**'], []
+2022-11-29 08:42:09.448 5862 [main] INFO  - Creating filter chain: Ant [pattern='/theme/**'], []
+2022-11-29 08:42:09.448 5862 [main] INFO  - Creating filter chain: Ant [pattern='/plugin/**'], []
+2022-11-29 08:42:09.448 5862 [main] INFO  - Creating filter chain: Ant [pattern='/*.ico'], []
+2022-11-29 08:42:09.448 5862 [main] INFO  - Creating filter chain: Ant [pattern='/v3/**'], []
+2022-11-29 08:42:09.448 5862 [main] INFO  - Creating filter chain: Ant [pattern='/v1/auth/login'], []
+2022-11-29 08:42:09.448 5862 [main] INFO  - Creating filter chain: Ant [pattern='/principal'], []
+2022-11-29 08:42:09.449 5863 [main] INFO  - Creating filter chain: Ant [pattern='/actuator/**'], []
+2022-11-29 08:42:09.449 5863 [main] INFO  - Creating filter chain: Ant [pattern='/druid/**'], []
+2022-11-29 08:42:09.449 5863 [main] INFO  - Creating filter chain: Ant [pattern='/v2/api-docs'], []
+2022-11-29 08:42:09.449 5863 [main] INFO  - Creating filter chain: Ant [pattern='/webjars/springfox-swagger-ui/**'], []
+2022-11-29 08:42:09.449 5863 [main] INFO  - Creating filter chain: Ant [pattern='/swagger-resources/**'], []
+2022-11-29 08:42:09.449 5863 [main] INFO  - Creating filter chain: Ant [pattern='/swagger-ui.html'], []
+2022-11-29 08:42:09.472 5886 [main] INFO  - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@34d480b9, org.springframework.security.web.context.SecurityContextPersistenceFilter@3e1f1046, org.springframework.security.web.header.HeaderWriterFilter@236ae13d, org.springframework.security.web.authentication.logout.LogoutFilter@4525e9e8, com.pde.p10c.auth.JwtAuthenticationTokenFilter@6b415f5f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5c931134, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@230a73f2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@66749eea, org.springframework.security.web.session.SessionManagementFilter@7af0affa, org.springframework.security.web.access.ExceptionTranslationFilter@12d40609, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@44592c39]
+2022-11-29 08:42:09.506 5920 [main] INFO  - Context refreshed
+2022-11-29 08:42:09.527 5941 [main] INFO  - Found 1 custom documentation plugin(s)
+2022-11-29 08:42:09.555 5969 [main] INFO  - Scanning for api listing references
+2022-11-29 08:42:09.726 6140 [main] INFO  - Tomcat started on port(s): 8088 (http) with context path ''
+2022-11-29 08:42:09.728 6142 [main] INFO  - Started Application in 5.75 seconds (JVM running for 6.78)
+2022-11-29 08:43:38.823 95237 [http-nio-8088-exec-2] INFO  - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-11-29 08:43:38.823 95237 [http-nio-8088-exec-2] INFO  - Initializing Servlet 'dispatcherServlet'
+2022-11-29 08:43:38.828 95242 [http-nio-8088-exec-2] INFO  - Completed initialization in 5 ms
+2022-11-29 08:43:38.848 95262 [http-nio-8088-exec-2] ERROR - Responding with unauthorized error. Message:Full authentication is required to access this resource, url:/company/find
+2022-11-29 08:46:38.504 274918 [SpringContextShutdownHook] INFO  - Shutting down ExecutorService 'PdeDefaultThreadPool'
+2022-11-29 08:46:38.507 274921 [SpringContextShutdownHook] INFO  - {dataSource-1} closed
+2022-11-29 09:20:15.565 2622 [main] INFO  - Starting Application on DESKTOP-KT36U5E with PID 12184 (D:\desktop\Uiit\pde\daima\archives_portal_g1\trunk\pdes-portal\target\classes started by cHL in D:\desktop\Uiit\pde\daima\archives_portal_g1\trunk\pdes-portal)
+2022-11-29 09:20:15.567 2624 [main] DEBUG - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+2022-11-29 09:20:15.567 2624 [main] INFO  - No active profile set, falling back to default profiles: default
+2022-11-29 09:20:17.567 4624 [main] INFO  - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-29 09:20:17.572 4629 [main] INFO  - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-29 09:20:17.586 4643 [main] INFO  - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-29 09:20:17.588 4645 [main] INFO  - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@4a9860' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-29 09:20:17.590 4647 [main] INFO  - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-29 09:20:17.593 4650 [main] INFO  - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-29 09:20:18.079 5136 [main] INFO  - Tomcat initialized with port(s): 8088 (http)
+2022-11-29 09:20:18.088 5145 [main] INFO  - Starting service [Tomcat]
+2022-11-29 09:20:18.088 5145 [main] INFO  - Starting Servlet engine: [Apache Tomcat/9.0.30]
+2022-11-29 09:20:18.212 5269 [main] INFO  - Initializing Spring embedded WebApplicationContext
+2022-11-29 09:20:18.212 5269 [main] INFO  - Root WebApplicationContext: initialization completed in 2526 ms
+2022-11-29 09:20:18.427 5484 [main] INFO  - Init DruidDataSource
+2022-11-29 09:20:18.710 5767 [main] INFO  - {dataSource-1} inited
+2022-11-29 09:20:19.400 6457 [main] INFO  - Initializing ExecutorService
+2022-11-29 09:20:19.401 6458 [main] INFO  - Initializing ExecutorService 'PdeDefaultThreadPool'
+2022-11-29 09:20:19.418 6475 [main] INFO  - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2022-11-29 09:20:19.800 6857 [main] INFO  - Creating filter chain: Ant [pattern='/**/*.html'], []
+2022-11-29 09:20:19.801 6858 [main] INFO  - Creating filter chain: Ant [pattern='/**/*.css'], []
+2022-11-29 09:20:19.801 6858 [main] INFO  - Creating filter chain: Ant [pattern='/**/*.js'], []
+2022-11-29 09:20:19.801 6858 [main] INFO  - Creating filter chain: Ant [pattern='/static/**'], []
+2022-11-29 09:20:19.801 6858 [main] INFO  - Creating filter chain: Ant [pattern='/theme/**'], []
+2022-11-29 09:20:19.801 6858 [main] INFO  - Creating filter chain: Ant [pattern='/plugin/**'], []
+2022-11-29 09:20:19.801 6858 [main] INFO  - Creating filter chain: Ant [pattern='/*.ico'], []
+2022-11-29 09:20:19.801 6858 [main] INFO  - Creating filter chain: Ant [pattern='/v3/**'], []
+2022-11-29 09:20:19.801 6858 [main] INFO  - Creating filter chain: Ant [pattern='/v1/auth/login'], []
+2022-11-29 09:20:19.801 6858 [main] INFO  - Creating filter chain: Ant [pattern='/principal'], []
+2022-11-29 09:20:19.801 6858 [main] INFO  - Creating filter chain: Ant [pattern='/actuator/**'], []
+2022-11-29 09:20:19.801 6858 [main] INFO  - Creating filter chain: Ant [pattern='/druid/**'], []
+2022-11-29 09:20:19.801 6858 [main] INFO  - Creating filter chain: Ant [pattern='/v2/api-docs'], []
+2022-11-29 09:20:19.801 6858 [main] INFO  - Creating filter chain: Ant [pattern='/webjars/springfox-swagger-ui/**'], []
+2022-11-29 09:20:19.801 6858 [main] INFO  - Creating filter chain: Ant [pattern='/swagger-resources/**'], []
+2022-11-29 09:20:19.801 6858 [main] INFO  - Creating filter chain: Ant [pattern='/swagger-ui.html'], []
+2022-11-29 09:20:19.829 6886 [main] INFO  - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@31433df9, org.springframework.security.web.context.SecurityContextPersistenceFilter@7210f559, org.springframework.security.web.header.HeaderWriterFilter@4c8abec7, org.springframework.security.web.authentication.logout.LogoutFilter@1e482ecd, com.pde.p10c.auth.JwtAuthenticationTokenFilter@2d4a0671, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7be62956, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@31e22365, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1ab9c735, org.springframework.security.web.session.SessionManagementFilter@265287ec, org.springframework.security.web.access.ExceptionTranslationFilter@39ae6408, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1bea7b0]
+2022-11-29 09:20:19.891 6948 [main] INFO  - Context refreshed
+2022-11-29 09:20:19.906 6963 [main] INFO  - Found 1 custom documentation plugin(s)
+2022-11-29 09:20:19.929 6986 [main] INFO  - Scanning for api listing references
+2022-11-29 09:20:20.126 7183 [main] INFO  - Tomcat started on port(s): 8088 (http) with context path ''
+2022-11-29 09:20:20.132 7189 [main] INFO  - Started Application in 6.667 seconds (JVM running for 11.408)
+2022-11-29 09:50:15.561 1802618 [http-nio-8088-exec-2] INFO  - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-11-29 09:50:15.561 1802618 [http-nio-8088-exec-2] INFO  - Initializing Servlet 'dispatcherServlet'
+2022-11-29 09:50:15.589 1802646 [http-nio-8088-exec-2] INFO  - Completed initialization in 28 ms
+2022-11-29 09:50:16.230 1803287 [http-nio-8088-exec-2] ERROR - Responding with unauthorized error. Message:Full authentication is required to access this resource, url:/
+2022-11-29 09:50:16.262 1803319 [http-nio-8088-exec-4] ERROR - Responding with unauthorized error. Message:Full authentication is required to access this resource, url:/csrf
+2022-11-29 10:03:28.499 2595556 [http-nio-8088-exec-5] ERROR - Responding with unauthorized error. Message:Full authentication is required to access this resource, url:/company/find
+2022-11-29 10:06:21.577 2768634 [http-nio-8088-exec-8] ERROR - Responding with unauthorized error. Message:Full authentication is required to access this resource, url:/company/
+2022-11-29 10:08:32.966 2900023 [http-nio-8088-exec-5] ERROR - Responding with unauthorized error. Message:Full authentication is required to access this resource, url:/company
+2022-11-29 10:09:02.281 2929338 [http-nio-8088-exec-7] ERROR - Responding with unauthorized error. Message:Full authentication is required to access this resource, url:/company
+2022-11-29 10:09:28.651 2955708 [http-nio-8088-exec-9] ERROR - Responding with unauthorized error. Message:Full authentication is required to access this resource, url:/company
+2022-11-29 10:09:42.688 2969745 [pde-thread-1] DEBUG - ==>  Preparing: INSERT INTO pdes_demo_company ( id, name, address ) VALUES ( ?, ?, ? )
+2022-11-29 10:09:42.728 2969785 [pde-thread-1] DEBUG - ==> Parameters: 2afefcf53d1e4e7c91e03f7337c1032f(String), 曹红亮的大公司(String), 南京新街口(String)
+2022-11-29 10:09:42.938 2969995 [http-nio-8088-exec-10] ERROR - Servlet.service() for servlet [dispatcherServlet] threw exception
+java.sql.SQLSyntaxErrorException: Table 'portal.pdes_demo_company' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:370)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3409)
+	at com.alibaba.druid.filter.FilterEventAdapter.preparedStatement_execute(FilterEventAdapter.java:440)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3407)
+	at com.alibaba.druid.proxy.jdbc.PreparedStatementProxyImpl.execute(PreparedStatementProxyImpl.java:167)
+	at com.alibaba.druid.pool.DruidPooledPreparedStatement.execute(DruidPooledPreparedStatement.java:498)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.logging.jdbc.PreparedStatementLogger.invoke(PreparedStatementLogger.java:59)
+	at jdk.proxy3/jdk.proxy3.$Proxy140.execute(Unknown Source)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:47)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74)
+	at com.baomidou.mybatisplus.core.executor.MybatisSimpleExecutor.doUpdate(MybatisSimpleExecutor.java:56)
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:63)
+	at jdk.proxy2/jdk.proxy2.$Proxy138.update(Unknown Source)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:197)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:184)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:426)
+	at jdk.proxy2/jdk.proxy2.$Proxy84.insert(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:271)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:60)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at jdk.proxy2/jdk.proxy2.$Proxy90.insert(Unknown Source)
+	at com.baomidou.mybatisplus.extension.service.IService.save(IService.java:61)
+	at com.pde.pdes.portal.service.CompanyServiceImpl.add(CompanyServiceImpl.java:22)
+	at com.pde.pdes.portal.service.CompanyServiceImpl$$FastClassBySpringCGLIB$$6686f551.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:685)
+	at com.pde.pdes.portal.service.CompanyServiceImpl$$EnhancerBySpringCGLIB$$bab3b51e.add(<generated>)
+	at com.pde.pdes.portal.controller.CompanyController.lambda$add$0(CompanyController.java:42)
+	at org.springframework.web.context.request.async.WebAsyncManager.lambda$startCallableProcessing$4(WebAsyncManager.java:328)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:264)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-11-29 10:09:42.939 2969996 [http-nio-8088-exec-10] ERROR - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.jdbc.BadSqlGrammarException: 
+### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: Table 'portal.pdes_demo_company' doesn't exist
+### The error may exist in com/pde/pdes/portal/mapper/CompanyMapper.java (best guess)
+### The error may involve com.pde.pdes.portal.mapper.CompanyMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO pdes_demo_company  ( id, name, address )  VALUES  ( ?, ?, ? )
+### Cause: java.sql.SQLSyntaxErrorException: Table 'portal.pdes_demo_company' doesn't exist
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Table 'portal.pdes_demo_company' doesn't exist] with root cause
+java.sql.SQLSyntaxErrorException: Table 'portal.pdes_demo_company' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:370)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3409)
+	at com.alibaba.druid.filter.FilterEventAdapter.preparedStatement_execute(FilterEventAdapter.java:440)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3407)
+	at com.alibaba.druid.proxy.jdbc.PreparedStatementProxyImpl.execute(PreparedStatementProxyImpl.java:167)
+	at com.alibaba.druid.pool.DruidPooledPreparedStatement.execute(DruidPooledPreparedStatement.java:498)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.logging.jdbc.PreparedStatementLogger.invoke(PreparedStatementLogger.java:59)
+	at jdk.proxy3/jdk.proxy3.$Proxy140.execute(Unknown Source)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:47)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74)
+	at com.baomidou.mybatisplus.core.executor.MybatisSimpleExecutor.doUpdate(MybatisSimpleExecutor.java:56)
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:63)
+	at jdk.proxy2/jdk.proxy2.$Proxy138.update(Unknown Source)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:197)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:184)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:426)
+	at jdk.proxy2/jdk.proxy2.$Proxy84.insert(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:271)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:60)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at jdk.proxy2/jdk.proxy2.$Proxy90.insert(Unknown Source)
+	at com.baomidou.mybatisplus.extension.service.IService.save(IService.java:61)
+	at com.pde.pdes.portal.service.CompanyServiceImpl.add(CompanyServiceImpl.java:22)
+	at com.pde.pdes.portal.service.CompanyServiceImpl$$FastClassBySpringCGLIB$$6686f551.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:685)
+	at com.pde.pdes.portal.service.CompanyServiceImpl$$EnhancerBySpringCGLIB$$bab3b51e.add(<generated>)
+	at com.pde.pdes.portal.controller.CompanyController.lambda$add$0(CompanyController.java:42)
+	at org.springframework.web.context.request.async.WebAsyncManager.lambda$startCallableProcessing$4(WebAsyncManager.java:328)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:264)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-11-29 10:09:42.941 2969998 [http-nio-8088-exec-10] WARN  - onError() call failed for listener of type [org.apache.catalina.core.AsyncListenerWrapper]
+java.lang.IllegalArgumentException: Cannot dispatch without an AsyncContext
+	at org.springframework.util.Assert.notNull(Assert.java:198)
+	at org.springframework.web.context.request.async.StandardServletAsyncWebRequest.dispatch(StandardServletAsyncWebRequest.java:131)
+	at org.springframework.web.context.request.async.WebAsyncManager.setConcurrentResultAndDispatch(WebAsyncManager.java:391)
+	at org.springframework.web.context.request.async.WebAsyncManager.lambda$startCallableProcessing$2(WebAsyncManager.java:315)
+	at org.springframework.web.context.request.async.StandardServletAsyncWebRequest.lambda$onError$0(StandardServletAsyncWebRequest.java:146)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.springframework.web.context.request.async.StandardServletAsyncWebRequest.onError(StandardServletAsyncWebRequest.java:146)
+	at org.apache.catalina.core.AsyncListenerWrapper.fireOnError(AsyncListenerWrapper.java:49)
+	at org.apache.catalina.core.AsyncContextImpl.setErrorState(AsyncContextImpl.java:422)
+	at org.apache.catalina.connector.CoyoteAdapter.asyncDispatch(CoyoteAdapter.java:239)
+	at org.apache.coyote.AbstractProcessor.dispatch(AbstractProcessor.java:237)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:59)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1598)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-11-29 10:09:49.489 2976546 [pde-thread-2] DEBUG - ==>  Preparing: INSERT INTO pdes_demo_company ( id, name, address ) VALUES ( ?, ?, ? )
+2022-11-29 10:09:49.490 2976547 [pde-thread-2] DEBUG - ==> Parameters: c27c689c4bec4723baf6d39f23db4e2b(String), 曹红亮的大公司(String), 南京新街口(String)
+2022-11-29 10:09:49.551 2976608 [http-nio-8088-exec-3] ERROR - Servlet.service() for servlet [dispatcherServlet] threw exception
+java.sql.SQLSyntaxErrorException: Table 'portal.pdes_demo_company' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:370)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3409)
+	at com.alibaba.druid.filter.FilterEventAdapter.preparedStatement_execute(FilterEventAdapter.java:440)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3407)
+	at com.alibaba.druid.proxy.jdbc.PreparedStatementProxyImpl.execute(PreparedStatementProxyImpl.java:167)
+	at com.alibaba.druid.pool.DruidPooledPreparedStatement.execute(DruidPooledPreparedStatement.java:498)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.logging.jdbc.PreparedStatementLogger.invoke(PreparedStatementLogger.java:59)
+	at jdk.proxy3/jdk.proxy3.$Proxy140.execute(Unknown Source)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:47)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74)
+	at com.baomidou.mybatisplus.core.executor.MybatisSimpleExecutor.doUpdate(MybatisSimpleExecutor.java:56)
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:63)
+	at jdk.proxy2/jdk.proxy2.$Proxy138.update(Unknown Source)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:197)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:184)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:426)
+	at jdk.proxy2/jdk.proxy2.$Proxy84.insert(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:271)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:60)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at jdk.proxy2/jdk.proxy2.$Proxy90.insert(Unknown Source)
+	at com.baomidou.mybatisplus.extension.service.IService.save(IService.java:61)
+	at com.pde.pdes.portal.service.CompanyServiceImpl.add(CompanyServiceImpl.java:22)
+	at com.pde.pdes.portal.service.CompanyServiceImpl$$FastClassBySpringCGLIB$$6686f551.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:685)
+	at com.pde.pdes.portal.service.CompanyServiceImpl$$EnhancerBySpringCGLIB$$bab3b51e.add(<generated>)
+	at com.pde.pdes.portal.controller.CompanyController.lambda$add$0(CompanyController.java:42)
+	at org.springframework.web.context.request.async.WebAsyncManager.lambda$startCallableProcessing$4(WebAsyncManager.java:328)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:264)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-11-29 10:09:49.551 2976608 [http-nio-8088-exec-3] ERROR - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.jdbc.BadSqlGrammarException: 
+### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: Table 'portal.pdes_demo_company' doesn't exist
+### The error may exist in com/pde/pdes/portal/mapper/CompanyMapper.java (best guess)
+### The error may involve com.pde.pdes.portal.mapper.CompanyMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO pdes_demo_company  ( id, name, address )  VALUES  ( ?, ?, ? )
+### Cause: java.sql.SQLSyntaxErrorException: Table 'portal.pdes_demo_company' doesn't exist
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Table 'portal.pdes_demo_company' doesn't exist] with root cause
+java.sql.SQLSyntaxErrorException: Table 'portal.pdes_demo_company' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:370)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3409)
+	at com.alibaba.druid.filter.FilterEventAdapter.preparedStatement_execute(FilterEventAdapter.java:440)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3407)
+	at com.alibaba.druid.proxy.jdbc.PreparedStatementProxyImpl.execute(PreparedStatementProxyImpl.java:167)
+	at com.alibaba.druid.pool.DruidPooledPreparedStatement.execute(DruidPooledPreparedStatement.java:498)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.logging.jdbc.PreparedStatementLogger.invoke(PreparedStatementLogger.java:59)
+	at jdk.proxy3/jdk.proxy3.$Proxy140.execute(Unknown Source)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:47)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74)
+	at com.baomidou.mybatisplus.core.executor.MybatisSimpleExecutor.doUpdate(MybatisSimpleExecutor.java:56)
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:63)
+	at jdk.proxy2/jdk.proxy2.$Proxy138.update(Unknown Source)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:197)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:184)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:426)
+	at jdk.proxy2/jdk.proxy2.$Proxy84.insert(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:271)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:60)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at jdk.proxy2/jdk.proxy2.$Proxy90.insert(Unknown Source)
+	at com.baomidou.mybatisplus.extension.service.IService.save(IService.java:61)
+	at com.pde.pdes.portal.service.CompanyServiceImpl.add(CompanyServiceImpl.java:22)
+	at com.pde.pdes.portal.service.CompanyServiceImpl$$FastClassBySpringCGLIB$$6686f551.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:685)
+	at com.pde.pdes.portal.service.CompanyServiceImpl$$EnhancerBySpringCGLIB$$bab3b51e.add(<generated>)
+	at com.pde.pdes.portal.controller.CompanyController.lambda$add$0(CompanyController.java:42)
+	at org.springframework.web.context.request.async.WebAsyncManager.lambda$startCallableProcessing$4(WebAsyncManager.java:328)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:264)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-11-29 10:09:49.553 2976610 [http-nio-8088-exec-3] WARN  - onError() call failed for listener of type [org.apache.catalina.core.AsyncListenerWrapper]
+java.lang.IllegalArgumentException: Cannot dispatch without an AsyncContext
+	at org.springframework.util.Assert.notNull(Assert.java:198)
+	at org.springframework.web.context.request.async.StandardServletAsyncWebRequest.dispatch(StandardServletAsyncWebRequest.java:131)
+	at org.springframework.web.context.request.async.WebAsyncManager.setConcurrentResultAndDispatch(WebAsyncManager.java:391)
+	at org.springframework.web.context.request.async.WebAsyncManager.lambda$startCallableProcessing$2(WebAsyncManager.java:315)
+	at org.springframework.web.context.request.async.StandardServletAsyncWebRequest.lambda$onError$0(StandardServletAsyncWebRequest.java:146)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.springframework.web.context.request.async.StandardServletAsyncWebRequest.onError(StandardServletAsyncWebRequest.java:146)
+	at org.apache.catalina.core.AsyncListenerWrapper.fireOnError(AsyncListenerWrapper.java:49)
+	at org.apache.catalina.core.AsyncContextImpl.setErrorState(AsyncContextImpl.java:422)
+	at org.apache.catalina.connector.CoyoteAdapter.asyncDispatch(CoyoteAdapter.java:239)
+	at org.apache.coyote.AbstractProcessor.dispatch(AbstractProcessor.java:237)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:59)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1598)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-11-29 10:15:29.794 3316851 [SpringContextShutdownHook] INFO  - Shutting down ExecutorService 'PdeDefaultThreadPool'
+2022-11-29 10:15:29.798 3316855 [SpringContextShutdownHook] INFO  - {dataSource-1} closed
+2022-11-29 10:15:34.377 638  [main] INFO  - Starting Application on DESKTOP-KT36U5E with PID 2916 (D:\desktop\Uiit\pde\daima\archives_portal_g1\trunk\pdes-portal\target\classes started by cHL in D:\desktop\Uiit\pde\daima\archives_portal_g1\trunk\pdes-portal)
+2022-11-29 10:15:34.379 640  [main] DEBUG - Running with Spring Boot v2.2.4.RELEASE, Spring v5.2.3.RELEASE
+2022-11-29 10:15:34.380 641  [main] INFO  - No active profile set, falling back to default profiles: default
+2022-11-29 10:15:35.438 1699 [main] INFO  - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-29 10:15:35.442 1703 [main] INFO  - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-29 10:15:35.455 1716 [main] INFO  - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-29 10:15:35.457 1718 [main] INFO  - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@31973858' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-29 10:15:35.458 1719 [main] INFO  - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-29 10:15:35.460 1721 [main] INFO  - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-29 10:15:35.676 1937 [main] INFO  - Tomcat initialized with port(s): 8088 (http)
+2022-11-29 10:15:35.689 1950 [main] INFO  - Starting service [Tomcat]
+2022-11-29 10:15:35.689 1950 [main] INFO  - Starting Servlet engine: [Apache Tomcat/9.0.30]
+2022-11-29 10:15:35.801 2062 [main] INFO  - Initializing Spring embedded WebApplicationContext
+2022-11-29 10:15:35.802 2063 [main] INFO  - Root WebApplicationContext: initialization completed in 1383 ms
+2022-11-29 10:15:35.981 2242 [main] INFO  - Init DruidDataSource
+2022-11-29 10:15:36.167 2428 [main] INFO  - {dataSource-1} inited
+2022-11-29 10:15:36.641 2902 [main] INFO  - Initializing ExecutorService
+2022-11-29 10:15:36.641 2902 [main] INFO  - Initializing ExecutorService 'PdeDefaultThreadPool'
+2022-11-29 10:15:36.656 2917 [main] INFO  - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2022-11-29 10:15:36.995 3256 [main] INFO  - Creating filter chain: Ant [pattern='/**/*.html'], []
+2022-11-29 10:15:36.995 3256 [main] INFO  - Creating filter chain: Ant [pattern='/**/*.css'], []
+2022-11-29 10:15:36.995 3256 [main] INFO  - Creating filter chain: Ant [pattern='/**/*.js'], []
+2022-11-29 10:15:36.995 3256 [main] INFO  - Creating filter chain: Ant [pattern='/static/**'], []
+2022-11-29 10:15:36.995 3256 [main] INFO  - Creating filter chain: Ant [pattern='/theme/**'], []
+2022-11-29 10:15:36.995 3256 [main] INFO  - Creating filter chain: Ant [pattern='/plugin/**'], []
+2022-11-29 10:15:36.996 3257 [main] INFO  - Creating filter chain: Ant [pattern='/*.ico'], []
+2022-11-29 10:15:36.996 3257 [main] INFO  - Creating filter chain: Ant [pattern='/v3/**'], []
+2022-11-29 10:15:36.996 3257 [main] INFO  - Creating filter chain: Ant [pattern='/v1/auth/login'], []
+2022-11-29 10:15:36.996 3257 [main] INFO  - Creating filter chain: Ant [pattern='/principal'], []
+2022-11-29 10:15:36.996 3257 [main] INFO  - Creating filter chain: Ant [pattern='/actuator/**'], []
+2022-11-29 10:15:36.996 3257 [main] INFO  - Creating filter chain: Ant [pattern='/druid/**'], []
+2022-11-29 10:15:36.996 3257 [main] INFO  - Creating filter chain: Ant [pattern='/v2/api-docs'], []
+2022-11-29 10:15:36.996 3257 [main] INFO  - Creating filter chain: Ant [pattern='/webjars/springfox-swagger-ui/**'], []
+2022-11-29 10:15:36.996 3257 [main] INFO  - Creating filter chain: Ant [pattern='/swagger-resources/**'], []
+2022-11-29 10:15:36.996 3257 [main] INFO  - Creating filter chain: Ant [pattern='/swagger-ui.html'], []
+2022-11-29 10:15:37.022 3283 [main] INFO  - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@56a09a5c, org.springframework.security.web.context.SecurityContextPersistenceFilter@4c000cc4, org.springframework.security.web.header.HeaderWriterFilter@ecf028c, org.springframework.security.web.authentication.logout.LogoutFilter@4b00d59, com.pde.p10c.auth.JwtAuthenticationTokenFilter@775edae0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@45d46254, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@56402642, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@26f480c6, org.springframework.security.web.session.SessionManagementFilter@2b80497f, org.springframework.security.web.access.ExceptionTranslationFilter@4cd8db31, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@12723c5d]
+2022-11-29 10:15:37.074 3335 [main] INFO  - Context refreshed
+2022-11-29 10:15:37.089 3350 [main] INFO  - Found 1 custom documentation plugin(s)
+2022-11-29 10:15:37.112 3373 [main] INFO  - Scanning for api listing references
+2022-11-29 10:15:37.264 3525 [main] INFO  - Tomcat started on port(s): 8088 (http) with context path ''
+2022-11-29 10:15:37.267 3528 [main] INFO  - Started Application in 3.359 seconds (JVM running for 4.092)
+2022-11-29 10:17:47.057 133318 [http-nio-8088-exec-2] INFO  - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-11-29 10:17:47.057 133318 [http-nio-8088-exec-2] INFO  - Initializing Servlet 'dispatcherServlet'
+2022-11-29 10:17:47.064 133325 [http-nio-8088-exec-2] INFO  - Completed initialization in 7 ms
+2022-11-29 10:17:47.091 133352 [http-nio-8088-exec-2] ERROR - Responding with unauthorized error. Message:Full authentication is required to access this resource, url:/company
+2022-11-29 10:17:59.052 145313 [pde-thread-1] DEBUG - ==>  Preparing: INSERT INTO pdes_demo_company ( id, name, address ) VALUES ( ?, ?, ? )
+2022-11-29 10:17:59.077 145338 [pde-thread-1] DEBUG - ==> Parameters: 34de1aee767642a8a7b6917b347163b5(String), 曹红亮的大公司(String), 南京新街口(String)
+2022-11-29 10:17:59.190 145451 [http-nio-8088-exec-4] ERROR - Servlet.service() for servlet [dispatcherServlet] threw exception
+java.sql.SQLSyntaxErrorException: Table 'portal.pdes_demo_company' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:370)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3409)
+	at com.alibaba.druid.filter.FilterEventAdapter.preparedStatement_execute(FilterEventAdapter.java:440)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3407)
+	at com.alibaba.druid.proxy.jdbc.PreparedStatementProxyImpl.execute(PreparedStatementProxyImpl.java:167)
+	at com.alibaba.druid.pool.DruidPooledPreparedStatement.execute(DruidPooledPreparedStatement.java:498)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.logging.jdbc.PreparedStatementLogger.invoke(PreparedStatementLogger.java:59)
+	at jdk.proxy3/jdk.proxy3.$Proxy127.execute(Unknown Source)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:47)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74)
+	at com.baomidou.mybatisplus.core.executor.MybatisSimpleExecutor.doUpdate(MybatisSimpleExecutor.java:56)
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:63)
+	at jdk.proxy2/jdk.proxy2.$Proxy125.update(Unknown Source)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:197)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:184)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:426)
+	at jdk.proxy2/jdk.proxy2.$Proxy84.insert(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:271)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:60)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at jdk.proxy2/jdk.proxy2.$Proxy90.insert(Unknown Source)
+	at com.baomidou.mybatisplus.extension.service.IService.save(IService.java:61)
+	at com.pde.pdes.portal.service.CompanyServiceImpl.add(CompanyServiceImpl.java:22)
+	at com.pde.pdes.portal.service.CompanyServiceImpl$$FastClassBySpringCGLIB$$6686f551.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:685)
+	at com.pde.pdes.portal.service.CompanyServiceImpl$$EnhancerBySpringCGLIB$$88bec68e.add(<generated>)
+	at com.pde.pdes.portal.controller.CompanyController.lambda$add$0(CompanyController.java:42)
+	at org.springframework.web.context.request.async.WebAsyncManager.lambda$startCallableProcessing$4(WebAsyncManager.java:328)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:264)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-11-29 10:17:59.191 145452 [http-nio-8088-exec-4] ERROR - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.jdbc.BadSqlGrammarException: 
+### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: Table 'portal.pdes_demo_company' doesn't exist
+### The error may exist in com/pde/pdes/portal/mapper/CompanyMapper.java (best guess)
+### The error may involve com.pde.pdes.portal.mapper.CompanyMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO pdes_demo_company  ( id, name, address )  VALUES  ( ?, ?, ? )
+### Cause: java.sql.SQLSyntaxErrorException: Table 'portal.pdes_demo_company' doesn't exist
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Table 'portal.pdes_demo_company' doesn't exist] with root cause
+java.sql.SQLSyntaxErrorException: Table 'portal.pdes_demo_company' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:370)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3409)
+	at com.alibaba.druid.filter.FilterEventAdapter.preparedStatement_execute(FilterEventAdapter.java:440)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3407)
+	at com.alibaba.druid.proxy.jdbc.PreparedStatementProxyImpl.execute(PreparedStatementProxyImpl.java:167)
+	at com.alibaba.druid.pool.DruidPooledPreparedStatement.execute(DruidPooledPreparedStatement.java:498)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.logging.jdbc.PreparedStatementLogger.invoke(PreparedStatementLogger.java:59)
+	at jdk.proxy3/jdk.proxy3.$Proxy127.execute(Unknown Source)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:47)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74)
+	at com.baomidou.mybatisplus.core.executor.MybatisSimpleExecutor.doUpdate(MybatisSimpleExecutor.java:56)
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:63)
+	at jdk.proxy2/jdk.proxy2.$Proxy125.update(Unknown Source)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:197)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:184)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:426)
+	at jdk.proxy2/jdk.proxy2.$Proxy84.insert(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:271)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:60)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at jdk.proxy2/jdk.proxy2.$Proxy90.insert(Unknown Source)
+	at com.baomidou.mybatisplus.extension.service.IService.save(IService.java:61)
+	at com.pde.pdes.portal.service.CompanyServiceImpl.add(CompanyServiceImpl.java:22)
+	at com.pde.pdes.portal.service.CompanyServiceImpl$$FastClassBySpringCGLIB$$6686f551.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:685)
+	at com.pde.pdes.portal.service.CompanyServiceImpl$$EnhancerBySpringCGLIB$$88bec68e.add(<generated>)
+	at com.pde.pdes.portal.controller.CompanyController.lambda$add$0(CompanyController.java:42)
+	at org.springframework.web.context.request.async.WebAsyncManager.lambda$startCallableProcessing$4(WebAsyncManager.java:328)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:264)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-11-29 10:17:59.193 145454 [http-nio-8088-exec-4] WARN  - onError() call failed for listener of type [org.apache.catalina.core.AsyncListenerWrapper]
+java.lang.IllegalArgumentException: Cannot dispatch without an AsyncContext
+	at org.springframework.util.Assert.notNull(Assert.java:198)
+	at org.springframework.web.context.request.async.StandardServletAsyncWebRequest.dispatch(StandardServletAsyncWebRequest.java:131)
+	at org.springframework.web.context.request.async.WebAsyncManager.setConcurrentResultAndDispatch(WebAsyncManager.java:391)
+	at org.springframework.web.context.request.async.WebAsyncManager.lambda$startCallableProcessing$2(WebAsyncManager.java:315)
+	at org.springframework.web.context.request.async.StandardServletAsyncWebRequest.lambda$onError$0(StandardServletAsyncWebRequest.java:146)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.springframework.web.context.request.async.StandardServletAsyncWebRequest.onError(StandardServletAsyncWebRequest.java:146)
+	at org.apache.catalina.core.AsyncListenerWrapper.fireOnError(AsyncListenerWrapper.java:49)
+	at org.apache.catalina.core.AsyncContextImpl.setErrorState(AsyncContextImpl.java:422)
+	at org.apache.catalina.connector.CoyoteAdapter.asyncDispatch(CoyoteAdapter.java:239)
+	at org.apache.coyote.AbstractProcessor.dispatch(AbstractProcessor.java:237)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:59)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1598)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-11-29 10:25:51.788 618049 [pde-thread-2] DEBUG - ==>  Preparing: INSERT INTO pdes_demo_company ( id, name, address ) VALUES ( ?, ?, ? )
+2022-11-29 10:25:51.789 618050 [pde-thread-2] DEBUG - ==> Parameters: 5bce72bc68c64cbb99ea45186a5aede0(String), 曹红亮的大公司(String), 南京新街口(String)
+2022-11-29 10:25:51.868 618129 [http-nio-8088-exec-7] ERROR - Servlet.service() for servlet [dispatcherServlet] threw exception
+java.sql.SQLSyntaxErrorException: Table 'portal.pdes_demo_company' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:370)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3409)
+	at com.alibaba.druid.filter.FilterEventAdapter.preparedStatement_execute(FilterEventAdapter.java:440)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3407)
+	at com.alibaba.druid.proxy.jdbc.PreparedStatementProxyImpl.execute(PreparedStatementProxyImpl.java:167)
+	at com.alibaba.druid.pool.DruidPooledPreparedStatement.execute(DruidPooledPreparedStatement.java:498)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.logging.jdbc.PreparedStatementLogger.invoke(PreparedStatementLogger.java:59)
+	at jdk.proxy3/jdk.proxy3.$Proxy127.execute(Unknown Source)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:47)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74)
+	at com.baomidou.mybatisplus.core.executor.MybatisSimpleExecutor.doUpdate(MybatisSimpleExecutor.java:56)
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:63)
+	at jdk.proxy2/jdk.proxy2.$Proxy125.update(Unknown Source)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:197)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:184)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:426)
+	at jdk.proxy2/jdk.proxy2.$Proxy84.insert(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:271)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:60)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at jdk.proxy2/jdk.proxy2.$Proxy90.insert(Unknown Source)
+	at com.baomidou.mybatisplus.extension.service.IService.save(IService.java:61)
+	at com.pde.pdes.portal.service.CompanyServiceImpl.add(CompanyServiceImpl.java:22)
+	at com.pde.pdes.portal.service.CompanyServiceImpl$$FastClassBySpringCGLIB$$6686f551.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:685)
+	at com.pde.pdes.portal.service.CompanyServiceImpl$$EnhancerBySpringCGLIB$$88bec68e.add(<generated>)
+	at com.pde.pdes.portal.controller.CompanyController.lambda$add$0(CompanyController.java:42)
+	at org.springframework.web.context.request.async.WebAsyncManager.lambda$startCallableProcessing$4(WebAsyncManager.java:328)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:264)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-11-29 10:25:51.869 618130 [http-nio-8088-exec-7] ERROR - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.jdbc.BadSqlGrammarException: 
+### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: Table 'portal.pdes_demo_company' doesn't exist
+### The error may exist in com/pde/pdes/portal/mapper/CompanyMapper.java (best guess)
+### The error may involve com.pde.pdes.portal.mapper.CompanyMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO pdes_demo_company  ( id, name, address )  VALUES  ( ?, ?, ? )
+### Cause: java.sql.SQLSyntaxErrorException: Table 'portal.pdes_demo_company' doesn't exist
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Table 'portal.pdes_demo_company' doesn't exist] with root cause
+java.sql.SQLSyntaxErrorException: Table 'portal.pdes_demo_company' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:370)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3409)
+	at com.alibaba.druid.filter.FilterEventAdapter.preparedStatement_execute(FilterEventAdapter.java:440)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3407)
+	at com.alibaba.druid.proxy.jdbc.PreparedStatementProxyImpl.execute(PreparedStatementProxyImpl.java:167)
+	at com.alibaba.druid.pool.DruidPooledPreparedStatement.execute(DruidPooledPreparedStatement.java:498)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.logging.jdbc.PreparedStatementLogger.invoke(PreparedStatementLogger.java:59)
+	at jdk.proxy3/jdk.proxy3.$Proxy127.execute(Unknown Source)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:47)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74)
+	at com.baomidou.mybatisplus.core.executor.MybatisSimpleExecutor.doUpdate(MybatisSimpleExecutor.java:56)
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:63)
+	at jdk.proxy2/jdk.proxy2.$Proxy125.update(Unknown Source)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:197)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:184)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:426)
+	at jdk.proxy2/jdk.proxy2.$Proxy84.insert(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:271)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:60)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at jdk.proxy2/jdk.proxy2.$Proxy90.insert(Unknown Source)
+	at com.baomidou.mybatisplus.extension.service.IService.save(IService.java:61)
+	at com.pde.pdes.portal.service.CompanyServiceImpl.add(CompanyServiceImpl.java:22)
+	at com.pde.pdes.portal.service.CompanyServiceImpl$$FastClassBySpringCGLIB$$6686f551.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:685)
+	at com.pde.pdes.portal.service.CompanyServiceImpl$$EnhancerBySpringCGLIB$$88bec68e.add(<generated>)
+	at com.pde.pdes.portal.controller.CompanyController.lambda$add$0(CompanyController.java:42)
+	at org.springframework.web.context.request.async.WebAsyncManager.lambda$startCallableProcessing$4(WebAsyncManager.java:328)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:264)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-11-29 10:25:51.871 618132 [http-nio-8088-exec-7] WARN  - onError() call failed for listener of type [org.apache.catalina.core.AsyncListenerWrapper]
+java.lang.IllegalArgumentException: Cannot dispatch without an AsyncContext
+	at org.springframework.util.Assert.notNull(Assert.java:198)
+	at org.springframework.web.context.request.async.StandardServletAsyncWebRequest.dispatch(StandardServletAsyncWebRequest.java:131)
+	at org.springframework.web.context.request.async.WebAsyncManager.setConcurrentResultAndDispatch(WebAsyncManager.java:391)
+	at org.springframework.web.context.request.async.WebAsyncManager.lambda$startCallableProcessing$2(WebAsyncManager.java:315)
+	at org.springframework.web.context.request.async.StandardServletAsyncWebRequest.lambda$onError$0(StandardServletAsyncWebRequest.java:146)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.springframework.web.context.request.async.StandardServletAsyncWebRequest.onError(StandardServletAsyncWebRequest.java:146)
+	at org.apache.catalina.core.AsyncListenerWrapper.fireOnError(AsyncListenerWrapper.java:49)
+	at org.apache.catalina.core.AsyncContextImpl.setErrorState(AsyncContextImpl.java:422)
+	at org.apache.catalina.connector.CoyoteAdapter.asyncDispatch(CoyoteAdapter.java:239)
+	at org.apache.coyote.AbstractProcessor.dispatch(AbstractProcessor.java:237)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:59)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1598)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)

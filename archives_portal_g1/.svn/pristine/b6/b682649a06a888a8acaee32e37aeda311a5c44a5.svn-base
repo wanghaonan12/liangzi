@@ -1,0 +1,81 @@
+<template>
+    <div class="content">
+        <h1>{{ news.title }}</h1>
+        <h4 v-if="abstract">摘要：{{ news.contentAbstract }}</h4>
+        <p>{{ news.content }}</p>
+        <div class="files">
+            <p v-if="files">附件：</p>
+            <li v-for="file in fileListData">
+                <ul @click="download">{{ file.fileName }}</ul>
+            </li>
+        </div>
+
+    </div>
+
+</template>
+<script>
+import { findNewsById } from '@/api/newsManagement'
+
+export default {
+    data() {
+        return {
+            news: {},
+            fileListData: [],
+            abstract: true,
+            files: true
+        }
+    },
+    mounted() {
+        this.getNews()
+    },
+    methods: {
+        async getNews() {
+            const res = await findNewsById(this.$route.query.newsId)
+            this.news = res.content
+            this.fileListData = this.news.newsFilePos
+            console.log(this.fileListData);
+            if (this.news.contentAbstract == null || this.news.contentAbstract.length == 0) {
+                this.abstract = false
+            }
+            if (this.fileListData == null || this.fileListData.length == 0) {
+                this.files = false
+            }
+        },
+        download(file) {
+            var a = document.createElement('a');
+            var event = new MouseEvent('click');
+            a.download = file.name;
+            a.href = file.url;
+            a.dispatchEvent(event);
+        },
+    }
+}
+</script>
+<style scoped>
+
+.content {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.files {
+    display: inline-flex;
+}
+
+li {
+    list-style: none;
+    display: inline-table;
+}
+
+ul {
+    cursor: pointer;
+}
+
+p {
+    margin-bottom: 78px;
+
+    font-size: 10.5pt;
+
+    line-height: 2;
+}
+</style>

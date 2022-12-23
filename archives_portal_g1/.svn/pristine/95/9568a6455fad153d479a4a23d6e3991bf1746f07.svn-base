@@ -1,0 +1,44 @@
+<template>
+    <el-form ref="form" :model="form" label-width="80px">
+        
+        <el-form-item label="密级">
+            <el-select @change="selectChanged" v-model="form.mj" placeholder="请选择密级">
+            <el-option label="绝密" value="绝密"></el-option>
+            <el-option label="公开" value="公开"></el-option>
+            </el-select>
+        </el-form-item>
+
+        <el-form-item label="是否发布">
+            <el-radio-group @change="selectChanged" v-model="form.resource">
+            <el-radio label="是"></el-radio>
+            <el-radio label="否"></el-radio>
+            </el-radio-group>
+        </el-form-item>
+
+    </el-form>
+</template>
+
+<script>
+export default {
+    data() {
+      return {
+        form: {
+          mj: '',
+          resource: '',
+        }
+      }
+    },
+    methods: {
+      selectChanged(){
+        if(this.form.resource!=""&&this.form.mj!=""){
+          this.$emit("msg1", this.form);
+          console.log(this.form);
+        }
+      }
+    }
+  }
+</script>
+
+<style scoped>
+
+</style>

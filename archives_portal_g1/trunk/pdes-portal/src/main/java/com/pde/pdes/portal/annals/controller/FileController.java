@@ -1,0 +1,48 @@
+//package com.pde.pdes.portal.annals.controller;
+//
+//import com.pde.pdes.portal.Constants.Constants;
+//import com.pde.pdes.portal.annals.utils.MinIoTemplate;
+//import com.pde.pdes.portal.vo.SimpleResponse;
+//import io.minio.ObjectWriteResponse;
+//import io.swagger.annotations.Api;
+//import io.swagger.annotations.ApiOperation;
+//import org.springframework.web.bind.annotation.PostMapping;
+//import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RestController;
+//import org.springframework.web.context.request.async.WebAsyncTask;
+//
+//import javax.annotation.Resource;
+//import java.util.UUID;
+//
+///**
+// * @author jtt
+// */
+//@Api(tags = {"文件上传服务"})
+//@RestController
+//@RequestMapping(value = "/files")
+//public class FileController {
+//    @Resource
+//    private MinIoTemplate minIoTemplate;
+//
+//    @ApiOperation(value = "文件上传")
+//    @PostMapping(value = "/upload")
+//    public WebAsyncTask<SimpleResponse<?>> putObject(String folder, String fileSuffix, String filePath) throws Exception {
+//        String objectName = "/" + folder + "/" + UUID.randomUUID().toString() + "." + fileSuffix;
+//        ObjectWriteResponse response = minIoTemplate.putObject("pde-file",
+//                objectName,
+//                filePath);
+//        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+//            return new SimpleResponse<>(Constants.MINIO_URL_PREFIX + objectName, "上传文件成功！");
+//        });
+//    }
+//
+//    @ApiOperation(value = "文件删除")
+//    @PostMapping(value = "/delete")
+//    public WebAsyncTask<SimpleResponse<?>> deleteObject(String objectName, String folder) throws Exception {
+//        minIoTemplate.removeObject("pde-file",
+//                "/" + folder + "/" + objectName);
+//        return new WebAsyncTask<SimpleResponse<?>>(30 * 1000L, Constants.EXECUTOR_NAME, () -> {
+//            return new SimpleResponse<>("", "删除文件成功！");
+//        });
+//    }
+//}

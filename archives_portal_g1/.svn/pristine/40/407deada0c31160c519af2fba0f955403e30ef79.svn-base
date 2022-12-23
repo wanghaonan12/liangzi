@@ -1,0 +1,12 @@
+import request from '@/utils/request'
+
+// 分页模糊查询视频档案列表
+export function getVideoListApi(params) {
+  return request({
+    url: '/video',
+    method: 'get',
+    params
+  })
+}
+
+//

@@ -1,0 +1,14 @@
+package com.pde.pdes.portal.company.mapper;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.pde.pdes.portal.company.po.CompanyPO;
+
+/**
+ * @author SYKCOMPUTER
+ */
+@Mapper
+public interface CompanyMapper extends BaseMapper<CompanyPO>{
+
+}

@@ -1,0 +1,27 @@
+package com.pde.pdes.portal.archive.service;
+
+
+import com.pde.pdes.portal.archive.dao.ArchiveAddDao;
+import com.pde.pdes.portal.archive.dao.ArchiveUpdateDao;
+import com.pde.pdes.portal.archive.po.ArchivePo;
+import com.pde.pdes.portal.company.po.CompanyPO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
+public interface ArchiveService {
+    List<ArchivePo> selectAll(String searchText);
+    List<ArchivePo> selectAll2(String searchText);
+
+
+    ArchivePo selectById(@Param("id") Integer id);
+
+    Integer update(ArchiveUpdateDao archiveAddDao);
+
+    Boolean del(Integer id);
+
+    Integer delList(Integer[] list);
+
+    Integer add(ArchivePo archivePo);
+
+}

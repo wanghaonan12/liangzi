@@ -1,0 +1,107 @@
+<template>
+  <div class="wrapper">
+    <el-dialog title="修改附件" :visible.sync="show" width="40%">
+      <el-form ref="ruleForm" :model="ruleForm" label-width="100px" class="demo-ruleForm" :rules="rules">
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="标题：" prop="fileName">
+              <el-input v-model="ruleForm.fileName" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="备注：" prop="memo">
+              <el-input v-model="ruleForm.memo" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" size="mini" @click="doSubmit">确定</el-button>
+        <el-button size="mini" @click="show = false">取消</el-button>
+      </div>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+import { updateChronicleFile } from '@/api/chronicle'
+export default {
+  data() {
+    return {
+      show: false,
+      ruleForm: {
+        fileName: '',
+        filePath: '',
+        fileSize: '',
+        fileSuffix: '',
+        memo: '',
+        orderSeq: 0,
+        chronicleEventsId: 0
+      },
+
+      rules: {
+        fileName: [{ required: true, message: '文件名不能为空', trigger: 'blur' }],
+        memo: [{ required: true, message: '请填写备注', trigger: 'blur' }]
+      }
+    }
+  },
+  methods: {
+    showDialog(row) {
+      this.show = true
+      this.ruleForm = { ...row }
+      console.log(this.id)
+    },
+    handleEdit(index, row) {
+      console.log(index, row)
+    },
+    handleDelete(index, row) {
+      console.log(index, row)
+    },
+    doSubmit() {
+      this.$refs['ruleForm'].validate((valid) => {
+        if (valid) {
+          updateChronicleFile(this.ruleForm).then((res) => {
+            if (res && res.status) {
+              this.$message('修改成功')
+              this.show = false
+              this.$emit('refreshTableData')
+            } else {
+              this.$message(res.message)
+            }
+          })
+        } else {
+          return false
+        }
+      })
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.rowCenter {
+  text-align: center;
+}
+.wrapper {
+  padding: 20px 18px;
+
+  .table-toolbar {
+    margin-bottom: 10px;
+
+    .left {
+      float: left;
+
+      .search-input {
+        width: 210px;
+        margin-right: 10px;
+      }
+    }
+
+    .right {
+      float: right;
+    }
+  }
+}
+</style>

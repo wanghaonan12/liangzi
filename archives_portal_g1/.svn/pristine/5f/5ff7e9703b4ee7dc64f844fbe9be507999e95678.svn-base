@@ -1,0 +1,60 @@
+import request from '@/utils/request'
+
+export function selectApi(data) {
+  return request({
+    url: '/notify/select',
+    method: 'post',
+    data
+  })
+} export function selectById(id) {
+  return request({
+    url: '/notify/find/' + id,
+    method: 'get'
+  })
+}
+
+export function selectBySearchText(data) {
+  return request({
+    url: 'notify/select/disable',
+    method: 'post',
+    data
+  })
+}
+
+export function deleteById(id) {
+  return request({
+    url: '/notify/delete/' + id,
+    method: 'delete'
+  })
+}
+
+export function deleteBatch(data) {
+  return request({
+    url: '/notify/deleteBatch',
+    method: 'delete',
+    data
+  })
+}
+export function updateById(data) {
+  return request({
+    url: '/notify/update',
+    method: 'put',
+    data
+  })
+}
+
+export function addById(data) {
+  return request({
+    url: '/notify/add',
+    method: 'post',
+    data
+  })
+}
+
+export function selectPhoto(num) {
+  return request({
+    url: '/notify/photo/select/' + num,
+    method: 'get'
+  })
+}
+

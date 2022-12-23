@@ -1,0 +1,47 @@
+package com.pde.pdes.portal.standard.service.impl;
+
+import com.pde.pdes.portal.standard.service.StandardFileService;
+import com.pde.pdes.portal.standard.utils.AliYunOssClientUtils;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author : WangRich
+ * @Description : description
+ * @date : 2022/12/1 10:35
+ */
+class StandardFileServiceImplTest {
+
+    @Autowired
+    StandardFileService standardFileService;
+    @Autowired
+    AliYunOssClientUtils aliYunOssClientUtils;
+    @Test
+    void add() {
+        List<String> keys=new ArrayList<String>();
+        keys.add("liangzi/2022-12-19/21:49:00/file_5797510153663899222.pdf");
+        aliYunOssClientUtils.removeObjectBatch(keys);
+    }
+
+    @Test
+    void update() {
+    }
+
+    @Test
+    void deleteByIds() {
+        String fileName="2.jpg";
+        String firstName = fileName.substring(0, fileName.indexOf(".")) ;
+        System.out.println(firstName);
+    }
+
+    @Test
+    void getStandardFileById() {
+    }
+
+    @Test
+    void findAll() {
+    }
+}

@@ -1,0 +1,140 @@
+package com.pde.pdes.portal.standard.service.impl;
+
+import com.pde.Application;
+import com.pde.pdes.portal.standard.dto.StandardDto;
+import com.pde.pdes.portal.standard.po.Standard;
+import com.pde.pdes.portal.standard.service.StandardService;
+import org.apache.commons.lang3.StringUtils;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.annotation.Resource;
+import java.util.*;
+
+
+@SpringBootTest(classes = Application.class)
+@RunWith(SpringRunner.class)
+public class StandardServiceImplTest {
+
+    @Resource
+    private StandardService standardServiceImplUnderTest;
+
+    @Test
+    public void testAdd() {
+        // Setup
+        final StandardDto standard = new StandardDto("title", "description", 0,
+                new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
+
+        // Run the test
+        final int result = standardServiceImplUnderTest.add(standard);
+
+        // Verify the results
+        System.out.println(result);
+    }
+
+    @Test
+    public void testUpdate() {
+        // Setup
+        final Standard standard = Standard.builder()
+                .id(41)
+                .title("title")
+                .description("description")
+                .enablePublish(0)
+                .publishDate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .useDate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime())
+                .build();
+
+        // Run the test
+        final boolean result = standardServiceImplUnderTest.update(standard);
+
+        System.out.println(result);
+    }
+
+    @Test
+    public void testDeleteByIds() {
+
+        // Run the test
+        final boolean result = standardServiceImplUnderTest.deleteById(42);
+
+        // Verify the results
+        System.out.println(result);
+    }
+
+    @Test
+    public void testGetStandardByTitle() {
+
+        // Run the test
+        final List<Standard> result = standardServiceImplUnderTest.getStandardByTitle("title");
+
+        System.out.println(result);
+    }
+
+    @Test
+    public void testGetStandardByTitle_StandardMapperReturnsNoItems() {
+
+        // Run the test
+        final List<Standard> result = standardServiceImplUnderTest.getStandardByTitle("title");
+
+        System.out.println(result);
+    }
+
+    @Test
+    public void testFindAll() {
+
+        // Run the test
+        final List<Standard> result = standardServiceImplUnderTest.findAll();
+
+        System.out.println(result);
+    }
+
+    @Test
+    public void testFindAll_StandardMapperReturnsNoItems() {
+
+        // Run the test
+        final List<Standard> result = standardServiceImplUnderTest.findAll();
+        System.out.println(result);
+    }
+
+    @Test
+    public void testFindShow() {
+
+        // Run the test
+        final List<Standard> result = standardServiceImplUnderTest.findShow();
+
+        System.out.println(result);
+
+    }
+
+    @Test
+    public void testFindShow_StandardMapperReturnsNoItems() {
+
+        // Run the test
+        final List<Standard> result = standardServiceImplUnderTest.findShow();
+
+        System.out.println(result);
+
+    }
+
+    @Test
+    public void testGetShowStandardByTitle() {
+
+        // Run the test
+        final List<Standard> result = standardServiceImplUnderTest.getShowStandardByTitle("title");
+
+        System.out.println(result);
+
+    }
+
+    @Test
+    public void testGetShowStandardByTitle_StandardMapperReturnsNoItems() {
+
+        // Run the test
+        final List<Standard> result = standardServiceImplUnderTest.getShowStandardByTitle("title");
+
+        System.out.println(result);
+
+    }
+
+}

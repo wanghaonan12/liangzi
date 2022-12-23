@@ -1,0 +1,37 @@
+package com.pde.pdes.portal.notify.service.impl;
+
+import com.pde.Application;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import javax.annotation.Resource;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * @author jiangyiheng
+ * @date 2022-12-16 22:05
+ */
+@SpringBootTest(classes = Application.class)
+class PortalNotifyFileServiceImplTest {
+    @Resource
+    private PortalNotifyFileServiceImpl portalNotifyFileService;
+
+    @Test
+    void addPortalNotifyFile() {
+    }
+
+    @Test
+    void selectPortalNotifyFileByNotifyId() {
+    }
+
+    @Test
+    void deletePortalNotifyFileById() {
+    }
+
+    @Test
+    void selectPortalNotifyFileByJPG() {
+        System.out.println("test");
+        System.out.println(portalNotifyFileService.selectPortalNotifyFileByJPG(2));
+    }
+}

@@ -1,0 +1,91 @@
+<template>
+  <div>
+    <el-dialog :title="dialogTitle" :visible.sync="show" width="560px">
+      <el-form :rules='rules' ref="validateForm" :model="editForm" label-width="100px" class="demo-addForm">
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="相册名称：" prop="title">
+              <el-input v-model="editForm.title" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="描述：" prop="description">
+              <el-input
+                v-model="editForm.description"
+                type="textarea"
+                :autosize="{ minRows: 2, maxRows: 4}"
+                placeholder="请输入内容" >
+              </el-input>
+
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="默认发布：" prop="enablePublish">
+              <el-checkbox v-model="editForm.enable_publish" :true-label='1' :false-label='0' />
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" size="mini" @click="doSubmit">确定</el-button>
+        <el-button size="mini" @click="onCancel">取消</el-button>
+      </div>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+import {updatePhoto } from '@/api/photoManagement'
+
+export default {
+  data() {
+    return {
+      dialogTitle: '修改',
+      show: false,
+      modalType: 'edit',
+      editForm: {
+        title: '',
+        description: '',
+        enable_publish: ''
+      },
+      // rules: {
+      //   title: [{ required: true, message: '请输入相册名', trigger: 'blur' }],
+      // }
+    }
+  },
+  methods: {
+    showDialog(row) {
+      console.log(row)
+      this.show = true
+      this.editForm = row
+      console.log(this.editForm)
+    },
+    doSubmit() {
+      this.$refs['validateForm'].validate((valid) => {
+        if (valid) {
+          console.log(this.editForm)
+          updatePhoto(this.editForm).then(res => {
+            console.log(res)
+            this.show = false
+            this.$parent.load()
+          })
+        } else {
+          return false
+        }
+      })
+    },
+    onCancel() {
+      this.show = false
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped></style>

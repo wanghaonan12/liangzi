@@ -1,0 +1,128 @@
+<!-- <template>
+    <div class="wrapper">
+      <el-dialog title="新增附件" :visible.sync="show" width="80%" fullscreen="true">
+        <el-form ref="ruleForm" :model="ruleForm" label-width="100px" class="demo-ruleForm">
+          <el-row>
+            <el-col :span="20">
+              <el-form-item label="标题：" prop="title">
+                <el-input v-model="ruleForm.title" />
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="20">
+              <el-form-item label="备注：" prop="contentAbstract">
+                <el-input v-model="ruleForm.contentAbstract" />
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button type="primary" size="mini" @click="doSubmit">确定</el-button>
+          <el-button size="mini" @click="onCancel">取消</el-button>
+        </div>
+      </el-dialog>
+    </div>
+  </template>
+  
+  <script>
+  import { updateChronicleFile } from '@/api/chronicle'
+  
+  export default {
+    data() {
+      return {
+        dialogTitle: '新增',
+        fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
+        ,
+        show: false,
+        modalType: 'add',
+        ruleForm: {
+          title: '',
+          contentAbstract: '',
+          content: '',
+          enablePublished: ''
+        },
+        // rules: {
+        //   name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
+        //   address: [{ required: true, message: '请输入地址', trigger: 'blur' }],
+        //   date: [{ type: 'date', required: true, message: '请选择出生日期', trigger: 'change' }],
+        //   memo: [{ required: true, message: '请填写备注', trigger: 'blur' }]
+        // }
+      }
+    },
+    methods: {
+      handleRemove(file, fileList) {
+          console.log(file, fileList);
+        },
+        handlePreview(file) {
+          console.log(file);
+        },
+        handleExceed(files, fileList) {
+          this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+        },
+        beforeRemove(file, fileList) {
+          return this.$confirm(`确定移除 ${ file.name }？`);
+        }
+      },
+      handleEdit(index, row) {
+        console.log(index, row)
+      },
+      handleDelete(index, row) {
+        console.log(index, row)
+      },
+      showDialog(row, type) {
+        this.dialogTitle = type === 'add' ? '新增' : '编辑'
+        this.modalType = type
+        this.show = true
+        this.ruleForm = { ...row }
+      },
+      doSubmit() {
+        this.$refs['ruleForm'].validate((valid) => {
+          if (valid) {
+            updateStorageInfoApi(this.ruleForm).then((res) => {
+              if (res && res.status) {
+                this.$message('修改成功')
+                this.show = false
+                this.$emit('refreshTableData')
+              } else {
+                this.$message(res.message)
+              }
+            })
+          } else {
+            return false
+          }
+        })
+      },
+      onCancel() {
+        this.show = false
+      }
+    }
+  
+  </script>
+  
+  <style lang="scss" scoped>
+  .rowCenter {
+    text-align: center;
+  }
+  .wrapper {
+    padding: 20px 18px;
+  
+    .table-toolbar {
+      margin-bottom: 10px;
+  
+      .left {
+        float: left;
+  
+        .search-input {
+          width: 210px;
+          margin-right: 10px;
+        }
+      }
+  
+      .right {
+        float: right;
+      }
+    }
+  }
+  </style>
+   -->

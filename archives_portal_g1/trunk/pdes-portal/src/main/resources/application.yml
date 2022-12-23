@@ -1,0 +1,59 @@
+server:
+  port: 8088
+spring:
+  application:
+    name: pdes-portal
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 2000
+      filters: stat
+      password: pde#20221128
+      stat-view-servlet:
+        login-password: 888
+        login-username: pde
+        url-pattern: /druid/*
+      url: jdbc:mysql://111.204.202.54:62091/portal?characterEncoding=utf8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull
+      username: portal
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+  servlet:
+    multipart:
+      max-file-size: 512MB # 单个文件大小
+      max-request-size: 1024MB # 总上传的数据大小, 默认10M
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: false  # 驼峰下划线转换
+    cache-enabled: false
+    call-setters-on-nulls: true
+  global-config:
+    banner: false                        # 去除mybatis plus banner
+    db-config:
+      id-type: assign-uuid
+
+    #logging:
+    #  level:
+    #    com.pde.pdes.portal.mapper.*: debug
+
+pdes:
+  security:
+    ignoreUrls: /v1/**,/**/*.html,/**/*.css,/**/*.js,/static/**,/theme/**,/plugin/**,/*.ico,/v3/**,/v1/auth/login,/principal,/actuator/**,/druid/**,/v2/api-docs,/webjars/springfox-swagger-ui/**,/swagger-resources/**,/swagger-ui.html
+# minIO配置
+minio:
+  endPoint: http://www.patrickstarm.top:9090
+  accessKey: pde
+  secretKey: pde123456
+oss:
+  endPoint: oss-cn-hangzhou.aliyuncs.com
+  accessKeyId: LTAI5tDJAanLMEGApuNNVFqm
+  accessKeySecret: qtEH2WMC5F7gSF73wRb0fpG7mq3mae
+  bucketName: wang-rich
+
+

@@ -1,0 +1,9 @@
+import request from '@/utils/request'
+// 文件上传
+export function uploadFiles(data) {
+  return request({
+    url: '/files/upload',
+    method: 'post',
+    data
+  })
+}

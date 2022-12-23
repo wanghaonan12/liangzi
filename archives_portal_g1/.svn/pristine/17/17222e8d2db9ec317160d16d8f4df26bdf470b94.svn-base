@@ -1,0 +1,52 @@
+package com.pde.pdes.portal.standard.service.impl;
+
+import com.pde.Application;
+import com.pde.pdes.portal.standard.dto.StandardDto;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+
+/**
+ * @author : WangRich
+ * @Description : description
+ * @date : 2022/12/1 10:37
+ */
+@SpringBootTest(classes = Application.class)
+class StandardServiceImplTest {
+
+    @Autowired
+    StandardServiceImpl standardService;
+
+    @Test
+    void add() {
+       StandardDto standardDto= new StandardDto("test","desc",0,new Date());
+        System.out.println(standardService.add(standardDto));
+    }
+
+    @Test
+    void update() {
+
+    }
+
+    @Test
+    void deleteByIds() {
+        List<Integer> ids=new ArrayList<>();
+        ids.add(1);
+         System.out.println(standardService.deleteByIds(ids));
+    }
+
+    @Test
+    void getStandardById() {
+        System.out.println(standardService.getStandardById(3));
+    }
+
+    @Test
+    void findAll() {
+        standardService.findAll().forEach(System.out::println);
+    }
+}

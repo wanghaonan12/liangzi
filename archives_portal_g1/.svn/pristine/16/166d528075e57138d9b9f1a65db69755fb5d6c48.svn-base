@@ -1,0 +1,56 @@
+package com.pde.pdes.portal.honor.vo;
+
+
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ApiModel(value = "查询请求返回类", description = "查询请求返回类")
+@Builder
+public class HonorVO {
+
+    /**
+     * 主键id
+     */
+    @ApiModelProperty("主键id")
+    private Integer id;
+    /**
+     * 标题
+     */
+    @ApiModelProperty("标题")
+    private String title;
+    /**
+     * 描述
+     */
+    @ApiModelProperty("描述")
+    private String description;
+    /**
+     * 启用发布 false待发布，true已发布
+     */
+    @ApiModelProperty("启用发布")
+    private boolean enable_publish;
+
+    /**
+     * 创建时间
+     */
+    @ApiModelProperty("创建时间")
+    private Date create_time;
+    /**
+     * 文件地址
+     */
+    @ApiModelProperty("封面图")
+    private String file_path;
+
+}

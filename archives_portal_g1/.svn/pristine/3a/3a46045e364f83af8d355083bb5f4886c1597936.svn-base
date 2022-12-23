@@ -1,0 +1,85 @@
+const Mock = require('mockjs')
+
+let UserList = []
+let count = 100
+const storageTypeMap = {
+  0: 'FTP',
+  1: 'SFTP',
+  2: '本地'
+}
+
+for (let i = 0; i < count; i++) {
+  UserList.push(
+    Mock.mock({
+      id: '@guid',
+      storage_name: 'PATH_' + (i + 1),
+      storage_type: storageTypeMap[i % 3],
+      ip_address: '@ip',
+      storage_account: '@last',
+      storage_path: 'D:\\ @/id \\ @/storage_name \\ @storage_account',
+      default_upload: i % 2
+    })
+  )
+}
+
+module.exports = [
+  {
+    url: '/storageManagement/list',
+    type: 'post',
+    response: (config) => {
+      const { page, size } = config.body
+      const start = size * (page - 1)
+      const end = size * page
+
+      return {
+        code: 20000,
+        data: UserList.slice(start, end),
+        total: count,
+        status: true
+      }
+    }
+  },
+  {
+    url: '/storageManagement/updateList',
+    type: 'post',
+    response: (config) => {
+      const { id, ...others } = config.body
+      let i = null
+      const item = UserList.filter((entry, index) => {
+        if (entry.id === id) {
+          i = index
+          return true
+        }
+      })[0]
+      for (let pro in others) {
+        item[pro] = others[pro]
+      }
+
+      UserList[i] = item
+
+      return {
+        code: 20000,
+        status: true,
+        data: UserList
+      }
+    }
+  },
+  {
+    url: '/storageManagement/deleteList',
+    type: 'post',
+    response: (config) => {
+      const { ids } = config.body
+      for (let i = 0; i < UserList.length; i++) {
+        if (ids.indexOf(UserList[i].id) > -1) {
+          UserList.splice(i, 1)
+          i--
+          count--
+        }
+      }
+      return {
+        code: 20000,
+        status: true
+      }
+    }
+  }
+]

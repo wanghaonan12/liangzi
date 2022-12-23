@@ -1,0 +1,144 @@
+package com.pde.pdes.portal.standard.service.impl;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pde.pdes.portal.standard.utils.AliYunOssClientUtils;
+import com.pde.pdes.portal.standard.mapper.StandardFileMapper;
+import com.pde.pdes.portal.standard.po.StandardFile;
+import com.pde.pdes.portal.standard.service.StandardFileService;
+import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+
+/**
+ * @author wangRich
+ * @description 针对表【pdes_portal_standard_file(标准文件表;)】的数据库操作Service实现
+ * @createDate 2022-11-30 10:56:45
+ */
+@Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+public class StandardFileServiceImpl extends ServiceImpl<StandardFileMapper, StandardFile>
+        implements StandardFileService {
+
+    private final StandardFileMapper standardFileMapper;
+
+    private final AliYunOssClientUtils aliYunOssClientUtils;
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int add(MultipartFile multipartFile, String title, int standardId) {
+        File file = null;
+        int size = (int) multipartFile.getSize();
+        // 获取文件名
+        String fileName = multipartFile.getOriginalFilename();
+        // 获取文件后缀
+        assert fileName != null;
+        String suffix = fileName.substring(fileName.lastIndexOf("."));
+        // 若须要防止生成的临时文件重复,能够在文件名后添加随机码
+        try {
+            file = File.createTempFile("file_", suffix);
+            multipartFile.transferTo(file);
+        } catch (Exception e) {
+            log.error("MultipartFile转File失败", e);
+            throw new RuntimeException();
+        }
+        // 获取存储后的文件路径
+        assert file != null;
+        String path = aliYunOssClientUtils.uploadObjectOss(file, "liangzi");
+        return standardFileMapper.insert(StandardFile.builder().fileName(title)
+                .filePath(path)
+                .fileSize(size)
+                .standardId(standardId)
+                .createTime(new Date())
+                .build());
+    }
+
+    @Override
+    public boolean update(StandardFile standardFile) {
+        UpdateWrapper<StandardFile> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", standardFile.getId());
+        return update(standardFile, updateWrapper);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean deleteById(Integer id) {
+        StandardFile standardFile = getById(id);
+        List<String> paths = new ArrayList<String>();
+        String filePath = standardFile.getFilePath();
+        int index = StringUtils.ordinalIndexOf(filePath, "/", 3)+2;
+        paths.add(standardFile.getFilePath().substring(index));
+        // 删除文件
+        aliYunOssClientUtils.removeObjectBatch(paths);
+        return removeById(id);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int deleteByStandardId(Integer id) {
+        // 查找指定standardId的文件获取文件的存储路径
+        List<StandardFile> standardFiles = getFileByStandardId(id);
+        List<String> paths = new ArrayList<String>();
+        for (StandardFile standardFile :standardFiles){
+            String filePath = standardFile.getFilePath();
+            int index = StringUtils.ordinalIndexOf(filePath, "/", 3)+2;
+            paths.add(standardFile.getFilePath().substring(index));
+        }
+        // 删除文件
+        aliYunOssClientUtils.removeObjectBatch(paths);
+        QueryWrapper<StandardFile> wrapper = new QueryWrapper<>();
+        wrapper.eq("standard_id", id);
+        return standardFileMapper.delete(wrapper);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int deleteByStandardIds(List<Integer> ids) {
+        // 查找指定standardId的文件获取文件的存储路径
+        List<StandardFile> standardFiles = getFileByStandardIds(ids);
+        List<String> paths = new ArrayList<String>();
+        for (StandardFile standardFile :standardFiles){
+            String filePath = standardFile.getFilePath();
+            int index = StringUtils.ordinalIndexOf(filePath, "/", 3)+2;
+            paths.add(standardFile.getFilePath().substring(index));
+        }
+        // 删除文件
+        aliYunOssClientUtils.removeObjectBatch(paths);
+        QueryWrapper<StandardFile> wrapper = new QueryWrapper<>();
+        wrapper.in("standard_id", ids);
+        return standardFileMapper.delete(wrapper);
+    }
+
+    @Override
+    public List<StandardFile> getFileByStandardId(Integer id) {
+        QueryWrapper<StandardFile> queryMapper = new QueryWrapper<>();
+        queryMapper.eq("standard_id", id);
+        return standardFileMapper.selectList(queryMapper);
+    }
+
+    @Override
+    public List<StandardFile> getFileByStandardIds(List<Integer> ids) {
+        QueryWrapper<StandardFile> queryMapper = new QueryWrapper<>();
+        queryMapper.in("standard_id", ids);
+        return standardFileMapper.selectList(queryMapper);
+    }
+
+    @Override
+    public StandardFile getById(Integer id) {
+        return standardFileMapper.selectById(id);
+    }
+}
+
+
+
+

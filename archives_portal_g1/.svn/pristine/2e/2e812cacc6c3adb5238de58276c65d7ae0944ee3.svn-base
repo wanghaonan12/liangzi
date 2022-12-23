@@ -1,0 +1,23 @@
+/** When your routing table is too long, you can split it into small modules **/
+
+import Layout from '@/layout'
+
+const storageManagementRouter = {
+  path: '/storage',
+  component: Layout,
+  redirect: '/storage/list',
+  name: 'Storage',
+  meta: {
+    title: '存储',
+    icon: 'user'
+  },
+  children: [
+    {
+      path: 'list',
+      component: () => import('@/views/storageManagement/index'),
+      name: 'StorageManagementIndex',
+      meta: { title: '存储管理' }
+    }
+  ]
+}
+export default storageManagementRouter

@@ -1,0 +1,9 @@
+package com.pde.pdes.portal.archive.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.pde.pdes.portal.archive.po.ArchiveFilePo;
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface ArchiveFileMapper extends BaseMapper<ArchiveFilePo> {
+}

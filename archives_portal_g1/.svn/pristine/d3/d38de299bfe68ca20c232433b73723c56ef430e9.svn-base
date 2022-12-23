@@ -1,0 +1,25 @@
+package com.pde.pdes.portal.photo.service;
+
+
+import com.pde.pdes.portal.photo.dto.PhotoFileDTO;
+import com.pde.pdes.portal.photo.po.PhotoFilePO;
+
+import java.util.List;
+
+public interface PhotoFileService{
+
+    boolean add(PhotoFileDTO entity);
+
+    boolean deleteById(String id);
+
+    boolean update(PhotoFilePO po);
+
+    PhotoFilePO findById(String id);
+
+    List<PhotoFilePO> find(String searchText);
+
+
+
+
+
+}
